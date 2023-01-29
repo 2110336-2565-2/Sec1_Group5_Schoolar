@@ -21,7 +21,7 @@ router.post(
 			.matches(/(?=.*\d)(?=.*[A-Z])/)
 			.withMessage('Passwords must have at least one uppercase and one digit number'),
 		body('email').isEmail().withMessage('Email is invalid'),
-		body('type').notEmpty().withMessage('type is invalid'),
+		body('type').isIn(['student', 'provider']).withMessage('type is invalid'),
 	],
 	register,
 )

@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const User = require('../models/users')
+const Provider = require('../models/providers')
+const Student = require('../models/students')
 
 exports.register = (req, res) => {
 	const result = validationResult(req)
@@ -15,9 +17,21 @@ exports.register = (req, res) => {
 					if (err) {
 						res.status(400).json({ err })
 					} else if (type == 'student') {
-						res.status(200).send('Register student OK')
+						Student.create({ username }, (err, student) => {
+							if (err) {
+								res.status(400).json({ err })
+							} else {
+								res.send(`Create student ${username} success`)
+							}
+						})
 					} else {
-						res.status(200).send('Register provider OK')
+						Provider.create({ username }, (err, provider) => {
+							if (err) {
+								res.status(400).json({ err })
+							} else {
+								res.send(`Create provider ${username} success`)
+							}
+						})
 					}
 				})
 			})

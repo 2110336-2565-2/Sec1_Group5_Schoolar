@@ -11,9 +11,7 @@ const app = express()
 
 mongoose.set('strictQuery', false)
 mongoose
-	.connect(process.env.DATABASE, {
-		autoIndex: true,
-	})
+	.connect(process.env.DATABASE)
 	.then((result) => {
 		console.log('mongoose connected!')
 	})

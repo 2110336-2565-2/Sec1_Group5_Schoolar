@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const indexRoute = require('./routes/index')
-const usersRoute = require('./routes/users')
+const authRoute = require('./routes/auth.route')
 
 const app = express()
 
@@ -23,7 +23,7 @@ app.use(cors())
 app.use(morgan('dev'))
 
 app.use('/', indexRoute)
-app.use('/users', usersRoute)
+app.use('/auth', authRoute)
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`start server in port ${port}`))

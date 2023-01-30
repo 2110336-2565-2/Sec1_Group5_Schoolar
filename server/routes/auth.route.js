@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { register } = require('../controllers/users')
+const { register, login } = require('../controllers/auth.controller')
 
 router.post(
 	'/register',
@@ -24,6 +24,15 @@ router.post(
 		body('type').isIn(['student', 'provider']).withMessage('type is invalid'),
 	],
 	register,
+)
+
+router.post(
+	'/login',
+	[
+		body('username').isLength({ min: 1 }).withMessage('Username must not empty'),
+		body('password').isLength({ min: 1 }).withMessage('Password must not empty'),
+	],
+	login,
 )
 
 module.exports = router

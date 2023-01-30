@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/users')
 const Provider = require('../models/providers')
 const Student = require('../models/students')
+const Users = require('../models/users')
 
 exports.register = (req, res) => {
 	const result = validationResult(req)
@@ -36,5 +37,26 @@ exports.register = (req, res) => {
 				})
 			})
 		})
+	}
+}
+
+exports.login = async (req, res) => {
+	const result = validationResult(req)
+	if (!result.isEmpty()) {
+		res.status(400).json({ errors: result.array() })
+	} else {
+		const { username, password } = req.body
+
+		const foundUser = await User.findOne({ username }).select('+password')
+
+		if (!foundUser) return res.sendStatus(401) //Unauthorized
+
+		const match = await bcrypt.compare(password, foundUser.password)
+		if (match) {
+			// create JWTs
+			res.json({ success: `User ${username} is logged in!` })
+		} else {
+			res.sendStatus(401)
+		}
 	}
 }

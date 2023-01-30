@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/users')
 const Provider = require('../models/providers')
 const Student = require('../models/students')
-const Users = require('../models/users')
+const jwt = require('jsonwebtoken')
 
 exports.register = (req, res) => {
 	const result = validationResult(req)
@@ -53,10 +53,59 @@ exports.login = async (req, res) => {
 
 		const match = await bcrypt.compare(password, foundUser.password)
 		if (match) {
-			// create JWTs
-			res.json({ success: `User ${username} is logged in!` })
+			const accessToken = jwt.sign(
+				{
+					UserInfo: {
+						username: foundUser.username,
+						type: foundUser.type,
+					},
+				},
+				process.env.ACCESS_TOKEN_SECRET,
+				{ expiresIn: '15m' },
+			)
+			const refreshToken = jwt.sign(
+				{ username: foundUser.username },
+				process.env.REFRESH_TOKEN_SECRET,
+				{ expiresIn: '1d' },
+			)
+
+			foundUser.refreshToken = refreshToken
+			const result = await foundUser.save()
+			console.log(result)
+
+			res.cookie('jwt', refreshToken, {
+				httpOnly: true,
+				secure: true,
+				maxAge: 24 * 60 * 60 * 1000,
+			})
+
+			res.json({ accessToken, type: foundUser.type })
 		} else {
 			res.sendStatus(401)
 		}
 	}
+}
+
+exports.refreshToken = async (req, res) => {
+	const cookies = req.cookies
+	if (!cookies?.jwt) return res.sendStatus(401)
+	const refreshToken = cookies.jwt
+
+	const foundUser = await User.findOne({ refreshToken }).exec()
+	if (!foundUser) return res.sendStatus(403)
+
+	jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+		if (err || foundUser.username !== decoded.username) return res.sendStatus(403)
+		const accessToken = jwt.sign(
+			{
+				UserInfo: {
+					username: decoded.username,
+					roles: foundUser.type,
+				},
+			},
+			process.env.ACCESS_TOKEN_SECRET,
+			{ expiresIn: '15m' },
+		)
+		res.json({ accessToken, type: foundUser.type })
+	})
 }

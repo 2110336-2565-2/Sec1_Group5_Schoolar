@@ -265,6 +265,17 @@ const adminSchema = new Schema({
     }
 })
 
+const scholarshipSchema = new Schema({
+    // id: create automatically in mongoDB
+    due: {
+        required:true,
+        // type:String,
+        // get: write function to get from user ID ,
+        unique:true,
+        trim:true
+    }
+})
+
 
 
 // required:

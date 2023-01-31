@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { register } = require('../controllers/users')
+const { register, login, refreshToken } = require('../controllers/auth.controller')
 
 router.post(
 	'/register',
@@ -25,5 +25,16 @@ router.post(
 	],
 	register,
 )
+
+router.post(
+	'/login',
+	[
+		body('username').isLength({ min: 1 }).withMessage('Username must not empty'),
+		body('password').isLength({ min: 1 }).withMessage('Password must not empty'),
+	],
+	login,
+)
+
+router.get('/refresh-token', refreshToken)
 
 module.exports = router

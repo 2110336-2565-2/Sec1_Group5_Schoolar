@@ -18,10 +18,15 @@ router.post(
 			.withMessage('Password must be at least 8 characters')
 			.isLength({ max: 40 })
 			.withMessage('Passwords must be at most 40 characters')
-			.matches(/(?=.*\d)(?=.*[A-Z])/)
-			.withMessage('Passwords must have at least one uppercase and one digit number'),
+			.matches(/(?=.*\d)/)
+			.withMessage('Passwords must have at least one digit number')
+			.matches(/(?=.*[A-Z])/)
+			.withMessage('Passwords must have at least one uppercase letter')
+			.matches(/^\S*$/)
+			.withMessage('Passwords must not contain spaces'),
 		body('email').isEmail().withMessage('Email is invalid'),
-		body('type').isIn(['student', 'provider']).withMessage('type is invalid'),
+		body('role').isIn(['student', 'provider', 'admin']).withMessage('Role is invalid'),
+		body('phoneNumber').notEmpty().withMessage('Please enter phone number'),
 	],
 	register,
 )

@@ -1,67 +1,67 @@
 const userSchema = new Schema({
     // id: create automatically in mongoDB
     username: {
-        required:true,
-        type:String,
-        maxLength:40,
-        index:false,
-        unique:true,
-        lowercase:false,
-        trim:true
+        required:true, //Checked
+        type:String, //Checked
+        maxLength:40, //Checked
+        index:false, //Checked
+        unique:true, //Checked
+        lowercase:false, //Checked
+        trim:true //Checked
     },
     password: {
-        required:true,
-        type:String,
-        maxLength:40,
-        index:false,
+        required:true, //Checked
+        type:String, //Checked
+        maxLength:40, //Checked
+        index:false, //Checked
         // validate function needed
-        unique:false,
-        lowercase:false,
-        trim:true
+        unique:false, //Checked
+        lowercase:false, //Checked
+        trim:true //Checked
     },
     email: {
-        required:true,
-        type:String,
-        maxLength:50,
-        index:false,
-        unique:true,
-        lowercase:false,
-        trim:true
+        required:true, //Checked
+        type:String, //Checked
+        // maxLength:50,
+        index:false, //Checked
+        unique:true, //Checked
+        lowercase:false, //Checked
+        trim:true //Checked
     },
     role: {
-        required:true,
-        type:String,
-        maxLength:10,
-        enum:['provider','student','admin'],
-        index:false,
-        unique:false,
-        lowercase:true,
-        trim:true
+        required:true, //Checked
+        type:String, //Checked
+        // maxLength:10,
+        enum:['provider','student','admin'], //Checked
+        index:false, //Checked
+        unique:false, //Checked
+        // lowercase:true, 
+        // trim:true
     },
     phoneNumber: {
-        required:true,
-        type:String,
-        maxLength:10,
-        index:false,
-        unique:true,
-        lowercase:false,
-        trim:true
+        required:true, //Checked
+        type:String, //Checked
+        // maxLength:10, 
+        index:false, //Checked
+        // unique:true,
+        // lowercase:false,
+        // trim:true
     }
 })
 
 const studentSchema = new Schema({
     // id: create automatically in mongoDB
     userID: {
-        required:true,
+        required:true //Checked
         // type:String,
         // get: write function to get from user ID ,
-        unique:true,
-        trim:true
+        // unique:true,
+        // trim:true
     },
     firstName: {
-        required:true,
-        type:String,
-        maxLength:40,
+        required:true, //Checked
+        type:String, //Checked
+        // maxLength:40,
         index:false,
         unique:false,
         lowercase:true,
@@ -85,14 +85,14 @@ const studentSchema = new Schema({
         // lowercase:false,
         trim:true
     },
-    age: {
-        required:true,
-        type:Number,
-        min:10,
-        index:false,
-        unique:false,
-        trim:true
-    },
+    // age: {
+    //     required:true,
+    //     type:Number,
+    //     min:10,
+    //     index:false,
+    //     unique:false,
+    //     trim:true
+    // },
     gender: {
         required:true,
         type:String,
@@ -207,63 +207,63 @@ const providerSchema = new Schema({
         type:Boolean,
         trim:true
     },
-    householdIncome: {          // backend tranform number to rank 
-        required:true,
-        type:String,
-        maxLength:15,
-        enum:['high','medium','low'],    // changing later
-        index:true,
-        unique:false,
-        lowercase:true,
-        trim:true
-    },
-    targetNation: {
-        required:true,
-        type:String,
-        maxLength:40,
-        index:true,
-        unique:false,
-        lowercase:true,
-        trim:true
-    },
-    typeOfScholarship: {
-        required:true,
-        type:String,
-        maxLength:15,
-        enum:['full','partial','renewable','fellow'],
-        index:true,
-        unique:false,
-        lowercase:true,
-        trim:true
-    },
-    employment: {           //currently employed or unemployed
-        required:true,
-        type:Boolean,
-        index:true,
-        trim:true
-    },
-    field: {                // field of interest
-        required:true,
-        type:String,
-        maxLength:40,
-        index:true,
-        unique:true,
-        lowercase:false,
-        trim:true
-    }
+    // householdIncome: {          // backend tranform number to rank 
+    //     required:true,
+    //     type:String,
+    //     maxLength:15,
+    //     enum:['high','medium','low'],    // changing later
+    //     index:true,
+    //     unique:false,
+    //     lowercase:true,
+    //     trim:true
+    // },
+    // targetNation: {
+    //     required:true,
+    //     type:String,
+    //     maxLength:40,
+    //     index:true,
+    //     unique:false,
+    //     lowercase:true,
+    //     trim:true
+    // },
+    // typeOfScholarship: {
+    //     required:true,
+    //     type:String,
+    //     maxLength:15,
+    //     enum:['full','partial','renewable','fellow'],
+    //     index:true,
+    //     unique:false,
+    //     lowercase:true,
+    //     trim:true
+    // },
+    // employment: {           //currently employed or unemployed
+    //     required:true,
+    //     type:Boolean,
+    //     index:true,
+    //     trim:true
+    // },
+    // field: {                // field of interest
+    //     required:true,
+    //     type:String,
+    //     maxLength:40,
+    //     index:true,
+    //     unique:true,
+    //     lowercase:false,
+    //     trim:true
+    // }
 })
 
 // is it needed
-const adminSchema = new Schema({
-    // id: create automatically in mongoDB
-    userID: {
-        required:true,
-        // type:String,
-        // get: write function to get from user ID ,
-        unique:true,
-        trim:true
-    }
-})
+// const adminSchema = new Schema({
+//     // id: create automatically in mongoDB
+//     userID: {
+//         required:true,
+//         // type:String,
+//         // get: write function to get from user ID ,
+//         unique:true,
+//         trim:true
+//     }
+// })
 
 const scholarshipSchema = new Schema({
     // id: create automatically in mongoDB

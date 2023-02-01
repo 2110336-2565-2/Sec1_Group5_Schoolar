@@ -2,15 +2,19 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	username: {
-		type: String,
-		required: true,
-		unique: true,
+	userID: {
+		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	},
 	name: {
 		type: String,
 	},
-	schoolar_credit: {
+	address: {
+		type: String,
+	},
+	website: {
+		type: String,
+	},
+	creditCardNumber: {
 		type: String,
 	},
 })

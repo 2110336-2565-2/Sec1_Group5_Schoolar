@@ -2,18 +2,46 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const studentSchema = new Schema({
-	username: {
+	userID: {
+		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	},
+	firstName: {
 		type: String,
 		required: true,
-		unique: true,
+		trim: true,
 	},
-	ssn: {
+	lastName: {
+		type: String,
+		required: true,
+		trim: true,
+	},
+	birthdate: {
 		type: String,
 	},
-	fname: {
+	gender: {
 		type: String,
 	},
-	lname: {
+	education: [
+		{
+			gpax: Number,
+		},
+		{
+			field: String,
+		},
+	],
+	householdIncome: {
+		type: String,
+	},
+	targetNation: {
+		type: String,
+	},
+	typeOfScholarship: {
+		type: String,
+	},
+	employment: {
+		type: String,
+	},
+	field: {
 		type: String,
 	},
 })

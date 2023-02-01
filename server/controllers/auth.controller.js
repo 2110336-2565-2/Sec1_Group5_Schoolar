@@ -4,27 +4,31 @@ const User = require('../models/users')
 const Provider = require('../models/providers')
 const Student = require('../models/students')
 const jwt = require('jsonwebtoken')
+const ObjectId = require('mongoose').Types.ObjectId
 
 exports.register = (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, type } = req.body
+		const { username, password, email, role, phoneNumber } = req.body
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
-				User.create({ username, password: hash, email, type }, (err, user) => {
+				User.create({ username, password: hash, email, role, phoneNumber }, (err, user) => {
 					if (err) {
 						res.status(400).json({ err })
-					} else if (type == 'student') {
-						Student.create({ username }, (err, student) => {
-							if (err) {
-								res.status(400).json({ err })
-							} else {
-								res.send(`Create student ${username} success`)
-							}
-						})
+					} else if (role == 'student') {
+						Student.create(
+							{ userID: new ObjectId(user._id), username },
+							(err, student) => {
+								if (err) {
+									res.status(400).json({ err })
+								} else {
+									res.send(`Create student ${username} success`)
+								}
+							},
+						)
 					} else {
 						Provider.create({ username }, (err, provider) => {
 							if (err) {
@@ -57,7 +61,7 @@ exports.login = async (req, res) => {
 				{
 					UserInfo: {
 						username: foundUser.username,
-						type: foundUser.type,
+						role: foundUser.role,
 					},
 				},
 				process.env.ACCESS_TOKEN_SECRET,
@@ -79,7 +83,7 @@ exports.login = async (req, res) => {
 				maxAge: 24 * 60 * 60 * 1000,
 			})
 
-			res.json({ accessToken, type: foundUser.type })
+			res.json({ accessToken, role: foundUser.role })
 		} else {
 			res.sendStatus(401)
 		}
@@ -100,12 +104,12 @@ exports.refreshToken = async (req, res) => {
 			{
 				UserInfo: {
 					username: decoded.username,
-					roles: foundUser.type,
+					roles: foundUser.role,
 				},
 			},
 			process.env.ACCESS_TOKEN_SECRET,
 			{ expiresIn: '15m' },
 		)
-		res.json({ accessToken, type: foundUser.type })
+		res.json({ accessToken, role: foundUser.role })
 	})
 }

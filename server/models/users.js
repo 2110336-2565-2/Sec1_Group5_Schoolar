@@ -16,15 +16,14 @@ const userSchema = new Schema({
 		required: true,
 		unique: true,
 	},
-	type: {
+	role: {
 		type: String,
 		required: true,
+		enum: ['provider', 'student', 'admin'],
 	},
-	tel: {
+	phoneNumber: {
 		type: String,
-	},
-	address: {
-		type: String,
+		required: true,
 	},
 	refreshToken: String,
 })

@@ -23,13 +23,13 @@ function ForgotPassword() {
 				height={'60%'}
 			>
 				<Center
-					sx={{ border: '0.1rem solid  #FDBA21', borderRadius: '1rem' }}
+					sx={{ border: '0.1rem solid #FDBA21', borderRadius: '1rem' }}
 					width={'92%'}
 					height={'93%'}
 				>
 					<VStack sx={{ p: 5 }} gap={3}>
 						<Image src={PasswordIcon} width={65}></Image>
-						<Typography sx={{ fontSize: 12 }} fontWeight={'light'}>
+						<Typography sx={{ fontSize: 12 }} fontWeight={'light'} align="center">
 							Enter your email address and we’ll send a link to get back to your
 							account.
 						</Typography>

@@ -1,6 +1,6 @@
 import { FormControl, Grid, TextField } from '@mui/material'
 import Image from 'next/image'
-import Navbar from '../components/Navbar'
+import Navbar from '@components/Navbar'
 
 export default function Register() {
 	return (
@@ -31,11 +31,7 @@ export default function Register() {
 						<TextField id="fullWidth" label="Username" variant="outlined" />
 						<TextField id="fullWidth" label="Email" variant="outlined" />
 						<TextField id="fullWidth" label="Password" variant="outlined" />
-						<TextField
-							id="fullWidth"
-							label="Confirmed Password"
-							variant="outlined"
-						/>
+						<TextField id="fullWidth" label="Confirmed Password" variant="outlined" />
 						<button>Sign Up</button>
 					</FormControl>
 				</Grid>

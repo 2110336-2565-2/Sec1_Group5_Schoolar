@@ -11,7 +11,7 @@ import { Menu, MenuItem } from '@mui/material'
 
 export default function Navbar() {
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box sx={{ flexGrow: 1, height: '10vh' }}>
 			<AppBar position="static">
 				<Toolbar>
 					<Image src="/logo.png" alt="logo" width="54" height="64" />

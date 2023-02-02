@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
+var cookieParser = require('cookie-parser')
 require('dotenv').config()
 
 const indexRoute = require('./routes/index')
@@ -17,6 +18,7 @@ mongoose
 	})
 	.catch((err) => console.log(err))
 
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())

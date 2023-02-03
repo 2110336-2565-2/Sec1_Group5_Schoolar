@@ -1,9 +1,18 @@
-import { FormControl, Grid, TextField } from '@mui/material'
+import { FormControl, Grid, TextField, Button } from '@mui/material'
 import Image from 'next/image'
 
 export default function Register() {
 	return (
-		<Grid container spacing={2} sx={{ height: '90vh', width: '95%', margin: '0 auto' }}>
+		<Grid
+			container
+			spacing={2}
+			sx={{
+				height: '100%',
+				width: '100%',
+				padding: '5%',
+				margin: '0 auto',
+			}}
+		>
 			<Grid
 				item
 				xs={4}
@@ -24,11 +33,11 @@ export default function Register() {
 				sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
 			>
 				<FormControl sx={{ display: 'flex', gap: '20px' }}>
-					<TextField id="fullWidth" label="Username" variant="outlined" />
-					<TextField id="fullWidth" label="Email" variant="outlined" />
-					<TextField id="fullWidth" label="Password" variant="outlined" />
-					<TextField id="fullWidth" label="Confirmed Password" variant="outlined" />
-					<button>Sign Up</button>
+					<TextField id="outlined-basic" label="Username" variant="outlined" />
+					<TextField id="outlined-basic" label="Email" variant="outlined" />
+					<TextField id="outlined-basic" label="Password" variant="outlined" />
+					<TextField id="outlined-basic" label="Confirmed Password" variant="outlined" />
+					<Button variant="contained">Sign Up</Button>
 				</FormControl>
 			</Grid>
 		</Grid>

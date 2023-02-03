@@ -7,14 +7,12 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Image from 'next/image'
-import { Menu, MenuItem } from '@mui/material'
-
 export default function Navbar() {
 	return (
-		<Box sx={{ flexGrow: 1, height: '10vh' }}>
-			<AppBar position="static">
+		<Box>
+			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
 				<Toolbar>
-					<Image src="/logo.png" alt="logo" width="54" height="64" />
+					<Image src="/logo.png" alt="logo" width="45" height="53" />
 					<Button color="inherit">Login</Button>
 				</Toolbar>
 			</AppBar>

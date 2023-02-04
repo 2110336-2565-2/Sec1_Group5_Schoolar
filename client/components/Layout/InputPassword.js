@@ -1,9 +1,22 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material"
-import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material"
-import { useState } from "react"
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import {
+	FormControl,
+	FormHelperText,
+	IconButton,
+	InputAdornment,
+	InputLabel,
+	OutlinedInput,
+} from '@mui/material'
+import { useState } from 'react'
 
-const InputPassword = ({label = "Password", helperText}) => {
-    const [showPassword, setShowPassword] = useState(false)
+const InputPassword = ({
+	label = 'Password',
+	helperText,
+	state = {},
+	handleInputChange,
+	name = 'password',
+}) => {
+	const [showPassword, setShowPassword] = useState(false)
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
@@ -30,8 +43,11 @@ const InputPassword = ({label = "Password", helperText}) => {
 					</InputAdornment>
 				}
 				label={label}
+				name={name}
+				value={state[name]}
+				onChange={handleInputChange}
 			/>
-            <FormHelperText id="component-helper-text">{helperText}</FormHelperText>
+			<FormHelperText id="component-helper-text">{helperText}</FormHelperText>
 		</FormControl>
 	)
 }

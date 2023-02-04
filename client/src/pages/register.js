@@ -1,4 +1,5 @@
-import { FormControl, Grid, TextField, Button } from '@mui/material'
+import FormRegister from '@components/Layout/FormRegister'
+import { Grid } from '@mui/material'
 import Image from 'next/image'
 
 export default function Register() {
@@ -32,13 +33,7 @@ export default function Register() {
 				xs={5}
 				sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
 			>
-				<FormControl sx={{ display: 'flex', gap: '20px' }}>
-					<TextField id="outlined-basic" label="Username" variant="outlined" />
-					<TextField id="outlined-basic" label="Email" variant="outlined" />
-					<TextField id="outlined-basic" label="Password" variant="outlined" />
-					<TextField id="outlined-basic" label="Confirmed Password" variant="outlined" />
-					<Button variant="contained">Sign Up</Button>
-				</FormControl>
+				<FormRegister />
 			</Grid>
 		</Grid>
 	)

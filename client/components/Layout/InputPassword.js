@@ -15,6 +15,8 @@ const InputPassword = ({
 	state = {},
 	handleInputChange,
 	name = 'password',
+	error,
+	handleBlur,
 }) => {
 	const [showPassword, setShowPassword] = useState(false)
 
@@ -26,7 +28,9 @@ const InputPassword = ({
 
 	return (
 		<FormControl>
-			<InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+			<InputLabel htmlFor="outlined-adornment-password" error={error}>
+				{label}
+			</InputLabel>
 			<OutlinedInput
 				id="outlined-adornment-password"
 				type={showPassword ? 'text' : 'password'}
@@ -46,8 +50,12 @@ const InputPassword = ({
 				name={name}
 				value={state[name]}
 				onChange={handleInputChange}
+				error={error}
+				onBlur={handleBlur}
 			/>
-			<FormHelperText id="component-helper-text">{helperText}</FormHelperText>
+			<FormHelperText id="component-helper-text" error={error}>
+				{helperText}
+			</FormHelperText>
 		</FormControl>
 	)
 }

@@ -8,9 +8,9 @@ router.post(
 	[
 		body('username')
 			.isLength({ min: 1 })
-			.withMessage('Username must not empty')
+			.withMessage('Username is Required')
 			.isLength({ max: 40 })
-			.withMessage('Username is too long')
+			.withMessage('Username must be at most 40 characters')
 			.matches(/^[a-zA-Z0-9._-]*$/)
 			.withMessage('Username contain invalid charactor'),
 		body('password')

@@ -22,13 +22,13 @@ const WebLayout = ({ children }) => {
 			<CssBaseline />
 			<Box
 				sx={{
-					height: 'max(100%, 100vh)',
+					height: '100vh',
 					display: 'flex',
-					flexDirection: 'column',
+					flexFlow: 'column',
 				}}
 			>
-				<Navbar />
-				<Box sx={{ flexGrow: 1 }}>{children}</Box>
+				<Navbar sx={{ flex: '0 1 auto' }} />
+				<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 			</Box>
 		</ThemeProvider>
 	)

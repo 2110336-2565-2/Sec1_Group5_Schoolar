@@ -19,7 +19,7 @@ const FormRegister = () => {
 	}
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+		<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
 			<TextField id="outlined-basic" label="Username" variant="outlined" />
 			<TextField id="outlined-basic" label="Email" variant="outlined" />
 			<InputPassword />

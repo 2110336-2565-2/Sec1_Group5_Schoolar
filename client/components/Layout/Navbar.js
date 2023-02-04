@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Image from 'next/image'
 export default function Navbar() {
 	return (
-		<Box>
+		<Box >
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
 				<Toolbar>
 					<Image src="/logo.png" alt="logo" width="45" height="53" />

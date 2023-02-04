@@ -1,17 +1,9 @@
-import {
-	Button,
-	TextField,
-	ToggleButton,
-	ToggleButtonGroup,
-	Typography,
-	useTheme,
-} from '@mui/material'
+import { Button, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useState } from 'react'
 import InputPassword from './InputPassword'
 
 const FormRegister = () => {
-	const theme = useTheme()
 	const [alignment, setAlignment] = useState('student')
 
 	const handleAlignment = (event, newAlignment) => {

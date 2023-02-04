@@ -1,3 +1,9 @@
+import Register from './register'
+import UpdateStudentInfo from './UpdateStudentInfo'
 export default function Home() {
-	return <div>Hello home page (This is index.js in src)</div>
+	return (
+		<div>
+			<UpdateStudentInfo />
+		</div>
+	)
 }

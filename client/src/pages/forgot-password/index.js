@@ -7,8 +7,11 @@ import TextField from '@mui/material/TextField'
 import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 function ForgotPassword() {
+	const router = useRouter()
+
 	const Root = styled('div')(({ theme }) => ({
 		width: '100%',
 		...theme.typography.body2,
@@ -159,6 +162,9 @@ function ForgotPassword() {
 								variant="outlined"
 								size="small"
 								style={{ textTransform: 'none' }}
+								onClick={() => {
+									router.push('/login')
+								}}
 							>
 								Back to login
 							</Button>

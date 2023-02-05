@@ -9,30 +9,52 @@ import {
 	Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
+import axios from 'axios'
 
 import InputPassword from './InputPassword'
 
 const FormRegister = () => {
-	const [alignment, setAlignment] = useState('student')
+	const [role, setRole] = useState('student')
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		getValues,
+		setError,
 	} = useForm({ mode: 'onBlur' })
-	const onSubmit = (data) => console.log(data)
 
-	const handleAlignment = (event, newAlignment) => {
-		setAlignment(newAlignment)
-		setState((prev) => ({
-			...prev,
-			role: newAlignment,
-		}))
+	const onSubmit = (data) => {
+		//TODO fix this
+		isDupe('username', getValues('username'))
+		isDupe('email', getValues('email'))
+		console.log(errors)
+		if (!!errors?.username) console.log('SUBMIT', { ...data, role })
+		else console.log('ERROR')
+	}
+	console.log('SD', errors)
+	const handleRole = (event, newrole) => {
+		setRole(newrole)
+	}
+
+	const isDupe = (field, value) => {
+		axios
+			.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
+			.then((response) => {
+				if (response.data) {
+					setError(field, {
+						type: 'custom',
+						message: `${field.charAt(0).toUpperCase() + field.slice(1)} already taken`,
+					})
+				}
+			})
+			.catch((err) => alert(err))
 	}
 
 	return (
 		<FormControl
 			component="form"
-			sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}
+			sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<TextField
@@ -70,18 +92,45 @@ const FormRegister = () => {
 				register={{
 					...register('password', {
 						required: 'Password is required',
-						pattern: {
-							value: /(?=.*[A-Z])(?=.*\d)(^\S*$)/,
-							message: 'Invalid password',
+						minLength: { value: 8, message: 'Password must be at least 8 characters' },
+						maxLength: { value: 40, message: 'Password must be at most 40 characters' },
+						validate: {
+							upper: (value) =>
+								/(?=.*[A-Z])/.test(value) ||
+								'Password must have at least one uppercase letter',
+							lower: (value) =>
+								/(?=.*[a-z])/.test(value) ||
+								'Password must have at least one lower letter',
+							special: (value) =>
+								/(?=.*[0-9!"#$%&'()*+,-./:;<=>?@_`{|}~\[\]\\])/.test(value) ||
+								'Password must have at least one digit number or special character',
+							space: (value) =>
+								/^\S*$/.test(value) || 'Password must not contain spaces',
 						},
 					}),
 				}}
 				error={!!errors?.password}
 				helperText={errors?.password ? errors.password.message : null}
 			/>
-			<InputPassword label={'Confirmed Password'} />
+			<InputPassword
+				label={'Confirmed Password'}
+				register={{
+					...register('cfpassword', {
+						validate: {
+							similar: (value) =>
+								value === getValues('password') || 'Password do not match!',
+						},
+					}),
+				}}
+				error={!!errors?.cfpassword && errors.cfpassword.type === 'similar'}
+				helperText={
+					errors?.cfpassword
+						? errors.cfpassword.message
+						: 'Use 8 or more characters with a mix of letters, numbers & special character'
+				}
+			/>
 			<Box sx={{ width: '100%' }}>
-				<ToggleButtonGroup value={alignment} exclusive fullWidth onChange={handleAlignment}>
+				<ToggleButtonGroup value={role} exclusive fullWidth onChange={handleRole}>
 					<ToggleButton value="student">Sign up as student</ToggleButton>
 					<ToggleButton value="provider">Sign up as provider</ToggleButton>
 				</ToggleButtonGroup>

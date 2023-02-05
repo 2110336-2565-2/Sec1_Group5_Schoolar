@@ -129,3 +129,15 @@ exports.profile = (req, res) => {
 		res.json(null)
 	}
 }
+
+exports.isDupe = (req, res) => {
+	const { field, value } = req.params
+	console.log({ field, value })
+	User.countDocuments({ [field]: value }, (err, user) => {
+		if (err) {
+			res.status(400).json({ err })
+		} else {
+			res.send(!!user)
+		}
+	})
+}

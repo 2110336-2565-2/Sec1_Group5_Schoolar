@@ -9,19 +9,16 @@ import {
 import { Box } from '@mui/system'
 import { useState } from 'react'
 import InputPassword from './InputPassword'
-import { validator } from '@utils/Validator'
-import { Forest } from '@mui/icons-material'
+import { useForm } from 'react-hook-form'
 
 const FormRegister = () => {
 	const [alignment, setAlignment] = useState('student')
-	const [state, setState] = useState({
-		username: '',
-		email: '',
-		password: '',
-		cfpassword: '',
-		role: 'student',
-	})
-	const [errors, setErrors] = useState({})
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onBlur' })
+	const onSubmit = (data) => console.log(data)
 
 	const handleAlignment = (event, newAlignment) => {
 		setAlignment(newAlignment)
@@ -31,96 +28,57 @@ const FormRegister = () => {
 		}))
 	}
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		//TODO fix this
-
-		// for (const [fieldName] of Object.entries(state)) {
-		// 	console.log(fieldName)
-		// 	const error = validator(state, fieldName)
-		// 	console.log(error)
-		// 	setErrors(() => ({
-		// 		...errors,
-		// 		cfpassword: state.password != state.cfpassword,
-		// 		[fieldName]: error[fieldName],
-		// 	}))
-		// 	console.log("EEEE", errors)
-		// }
-		const IsValid = Object.values(errors).every((error) => error == undefined || error == false)
-		if (IsValid) {
-			console.log('SUBMIT', errors)
-		} else {
-			console.log('ERROR', errors)
-		}
-	}
-
-	const handleInputChange = (event) => {
-		const { name, value } = event.target
-		setState((prev) => ({
-			...prev,
-			[name]: value,
-		}))
-	}
-
-	const handleBlur = (e) => {
-		const { name: fieldName } = e.target
-		const error = validator(state, fieldName)
-		setErrors(() => ({
-			...errors,
-			cfpassword: state.password != state.cfpassword,
-			[fieldName]: error[fieldName],
-		}))
-	}
-
-	console.log(errors)
 	return (
 		<FormControl
 			component="form"
 			sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}
-			onSubmit={handleSubmit}
+			onSubmit={handleSubmit(onSubmit)}
 		>
 			<TextField
 				id="outlined-basic"
 				label="Username"
 				variant="outlined"
-				name="username"
-				value={state.username}
-				onChange={handleInputChange}
-				error={errors.username ? true : false}
-				helperText={errors.username}
-				onBlur={handleBlur}
+				autoComplete="username"
+				{...register('username', {
+					required: 'Username is required',
+					maxLength: { value: 40, message: 'Username must be at most 40 characters' },
+					pattern: {
+						value: /^[a-zA-Z0-9._-]*$/,
+						message: 'Username contain invalid charactor',
+					},
+				})}
+				error={!!errors?.username}
+				helperText={errors?.username ? errors.username.message : null}
 			/>
 			<TextField
 				id="outlined-basic"
 				label="Email"
 				variant="outlined"
-				name="email"
-				value={state.email}
-				onChange={handleInputChange}
-				error={errors.email ? true : false}
-				helperText={errors.email}
-				onBlur={handleBlur}
+				autoComplete="email"
+				{...register('email', {
+					required: 'Email is required',
+					pattern: {
+						value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+						message: 'Invalid email',
+					},
+				})}
+				error={!!errors?.email}
+				helperText={errors?.email ? errors.email.message : null}
 			/>
 			<InputPassword
-				state={state}
-				handleInputChange={handleInputChange}
-				error={errors.password ? true : false}
-				helperText={errors.password}
-				handleBlur={handleBlur}
+				register={{
+					...register('password', {
+						required: 'Password is required',
+						pattern: {
+							value: /(?=.*[A-Z])(?=.*\d)(^\S*$)/,
+							message: 'Invalid password',
+						},
+					}),
+				}}
+				error={!!errors?.password}
+				helperText={errors?.password ? errors.password.message : null}
 			/>
-			<InputPassword
-				label={'Confirmed Password'}
-				helperText={
-					errors.cfpassword
-						? 'Password do not match!'
-						: 'Use 8 or more characters with a mix of letters, numbers & symbols'
-				}
-				state={state}
-				handleInputChange={handleInputChange}
-				name={'cfpassword'}
-				error={errors.cfpassword ? true : false}
-				handleBlur={handleBlur}
-			/>
+			<InputPassword label={'Confirmed Password'} />
 			<Box sx={{ width: '100%' }}>
 				<ToggleButtonGroup value={alignment} exclusive fullWidth onChange={handleAlignment}>
 					<ToggleButton value="student">Sign up as student</ToggleButton>

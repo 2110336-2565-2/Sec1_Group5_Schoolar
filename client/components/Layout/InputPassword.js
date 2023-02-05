@@ -9,15 +9,7 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 
-const InputPassword = ({
-	label = 'Password',
-	helperText,
-	state = {},
-	handleInputChange,
-	name = 'password',
-	error,
-	handleBlur,
-}) => {
+const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 	const [showPassword, setShowPassword] = useState(false)
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
@@ -47,11 +39,8 @@ const InputPassword = ({
 					</InputAdornment>
 				}
 				label={label}
-				name={name}
-				value={state[name]}
-				onChange={handleInputChange}
+				{...register}
 				error={error}
-				onBlur={handleBlur}
 			/>
 			<FormHelperText id="component-helper-text" error={error}>
 				{helperText}

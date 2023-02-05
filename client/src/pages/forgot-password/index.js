@@ -1,12 +1,12 @@
-import { Center, VStack } from '@components/common'
-import TextField from '@mui/material/TextField'
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import { Center, VStack } from '@components/common'
+import { Button, Divider, FormControl, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import TextField from '@mui/material/TextField'
+import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-import { Typography, Divider, Button, FormControl } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { Box } from '@mui/system'
-import { useForm } from 'react-hook-form'
 
 function ForgotPassword() {
 	const Root = styled('div')(({ theme }) => ({
@@ -22,6 +22,7 @@ function ForgotPassword() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
+
 	const onSubmit = (data) => console.log(data)
 
 	return (

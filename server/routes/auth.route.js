@@ -18,10 +18,12 @@ router.post(
 			.withMessage('Password must be at least 8 characters')
 			.isLength({ max: 40 })
 			.withMessage('Passwords must be at most 40 characters')
-			.matches(/(?=.*\d)/)
-			.withMessage('Passwords must have at least one digit number')
 			.matches(/(?=.*[A-Z])/)
-			.withMessage('Passwords must have at least one uppercase letter')
+			.withMessage('Password must have at least one uppercase letter')
+			.matches(/(?=.*[a-z])/)
+			.withMessage('Password must have at least one lower letter')
+			.matches(/(?=.*[0-9!"#$%&'()*+,-./:;<=>?@_`{|}~\[\]\\])/)
+			.withMessage('Password must have at least one digit number or special character')
 			.matches(/^\S*$/)
 			.withMessage('Passwords must not contain spaces'),
 		body('email').isEmail().withMessage('Email is invalid'),

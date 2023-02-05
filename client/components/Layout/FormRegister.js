@@ -10,10 +10,9 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
-
 import InputPassword from './InputPassword'
 
-const FormRegister = () => {
+const FormRegister = ({ setData, setPage }) => {
 	const [role, setRole] = useState('student')
 
 	const {
@@ -24,7 +23,8 @@ const FormRegister = () => {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = (data) => {
-		console.log('SUBMIT', { ...data, role })
+		setData({ ...data, role })
+		setPage(role)
 	}
 
 	const handleRole = (event, newrole) => {
@@ -36,7 +36,7 @@ const FormRegister = () => {
 			const response = await axios.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
 			return response.data
 		} catch (err) {
-			alert(err)
+			console.log(err)
 		}
 	}
 

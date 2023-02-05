@@ -17,7 +17,7 @@ const FormPrimary = ({ header, form }) => {
 				overflow: 'hidden',
 			}}
 		>
-			<Grid2 container xs={12} sm={6} lg={8} sx={{ alignItems: 'center' }}>
+			<Grid2 container xs={12} sm={5} lg={8} sx={{ alignItems: 'center' }}>
 				<Grid2 xs={12} lg={5}>
 					<Typography
 						variant="h3"
@@ -66,7 +66,7 @@ const FormPrimary = ({ header, form }) => {
 					/>
 				</Grid2>
 			</Grid2>
-			<Grid2 xs={12} sm={6} lg={4}>
+			<Grid2 xs={12} sm={7} lg={4}>
 				{form}
 			</Grid2>
 		</Grid2>

@@ -10,23 +10,45 @@ import { Box } from '@mui/system'
 import { useState } from 'react'
 import InputPassword from './InputPassword'
 import { useForm } from 'react-hook-form'
+import axios from 'axios'
 
 const FormRegister = () => {
 	const [role, setRole] = useState('student')
-	
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		getValues,
+		setError,
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = (data) => {
-		console.log({ ...data, role })
+		//TODO fix this
+		isDupe('username', getValues('username'))
+		isDupe('email', getValues('email'))
+		console.log(errors)
+		if (!!errors?.username)
+			console.log('SUBMIT', { ...data, role })
+		else console.log('ERROR')
 	}
-
+	console.log('SD', errors)
 	const handleRole = (event, newrole) => {
 		setRole(newrole)
+	}
+
+	const isDupe = (field, value) => {
+		axios
+			.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
+			.then((response) => {
+				if (response.data) {
+					setError(field, {
+						type: 'custom',
+						message: `${field.charAt(0).toUpperCase() + field.slice(1)} already taken`,
+					})
+				}
+			})
+			.catch((err) => alert(err))
 	}
 
 	return (

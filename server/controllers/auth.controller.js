@@ -131,7 +131,8 @@ exports.profile = (req, res) => {
 }
 
 exports.isDupe = (req, res) => {
-	const { field, value } = req.body
+	const { field, value } = req.params
+	console.log({ field, value })
 	User.countDocuments({ [field]: value }, (err, user) => {
 		if (err) {
 			res.status(400).json({ err })

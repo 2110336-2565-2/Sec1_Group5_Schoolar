@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
 	Button,
 	FormControl,
@@ -7,9 +9,8 @@ import {
 	Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { useState } from 'react'
+
 import InputPassword from './InputPassword'
-import { useForm } from 'react-hook-form'
 
 const FormRegister = () => {
 	const [alignment, setAlignment] = useState('student')

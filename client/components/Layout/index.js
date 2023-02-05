@@ -1,10 +1,11 @@
-import Head from 'next/head'
 import React from 'react'
-import { ThemeProvider } from '@mui/material/styles'
-import theme from '../../src/styles/theme'
 import Navbar from '@components/Layout/Navbar'
 import { Box, CssBaseline } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
+
+import theme from '../../src/styles/theme'
 
 const WebLayout = ({ children }) => {
 	const { route } = useRouter()

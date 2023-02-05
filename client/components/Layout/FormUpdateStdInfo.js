@@ -1,22 +1,21 @@
 import React from 'react'
-import Container from '@mui/material/Container'
 import {
-	FormControl,
-	Grid,
-	TextField,
-	Button,
-	MenuItem,
-	Checkbox,
-	FormGroup,
-	FormControlLabel,
-	FormLabel,
 	Box,
+	Button,
+	Checkbox,
+	FormControl,
+	FormControlLabel,
+	FormGroup,
+	FormLabel,
+	Grid,
+	MenuItem,
+	TextField,
 } from '@mui/material'
-
+import Container from '@mui/material/Container'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },

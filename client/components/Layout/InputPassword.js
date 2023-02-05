@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
 	FormControl,
@@ -7,7 +8,6 @@ import {
 	InputLabel,
 	OutlinedInput,
 } from '@mui/material'
-import { useState } from 'react'
 
 const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 	const [showPassword, setShowPassword] = useState(false)

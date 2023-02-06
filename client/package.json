@@ -27,14 +27,7 @@
 		"react-bootstrap": "^2.7.0",
 		"react-bootstrap-dropdown": "^0.3.0",
 		"react-dom": "18.2.0",
-<<<<<<< HEAD
 		"react-hook-form": "^7.43.0",
 		"yup": "^0.32.11"
-||||||| 27ab428
-		"react-hook-form": "^7.43.0"
-=======
-		"react-dropdown": "^1.11.0",
-		"react-hook-form": "^7.43.0"
->>>>>>> 5ddfbcc5da04647ddb8e288d6fda0ce8e73351bb
 	}
 }

@@ -10,8 +10,9 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
-import InputPassword from './InputPassword'
 import Link from 'next/link'
+
+import InputPassword from './InputPassword'
 
 const FormRegister = ({ setData, setPage }) => {
 	const [role, setRole] = useState('student')

@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormProvideStdInfo from '@components/Layout/FormStdInfo'
 import FormProvidePvdInfo from '@components/Layout/FormPvdInfo'
 import FormRegister from '@components/Layout/FormRegister'
+import FormProvideStdInfo from '@components/Layout/FormStdInfo'
 import Error from 'next/error'
-import { useState } from 'react'
 
 export default function Register() {
 	const [data, setData] = useState({})

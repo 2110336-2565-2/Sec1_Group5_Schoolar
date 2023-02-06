@@ -3,13 +3,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Image from 'next/image'
-import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
-function Navbar(props) {
+import Stack from '@mui/material/Stack'
+import Toolbar from '@mui/material/Toolbar'
+import Image from 'next/image'
+
+import { useAuth } from '@/context/AuthContext'
+
+function Navbar() {
+	const { user } = useAuth()
+
 	return (
 		<Box>
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
@@ -17,14 +20,12 @@ function Navbar(props) {
 					<Grid container direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
 							<Image src="/logo.svg" alt="logo" width="48" height="56" />
-							<Stack
-								direction="row"
-								visibility={props.categoryVisible ? 'visible' : 'hidden'}
-							>
-								{' '}
-								<Button color="inherit">Category</Button>
-								<Button color="inherit">Contact Us</Button>
-							</Stack>
+							{user && (
+								<Stack direction="row">
+									<Button color="inherit">Category</Button>
+									<Button color="inherit">Contact Us</Button>
+								</Stack>
+							)}
 						</Stack>
 
 						<Stack direction="row">

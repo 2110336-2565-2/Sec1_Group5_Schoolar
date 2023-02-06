@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
 
@@ -15,14 +15,14 @@ function AuthContextProvider({ children }) {
 			return false
 		}
 	}
-
-	useEffect(() => {
-		if (!user) {
-			axios.get('/profile').then(({ data }) => {
-				setUser(data)
-			})
-		}
-	}, [])
+	// comment for now becuase prevent error
+	// useEffect(() => {
+	// 	if (!user) {
+	// 		axios.get('/profile').then(({ data }) => {
+	// 			setUser(data)
+	// 		})
+	// 	}
+	// }, [])
 	return (
 		<AuthContext.Provider value={{ user, setUser, getToken }}>{children}</AuthContext.Provider>
 	)

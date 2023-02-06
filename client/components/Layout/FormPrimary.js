@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
-import Navbar from './Navbar'
 
 const FormPrimary = ({ header, form }) => {
 	return (
@@ -12,7 +11,6 @@ const FormPrimary = ({ header, form }) => {
 				flexFlow: 'column',
 			}}
 		>
-			<Navbar categoryVisible={false} sx={{ flex: '0 1 auto' }} />
 			<Grid2
 				container
 				spacing={2}

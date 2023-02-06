@@ -1,6 +1,6 @@
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormProvideStdInfo from '@components/Layout/FormProvideStdInfo'
-import FormProvidePvdInfo from '@components/Layout/FormProvidePvdInfo'
+import FormProvideStdInfo from '@components/Layout/FormStdInfo'
+import FormProvidePvdInfo from '@components/Layout/FormPvdInfo'
 import FormRegister from '@components/Layout/FormRegister'
 import Error from 'next/error'
 import { useState } from 'react'

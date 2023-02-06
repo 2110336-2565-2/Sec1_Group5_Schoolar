@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
 	Button,
 	FormControl,
@@ -7,12 +9,10 @@ import {
 	Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { useState } from 'react'
-import InputPassword from './InputPassword'
-import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import InputPassword from './InputPassword'
 
-const FormRegister = () => {
+const FormRegister = ({ setData, setPage }) => {
 	const [role, setRole] = useState('student')
 
 	const {
@@ -20,35 +20,24 @@ const FormRegister = () => {
 		handleSubmit,
 		formState: { errors },
 		getValues,
-		setError,
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = (data) => {
-		//TODO fix this
-		isDupe('username', getValues('username'))
-		isDupe('email', getValues('email'))
-		console.log(errors)
-		if (!!errors?.username)
-			console.log('SUBMIT', { ...data, role })
-		else console.log('ERROR')
+		setData({ ...data, role })
+		setPage(role)
 	}
-	console.log('SD', errors)
+
 	const handleRole = (event, newrole) => {
 		setRole(newrole)
 	}
 
-	const isDupe = (field, value) => {
-		axios
-			.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
-			.then((response) => {
-				if (response.data) {
-					setError(field, {
-						type: 'custom',
-						message: `${field.charAt(0).toUpperCase() + field.slice(1)} already taken`,
-					})
-				}
-			})
-			.catch((err) => alert(err))
+	const isDupe = async (field, value) => {
+		try {
+			const response = await axios.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	return (
@@ -69,6 +58,10 @@ const FormRegister = () => {
 						value: /^[a-zA-Z0-9._-]*$/,
 						message: 'Username contain invalid charactor',
 					},
+					validate: {
+						duplicate: async (value) =>
+							!(await isDupe('username', value)) || 'Username has been taken',
+					},
 				})}
 				error={!!errors?.username}
 				helperText={errors?.username ? errors.username.message : null}
@@ -83,6 +76,10 @@ const FormRegister = () => {
 					pattern: {
 						value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 						message: 'Invalid email',
+					},
+					validate: {
+						duplicate: async (value) =>
+							!(await isDupe('email', value)) || 'Email has been taken',
 					},
 				})}
 				error={!!errors?.email}

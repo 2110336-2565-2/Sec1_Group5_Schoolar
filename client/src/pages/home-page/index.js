@@ -1,8 +1,7 @@
 import { HStack, VStack } from '@components/common'
-import { Typography, Button, Paper, InputBase, IconButton, Divider } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import Image from 'next/image'
+import { Button, IconButton, InputBase, Paper, Typography, Divider} from '@mui/material'
 import { Container } from '@mui/system'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import Grid from '@mui/material/Grid'
@@ -11,6 +10,7 @@ import { grey } from '@mui/material/colors'
 import { useState, useEffect } from 'react'
 import Navbar from '@components/Layout/Navbar'
 
+import Image from 'next/image'
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 

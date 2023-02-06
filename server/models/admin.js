@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose
 
 // may not need to implement
 const adminSchema = new Schema({

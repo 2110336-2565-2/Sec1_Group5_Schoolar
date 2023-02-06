@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose
 
 const scholarshipSchema = new Schema({
     // id: create automatically in mongoDB

@@ -22,7 +22,10 @@
 		"eslint-config-next": "13.1.5",
 		"next": "13.1.5",
 		"react": "18.2.0",
+		"react-bootstrap": "^2.7.0",
+		"react-bootstrap-dropdown": "^0.3.0",
 		"react-dom": "18.2.0",
+		"react-dropdown": "^1.11.0",
 		"react-hook-form": "^7.43.0"
 	}
 }

@@ -1,10 +1,10 @@
-import { createContext } from 'react'
-import { getCookie } from 'cookies-next'
+import { createContext, useContext } from 'react'
 import axios from 'axios'
+import { getCookie } from 'cookies-next'
 
-export const AuthContext = createContext()
+const AuthContext = createContext()
 
-export function AuthContextProvider({ children }) {
+function AuthContextProvider({ children }) {
 	const [user, setUser] = useState(null) // {username: "", role: ""}
 
 	function getToken() {
@@ -27,3 +27,13 @@ export function AuthContextProvider({ children }) {
 		<AuthContext.Provider value={{ user, setUser, getToken }}>{children}</AuthContext.Provider>
 	)
 }
+
+function useAuth() {
+	const context = useContext(AuthContext)
+	if (!context) {
+		throw new Error('useAuth must be used within a AuthContextProvider')
+	}
+	return context
+}
+
+export { AuthContextProvider, useAuth }

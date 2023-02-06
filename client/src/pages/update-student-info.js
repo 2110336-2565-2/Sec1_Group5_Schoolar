@@ -4,9 +4,12 @@ import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
+import Navbar from '@components/Layout/Navbar'
 
 export default function UpdateStudentInfo() {
 	return (
+		<>
+		<Navbar categoryVisible={true} />
 		<Grid2
 			container
 			spacing={2}
@@ -124,5 +127,6 @@ export default function UpdateStudentInfo() {
 				</Grid2>
 			</Grid2>
 		</Grid2>
+		</>
 	)
 }

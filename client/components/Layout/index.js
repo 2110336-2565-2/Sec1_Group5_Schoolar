@@ -28,7 +28,7 @@ const WebLayout = ({ children }) => {
 					flexFlow: 'column',
 				}}
 			>
-				{/* <Navbar sx={{ flex: '0 1 auto' }} /> */}
+				<Navbar sx={{ flex: '0 1 auto' }} />
 				<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 			</Box>
 		</ThemeProvider>

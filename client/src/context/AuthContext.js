@@ -1,31 +1,39 @@
-import { createContext, useContext } from 'react'
-import axios from 'axios'
-import { getCookie } from 'cookies-next'
+import { createContext, useContext, useEffect, useState } from 'react'
+import jwtDecode from 'jwt-decode'
+import { useRouter } from 'next/router'
+
+import axios from '../pages/api/axios'
 
 const AuthContext = createContext()
+AuthContext.displayName = 'AuthContext'
 
 function AuthContextProvider({ children }) {
-	const [user, setUser] = useState(null) // {username: "", role: ""}
+	const [auth, setAuth] = useState(null) //{username, role, accessToken}
+	const router = useRouter()
 
-	function getToken() {
-		const jwt = getCookie('jwt')
-		if (jwt) {
-			return jwt
-		} else {
-			return false
-		}
-	}
+	console.log(auth)
 
-	useEffect(() => {
-		if (!user) {
-			axios.get('/profile').then(({ data }) => {
-				setUser(data)
-			})
-		}
-	}, [])
-	return (
-		<AuthContext.Provider value={{ user, setUser, getToken }}>{children}</AuthContext.Provider>
-	)
+	// useEffect(() => {
+	// 	if (!auth) {
+	// 		axios
+	// 			.get('/auth/refresh-token', {
+	// 				withCredentials: true,
+	// 			})
+	// 			.then(({ data }) => {
+	// 				const { accessToken, role } = data
+	// 				const decodedToken = jwtDecode(accessToken)
+	// 				const user = decodedToken.UserInfo
+	// 				setAuth({ username: user.username, role: role, accessToken: accessToken })
+	// 			})
+	// 			.catch(function (error) {
+	// 				if (error.response.status === 401) {
+	// 					router.push('/login')
+	// 				}
+	// 			})
+	// 	}
+	// }, [])
+
+	return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
 }
 
 function useAuth() {

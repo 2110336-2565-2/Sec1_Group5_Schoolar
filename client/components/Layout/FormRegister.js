@@ -10,6 +10,8 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
+import Link from 'next/link'
+
 import InputPassword from './InputPassword'
 
 const FormRegister = ({ setData, setPage }) => {
@@ -139,7 +141,7 @@ const FormRegister = ({ setData, setPage }) => {
 			<Box sx={{ textAlign: 'center' }}>
 				<Typography>Already have an account ?</Typography>
 				<Typography color="primary" sx={{ fontWeight: 'bold' }}>
-					Login here!
+					<Link href="/login">Login here!</Link>
 				</Typography>
 			</Box>
 		</FormControl>

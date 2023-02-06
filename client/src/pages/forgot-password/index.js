@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField'
 import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-import Navbar from '@components/Layout/Navbar'
 import { useRouter } from 'next/router'
 
 function ForgotPassword() {
@@ -30,8 +29,6 @@ function ForgotPassword() {
 	const onSubmit = (data) => console.log(data)
 
 	return (
-		<>
-		<Navbar/>
 		<Center height={'90vh'}>
 			<FormControl
 				component="form"
@@ -176,7 +173,6 @@ function ForgotPassword() {
 				</Center>
 			</FormControl>
 		</Center>
-		</>
 	)
 }
 

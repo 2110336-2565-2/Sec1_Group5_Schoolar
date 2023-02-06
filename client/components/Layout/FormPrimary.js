@@ -23,7 +23,6 @@ const FormPrimary = ({ header, form }) => {
 					margin: '0 auto',
 					justifyContent: 'center',
 					alignItems: 'center',
-					overflow: 'hidden',
 					flex: '1 1 auto',
 				}}
 			>

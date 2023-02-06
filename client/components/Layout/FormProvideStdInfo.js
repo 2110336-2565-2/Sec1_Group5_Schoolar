@@ -12,7 +12,7 @@ const genders = [
 	{ value: 'Non-binary', label: 'Non-binary' },
 ]
 
-const FormProviderStdInfo = () => {
+const FormProvideStdInfo = () => {
 	const [value, setValue] = React.useState(dayjs())
 	return (
 
@@ -64,4 +64,4 @@ const FormProviderStdInfo = () => {
 	)
 }
 
-export default FormProviderStdInfo
+export default FormProvideStdInfo

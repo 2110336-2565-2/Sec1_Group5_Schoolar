@@ -1,5 +1,5 @@
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormProviderStdInfo from '@components/Layout/FormProvideStdInfo'
+import FormProvideStdInfo from '@components/Layout/FormProvideStdInfo'
 import FormProvidePvdInfo from '@components/Layout/FormProvidePvdInfo'
 import FormRegister from '@components/Layout/FormRegister'
 import Error from 'next/error'
@@ -18,7 +18,7 @@ export default function Register() {
 				/>
 			)
 		case 'student':
-			return <FormPrimary header="Student Information" form={<FormProviderStdInfo />} />
+			return <FormPrimary header="Student Information" form={<FormProvideStdInfo />} />
 		case 'provider':
 			return <FormPrimary header="Provider Information" form={<FormProvidePvdInfo />} />
 		default:

@@ -11,7 +11,7 @@ import Image from 'next/image'
 import { useAuth } from '@/context/AuthContext'
 
 function Navbar() {
-	const { user } = useAuth()
+	const { auth } = useAuth()
 
 	return (
 		<Box>
@@ -20,7 +20,7 @@ function Navbar() {
 					<Grid container direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
 							<Image src="/logo.svg" alt="logo" width="48" height="56" />
-							{user && (
+							{auth && (
 								<Stack direction="row">
 									<Button color="inherit">Category</Button>
 									<Button color="inherit">Contact Us</Button>

@@ -22,10 +22,6 @@ import { useAuth } from '@/context/AuthContext'
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 
-	//? simulate login
-	const { user, setUser } = useAuth()
-	setUser('test authen')
-
 	useEffect(() => {
 		setScholars([
 			{ name: 'S1', tag: ['tag1', 'tag2'] },

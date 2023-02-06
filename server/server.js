@@ -21,7 +21,7 @@ mongoose
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors({ origin: true, credentials: true }))
 app.use(morgan('dev'))
 
 app.use('/', indexRoute)

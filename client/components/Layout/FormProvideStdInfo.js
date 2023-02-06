@@ -1,6 +1,16 @@
 import React from 'react'
-import { Button, Radio, RadioGroup, FormControl, FormControlLabel, FormGroup, FormLabel, MenuItem, TextField} from '@mui/material'
-import { Stack } from '@mui/system';
+import {
+	Button,
+	Radio,
+	RadioGroup,
+	FormControl,
+	FormControlLabel,
+	FormGroup,
+	FormLabel,
+	MenuItem,
+	TextField,
+} from '@mui/material'
+import { Stack } from '@mui/system'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -134,18 +144,17 @@ const FormProvideStdInfo = () => {
                 helperText={errors?.income ? errors.income.message : null}/>
 
               <FormLabel component="legend">Current employ</FormLabel>
-              <RadioGroup row sx={{ m: 0, justifyContent: 'space-between'}} {...register("employ")} >
-                <FormControlLabel value="Yes" control={<Radio />} label="Yes"></FormControlLabel>
-                <FormControlLabel value="No" control={<Radio />} label="No"></FormControlLabel>
+              <RadioGroup row sx={{ m: 0, justifyContent: 'space-between'}}>
+                <FormControlLabel value="yes" control={<Radio />} label="Yes"></FormControlLabel>
+                <FormControlLabel value="no" control={<Radio />} label="No"></FormControlLabel>
                 <Stack></Stack>
               </RadioGroup>
 
-              <Button variant="contained" type="submit" sx={{backgroundColor:"#3F51A9"}}>SUBMIT</Button>
-            </Stack>
-
-
-        </FormControl>
-		
+				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
+					SUBMIT
+				</Button>
+			</Stack>
+		</FormControl>
 	)
 }
 

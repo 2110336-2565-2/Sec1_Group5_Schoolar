@@ -99,7 +99,7 @@ const FormUpdateStdInfo = () => {
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
-					label="Phone Numer"
+					label="Phone Number"
 					variant="outlined"
 				/>
 				<TextField
@@ -132,18 +132,18 @@ const FormUpdateStdInfo = () => {
 					label="Household Income"
 					variant="outlined"
 				/>
-				<FormLabel component="legend">Current employ</FormLabel>
+				<FormLabel component="legend">Employment status</FormLabel>
 				<FormGroup aria-label="position" row>
 					<FormControlLabel
 						value="end"
 						control={<Checkbox />}
-						label="Yes"
+						label="Employed"
 						labelPlacement="end"
 					/>
 					<FormControlLabel
 						value="end"
 						control={<Checkbox />}
-						label="No"
+						label="Unemployed"
 						labelPlacement="end"
 					/>
 				</FormGroup>
@@ -169,6 +169,18 @@ const FormUpdateStdInfo = () => {
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Field of Interest"
+					variant="outlined"
+				/>
+				<TextField
+					id="outlined-start-adornment"
+					defaultValue=""
+					label="Enter New Password"
+					variant="outlined"
+				/>
+                <TextField
+					id="outlined-start-adornment"
+					defaultValue=""
+					label="Re-type New Password"
 					variant="outlined"
 				/>
 			</FormControl>

@@ -1,5 +1,5 @@
 import React from 'react'
-import FormUpdateStdInfo from '@components/Layout/FormUpdateStdInfo'
+import FormStdUpdate from '@components/Layout/FormStdUpdate'
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
@@ -111,7 +111,7 @@ export default function UpdateStudentInfo() {
 						<Button variant="outlined">Click to Edit</Button>
 					</Grid2>
 					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormUpdateStdInfo />
+						<FormStdUpdate />
 					</Grid2>
 					<Grid2
 						item

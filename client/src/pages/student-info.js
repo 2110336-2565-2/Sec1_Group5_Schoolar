@@ -1,6 +1,6 @@
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormProvideStdInfo from '@components/Layout/FormStdInfo'
+import FormStdInfo from '@components/Layout/FormStdInfo'
 
 export default function ProvideStudentInfo() {
-	return <FormPrimary header="Student Information" form={<FormProvideStdInfo />} />
+	return <FormPrimary header="Student Information" form={<FormStdInfo />} />
 }

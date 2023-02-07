@@ -116,22 +116,6 @@ exports.refreshToken = async (req, res) => {
 	})
 }
 
-exports.profile = (req, res) => {
-	const cookies = req.cookies
-	if (!cookies?.jwt) return res.sendStatus(401)
-	const token = cookies.jwt
-
-	if (token) {
-		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, {}, async (err, decoded) => {
-			if (err) return res.sendStatus(403)
-			const { username, role } = await User.findById(decoded.id)
-			res.json({ username, role })
-		})
-	} else {
-		res.json(null)
-	}
-}
-
 exports.isDupe = (req, res) => {
 	const { field, value } = req.params
 	console.log({ field, value })

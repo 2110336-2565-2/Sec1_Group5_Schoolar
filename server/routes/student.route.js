@@ -5,6 +5,6 @@ const { getStudent, updateStudentInfo } = require('../controllers/student.contro
 
 router.get(getStudent)
 
-router.put(updateStudentInfo)
+router.patch(updateStudentInfo)
 
 module.exports = router

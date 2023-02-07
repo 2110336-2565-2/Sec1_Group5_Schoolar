@@ -43,8 +43,6 @@ router.post(
 
 router.get('/refresh-token', refreshToken)
 
-router.get('/profile', profile)
-
 router.get('/isDupe/:field/:value', isDupe)
 
 module.exports = router

@@ -1,20 +1,12 @@
 import { HStack, VStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import {
-	Button,
-	Divider,
-	IconButton,
-	InputBase,
-	Paper,
-	Typography,
-} from '@mui/material'
+import { Button, Divider, IconButton, InputBase, Paper, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import Image from 'next/image'
 
 import { Scholarship } from './scholarship'
 function Homepage() {
-
 	return (
 		<Container maxWidth="lg">
 			<VStack sx={{ p: 3 }} gap={3}>
@@ -54,8 +46,16 @@ function Homepage() {
 				The Latest Scholarships
 			</Typography>
 			<Divider orientation="horizontal" flexItem sx={{ borderBottomWidth: 2 }} />
-			<Scholarship/>
+			<Scholarship />
 		</Container>
 	)
 }
 export default Homepage
+
+export async function getStaticProps(context) {
+	return {
+		props: {
+			authRequired: true,
+		},
+	}
+}

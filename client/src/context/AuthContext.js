@@ -13,25 +13,25 @@ function AuthContextProvider({ children }) {
 
 	console.log(auth)
 
-	// useEffect(() => {
-	// 	if (!auth) {
-	// 		axios
-	// 			.get('/auth/refresh-token', {
-	// 				withCredentials: true,
-	// 			})
-	// 			.then(({ data }) => {
-	// 				const { accessToken, role } = data
-	// 				const decodedToken = jwtDecode(accessToken)
-	// 				const user = decodedToken.UserInfo
-	// 				setAuth({ username: user.username, role: role, accessToken: accessToken })
-	// 			})
-	// 			.catch(function (error) {
-	// 				if (error.response.status === 401) {
-	// 					router.push('/login')
-	// 				}
-	// 			})
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if (!auth) {
+			axios
+				.get('/auth/refresh-token', {
+					withCredentials: true,
+				})
+				.then(({ data }) => {
+					const { accessToken, role } = data
+					const decodedToken = jwtDecode(accessToken)
+					const user = decodedToken.UserInfo
+					setAuth({ username: user.username, role: role, accessToken: accessToken })
+				})
+				.catch(function (error) {
+					if (error.response.status === 401) {
+						router.push('/login')
+					}
+				})
+		}
+	}, [])
 
 	return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
 }

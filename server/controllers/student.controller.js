@@ -33,7 +33,7 @@ exports.updateStudentInfo = async (req, res) => {
 		const {
 			firstName,
 			lastName,
-			bd,
+			birthdate,
 			gender,
 			education,
 			householdIncome,
@@ -55,7 +55,7 @@ exports.updateStudentInfo = async (req, res) => {
 		Object.assign(student, {
 			firstName,
 			lastName,
-			bd,
+			birthdate,
 			gender,
 			education,
 			householdIncome,

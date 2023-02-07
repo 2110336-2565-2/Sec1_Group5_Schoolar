@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const AuthContext = createContext()
 AuthContext.displayName = 'AuthContext'
 
+
 function AuthContextProvider({ value, children }) {
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

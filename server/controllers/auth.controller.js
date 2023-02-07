@@ -6,16 +6,17 @@ const Student = require('../models/students')
 const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
+// POST after submit from US1-6/ US1-7
 exports.register = (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, role, phoneNumber } = req.body
+		const { username, password, email, role } = req.body
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
-				User.create({ username, password: hash, email, role, phoneNumber }, (err, user) => {
+				User.create({ username, password: hash, email, role }, (err, user) => {
 					if (err) {
 						res.status(400).json({ err })
 					} else if (role == 'student') {

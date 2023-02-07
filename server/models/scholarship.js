@@ -1,60 +1,31 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const { Schema } = mongoose
 
-const studentSchema = new Schema({
+const scholarshipSchema = new Schema({
     // id: create automatically in mongoDB
-    userID: {
-        required:true,
-        type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        // get: write function to get from user ID ,
-        // unique:true,
-        // trim:true
-    },
-    firstName: {
-        required:true,     
-        type:String,       
-        // maxLength:40,
-        lowercase:true,
-        trim:true
-    },
-    lastName: {
+    name: {                     // organization name or name
         required:true,
         type:String,
-        maxLength:40,
+        index:false,
+        unique:false,
         lowercase:true,
         trim:true
     },
-    bd: {               //birthdate ,using Date type has some complicated change
+    provider_id: {
         required:true,
-        type:Date,      //possible to change
-        maxLength:8,
-        // lowercase:false,
+        // type:Object,
+        // index:true,
+        unique:true,
+        lowercase:false,
         trim:true
     },
-    // age: calculate from bd
-    gender: {
-        required:true,
-        type:String,
-        maxLength:10,
-        enum:['male','female'],
-        lowercase:true,
-        trim:true
-    },
-    education: [
-		{
-			gpax: Number,
-		},
-		{
-			field: String,
-		},
-	],
-    // below this is the criteria for matching
     householdIncome: {          // backend tranform number to rank 
         required:true,
         type:String,
         maxLength:15,
         enum:['high','medium','low'],    // changing later
         index:true,
+        unique:false,
         lowercase:true,
         trim:true
     },
@@ -63,6 +34,7 @@ const studentSchema = new Schema({
         type:String,
         maxLength:40,
         index:true,
+        unique:false,
         lowercase:true,
         trim:true
     },
@@ -72,6 +44,7 @@ const studentSchema = new Schema({
         maxLength:15,
         enum:['full','partial','renewable','fellow'],
         index:true,
+        unique:false,
         lowercase:true,
         trim:true
     },
@@ -87,8 +60,13 @@ const studentSchema = new Schema({
         maxLength:40,
         index:true,
         unique:true,
+        lowercase:false,
         trim:true
+    },
+    due: {
+        required:true,
+        // type:Date,
     }
 })
 
-module.exports = mongoose.model('Students', studentSchema)
+module.exports=mongoose.model('scholarship' ,scholarshipSchema);

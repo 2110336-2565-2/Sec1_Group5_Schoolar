@@ -35,7 +35,7 @@ const FormRegister = ({ setData, setPage }) => {
 
 	const isDupe = async (field, value) => {
 		try {
-			const response = await axios.get(`http://localhost:8080/auth/isDupe/${field}/${value}`)
+			const response = await axios.get(`/auth/isDupe/${field}/${value}`)
 			return response.data
 		} catch (err) {
 			console.log(err)

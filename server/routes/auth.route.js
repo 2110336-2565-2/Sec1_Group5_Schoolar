@@ -28,7 +28,6 @@ router.post(
 			.withMessage('Passwords must not contain spaces'),
 		body('email').isEmail().withMessage('Email is invalid'),
 		body('role').isIn(['student', 'provider', 'admin']).withMessage('Role is invalid'),
-		body('phoneNumber').notEmpty().withMessage('Please enter phone number'),
 	],
 	register,
 )

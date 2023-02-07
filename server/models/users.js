@@ -13,31 +13,23 @@ const userSchema = new Schema({
 	password: {
 		required: true,
 		type: String,
-		maxLength: 80,
-		// validate function needed
-		trim: true,
 	},
 	email: {
 		required: true,
 		type: String,
-		maxLength: 50,
 		unique: true,
 		trim: true,
 	},
 	role: {
 		required: true,
 		type: String,
-		// maxLength:10,
 		enum: ['provider', 'student', 'admin'],
-		// lowercase:true,
-		// trim:true
 	},
 	phoneNumber: {
 		required: true,
 		type: String,
 		// maxLength:10,
 		// unique:true,
-		// lowercase:false,
 		// trim:true
 	},
 	refreshToken: String,

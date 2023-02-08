@@ -1,5 +1,6 @@
 const Student = require('../models/students')
 const User = require('../models/users')
+const { validationResult } = require('express-validator')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {

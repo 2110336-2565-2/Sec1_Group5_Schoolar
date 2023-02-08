@@ -4,7 +4,15 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 import Image from 'next/image'
 
-function SearchBar() {
+function SearchBar(props) {
+	let inputName = ''
+	const onChange = (e) => {
+		inputName = e.target.value
+	}
+	const onClick = () => {
+		console.log(inputName)
+		props.searchHandler(inputName)
+	}
 	return (
 		<VStack sx={{ p: 3 }} gap={3}>
 			<Image src="/home-page/decor.svg" width="627" height="157"></Image>{' '}
@@ -20,8 +28,12 @@ function SearchBar() {
 					<IconButton type="button" sx={{ p: '10px' }}>
 						<FilterListIcon />
 					</IconButton>
-					<InputBase sx={{ ml: 1, flex: 1 }} placeholder="search scholarships" />
-					<IconButton type="button" sx={{ p: '10px' }}>
+					<InputBase
+						onChange={onChange}
+						sx={{ ml: 1, flex: 1 }}
+						placeholder="search scholarships"
+					/>
+					<IconButton onClick={onClick} type="button" sx={{ p: '10px' }}>
 						<SearchIcon />
 					</IconButton>
 				</Paper>

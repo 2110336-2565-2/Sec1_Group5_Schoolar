@@ -19,6 +19,13 @@ const genders = [
 	{ value: 'Non-binary', label: 'Non-binary' },
 ]
 
+const scholarshipTypes = [
+	{ value: 'Full scholarship', label: 'Full Scholarship' },
+	{ value: 'Partial scholarship', label: 'Partial Scholarship' },
+	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
+	{ value: 'Followship', label: 'Followship' },
+]
+
 const FormProvideStdInfo = () => {
 	const {
 		register,
@@ -62,7 +69,7 @@ const FormProvideStdInfo = () => {
 					error={!!errors?.surname}
 					helperText={errors?.surname ? errors.surname.message : null}
 				/>
-				<TextField
+				{/* <TextField
 					id="outlined"
 					label="Citizen ID"
 					{...register('citizenID', {
@@ -75,7 +82,7 @@ const FormProvideStdInfo = () => {
 					})}
 					error={!!errors?.citizenID}
 					helperText={errors?.citizenID ? errors.citizenID.message : null}
-				/>
+				/> */}
 
 				<TextField
 					id="date"
@@ -112,6 +119,56 @@ const FormProvideStdInfo = () => {
 						</MenuItem>
 					))}
 				</TextField>
+
+				<TextField
+					id="outlined"
+					label="Faculty"
+					{...register('faculty', {
+						pattern: {
+							value: /^[A-Za-z]+$/,
+							message: 'Faculty contains invalid charactor',
+						},
+					})}
+					error={!!errors?.faculty}
+					helperText={errors?.faculty ? errors.faculty.message : null}
+				/>
+
+				<TextField
+					id="outlined"
+					label="Year"
+					{...register('year', {
+						pattern: {
+							value: /^[0-9]*$/,
+							message: 'Year contains invalid charactor',
+						},
+					})}
+					error={!!errors?.year}
+					helperText={errors?.year ? errors.year.message : null}
+				/>
+
+				<TextField
+					id="outlined"
+					label="Phone number"
+					defaultValue="0891234567"
+					{...register('phoneNumber', {
+						pattern: {
+							value: /^[0-9]*$/,
+							message: 'Phone number contains invalid charactor',
+						},
+					})}
+					error={!!errors?.phoneNumber}
+					helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
+				/>
+				
+				<TextField
+					id="outlined"
+					label="Email"
+					{...register('email')}
+					error={!!errors?.email}
+					helperText={errors?.email ? errors.email.message : null}
+				/>
+
+
 				<TextField
 					id="outlined"
 					label="GPAX"
@@ -157,14 +214,44 @@ const FormProvideStdInfo = () => {
 
 				<FormLabel component="legend">Current employ</FormLabel>
 				<RadioGroup row sx={{ m: 0, justifyContent: 'space-between' }}>
-					<FormControlLabel
-						value="yes"
-						control={<Radio />}
-						label="Yes"
-					></FormControlLabel>
-					<FormControlLabel value="no" control={<Radio />} label="No"></FormControlLabel>
+					<FormControlLabel value="true" control={<Radio />} label="Yes"></FormControlLabel>
+					<FormControlLabel value="false" control={<Radio />} label="No"></FormControlLabel>
 					<Stack></Stack>
 				</RadioGroup>
+
+				<TextField
+					id="outlined"
+					label="Target nation"
+					{...register('targetNation', {
+						pattern: { value: /^[A-Za-z]+$/, message: 'Target nation contains invalid characters' },
+					})}
+					error={!!errors?.targetNation}
+					helperText={errors?.targetNation ? errors.targetNation.message : null}
+				/>
+
+				<TextField
+					select
+					id="outlined"
+					label="Type of scholarship"
+					defaultValue="Full scholarship"
+					{...register('typeOfScholarship')}
+				>
+					{scholarshipTypes.map((option) => (
+						<MenuItem key={option.value} value={option.value}>
+							{option.label}
+						</MenuItem>
+					))}
+				</TextField>
+
+				<TextField
+					id="outlined"
+					label="Field of interest"
+					{...register('field', {
+						pattern: { value: /^[A-Za-z]+$/, message: 'Field of interest contains invalid characters' },
+					})}
+					error={!!errors?.field}
+					helperText={errors?.field ? errors.field.message : null}
+				/>
 
 				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 					SUBMIT

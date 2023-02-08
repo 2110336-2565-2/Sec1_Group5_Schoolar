@@ -1,9 +1,8 @@
-import Register from './register'
-import UpdateStudentInfo from './UpdateStudentInfo'
+import { useRouter } from 'next/router'
+
+// TODO: Should we move home-page to this file instead
 export default function Home() {
-	return (
-		<div>
-			<Register />
-		</div>
-	)
+	const router = useRouter()
+	typeof window !== 'undefined' && router.push('/home-page')
+	return <div>Hello home page (This is index.js in src)</div>
 }

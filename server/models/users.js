@@ -2,28 +2,35 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const userSchema = new Schema({
+	// id: create automatically in mongoDB
 	username: {
-		type: String,
 		required: true,
+		type: String,
+		maxLength: 40,
 		unique: true,
+		trim: true,
 	},
 	password: {
-		type: String,
 		required: true,
+		type: String,
 	},
 	email: {
-		type: String,
 		required: true,
+		type: String,
 		unique: true,
+		trim: true,
 	},
 	role: {
-		type: String,
 		required: true,
+		type: String,
 		enum: ['provider', 'student', 'admin'],
 	},
 	phoneNumber: {
-		type: String,
 		required: true,
+		type: String,
+		// maxLength:10,
+		// unique:true,
+		// trim:true
 	},
 	refreshToken: String,
 })

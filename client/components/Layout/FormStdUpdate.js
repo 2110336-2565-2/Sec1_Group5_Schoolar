@@ -1,22 +1,21 @@
 import React from 'react'
-import Container from '@mui/material/Container'
 import {
-	FormControl,
-	Grid,
-	TextField,
-	Button,
-	MenuItem,
-	Checkbox,
-	FormGroup,
-	FormControlLabel,
-	FormLabel,
 	Box,
+	Button,
+	Checkbox,
+	FormControl,
+	FormControlLabel,
+	FormGroup,
+	FormLabel,
+	Grid,
+	MenuItem,
+	TextField,
 } from '@mui/material'
-
+import Container from '@mui/material/Container'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -100,7 +99,7 @@ const FormUpdateStdInfo = () => {
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
-					label="Phone Numer"
+					label="Phone Number"
 					variant="outlined"
 				/>
 				<TextField
@@ -133,18 +132,18 @@ const FormUpdateStdInfo = () => {
 					label="Household Income"
 					variant="outlined"
 				/>
-				<FormLabel component="legend">Current employ</FormLabel>
+				<FormLabel component="legend">Employment status</FormLabel>
 				<FormGroup aria-label="position" row>
 					<FormControlLabel
 						value="end"
 						control={<Checkbox />}
-						label="Yes"
+						label="Employed"
 						labelPlacement="end"
 					/>
 					<FormControlLabel
 						value="end"
 						control={<Checkbox />}
-						label="No"
+						label="Unemployed"
 						labelPlacement="end"
 					/>
 				</FormGroup>
@@ -170,6 +169,18 @@ const FormUpdateStdInfo = () => {
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Field of Interest"
+					variant="outlined"
+				/>
+				<TextField
+					id="outlined-start-adornment"
+					defaultValue=""
+					label="Enter New Password"
+					variant="outlined"
+				/>
+                <TextField
+					id="outlined-start-adornment"
+					defaultValue=""
+					label="Re-type New Password"
 					variant="outlined"
 				/>
 			</FormControl>

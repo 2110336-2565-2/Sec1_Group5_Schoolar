@@ -1,13 +1,11 @@
 import React from 'react'
-
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
+import FormProviderUpd from '@components/Layout/FormProviderUpd'
 
-import FormUpdateStdInfo from '@components/Layout/FormUpdateStdInfo'
-
-export default function UpdateStudentInfo() {
+export default function UpdateProviderInfo() {
 	return (
 		<Grid2
 			container
@@ -27,14 +25,14 @@ export default function UpdateStudentInfo() {
 				xs={12}
 				sm={6}
 				lg={7}
-				sx={{ marginTop: '10 auto', alignItems: 'center', justifyContent: 'space-evely' }}
+				sx={{ marginTop: '10 auto', alignItems: 'center', justifyContent: 'space-evenly' }}
 			>
 				<Grid2 xs={12} lg={5}>
 					<Typography
 						variant="h3"
 						sx={{ textAlign: 'center', fontWeight: 'bold', mb: '20px' }}
 					>
-						Update Student Information
+						Update Provider Information
 					</Typography>
 				</Grid2>
 				<Grid2
@@ -113,7 +111,7 @@ export default function UpdateStudentInfo() {
 						<Button variant="outlined">Click to Edit</Button>
 					</Grid2>
 					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormUpdateStdInfo />
+						<FormProviderUpd />
 					</Grid2>
 					<Grid2
 						item

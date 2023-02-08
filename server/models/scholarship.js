@@ -1,46 +1,18 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const studentSchema = new Schema({
+const scholarshipSchema = new Schema({
 	// id: create automatically in mongoDB
-	userID: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		// get: write function to get from user ID ,
-	},
-	firstName: {
+	name: {
+		// organization name or name
 		required: true,
 		type: String,
 		lowercase: true,
 		trim: true,
 	},
-	lastName: {
-		required: true,
-		type: String,
-		lowercase: true,
-		trim: true,
+	provider_id: {
+		type: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
 	},
-	birthdate: {
-		//birthdate ,using Date type has some complicated change
-		required: true,
-		type: Date, //possible to change
-		maxLength: 8,
-		trim: true,
-	},
-	// age: calculate from bd
-	gender: {
-		required: true,
-		type: String,
-		enum: ['male', 'female', 'non-binary'],
-	},
-	education: [
-		{
-			gpax: Number,
-		},
-		{
-			faculty: String,
-		},
-	],
-	// below this is the criteria for matching
 	householdIncome: {
 		// backend tranform number to rank
 		required: true,
@@ -76,6 +48,10 @@ const studentSchema = new Schema({
 		index: true,
 		trim: true,
 	},
+	due: {
+		required: true,
+		// type:Date,
+	},
 })
 
-module.exports = mongoose.model('Students', studentSchema)
+module.exports = mongoose.model('scholarship', scholarshipSchema)

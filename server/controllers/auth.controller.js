@@ -6,16 +6,17 @@ const Student = require('../models/students')
 const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
+// POST after submit from US1-6/ US1-7
 exports.register = (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, role, phoneNumber } = req.body
+		const { username, password, email, role } = req.body
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
-				User.create({ username, password: hash, email, role, phoneNumber }, (err, user) => {
+				User.create({ username, password: hash, email, role }, (err, user) => {
 					if (err) {
 						res.status(400).json({ err })
 					} else if (role == 'student') {
@@ -70,7 +71,7 @@ exports.login = async (req, res) => {
 			const refreshToken = jwt.sign(
 				{ username: foundUser.username },
 				process.env.REFRESH_TOKEN_SECRET,
-				{ expiresIn: '1d' },
+				{ expiresIn: '7d' },
 			)
 
 			foundUser.refreshToken = refreshToken
@@ -80,7 +81,7 @@ exports.login = async (req, res) => {
 			res.cookie('jwt', refreshToken, {
 				httpOnly: true,
 				secure: true,
-				maxAge: 24 * 60 * 60 * 1000,
+				maxAge: 7 * 24 * 60 * 60 * 1000,
 			})
 
 			res.json({ accessToken, role: foundUser.role })
@@ -92,6 +93,7 @@ exports.login = async (req, res) => {
 
 exports.refreshToken = async (req, res) => {
 	const cookies = req.cookies
+
 	if (!cookies?.jwt) return res.sendStatus(401)
 	const refreshToken = cookies.jwt
 
@@ -114,18 +116,14 @@ exports.refreshToken = async (req, res) => {
 	})
 }
 
-exports.profile = (req, res) => {
-	const cookies = req.cookies
-	if (!cookies?.jwt) return res.sendStatus(401)
-	const token = cookies.jwt
-
-	if (token) {
-		jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, {}, async (err, decoded) => {
-			if (err) return res.sendStatus(403)
-			const { username, role } = await User.findById(decoded.id)
-			res.json({ username, role })
-		})
-	} else {
-		res.json(null)
-	}
+exports.isDupe = (req, res) => {
+	const { field, value } = req.params
+	console.log({ field, value })
+	User.countDocuments({ [field]: value }, (err, user) => {
+		if (err) {
+			res.status(400).json({ err })
+		} else {
+			res.send(!!user)
+		}
+	})
 }

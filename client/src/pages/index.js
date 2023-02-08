@@ -3,7 +3,7 @@ import UpdateStudentInfo from './UpdateStudentInfo'
 export default function Home() {
 	return (
 		<div>
-			<UpdateStudentInfo />
+			<Register />
 		</div>
 	)
 }

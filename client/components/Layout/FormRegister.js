@@ -128,12 +128,12 @@ const FormRegister = ({ setData, setPage }) => {
 			/>
 			<Box sx={{ width: '100%' }}>
 				<ToggleButtonGroup value={role} exclusive fullWidth onChange={handleRole}>
-					<ToggleButton value="student">Sign up as student</ToggleButton>
-					<ToggleButton value="provider">Sign up as provider</ToggleButton>
+					<ToggleButton value="student">Register as student</ToggleButton>
+					<ToggleButton value="provider">Register as provider</ToggleButton>
 				</ToggleButtonGroup>
 			</Box>
 			<Button variant="contained" type="submit">
-				Sign Up
+				Register
 			</Button>
 
 			<Box sx={{ textAlign: 'center' }}>

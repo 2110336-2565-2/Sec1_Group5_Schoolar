@@ -49,7 +49,6 @@ const FormRegister = ({ setData, setPage }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<TextField
-				id="outlined-basic"
 				label="Username"
 				variant="outlined"
 				autoComplete="username"
@@ -69,7 +68,6 @@ const FormRegister = ({ setData, setPage }) => {
 				helperText={errors?.username ? errors.username.message : null}
 			/>
 			<TextField
-				id="outlined-basic"
 				label="Email"
 				variant="outlined"
 				autoComplete="email"

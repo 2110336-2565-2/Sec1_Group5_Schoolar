@@ -7,6 +7,10 @@ const handleValidationResult = (result, res) => {
 	}
 }
 
+// @desc        reset password
+// @route       put /resetPassword
+// @req.body    email, new password
+// @access      public
 exports.resetPassword = async (req, res) => {
     const result = validationResult(req)
 	handleValidationResult(result, res)

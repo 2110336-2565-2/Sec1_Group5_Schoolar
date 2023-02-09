@@ -10,8 +10,7 @@ const handleValidationResult = (result, res) => {
 }
 
 // @desc        reset password
-// @route       put /resetPassword
-// @req.body    email, new password
+// @route       PUT /resetPassword/password
 // @access      public
 exports.resetPassword = async (req, res) => {
     const result = validationResult(req)
@@ -34,7 +33,9 @@ exports.resetPassword = async (req, res) => {
     // res.send({ token });
   };
 
-
+// @desc        send email for reset password
+// @route       PUT /resetPassword/email
+// @access      public
 // Route to generate a reset password token
 exports.sendEmailResetPassword = async (req, res) => {
     const { email } = req.body;
@@ -51,7 +52,7 @@ exports.sendEmailResetPassword = async (req, res) => {
     // Send a reset password email
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
-        port: 465,
+        port: 587,
         secure: false,
         auth: {
             user: process.env.SCHOOLAR_EMAIL,
@@ -66,7 +67,7 @@ exports.sendEmailResetPassword = async (req, res) => {
         <p>Hi,</p>
         <p>We received a request to reset the password for your account. If you did not make this request, you can ignore this email.</p>
         <p>To reset your password, click on the following link:</p>
-        <p><a href="${process.env.FRONTEND_URL}/reset-password?token=${user.resetPasswordToken}">Reset password</a></p>
+        <p>LINK</p>
         <p>This link will expire in 15 minutes.</p>
         <p>Best regards,</p>
         <p>SCHOOLAR</p>

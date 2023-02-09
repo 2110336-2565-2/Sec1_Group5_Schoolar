@@ -5,9 +5,9 @@ const { resetPassword, sendEmailResetPassword } = require('../controllers/resetP
 const verifyJWT = require('../middleware/verifyJWT')
 
 // update password
-router.put(verifyJWT, resetPassword)
+router.put('/password', resetPassword)
 
-// sending email , change call name later
-router.get(verifyJWT, sendEmailResetPassword)
+// sending email , change calling name later
+router.post('/email', sendEmailResetPassword)
 
 module.exports = router

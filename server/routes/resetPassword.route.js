@@ -4,6 +4,6 @@ const { body } = require('express-validator')
 const { resetPassword } = require('../controllers/resetPassword.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
-router.get(verifyJWT, resetPassword)
+router.put(verifyJWT, resetPassword)
 
 module.exports = router

@@ -7,7 +7,7 @@ const handleValidationResult = (result, res) => {
 	}
 }
 
-exports.resetPassword('/reset-password', async (req, res) => {
+exports.resetPassword = async (req, res) => {
     const result = validationResult(req)
 	handleValidationResult(result, res)
     
@@ -21,8 +21,9 @@ exports.resetPassword('/reset-password', async (req, res) => {
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
     await user.save();
+    return res.status(200).send({ message: 'Password has been updated' });
 
     // Return a JWT token
     // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     // res.send({ token });
-  });
+  };

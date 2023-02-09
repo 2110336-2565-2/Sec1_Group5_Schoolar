@@ -8,6 +8,7 @@ require('dotenv').config()
 const indexRoute = require('./routes/index')
 const authRoute = require('./routes/auth.route')
 const studentRoute = require('./routes/student.route')
+const resetPasswordRoute = require('./routes/resetPassword.route')
 
 const app = express()
 
@@ -28,6 +29,7 @@ app.use(morgan('dev'))
 app.use('/', indexRoute)
 app.use('/auth', authRoute)
 app.use('/student', studentRoute)
+app.use('/resetPassword', resetPasswordRoute)
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`start server in port ${port}`))

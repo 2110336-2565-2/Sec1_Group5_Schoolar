@@ -1,4 +1,5 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import {
 	Box,
 	Button,
@@ -11,7 +12,7 @@ import {
 	MenuItem,
 	TextField,
 } from '@mui/material'
-import Container from '@mui/material/Container'
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -30,7 +31,7 @@ const scholarshipTypes = [
 	{ value: 'Followship', label: 'Followship' },
 ]
 
-const FormUpdateStdInfo = () => {
+const FormUpdateStdInfo = ({ isDisabled }) => {
 	const [value, setValue] = React.useState(dayjs('2022-04-07'))
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
@@ -51,18 +52,21 @@ const FormUpdateStdInfo = () => {
 					defaultValue="Tontong"
 					label="Firstname"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue="WoahWoah"
 					label="Surname"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue="9999999"
 					label="Citizen ID"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<DatePicker
@@ -75,9 +79,16 @@ const FormUpdateStdInfo = () => {
 							setValue(newValue)
 						}}
 						renderInput={(params) => <TextField {...params} />}
+						disabled={isDisabled}
 					/>
 				</LocalizationProvider>
-				<TextField id="outlined-select-gender" select label="Gender" defaultValue="Female">
+				<TextField
+					id="outlined-select-gender"
+					select
+					label="Gender"
+					defaultValue="Female"
+					disabled={isDisabled}
+				>
 					{genders.map((option) => (
 						<MenuItem key={option.value} value={option.value}>
 							{option.label}
@@ -89,60 +100,68 @@ const FormUpdateStdInfo = () => {
 					defaultValue=""
 					label="Faculty"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Year"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Phone Number"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Email"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="GPAX"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Age"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Education"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Household Income"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<FormLabel component="legend">Employment status</FormLabel>
 				<FormGroup aria-label="position" row>
 					<FormControlLabel
 						value="end"
-						control={<Checkbox />}
+						control={<Checkbox disabled={isDisabled} />}
 						label="Employed"
 						labelPlacement="end"
 					/>
 					<FormControlLabel
 						value="end"
-						control={<Checkbox />}
+						control={<Checkbox disabled={isDisabled} />}
 						label="Unemployed"
 						labelPlacement="end"
 					/>
@@ -152,12 +171,14 @@ const FormUpdateStdInfo = () => {
 					defaultValue=""
 					label="Target Nation"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-select-gender"
 					select
 					label="Type of scholarship"
 					defaultValue="Full scholarship"
+					disabled={isDisabled}
 				>
 					{scholarshipTypes.map((option) => (
 						<MenuItem key={option.value} value={option.value}>
@@ -170,18 +191,21 @@ const FormUpdateStdInfo = () => {
 					defaultValue=""
 					label="Field of Interest"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Enter New Password"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
-                <TextField
+				<TextField
 					id="outlined-start-adornment"
 					defaultValue=""
 					label="Re-type New Password"
 					variant="outlined"
+					disabled={isDisabled}
 				/>
 			</FormControl>
 		</Box>

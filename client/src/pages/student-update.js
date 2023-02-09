@@ -4,8 +4,14 @@ import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
-
+import { useState } from 'react'
 export default function UpdateStudentInfo() {
+	const [disabled, setDisabled] = React.useState(true)
+
+	function handleEditBtnClick() {
+		setDisabled(!disabled)
+		// console.log(disabled)
+	}
 	return (
 		<Grid2
 			container
@@ -108,10 +114,12 @@ export default function UpdateStudentInfo() {
 							marginLeft: '20%',
 						}}
 					>
-						<Button variant="outlined">Click to Edit</Button>
+						<Button variant="outlined" onClick={handleEditBtnClick}>
+							Click to Edit
+						</Button>
 					</Grid2>
 					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormStdUpdate />
+						<FormStdUpdate isDisabled={disabled} />
 					</Grid2>
 					<Grid2
 						item

@@ -10,6 +10,7 @@ function SearchBar(props) {
 		inputName = e.target.value
 	}
 	const onClick = () => {
+		event.preventDefault();
 		console.log(inputName)
 		props.searchHandler(inputName)
 	}
@@ -17,7 +18,7 @@ function SearchBar(props) {
 		<VStack sx={{ p: 3 }} gap={3}>
 			<Image src="/home-page/decor.svg" width="627" height="157"></Image>{' '}
 			<HStack gap={3}>
-				<Paper
+				<Paper onSubmit={onClick}
 					component="form"
 					sx={{
 						display: 'flex',

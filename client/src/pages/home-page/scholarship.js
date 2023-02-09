@@ -5,6 +5,11 @@ import { grey } from '@mui/material/colors'
 export function Scholarship(props) {
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="30px 50px" justifyContent="center">
+			{props.items.length === 0 ? (
+				<Typography variant="h6" color="textSecondary" gutterButtom>
+					There is no Scholarships
+				</Typography>
+			) : null}
 			{props.items.map((scholar, idx) => {
 				return (
 					<Paper

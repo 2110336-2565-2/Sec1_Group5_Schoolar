@@ -14,6 +14,7 @@ const handleValidationResult = (result, res) => {
  * @access   Private
  */
 exports.getStudent = async (req, res) => {
+	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -37,6 +38,7 @@ exports.getStudent = async (req, res) => {
  * @access   Private
  */
 exports.updateStudentInfo = async (req, res) => {
+	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 

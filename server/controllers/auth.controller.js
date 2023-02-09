@@ -12,7 +12,9 @@ const ObjectId = require('mongoose').Types.ObjectId
  * @route    POST auth/register
  * @access   Public
  */
+
 exports.register = (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
@@ -56,6 +58,7 @@ exports.register = (req, res) => {
  * @access   Public
  */
 exports.login = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
@@ -107,6 +110,7 @@ exports.login = async (req, res) => {
  * @access   Public
  */
 exports.refreshToken = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 
 	if (!cookies?.jwt) return res.sendStatus(401)
@@ -137,6 +141,7 @@ exports.refreshToken = async (req, res) => {
  * @access   Public
  */
 exports.isDupe = (req, res) => {
+	// #swagger.tags = ['auth']
 	const { field, value } = req.params
 	console.log({ field, value })
 	User.countDocuments({ [field]: value }, (err, user) => {

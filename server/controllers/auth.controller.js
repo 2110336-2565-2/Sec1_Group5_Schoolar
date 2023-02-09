@@ -7,6 +7,11 @@ const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
 // POST after submit from US1-6/ US1-7
+/*
+ * @desc     Resigter user
+ * @route    POST auth/register
+ * @access   Public
+ */
 exports.register = (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
@@ -45,6 +50,11 @@ exports.register = (req, res) => {
 	}
 }
 
+/*
+ * @desc     Login user
+ * @route    POST auth/login
+ * @access   Public
+ */
 exports.login = async (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
@@ -91,6 +101,11 @@ exports.login = async (req, res) => {
 	}
 }
 
+/*
+ * @desc     Refresh token
+ * @route    GET auth/refresh-token
+ * @access   Public
+ */
 exports.refreshToken = async (req, res) => {
 	const cookies = req.cookies
 
@@ -116,6 +131,11 @@ exports.refreshToken = async (req, res) => {
 	})
 }
 
+/*
+ * @desc     Check Duplicate field
+ * @route    GET auth/isDupe/:field/:value
+ * @access   Public
+ */
 exports.isDupe = (req, res) => {
 	const { field, value } = req.params
 	console.log({ field, value })

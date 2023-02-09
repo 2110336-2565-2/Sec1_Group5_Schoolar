@@ -24,7 +24,6 @@ const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 				{label}
 			</InputLabel>
 			<OutlinedInput
-				id="outlined-adornment-password"
 				type={showPassword ? 'text' : 'password'}
 				endAdornment={
 					<InputAdornment position="end">

@@ -49,7 +49,6 @@ const FormRegister = ({ setData, setPage }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<TextField
-				id="outlined-basic"
 				label="Username"
 				variant="outlined"
 				autoComplete="username"
@@ -69,7 +68,6 @@ const FormRegister = ({ setData, setPage }) => {
 				helperText={errors?.username ? errors.username.message : null}
 			/>
 			<TextField
-				id="outlined-basic"
 				label="Email"
 				variant="outlined"
 				autoComplete="email"
@@ -130,12 +128,12 @@ const FormRegister = ({ setData, setPage }) => {
 			/>
 			<Box sx={{ width: '100%' }}>
 				<ToggleButtonGroup value={role} exclusive fullWidth onChange={handleRole}>
-					<ToggleButton value="student">Sign up as student</ToggleButton>
-					<ToggleButton value="provider">Sign up as provider</ToggleButton>
+					<ToggleButton value="student">Register as student</ToggleButton>
+					<ToggleButton value="provider">Register as provider</ToggleButton>
 				</ToggleButtonGroup>
 			</Box>
 			<Button variant="contained" type="submit">
-				Sign Up
+				Register
 			</Button>
 
 			<Box sx={{ textAlign: 'center' }}>

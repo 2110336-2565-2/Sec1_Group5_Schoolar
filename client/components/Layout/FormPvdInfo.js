@@ -42,10 +42,6 @@ const FormPvdInfo = () => {
 					{...register('website', {
 						required: 'Website is required',
 						minLength: { value: 2, message: 'Website must be at least 2 characters' },
-						// pattern: {
-						// 	value: /^[A-Za-z]+$/,
-						// 	message: 'Website contain invalid character',
-						// },
 					})}
 					error={!!errors?.website}
 					helperText={errors?.website ? errors.website.message : null}

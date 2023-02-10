@@ -118,17 +118,8 @@ export default function UpdateProviderInfo() {
 							Click to Edit
 						</Button>
 					</Grid2>
-					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormProviderUpd isDisabled={disabled} />
-					</Grid2>
-					<Grid2
-						item
-						alignItems="stretch"
-						justifyContent="center"
-						sx={{ padding: '20px 0px 20px 0px' }}
-					>
-						<Button variant="contained">Update</Button>
-					</Grid2>
+
+					<FormProviderUpd isDisabled={disabled} />
 				</Grid2>
 			</Grid2>
 		</Grid2>

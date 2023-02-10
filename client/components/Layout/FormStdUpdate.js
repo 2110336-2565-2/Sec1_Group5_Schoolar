@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
 	Box,
@@ -11,12 +11,19 @@ import {
 	Grid,
 	MenuItem,
 	TextField,
+	InputLabel,
+	OutlinedInput,
+	FormHelperText,
 } from '@mui/material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import IconButton from '@mui/material/IconButton'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -32,7 +39,16 @@ const scholarshipTypes = [
 ]
 
 const FormUpdateStdInfo = ({ isDisabled }) => {
-	const [value, setValue] = React.useState(dayjs('2022-04-07'))
+	const [value, setValue] = useState(dayjs('2022-04-07'))
+	const [password, setPassword] = useState('')
+	const [rePassword, setRePassword] = useState('')
+	const [showPassword, setShowPassword] = useState(false)
+
+	const handleClickShowPassword = () => setShowPassword((show) => !show)
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault()
+	}
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
 			<FormControl
@@ -193,20 +209,74 @@ const FormUpdateStdInfo = ({ isDisabled }) => {
 					variant="outlined"
 					disabled={isDisabled}
 				/>
-				<TextField
-					id="outlined-start-adornment"
-					defaultValue=""
-					label="Enter New Password"
+				<FormControl disabled={isDisabled}>
+					<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+					<OutlinedInput
+						id="outlined-adornment-password"
+						type={showPassword ? 'text' : 'password'}
+						defaultValue=" "
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									aria-label="toggle password visibility"
+									onClick={handleClickShowPassword}
+									onMouseDown={handleMouseDownPassword}
+									edge="end"
+									disabled={isDisabled}
+								>
+									{showPassword ? <VisibilityOff /> : <Visibility />}
+								</IconButton>
+							</InputAdornment>
+						}
+						label="password"
+						variant="outlined"
+						onChange={(e) => {
+							setPassword(e.target.value)
+						}}
+						value={password}
+					/>
+				</FormControl>
+				<FormControl
 					variant="outlined"
+					helperText={password != rePassword ? 'Password not match' : ''}
 					disabled={isDisabled}
-				/>
-				<TextField
-					id="outlined-start-adornment"
-					defaultValue=""
-					label="Re-type New Password"
-					variant="outlined"
-					disabled={isDisabled}
-				/>
+				>
+					<InputLabel
+						htmlFor="outlined-adornment-password"
+						error={password != rePassword}
+					>
+						Re-type New Password
+					</InputLabel>
+					<OutlinedInput
+						id="outlined-adornment-password"
+						defaultValue=" "
+						type={showPassword ? 'text' : 'password'}
+						value={rePassword}
+						error={password != rePassword}
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									aria-label="toggle password visibility"
+									onClick={handleClickShowPassword}
+									onMouseDown={handleMouseDownPassword}
+									edge="end"
+									disabled={isDisabled}
+								>
+									{showPassword ? <VisibilityOff /> : <Visibility />}
+								</IconButton>
+							</InputAdornment>
+						}
+						label="Re-type New Password"
+						onChange={(e) => {
+							setRePassword(e.target.value)
+						}}
+					/>
+					{password != rePassword && (
+						<FormHelperText error={password != rePassword}>
+							Password not match
+						</FormHelperText>
+					)}
+				</FormControl>
 			</FormControl>
 		</Box>
 	)

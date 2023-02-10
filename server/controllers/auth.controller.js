@@ -7,12 +7,21 @@ const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
 // POST after submit from US1-6/ US1-7
+<<<<<<< HEAD
+||||||| 09f71f0
+/*
+ * @desc     Resigter user
+ * @route    POST auth/register
+ * @access   Public
+ */
+=======
 /*
  * @desc     Resigter user
  * @route    POST auth/register
  * @access   Public
  */
 
+>>>>>>> b0c4ea564a1800aa8d75e3fecb3af833dc99123d
 exports.register = (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
@@ -52,11 +61,6 @@ exports.register = (req, res) => {
 	}
 }
 
-/*
- * @desc     Login user
- * @route    POST auth/login
- * @access   Public
- */
 exports.login = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
@@ -104,11 +108,6 @@ exports.login = async (req, res) => {
 	}
 }
 
-/*
- * @desc     Refresh token
- * @route    GET auth/refresh-token
- * @access   Public
- */
 exports.refreshToken = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const cookies = req.cookies
@@ -135,11 +134,6 @@ exports.refreshToken = async (req, res) => {
 	})
 }
 
-/*
- * @desc     Check Duplicate field
- * @route    GET auth/isDupe/:field/:value
- * @access   Public
- */
 exports.isDupe = (req, res) => {
 	// #swagger.tags = ['auth']
 	const { field, value } = req.params

@@ -9,7 +9,7 @@ function SearchBar(props) {
 	const onChange = (e) => {
 		inputName = e.target.value
 	}
-	const onClick = () => {
+	const onClick = (event) => {
 		event.preventDefault();
 		console.log(inputName)
 		props.searchHandler(inputName)

@@ -6,7 +6,7 @@ import { Scholarship } from './scholarship'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
-	const[inputName, setInputName] = useState('')
+	const [inputName, setInputName] = useState('')
 
 	useEffect(() => {
 		setScholars([
@@ -19,17 +19,21 @@ function Homepage() {
 		])
 	}, [])
 	const searchHandler = (value) => {
-		setInputName(value)
+		setInputName(value.trim())
 	}
 	const filteredScholars = scholars.filter((scholar) => {
-		return scholar.name.includes(inputName)
+		return scholar.name.toLowerCase().includes(inputName.toLowerCase())
 	})
 	return (
 		<Container maxWidth="lg">
 			<SearchBar searchHandler={searchHandler} />
-			<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
-				The Latest Scholarships
-			</Typography>
+			{inputName.length > 0 ? <Typography variant="h5" align="left" color="textPrimary" gutterButtom>
+					Scholarships that related to "{inputName}"
+				</Typography> : (
+				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
+					The Latest Scholarships
+				</Typography>
+			)}
 			<Divider orientation="horizontal" flexItem sx={{ borderBottomWidth: 2 }} />
 			<Scholarship items={filteredScholars} />
 		</Container>

@@ -2,7 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 require('dotenv').config()
 
 const indexRoute = require('./routes/index')
@@ -25,6 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({ origin: true, credentials: true }))
 app.use(morgan('dev'))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use('/', indexRoute)
 app.use('/auth', authRoute)
@@ -32,4 +35,8 @@ app.use('/student', studentRoute)
 app.use('/resetPassword', resetPasswordRoute)
 
 const port = process.env.PORT || 8080
-app.listen(port, () => console.log(`start server in port ${port}`))
+app.listen(port, () =>
+	console.log(
+		`start server in port ${port}\nto update API doc: "npm run swagger-autogen"\nAPI documentation: http://localhost:${port}/api-docs`,
+	),
+)

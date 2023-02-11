@@ -6,6 +6,12 @@ import Image from 'next/image'
 import FormProviderUpd from '@components/Layout/FormProviderUpd'
 
 export default function UpdateProviderInfo() {
+	const [disabled, setDisabled] = React.useState(true)
+
+	function handleEditBtnClick() {
+		setDisabled(!disabled)
+		// console.log(disabled)
+	}
 	return (
 		<Grid2
 			container
@@ -108,19 +114,12 @@ export default function UpdateProviderInfo() {
 							marginLeft: '20%',
 						}}
 					>
-						<Button variant="outlined">Click to Edit</Button>
+						<Button variant="outlined" onClick={handleEditBtnClick}>
+							Click to Edit
+						</Button>
 					</Grid2>
-					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormProviderUpd />
-					</Grid2>
-					<Grid2
-						item
-						alignItems="stretch"
-						justifyContent="center"
-						sx={{ padding: '20px 0px 20px 0px' }}
-					>
-						<Button variant="contained">Update</Button>
-					</Grid2>
+
+					<FormProviderUpd isDisabled={disabled} />
 				</Grid2>
 			</Grid2>
 		</Grid2>

@@ -12,7 +12,9 @@ const ObjectId = require('mongoose').Types.ObjectId
  * @route    POST auth/register
  * @access   Public
  */
+
 exports.register = (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
@@ -56,6 +58,7 @@ exports.register = (req, res) => {
  * @access   Public
  */
 exports.login = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
@@ -64,7 +67,7 @@ exports.login = async (req, res) => {
 
 		const foundUser = await User.findOne({ username }).select('+password')
 
-		if (!foundUser) return res.sendStatus(401) //Unauthorized
+		if (!foundUser) return res.status(401).json({message: "Not found user"})//res.sendStatus(401) //Unauthorized
 
 		const match = await bcrypt.compare(password, foundUser.password)
 		if (match) {
@@ -96,7 +99,7 @@ exports.login = async (req, res) => {
 
 			res.json({ accessToken, role: foundUser.role })
 		} else {
-			res.sendStatus(401)
+			res.status(401).json({message: "Not match"})//res.sendStatus(401)
 		}
 	}
 }
@@ -107,6 +110,7 @@ exports.login = async (req, res) => {
  * @access   Public
  */
 exports.refreshToken = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 
 	if (!cookies?.jwt) return res.sendStatus(401)
@@ -137,6 +141,7 @@ exports.refreshToken = async (req, res) => {
  * @access   Public
  */
 exports.isDupe = (req, res) => {
+	// #swagger.tags = ['auth']
 	const { field, value } = req.params
 	console.log({ field, value })
 	User.countDocuments({ [field]: value }, (err, user) => {
@@ -146,4 +151,20 @@ exports.isDupe = (req, res) => {
 			res.send(!!user)
 		}
 	})
+}
+
+exports.logout = async (req, res) => {
+	const { refreshToken } = req.cookies
+	try {
+		const user = await User.findOne({ refreshToken })
+		if (!user) return res.status(401).json({message: "Not found user"})
+
+		user.refreshToken = undefined
+		await user.save()
+
+		res.clearCookie('refreshToken')
+		res.send('Logged out successfully')
+	} catch (error) {
+		res.status(400).send({ message: error.message })
+	}
 }

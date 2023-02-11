@@ -1,17 +1,18 @@
-import React from 'react'
+import { React, useState } from 'react'
 import FormStdUpdate from '@components/Layout/FormStdUpdate'
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
-import { useState } from 'react'
+
 export default function UpdateStudentInfo() {
-	const [disabled, setDisabled] = React.useState(true)
+	const [disabled, setDisabled] = useState(true)
 
 	function handleEditBtnClick() {
 		setDisabled(!disabled)
 		// console.log(disabled)
 	}
+
 	return (
 		<Grid2
 			container
@@ -118,17 +119,20 @@ export default function UpdateStudentInfo() {
 							Click to Edit
 						</Button>
 					</Grid2>
-					<Grid2 sx={{ overflow: 'auto' }}>
-						<FormStdUpdate isDisabled={disabled} />
-					</Grid2>
+					{/* <Grid2 sx={{ overflow: 'auto' }}> */}
+					<FormStdUpdate isDisabled={disabled} />
+					{/* </Grid2>
 					<Grid2
 						item
 						alignItems="stretch"
 						justifyContent="center"
 						sx={{ padding: '20px 0px 20px 0px' }}
 					>
-						<Button variant="contained">Update</Button>
-					</Grid2>
+						{password != rePassword && setUpdateDisabled(!updateDisabled)}
+						<Button variant="contained" disabled={updateDisabled}>
+							Update
+						</Button>
+					</Grid2> */}
 				</Grid2>
 			</Grid2>
 		</Grid2>

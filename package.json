@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/jwt-decode": "^3.1.0",
+    "jwt-decode": "^3.1.2",
+    "swagger-node-express": "^1.2.3"
+  }
+}

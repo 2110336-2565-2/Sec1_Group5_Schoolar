@@ -8,12 +8,8 @@ const handleValidationResult = (result, res) => {
 	}
 }
 
-/*
- * @desc     Get a student info
- * @route    Get /student
- * @access   Private
- */
 exports.getStudent = async (req, res) => {
+	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -31,12 +27,8 @@ exports.getStudent = async (req, res) => {
 	}
 }
 
-/*
- * @desc     Update Student Info
- * @route    PATCH /student
- * @access   Private
- */
 exports.updateStudentInfo = async (req, res) => {
+	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 

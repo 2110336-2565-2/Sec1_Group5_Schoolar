@@ -1,16 +1,10 @@
 import * as React from 'react'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
-import Container from '@mui/material/Container'
-import CssBaseline from '@mui/material/CssBaseline'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Grid from '@mui/material/Grid'
-import Link from '@mui/material/Link'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
+import { useForm } from 'react-hook-form'
+import FormPrimary from '@components/Layout/FormPrimary'
+import InputPassword from '@components/Layout/InputPassword'
+import { Button, FormControl, TextField, Typography } from '@mui/material'
+import { Box } from '@mui/system'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -24,18 +18,22 @@ function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
 
-	const handleSubmit = async (event) => {
-		event.preventDefault()
-		const data = new FormData(event.currentTarget)
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onBlur' })
 
-		const username = data.get('username')
-		const password = data.get('password')
+	const onSubmit = async (data) => {
+		const username = data.username
+		const password = data.password
 
 		console.log(username, password)
+
 		try {
 			const response = await axios.post('/auth/login', {
-				username: data.get('username'),
-				password: data.get('password'),
+				username: username,
+				password: password,
 			})
 
 			const accessToken = response?.data?.accessToken
@@ -59,65 +57,55 @@ function Login() {
 	}
 
 	return (
-		<Container component="main" maxWidth="xs">
-			<CssBaseline />
-			<Box
-				sx={{
-					marginTop: 8,
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}
-			>
-				<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-					<LockOutlinedIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Login
-				</Typography>
-				<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+		<FormPrimary
+			header="Login to Schoolar"
+			form={
+				<FormControl
+					component="form"
+					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
+					onSubmit={handleSubmit(onSubmit)}
+				>
 					<TextField
-						margin="normal"
 						required
 						fullWidth
 						id="username"
-						label="Username"
 						name="username"
-						autoComplete="username"
 						autoFocus
+						label="Username"
+						variant="outlined"
+						autoComplete="username"
+						{...register('username', {
+							required: 'Username is required',
+						})}
+						error={!!errors?.username}
+						helperText={errors?.username ? errors.username.message : null}
 					/>
-					<TextField
-						margin="normal"
-						required
-						fullWidth
-						name="password"
-						label="Password"
-						type="password"
-						id="password"
-						autoComplete="current-password"
+					<InputPassword
+						register={{
+							...register('password', {
+								required: 'Password is required',
+							}),
+						}}
+						error={!!errors?.password}
+						helperText={errors?.password ? errors.password.message : null}
 					/>
-					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
-						label="Remember me"
-					/>
-					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+					<Box sx={{ textAlign: 'right' }}>
+						<Typography color="primary">
+							<Link href="/forgot-password">Forgot password?</Link>
+						</Typography>
+					</Box>
+					<Button variant="contained" type="submit">
 						Login
 					</Button>
-					<Grid container>
-						<Grid item xs>
-							<Link href="#" variant="body2">
-								Forgot password?
-							</Link>
-						</Grid>
-						<Grid item>
-							<Link href="#" variant="body2">
-								{"Don't have an account? Register"}
-							</Link>
-						</Grid>
-					</Grid>
-				</Box>
-			</Box>
-		</Container>
+					<Box sx={{ textAlign: 'center' }}>
+						<Typography>Dont have an account ?</Typography>
+						<Typography color="primary" sx={{ fontWeight: 'bold' }}>
+							<Link href="/register">Register here!</Link>
+						</Typography>
+					</Box>
+				</FormControl>
+			}
+		/>
 	)
 }
 

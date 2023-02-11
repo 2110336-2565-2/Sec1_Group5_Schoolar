@@ -10,6 +10,8 @@ import Image from 'next/image'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import Link from "next/link";
+
 import { useAuth } from '@/context/AuthContext'
 
 function Navbar() {
@@ -31,13 +33,15 @@ function Navbar() {
 				<Toolbar>
 					<Grid container direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<Image src="/logo.svg" alt="logo" width="48" height="56" />
-							{auth && (
-								<Stack direction="row">
-									<Button color="inherit">Category</Button>
-									<Button color="inherit">Contact Us</Button>
-								</Stack>
-							)}
+							<Link href="/home-page">
+								<Image src="/logo.svg" alt="logo" width="48" height="56" />
+								{auth && (
+									<Stack direction="row">
+										<Button color="inherit">Category</Button>
+										<Button color="inherit">Contact Us</Button>
+									</Stack>
+								)}
+							</Link>
 						</Stack>
 
 						<Stack direction="row">

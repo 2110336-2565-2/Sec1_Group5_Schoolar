@@ -1,10 +1,10 @@
+import { Typography, Divider } from '@mui/material'
 import { Container } from '@mui/system'
 import { useState, useEffect } from 'react'
 import SearchBar from './search-scholarship'
 import { Scholarship } from './scholarship'
 
 function Homepage() {
-
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
@@ -24,12 +24,14 @@ function Homepage() {
 	const filteredScholars = scholars.filter((scholar) => {
 		return scholar.name.toLowerCase().includes(inputName.toLowerCase())
 	})
-  return (
+	return (
 		<Container maxWidth="lg">
 			<SearchBar searchHandler={searchHandler} />
-			{inputName.length > 0 ? <Typography variant="h5" align="left" color="textPrimary" gutterButtom>
+			{inputName.length > 0 ? (
+				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
 					Scholarships that related to "{inputName}"
-				</Typography> : (
+				</Typography>
+			) : (
 				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
 					The Latest Scholarships
 				</Typography>

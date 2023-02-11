@@ -1,5 +1,4 @@
 import * as React from 'react'
-import MenuIcon from '@mui/icons-material/Menu'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -7,24 +6,30 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
 import Image from 'next/image'
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 
 function Navbar() {
+	const router = useRouter()
 	const { auth } = useAuth()
 
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = React.useState(null)
 
 	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
+		setAnchorEl(event.currentTarget)
+	}
 
 	const handleClose = () => {
-		setAnchorEl(null);
-	};
+		setAnchorEl(null)
+	}
 
+	const handleLogout = () => {
+		setAnchorEl(null)
+		router.push('/login')
+	}
 	return (
 		<Box>
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
@@ -45,7 +50,15 @@ function Navbar() {
 								<Image src="/Noti.svg" alt="notification" width="30" height="31" />
 							</Button>
 							<Button>
-								<Image src="/Account.svg" alt="account" width="30" height="31" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} />
+								<Image
+									src="/Account.svg"
+									alt="account"
+									width="30"
+									height="31"
+									aria-controls="simple-menu"
+									aria-haspopup="true"
+									onClick={handleClick}
+								/>
 								<Menu
 									id="simple-menu"
 									anchorEl={anchorEl}
@@ -54,7 +67,7 @@ function Navbar() {
 									onClose={handleClose}
 								>
 									<MenuItem onClick={handleClose}>Profile</MenuItem>
-									<MenuItem onClick={handleClose}>Logout</MenuItem>
+									<MenuItem onClick={handleLogout}>Logout</MenuItem>
 								</Menu>
 							</Button>
 						</Stack>

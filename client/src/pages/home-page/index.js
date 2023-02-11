@@ -11,9 +11,11 @@ function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
+	//* example of using axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
+		//* example of using axios private to get data from route that need token
 		axiosPrivate.get('/').then((res) => {
 			console.log(res.data)
 		})

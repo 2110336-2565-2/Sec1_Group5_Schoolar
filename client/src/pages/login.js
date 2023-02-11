@@ -1,12 +1,15 @@
 import * as React from 'react'
-import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import FormPrimary from '@components/Layout/FormPrimary'
+import InputPassword from '@components/Layout/InputPassword'
 import { Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
+
 import axios from './api/axios'
-import InputPassword from '@components/Layout/InputPassword'
-import FormPrimary from '@components/Layout/FormPrimary'
 
 // Just Mock Login -> pls re-implement this again
 // NOTE
@@ -15,18 +18,22 @@ function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
 
-	const handleSubmit = async (event) => {
-		event.preventDefault()
-		const data = new FormData(event.currentTarget)
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onBlur' })
 
-		const username = data.get('username')
-		const password = data.get('password')
+	const onSubmit = async (data) => {
+		const username = data.username
+		const password = data.password
 
 		console.log(username, password)
+
 		try {
 			const response = await axios.post('/auth/login', {
-				username: data.get('username'),
-				password: data.get('password'),
+				username: username,
+				password: password,
 			})
 
 			const accessToken = response?.data?.accessToken
@@ -56,7 +63,7 @@ function Login() {
 				<FormControl
 					component="form"
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
-					onSubmit={handleSubmit}
+					onSubmit={handleSubmit(onSubmit)}
 				>
 					<TextField
 						required
@@ -67,8 +74,21 @@ function Login() {
 						label="Username"
 						variant="outlined"
 						autoComplete="username"
+						{...register('username', {
+							required: 'Username is required',
+						})}
+						error={!!errors?.username}
+						helperText={errors?.username ? errors.username.message : null}
 					/>
-					<InputPassword />
+					<InputPassword
+						register={{
+							...register('password', {
+								required: 'Password is required',
+							}),
+						}}
+						error={!!errors?.password}
+						helperText={errors?.password ? errors.password.message : null}
+					/>
 					<Box sx={{ textAlign: 'right' }}>
 						<Typography color="primary">
 							<Link href="/forgot-password">Forgot password?</Link>

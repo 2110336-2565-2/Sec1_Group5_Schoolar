@@ -37,6 +37,6 @@ app.use('/resetPassword', resetPasswordRoute)
 const port = process.env.PORT || 8080
 app.listen(port, () =>
 	console.log(
-		`start server in port ${port}\nto update doc: npm run swagger-autogen\nAPI documentation: http://localhost:${port}/api-docs`,
+		`start server in port ${port}\nto update API doc: "npm run swagger-autogen"\nAPI documentation: http://localhost:${port}/api-docs`,
 	),
 )

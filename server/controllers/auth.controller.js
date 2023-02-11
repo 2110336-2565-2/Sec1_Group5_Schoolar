@@ -7,21 +7,12 @@ const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
 // POST after submit from US1-6/ US1-7
-<<<<<<< HEAD
-||||||| 09f71f0
-/*
- * @desc     Resigter user
- * @route    POST auth/register
- * @access   Public
- */
-=======
 /*
  * @desc     Resigter user
  * @route    POST auth/register
  * @access   Public
  */
 
->>>>>>> b0c4ea564a1800aa8d75e3fecb3af833dc99123d
 exports.register = (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)

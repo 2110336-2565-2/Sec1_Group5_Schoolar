@@ -7,21 +7,6 @@ const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 
 // POST after submit from US1-6/ US1-7
-<<<<<<< HEAD
-||||||| 09f71f0
-/*
- * @desc     Resigter user
- * @route    POST auth/register
- * @access   Public
- */
-=======
-/*
- * @desc     Resigter user
- * @route    POST auth/register
- * @access   Public
- */
-
->>>>>>> b0c4ea564a1800aa8d75e3fecb3af833dc99123d
 exports.register = (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
@@ -71,7 +56,7 @@ exports.login = async (req, res) => {
 
 		const foundUser = await User.findOne({ username }).select('+password')
 
-		if (!foundUser) return res.sendStatus(401) //Unauthorized
+		if (!foundUser) return res.status(401).json({message: "Not found user"})//res.sendStatus(401) //Unauthorized
 
 		const match = await bcrypt.compare(password, foundUser.password)
 		if (match) {
@@ -103,7 +88,8 @@ exports.login = async (req, res) => {
 
 			res.json({ accessToken, role: foundUser.role })
 		} else {
-			res.sendStatus(401)
+			//console.log(match);
+			res.status(401).json({message: "Not match"})//res.sendStatus(401)
 		}
 	}
 }
@@ -145,4 +131,20 @@ exports.isDupe = (req, res) => {
 			res.send(!!user)
 		}
 	})
+}
+
+exports.logout = async (req, res) => {
+	const { refreshToken } = req.cookies
+	try {
+		const user = await User.findOne({ refreshToken })
+		if (!user) return res.status(401).json({message: "Not found user"})
+
+		user.refreshToken = undefined
+		await user.save()
+
+		res.clearCookie('refreshToken')
+		res.send('Logged out successfully')
+	} catch (error) {
+		res.status(400).send({ message: error.message })
+	}
 }

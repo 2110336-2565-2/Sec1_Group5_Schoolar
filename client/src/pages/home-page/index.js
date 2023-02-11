@@ -1,14 +1,22 @@
-import { Typography, Divider } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
-import { useState, useEffect } from 'react'
-import SearchBar from './search-scholarship'
+
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 import { Scholarship } from './scholarship'
+import SearchBar from './search-scholarship'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
+	const axiosPrivate = useAxiosPrivate()
+
 	useEffect(() => {
+		axiosPrivate.get('/').then((res) => {
+			console.log(res.data)
+		})
 		setScholars([
 			{ name: 'S1', tag: ['tag1', 'tag2'] },
 			{ name: 'S2', tag: ['tag3', 'tag4'] },

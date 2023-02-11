@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form'
 import {
 	Box,
 	Button,
-	Checkbox,
+	RadioGroup,
+	Radio,
 	FormControl,
 	FormControlLabel,
 	FormGroup,
@@ -13,6 +14,8 @@ import {
 	InputLabel,
 	OutlinedInput,
 	FormHelperText,
+	Stack,
+	Grid,
 } from '@mui/material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -30,6 +33,11 @@ const genders = [
 	{ value: 'Female', label: 'Female' },
 	{ value: 'Non-binary', label: 'Non-binary' },
 ]
+const degree = [
+	{ value: 'High-school Student', label: 'High-school Student' },
+	{ value: "Bachelor's Degree", label: "Bachelor's Degree" },
+	{ value: 'Master Degree', label: 'Master Degree' },
+]
 
 const scholarshipTypes = [
 	{ value: 'Full scholarship', label: 'Full Scholarship' },
@@ -37,23 +45,57 @@ const scholarshipTypes = [
 	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
 	{ value: 'Followship', label: 'Followship' },
 ]
+const studentProgram = [
+	{ value: 'Science-Math', label: 'Science-Math' },
+	{ value: 'Art-Math', label: 'Art-Math' },
+	{ value: 'Language-Art', label: 'Language-Art' },
+]
 
-const FormUpdateStdInfo = ({ isDisabled }) => {
+const uniProgram = [
+	{ value: 'Engineering', label: 'Engineering' },
+	{ value: 'Medicine', label: 'Medicine' },
+	{ value: 'Dentistry', label: 'Dentistry' },
+	{ value: 'Commerce and Accountancy', label: 'Commerce and Accountancy' },
+	{ value: 'Law', label: 'Law' },
+]
+
+const FormUpdateStdInfo = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm()
+
 	const [value, setValue] = useState(dayjs('2022-04-07'))
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
+	const [isUpdated, setIsUpdated] = useState(false)
+	const [selectProgram, setSelectProgram] = useState(studentProgram)
+	const onSubmit = (data) => alert(JSON.stringify(data))
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault()
 	}
+	// const handleClickUpdateBtn = () => {
+
+	// }
+	const handleSelectDegree = (event) => {
+		if (event.target.value === 'High-school Student') {
+			setSelectProgram(studentProgram)
+		} else {
+			setSelectProgram(uniProgram)
+		}
+	}
 	return (
-		<Grid2 container direction="column" alignItems="center" justifyContent="center">
-			<Grid2 sx={{ overflow: 'auto' }}>
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
-					<FormControl
+		<Stack direction="column" alignItems="center" justifyContent="center">
+			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
+				<Grid container sx={{ m: 2 }}>
+					{/* <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}> */}
+
+					{/* <FormControl
 						fullWidth
 						xs={12}
 						sm={6}
@@ -64,235 +106,268 @@ const FormUpdateStdInfo = ({ isDisabled }) => {
 							width: '100%',
 							height: '60vh',
 						}}
+					> */}
+					<FormControl
+						component="form"
+						onSubmit={handleSubmit(onSubmit)}
+						sx={{ width: '100%' }}
 					>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue="Tontong"
-							label="Firstname"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue="WoahWoah"
-							label="Surname"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue="9999999"
-							label="Citizen ID"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<LocalizationProvider dateAdapter={AdapterDayjs}>
-							<DatePicker
-								disableFuture
-								label="Date of Birth"
-								openTo="year"
-								views={['year', 'month', 'day']}
-								value={value}
-								onChange={(newValue) => {
-									setValue(newValue)
-								}}
-								renderInput={(params) => <TextField {...params} />}
-								disabled={isDisabled}
-							/>
-						</LocalizationProvider>
-						<TextField
-							id="outlined-select-gender"
-							select
-							label="Gender"
-							defaultValue="Female"
-							disabled={isDisabled}
-						>
-							{genders.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Faculty"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Year"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Phone Number"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Email"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="GPAX"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Age"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Education"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Household Income"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<FormLabel component="legend">Employment status</FormLabel>
-						<FormGroup aria-label="position" row>
-							<FormControlLabel
-								value="end"
-								control={<Checkbox disabled={isDisabled} />}
-								label="Employed"
-								labelPlacement="end"
-							/>
-							<FormControlLabel
-								value="end"
-								control={<Checkbox disabled={isDisabled} />}
-								label="Unemployed"
-								labelPlacement="end"
-							/>
-						</FormGroup>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Target Nation"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-select-gender"
-							select
-							label="Type of scholarship"
-							defaultValue="Full scholarship"
-							disabled={isDisabled}
-						>
-							{scholarshipTypes.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Field of Interest"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<FormControl disabled={isDisabled}>
-							<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-password"
-								type={showPassword ? 'text' : 'password'}
-								defaultValue=" "
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge="end"
-											disabled={isDisabled}
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-								label="password"
+						<Stack spacing={3} direction="column">
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue="Tontong"
+								label="Firstname"
 								variant="outlined"
-								onChange={(e) => {
-									setPassword(e.target.value)
-								}}
-								value={password}
+								disabled={isUpdated}
 							/>
-						</FormControl>
-						<FormControl
-							variant="outlined"
-							helperText={password != rePassword ? 'Password not match' : ''}
-							disabled={isDisabled}
-						>
-							<InputLabel
-								htmlFor="outlined-adornment-password"
-								error={password != rePassword}
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue="WoahWoah"
+								label="Surname"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue="9999999"
+								label="Citizen ID"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<LocalizationProvider dateAdapter={AdapterDayjs}>
+								<DatePicker
+									disableFuture
+									label="Date of Birth"
+									openTo="year"
+									views={['year', 'month', 'day']}
+									value={value}
+									onChange={(newValue) => {
+										setValue(newValue)
+									}}
+									renderInput={(params) => <TextField {...params} />}
+									disabled={isUpdated}
+								/>
+							</LocalizationProvider>
+							<TextField
+								id="outlined-select-gender"
+								select
+								label="Gender"
+								defaultValue="Female"
+								disabled={isUpdated}
 							>
-								Re-type New Password
-							</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-password"
-								defaultValue=" "
-								type={showPassword ? 'text' : 'password'}
-								value={rePassword}
-								error={password != rePassword}
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge="end"
-											disabled={isDisabled}
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-								label="Re-type New Password"
-								onChange={(e) => {
-									setRePassword(e.target.value)
-								}}
+								{genders.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Phone Number"
+								variant="outlined"
+								disabled={isUpdated}
 							/>
-							{password != rePassword && (
-								<FormHelperText error={password != rePassword}>
-									Password not match
-								</FormHelperText>
-							)}
-						</FormControl>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Email"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="GPAX"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Age"
+								variant="outlined"
+								disabled={isUpdated}
+							/>{' '}
+							<TextField
+								id="outlined-start-adornment"
+								select
+								defaultValue=""
+								label="Degree"
+								variant="outlined"
+								disabled={isUpdated}
+								onChange={handleSelectDegree}
+							>
+								{degree.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+							<TextField
+								id="outlined-start-adornment"
+								select
+								defaultValue=""
+								label="Program/Faculty"
+								variant="outlined"
+								disabled={isUpdated}
+							>
+								{selectProgram.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Year"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Household Income"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<FormLabel component="legend">Employment status</FormLabel>
+							<FormGroup aria-label="position" row>
+								<RadioGroup row sx={{ m: 0, justifyContent: 'space-between' }}>
+									<FormControlLabel
+										value="true"
+										control={<Radio disabled={isUpdated} />}
+										label="Employed"
+									></FormControlLabel>
+									<FormControlLabel
+										value="false"
+										control={<Radio disabled={isUpdated} />}
+										label="Unemployed"
+									></FormControlLabel>
+									<Stack></Stack>
+								</RadioGroup>
+							</FormGroup>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Target Nation"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-select-gender"
+								select
+								label="Type of scholarship"
+								defaultValue="Full scholarship"
+								disabled={isUpdated}
+							>
+								{scholarshipTypes.map((option) => (
+									<MenuItem key={option.value} value={option.value}>
+										{option.label}
+									</MenuItem>
+								))}
+							</TextField>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="Field of Interest"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<FormControl disabled={isUpdated}>
+								<InputLabel htmlFor="outlined-adornment-password">
+									Password
+								</InputLabel>
+								<OutlinedInput
+									id="outlined-adornment-password"
+									type={showPassword ? 'text' : 'password'}
+									defaultValue=" "
+									endAdornment={
+										<InputAdornment position="end">
+											<IconButton
+												aria-label="toggle password visibility"
+												onClick={handleClickShowPassword}
+												onMouseDown={handleMouseDownPassword}
+												edge="end"
+												disabled={isUpdated}
+											>
+												{showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									}
+									label="password"
+									variant="outlined"
+									onChange={(e) => {
+										setPassword(e.target.value)
+									}}
+									value={password}
+								/>
+							</FormControl>
+							<FormControl
+								variant="outlined"
+								helperText={password != rePassword ? 'Password not match' : ''}
+								disabled={isUpdated}
+							>
+								<InputLabel
+									htmlFor="outlined-adornment-password"
+									error={password != rePassword}
+								>
+									Re-type New Password
+								</InputLabel>
+								<OutlinedInput
+									id="outlined-adornment-password"
+									defaultValue=" "
+									type={showPassword ? 'text' : 'password'}
+									value={rePassword}
+									error={password != rePassword}
+									endAdornment={
+										<InputAdornment position="end">
+											<IconButton
+												aria-label="toggle password visibility"
+												onClick={handleClickShowPassword}
+												onMouseDown={handleMouseDownPassword}
+												edge="end"
+												disabled={isUpdated}
+											>
+												{showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									}
+									label="Re-type New Password"
+									onChange={(e) => {
+										setRePassword(e.target.value)
+									}}
+								/>
+								{password != rePassword && (
+									<FormHelperText error={password != rePassword}>
+										Password not match
+									</FormHelperText>
+								)}
+							</FormControl>
+						</Stack>
 					</FormControl>
-				</Box>
-			</Grid2>
-			<Grid2
-				item
+					{/* </Box> */}
+				</Grid>
+			</Grid>
+			<Grid
+				container
+				spacing={2}
 				alignItems="stretch"
-				justifyContent="center"
+				justifyContent="space-evenly"
 				sx={{ padding: '20px 0px 20px 0px' }}
 			>
-				<Button variant="contained" disabled={password != rePassword || isDisabled}>
-					Update
-				</Button>
-			</Grid2>
-		</Grid2>
+				<Grid item>
+					<Button variant="contained">Cancel</Button>
+				</Grid>
+
+				<Grid item>
+					<Button variant="contained" disabled={password != rePassword || isUpdated}>
+						Update
+					</Button>
+				</Grid>
+			</Grid>
+		</Stack>
 	)
 }
 

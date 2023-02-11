@@ -41,6 +41,7 @@ const FormPrimary = ({ header, form }) => {
 						width={0}
 						height={0}
 						sizes="100vw"
+						priority="false"
 						style={{
 							width: '200%',
 							height: 'auto',

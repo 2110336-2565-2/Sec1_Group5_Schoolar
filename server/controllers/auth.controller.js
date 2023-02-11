@@ -113,6 +113,8 @@ exports.refreshToken = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 
+	console.log(cookies)
+
 	if (!cookies?.jwt) return res.sendStatus(401)
 	const refreshToken = cookies.jwt
 

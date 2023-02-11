@@ -1,54 +1,30 @@
-import { React, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
 import {
 	Box,
-	Button,
-	Checkbox,
 	FormControl,
-	FormControlLabel,
-	FormGroup,
-	FormLabel,
-	MenuItem,
 	TextField,
 	InputLabel,
 	OutlinedInput,
 	FormHelperText,
+	Button,
 } from '@mui/material'
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import dayjs from 'dayjs'
 import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import Grid2 from '@mui/material/Unstable_Grid2'
 
-const genders = [
-	{ value: 'Male', label: 'Male' },
-	{ value: 'Female', label: 'Female' },
-	{ value: 'Non-binary', label: 'Non-binary' },
-]
-
-const scholarshipTypes = [
-	{ value: 'Full scholarship', label: 'Full Scholarship' },
-	{ value: 'Partial scholarship', label: 'Partial Scholarship' },
-	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
-	{ value: 'Followship', label: 'Followship' },
-]
-
-const FormUpdateStdInfo = ({ isDisabled }) => {
-	const [value, setValue] = useState(dayjs('2022-04-07'))
+const FormUpdatePvdInfo = ({ isDisabled }) => {
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
-	const [showPassword, setShowPassword] = useState(false)
+	const [showPassword, setShowPassword] = React.useState(false)
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault()
 	}
+
 	return (
 		<Grid2 container direction="column" alignItems="center" justifyContent="center">
 			<Grid2 sx={{ overflow: 'auto' }}>
@@ -67,63 +43,29 @@ const FormUpdateStdInfo = ({ isDisabled }) => {
 					>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="Tontong"
-							label="Firstname"
+							defaultValue="XXXXXXX"
+							label="Username"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="WoahWoah"
-							label="Surname"
+							defaultValue="ABC"
+							label="Organization"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
 							defaultValue="9999999"
-							label="Citizen ID"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<LocalizationProvider dateAdapter={AdapterDayjs}>
-							<DatePicker
-								disableFuture
-								label="Date of Birth"
-								openTo="year"
-								views={['year', 'month', 'day']}
-								value={value}
-								onChange={(newValue) => {
-									setValue(newValue)
-								}}
-								renderInput={(params) => <TextField {...params} />}
-								disabled={isDisabled}
-							/>
-						</LocalizationProvider>
-						<TextField
-							id="outlined-select-gender"
-							select
-							label="Gender"
-							defaultValue="Female"
-							disabled={isDisabled}
-						>
-							{genders.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Faculty"
+							label="Credit Card Number"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue=""
-							label="Year"
+							defaultValue="99/99 xxxxxx"
+							label="Address"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
@@ -138,76 +80,6 @@ const FormUpdateStdInfo = ({ isDisabled }) => {
 							id="outlined-start-adornment"
 							defaultValue=""
 							label="Email"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="GPAX"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Age"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Education"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Household Income"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<FormLabel component="legend">Employment status</FormLabel>
-						<FormGroup aria-label="position" row>
-							<FormControlLabel
-								value="end"
-								control={<Checkbox disabled={isDisabled} />}
-								label="Employed"
-								labelPlacement="end"
-							/>
-							<FormControlLabel
-								value="end"
-								control={<Checkbox disabled={isDisabled} />}
-								label="Unemployed"
-								labelPlacement="end"
-							/>
-						</FormGroup>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Target Nation"
-							variant="outlined"
-							disabled={isDisabled}
-						/>
-						<TextField
-							id="outlined-select-gender"
-							select
-							label="Type of scholarship"
-							defaultValue="Full scholarship"
-							disabled={isDisabled}
-						>
-							{scholarshipTypes.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-						<TextField
-							id="outlined-start-adornment"
-							defaultValue=""
-							label="Field of Interest"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
@@ -296,4 +168,4 @@ const FormUpdateStdInfo = ({ isDisabled }) => {
 	)
 }
 
-export default FormUpdateStdInfo
+export default FormUpdatePvdInfo

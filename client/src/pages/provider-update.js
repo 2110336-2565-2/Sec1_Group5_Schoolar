@@ -1,18 +1,17 @@
-import { React, useState } from 'react'
-import FormStdUpdate from '@components/Layout/FormStdUpdate'
+import React from 'react'
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
+import FormProviderUpd from '@components/Layout/FormProviderUpd'
 
-export default function UpdateStudentInfo() {
-	const [disabled, setDisabled] = useState(true)
+export default function UpdateProviderInfo() {
+	const [disabled, setDisabled] = React.useState(true)
 
 	function handleEditBtnClick() {
 		setDisabled(!disabled)
 		// console.log(disabled)
 	}
-
 	return (
 		<Grid2
 			container
@@ -32,14 +31,14 @@ export default function UpdateStudentInfo() {
 				xs={12}
 				sm={6}
 				lg={7}
-				sx={{ marginTop: '10 auto', alignItems: 'center', justifyContent: 'space-evely' }}
+				sx={{ marginTop: '10 auto', alignItems: 'center', justifyContent: 'space-evenly' }}
 			>
 				<Grid2 xs={12} lg={5}>
 					<Typography
 						variant="h3"
 						sx={{ textAlign: 'center', fontWeight: 'bold', mb: '20px' }}
 					>
-						Update Student Information
+						Update Provider Information
 					</Typography>
 				</Grid2>
 				<Grid2
@@ -119,20 +118,8 @@ export default function UpdateStudentInfo() {
 							Click to Edit
 						</Button>
 					</Grid2>
-					{/* <Grid2 sx={{ overflow: 'auto' }}> */}
-					<FormStdUpdate isDisabled={disabled} />
-					{/* </Grid2>
-					<Grid2
-						item
-						alignItems="stretch"
-						justifyContent="center"
-						sx={{ padding: '20px 0px 20px 0px' }}
-					>
-						{password != rePassword && setUpdateDisabled(!updateDisabled)}
-						<Button variant="contained" disabled={updateDisabled}>
-							Update
-						</Button>
-					</Grid2> */}
+
+					<FormProviderUpd isDisabled={disabled} />
 				</Grid2>
 			</Grid2>
 		</Grid2>

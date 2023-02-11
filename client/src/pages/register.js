@@ -13,7 +13,7 @@ export default function Register() {
 		case 'register':
 			return (
 				<FormPrimary
-					header="Sign Up to Schoolar"
+					header="Register to Schoolar"
 					form={<FormRegister setData={setData} setPage={setPage} />}
 				/>
 			)

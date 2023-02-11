@@ -6,46 +6,38 @@ const studentSchema = new Schema({
 	userID: {
 		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		// get: write function to get from user ID ,
-		// unique:true,
-		// trim:true
 	},
 	firstName: {
 		required: true,
 		type: String,
-		// maxLength:40,
 		lowercase: true,
 		trim: true,
 	},
 	lastName: {
 		required: true,
 		type: String,
-		maxLength: 40,
 		lowercase: true,
 		trim: true,
 	},
-	bd: {
+	birthdate: {
 		//birthdate ,using Date type has some complicated change
 		required: true,
 		type: Date, //possible to change
 		maxLength: 8,
-		// lowercase:false,
 		trim: true,
 	},
 	// age: calculate from bd
 	gender: {
 		required: true,
 		type: String,
-		maxLength: 10,
-		enum: ['male', 'female'],
-		lowercase: true,
-		trim: true,
+		enum: ['male', 'female', 'non-binary'],
 	},
 	education: [
 		{
 			gpax: Number,
 		},
 		{
-			field: String,
+			faculty: String,
 		},
 	],
 	// below this is the criteria for matching
@@ -53,16 +45,13 @@ const studentSchema = new Schema({
 		// backend tranform number to rank
 		required: true,
 		type: String,
-		maxLength: 15,
 		enum: ['high', 'medium', 'low'], // changing later
 		index: true,
-		lowercase: true,
-		trim: true,
 	},
 	targetNation: {
 		required: true,
 		type: String,
-		maxLength: 40,
+		maxLength: 60,
 		index: true,
 		lowercase: true,
 		trim: true,
@@ -70,11 +59,8 @@ const studentSchema = new Schema({
 	typeOfScholarship: {
 		required: true,
 		type: String,
-		maxLength: 15,
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,
-		lowercase: true,
-		trim: true,
 	},
 	employment: {
 		//currently employed or unemployed
@@ -87,9 +73,7 @@ const studentSchema = new Schema({
 		// field of interest
 		required: true,
 		type: String,
-		maxLength: 40,
 		index: true,
-		unique: true,
 		trim: true,
 	},
 })

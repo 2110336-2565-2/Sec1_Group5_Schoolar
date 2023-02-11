@@ -1,10 +1,10 @@
-import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import { useState, useEffect } from 'react'
 import SearchBar from './search-scholarship'
 import { Scholarship } from './scholarship'
 
 function Homepage() {
+
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
@@ -24,7 +24,7 @@ function Homepage() {
 	const filteredScholars = scholars.filter((scholar) => {
 		return scholar.name.toLowerCase().includes(inputName.toLowerCase())
 	})
-	return (
+  return (
 		<Container maxWidth="lg">
 			<SearchBar searchHandler={searchHandler} />
 			{inputName.length > 0 ? <Typography variant="h5" align="left" color="textPrimary" gutterButtom>
@@ -40,3 +40,11 @@ function Homepage() {
 	)
 }
 export default Homepage
+
+export async function getStaticProps(context) {
+	return {
+		props: {
+			authRequired: true,
+		},
+	}
+}

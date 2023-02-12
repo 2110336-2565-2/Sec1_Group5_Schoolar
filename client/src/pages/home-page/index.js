@@ -39,7 +39,7 @@ function Homepage() {
 			<SearchBar searchHandler={searchHandler} />
 			{inputName.length > 0 ? (
 				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
-					Scholarships that related to "{inputName}"
+					{`Scholarships that related to "${inputName}"`}
 				</Typography>
 			) : (
 				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>

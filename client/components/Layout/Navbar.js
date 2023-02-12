@@ -1,24 +1,25 @@
 import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
 import { Center } from '@components/common'
+import { Login, Logout } from '@mui/icons-material'
 import {
+	Avatar,
 	Box,
 	Button,
-	Avatar,
 	Grid,
-	Stack,
-	Toolbar,
 	IconButton,
+	ListItemIcon,
 	Menu,
 	MenuItem,
-	ListItemIcon,
+	Stack,
+	Toolbar,
 	Tooltip,
 } from '@mui/material'
-import { Login, Logout } from '@mui/icons-material'
+import AppBar from '@mui/material/AppBar'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
 
 function Navbar() {
 	const router = useRouter()

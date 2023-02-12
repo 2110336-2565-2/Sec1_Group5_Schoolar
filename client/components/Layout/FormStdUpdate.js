@@ -1,5 +1,7 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
 	Box,
 	Button,
@@ -7,23 +9,20 @@ import {
 	FormControl,
 	FormControlLabel,
 	FormGroup,
-	FormLabel,
-	MenuItem,
-	TextField,
-	InputLabel,
-	OutlinedInput,
 	FormHelperText,
+	FormLabel,
+	InputLabel,
+	MenuItem,
+	OutlinedInput,
+	TextField,
 } from '@mui/material'
-
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import Grid2 from '@mui/material/Unstable_Grid2'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import IconButton from '@mui/material/IconButton'
-import Grid2 from '@mui/material/Unstable_Grid2'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },

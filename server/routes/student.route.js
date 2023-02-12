@@ -20,16 +20,21 @@ router.patch(
 			.withMessage('Last Name is Required')
 			.matches(/^[a-zA-Z]*$/)
 			.withMessage('Last Name contains invalid characters'),
-		body('gender').isIn(['Male', 'Female', 'Non-binary']).withMessage('Gender is invalid'),
-		body('birthdate').isISO8601().toDate().withMessage('Birthdate is not in correct format'),
-		body('householdIncome')
+		body('gender')
 			.isLength({ min: 1 })
-			.withMessage('Household income is required')
+			.withMessage('Gender is required')
+			.isIn(['Male', 'Female', 'Non-binary'])
+			.withMessage('Gender is invalid'),
+		body('birthdate')
+			.isLength({ min: 1 })
+			.withMessage('Birthdate is required')
+			.isISO8601()
+			.toDate()
+			.withMessage('Birthdate is not in correct format'),
+		body('householdIncome')
 			.matches(/^[0-9]*$]/)
 			.withMessage('Household income must contain only numeric characters'),
 		body('targetNation')
-			.isLength({ min: 1 })
-			.withMessage('Target Nation is required')
 			.isLength({ max: 60 })
 			.withMessage('Target Nation must be at most 60 characters'),
 		body('typeOfScholarship')

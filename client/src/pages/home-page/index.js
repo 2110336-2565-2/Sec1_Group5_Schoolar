@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Scholarship from '@components/Home-page/scholarship'
+import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'

@@ -38,16 +38,23 @@ const FormProvideStdInfo = () => {
 	const onSubmit = (data) => alert(JSON.stringify(data))
 
 	return (
-		<Grid container sx={{ overflow: "scroll", maxHeight: "500px", m: 0.5 }}>
+		<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
 			<Grid container sx={{ m: 2 }}>
-				<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
+				<FormControl
+					component="form"
+					onSubmit={handleSubmit(onSubmit)}
+					sx={{ width: '100%' }}
+				>
 					<Stack spacing={3} direction="column">
 						<TextField
 							id="outlined"
 							label="Fisrt Name"
 							{...register('firstName', {
 								required: 'First name is required',
-								minLength: { value: 2, message: 'First name must be at least 2 characters' },
+								minLength: {
+									value: 2,
+									message: 'First name must be at least 2 characters',
+								},
 								pattern: {
 									// Contain only alphabets
 									value: /^[A-Za-z]+$/,
@@ -63,7 +70,10 @@ const FormProvideStdInfo = () => {
 							autoComplete="Surname"
 							{...register('surname', {
 								required: 'Surname is required',
-								minLength: { value: 2, message: 'Surname must be at least 2 characters' },
+								minLength: {
+									value: 2,
+									message: 'Surname must be at least 2 characters',
+								},
 								pattern: {
 									value: /^[A-Za-z]+$/,
 									message: 'Surname contain invalid character',
@@ -175,7 +185,6 @@ const FormProvideStdInfo = () => {
 							helperText={errors?.email ? errors.email.message : null}
 						/>
 
-
 						<TextField
 							id="outlined"
 							label="GPAX"
@@ -221,8 +230,16 @@ const FormProvideStdInfo = () => {
 
 						<FormLabel component="legend">Current employ</FormLabel>
 						<RadioGroup row sx={{ m: 0, justifyContent: 'space-between' }}>
-							<FormControlLabel value="true" control={<Radio />} label="Yes"></FormControlLabel>
-							<FormControlLabel value="false" control={<Radio />} label="No"></FormControlLabel>
+							<FormControlLabel
+								value="true"
+								control={<Radio />}
+								label="Yes"
+							></FormControlLabel>
+							<FormControlLabel
+								value="false"
+								control={<Radio />}
+								label="No"
+							></FormControlLabel>
 							<Stack></Stack>
 						</RadioGroup>
 
@@ -230,7 +247,10 @@ const FormProvideStdInfo = () => {
 							id="outlined"
 							label="Target nation"
 							{...register('targetNation', {
-								pattern: { value: /^[A-Za-z]+$/, message: 'Target nation contains invalid characters' },
+								pattern: {
+									value: /^[A-Za-z]+$/,
+									message: 'Target nation contains invalid characters',
+								},
 							})}
 							error={!!errors?.targetNation}
 							helperText={errors?.targetNation ? errors.targetNation.message : null}
@@ -254,13 +274,20 @@ const FormProvideStdInfo = () => {
 							id="outlined"
 							label="Field of interest"
 							{...register('field', {
-								pattern: { value: /^[A-Za-z]+$/, message: 'Field of interest contains invalid characters' },
+								pattern: {
+									value: /^[A-Za-z]+$/,
+									message: 'Field of interest contains invalid characters',
+								},
 							})}
 							error={!!errors?.field}
 							helperText={errors?.field ? errors.field.message : null}
 						/>
 
-						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
+						<Button
+							variant="contained"
+							type="submit"
+							sx={{ backgroundColor: '#3F51A9' }}
+						>
 							SUBMIT
 						</Button>
 					</Stack>

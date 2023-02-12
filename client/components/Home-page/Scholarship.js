@@ -1,8 +1,8 @@
-import { Button, Paper, Typography, Divider, Box, Grid } from '@mui/material'
 import PushPinIcon from '@mui/icons-material/PushPin'
+import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
-export function Scholarship(props) {
+function Scholarship(props) {
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="30px 50px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -58,3 +58,5 @@ export function Scholarship(props) {
 		</Grid>
 	)
 }
+
+export default Scholarship

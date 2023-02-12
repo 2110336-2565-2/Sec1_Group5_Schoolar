@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
@@ -40,7 +41,9 @@ function Login() {
 			const role = response?.data?.role
 			console.log(accessToken)
 			console.log(role)
+			//set timeout for 3s
 			setAuth({ username, accessToken, role })
+			setTimeout(() => {}, 3000)
 			console.log(auth)
 			router.push('/home-page')
 		} catch (err) {

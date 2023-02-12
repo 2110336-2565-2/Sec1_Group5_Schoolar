@@ -20,7 +20,7 @@ const scholarshipSchema = new Schema({
 	gpax:{
 		require:true,
 		type:Number
-	}
+	},
 	program:{
 		required: true,
 		type: String,

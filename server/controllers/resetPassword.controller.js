@@ -51,11 +51,11 @@ exports.sendEmailResetPassword = async (req, res) => {
 
     // Send a reset password email
     const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
+        host: process.env.EMAIL_HOST,       // use smtp-mail.outlook.com
         port: 587,
         secure: false,
         auth: {
-            user: process.env.SCHOOLAR_EMAIL,
+            user: process.env.SCHOOLAR_EMAIL,           // create hotmail for Schoolar
             pass: process.env.SCHOOLAR_EMAIL_PASSWORD
         }
     });

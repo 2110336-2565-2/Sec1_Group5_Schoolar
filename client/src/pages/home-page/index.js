@@ -51,11 +51,3 @@ function Homepage() {
 	)
 }
 export default Homepage
-
-export async function getStaticProps(context) {
-	return {
-		props: {
-			authRequired: true,
-		},
-	}
-}

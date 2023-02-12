@@ -14,5 +14,5 @@ export default function UpdateStudentInfo() {
 	// 	// console.log(disabled)
 	// }
 
-	return <FormPrimary header="Student Information" form={<FormStdUpdate />} />
+	return <FormPrimary header="Update Student Information" form={<FormStdUpdate />} />
 }

@@ -17,6 +17,10 @@ const scholarshipSchema = new Schema({
 		type: String,
 		enum: ['high school', 'bachelor', 'master','doctoral'],
 	},
+	gpax:{
+		require:true,
+		type:Number
+	}
 	program:{
 		required: true,
 		type: String,

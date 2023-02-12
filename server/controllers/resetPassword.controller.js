@@ -31,7 +31,7 @@ exports.resetPassword = async (req, res) => {
     // Return a JWT token
     // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     // res.send({ token });
-  };
+};
 
 // @desc        send email for reset password
 // @route       PUT /resetPassword/email
@@ -67,7 +67,7 @@ exports.sendEmailResetPassword = async (req, res) => {
         <p>Hi,</p>
         <p>We received a request to reset the password for your account. If you did not make this request, you can ignore this email.</p>
         <p>To reset your password, click on the following link:</p>
-        <p>LINK</p>
+        <p><a href="${process.env.FRONTEND_URL}/reset-password?token=${user.resetPasswordToken}">Reset password</a></p>
         <p>This link will expire in 15 minutes.</p>
         <p>Best regards,</p>
         <p>SCHOOLAR</p>

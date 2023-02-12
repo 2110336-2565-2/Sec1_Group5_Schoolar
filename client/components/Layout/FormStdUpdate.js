@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import {
 	Box,
 	Button,
@@ -26,6 +27,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -88,6 +90,16 @@ const FormUpdateStdInfo = () => {
 			setSelectProgram(uniProgram)
 		}
 	}
+
+	//* example of using axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
+	useEffect(() => {
+		//* example of using axios private to get data from route that need token
+		axiosPrivate.get('/student/student-update').then((res) => {
+			console.log(res.data)
+		})
+	}, [])
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>

@@ -1,10 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import {
-	Button,
-	FormControl,
-	TextField,
-} from '@mui/material'
+import { Button, FormControl, TextField } from '@mui/material'
 import { Stack } from '@mui/system'
 
 const FormPvdInfo = () => {
@@ -18,7 +14,6 @@ const FormPvdInfo = () => {
 	const onSubmit = (data) => alert(JSON.stringify(data))
 
 	return (
-
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
 				<TextField
@@ -26,7 +21,10 @@ const FormPvdInfo = () => {
 					label="Organization"
 					{...register('organization', {
 						required: 'Organization is required',
-						minLength: { value: 2, message: 'Organization must be at least 2 characters' },
+						minLength: {
+							value: 2,
+							message: 'Organization must be at least 2 characters',
+						},
 						pattern: {
 							// Contain only alphabets and numbers
 							value: /^[a-zA-Z0-9]+$/,
@@ -97,9 +95,7 @@ const FormPvdInfo = () => {
 				</Button>
 			</Stack>
 		</FormControl>
-
 	)
 }
 
 export default FormPvdInfo
-

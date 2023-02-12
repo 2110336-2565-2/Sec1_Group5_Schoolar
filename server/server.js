@@ -11,6 +11,7 @@ const indexRoute = require('./routes/index')
 const authRoute = require('./routes/auth.route')
 const studentRoute = require('./routes/student.route')
 const resetPasswordRoute = require('./routes/resetPassword.route')
+const scholarshipRoute = require('./routes/scholarship.route')
 
 const app = express()
 
@@ -33,6 +34,7 @@ app.use('/', indexRoute)
 app.use('/auth', authRoute)
 app.use('/student', studentRoute)
 app.use('/resetPassword', resetPasswordRoute)
+app.use('/scholarship', scholarshipRoute)
 
 const port = process.env.PORT || 8080
 app.listen(port, () =>

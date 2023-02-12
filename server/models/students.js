@@ -32,17 +32,29 @@ const studentSchema = new Schema({
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
 	},
-	education: [
-		{
-			gpax: Number,
-		},
-		{
-			faculty: String,
-		},
-	],
+	degree:{
+		required: true,
+		type: String,
+		enum: ['high school', 'bachelor', 'master','doctoral'],
+	},
+	school:{
+		required: true,
+		type: String,
+		trim : true,
+	},
+	program:{
+		required: true,
+		type: String,
+		enum: ['Sci-Math','Art-Cal','Art-Language','Art-Society','Art-General',
+				'Faculty of Allied Health Sciences', 'Faculty of Architecture', 'Faculty of Arts',
+				'Faculty of Commerce and Accountancy','Faculty of Communication Arts','Faculty of Dentistry',
+				'Faculty of Economics','Faculty of Education','Faculty of Engineering','Faculty of Fine and Applied Arts',
+				'Faculty of Law','Faculty of Medicine','Faculty of Nursing','Faculty of Pharmaceutical Sciences',
+				'Faculty of Political Science','Faculty of Psychology','Faculty of Science','Faculty of Sports Science',
+				'Faculty of Veterinary Science'],
+	},
 	// below this is the criteria for matching
-	householdIncome: {
-		// backend tranform number to rank
+	householdIncome: {		// backend tranform number to rank
 		required: true,
 		type: String,
 		enum: ['high', 'medium', 'low'], // changing later
@@ -62,15 +74,13 @@ const studentSchema = new Schema({
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
+	employment: {		//currently employed or unemployed
 		required: true,
 		type: Boolean,
 		index: true,
 		trim: true,
 	},
-	field: {
-		// field of interest
+	field: {			// field of interest
 		required: true,
 		type: String,
 		index: true,

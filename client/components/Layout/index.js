@@ -9,7 +9,7 @@ import theme from '../../src/styles/theme'
 
 const WebLayout = ({ children }) => {
 	const { route } = useRouter()
-	const yellowBgPages = ['/register']
+	const yellowBgPages = ['/register', '/login']
 	if (yellowBgPages.includes(route)) {
 		theme.palette.background.default = '#EEEDE3'
 	}

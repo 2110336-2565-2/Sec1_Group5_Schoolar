@@ -1,7 +1,5 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
 	Box,
 	Button,
@@ -10,22 +8,24 @@ import {
 	FormControl,
 	FormControlLabel,
 	FormGroup,
+	FormLabel,
+	MenuItem,
+	TextField,
+	InputLabel,
+	OutlinedInput,
 	FormHelperText,
 	Stack,
 	Grid,
-	FormLabel,
-	InputLabel,
-	MenuItem,
-	OutlinedInput,
-	TextField,
 } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import Grid2 from '@mui/material/Unstable_Grid2'
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import IconButton from '@mui/material/IconButton'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -65,7 +65,7 @@ const FormUpdateStdInfo = () => {
 		formState: { errors },
 	} = useForm()
 
-	const [value, setValue] = useState(dayjs('2022-04-07'))
+	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
@@ -92,20 +92,6 @@ const FormUpdateStdInfo = () => {
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
-					{/* <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}> */}
-
-					{/* <FormControl
-						fullWidth
-						xs={12}
-						sm={6}
-						lg={4}
-						sx={{
-							display: 'flex',
-							gap: '20px',
-							width: '100%',
-							height: '60vh',
-						}}
-					> */}
 					<FormControl
 						component="form"
 						onSubmit={handleSubmit(onSubmit)}
@@ -114,6 +100,7 @@ const FormUpdateStdInfo = () => {
 						<Stack spacing={3} direction="column">
 							<TextField
 								id="outlined-start-adornment"
+								required
 								defaultValue="Tontong"
 								label="Firstname"
 								variant="outlined"
@@ -121,6 +108,7 @@ const FormUpdateStdInfo = () => {
 							/>
 							<TextField
 								id="outlined-start-adornment"
+								required
 								defaultValue="WoahWoah"
 								label="Surname"
 								variant="outlined"
@@ -136,6 +124,7 @@ const FormUpdateStdInfo = () => {
 							<LocalizationProvider dateAdapter={AdapterDayjs}>
 								<DatePicker
 									disableFuture
+									required
 									label="Date of Birth"
 									openTo="year"
 									views={['year', 'month', 'day']}
@@ -149,6 +138,7 @@ const FormUpdateStdInfo = () => {
 							</LocalizationProvider>
 							<TextField
 								id="outlined-select-gender"
+								required
 								select
 								label="Gender"
 								defaultValue="Female"
@@ -163,31 +153,34 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								defaultValue=""
+								required
 								label="Phone Number"
 								variant="outlined"
 								disabled={isUpdated}
 							/>
 							<TextField
 								id="outlined-start-adornment"
+								required
 								defaultValue=""
 								label="Email"
 								variant="outlined"
 								disabled={isUpdated}
 							/>
-							<TextField
-								id="outlined-start-adornment"
-								defaultValue=""
-								label="GPAX"
-								variant="outlined"
-								disabled={isUpdated}
-							/>
+
 							<TextField
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="Age"
 								variant="outlined"
 								disabled={isUpdated}
-							/>{' '}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="School"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
 							<TextField
 								id="outlined-start-adornment"
 								select
@@ -221,6 +214,13 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="Year"
+								variant="outlined"
+								disabled={isUpdated}
+							/>
+							<TextField
+								id="outlined-start-adornment"
+								defaultValue=""
+								label="GPAX"
 								variant="outlined"
 								disabled={isUpdated}
 							/>

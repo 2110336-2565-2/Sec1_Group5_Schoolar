@@ -1,5 +1,5 @@
-import { Button, Paper, Typography, Divider, Box, Grid } from '@mui/material'
 import PushPinIcon from '@mui/icons-material/PushPin'
+import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
 export function Scholarship(props) {

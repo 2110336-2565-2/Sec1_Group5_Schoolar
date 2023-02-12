@@ -1,9 +1,9 @@
 import React from 'react'
+import FormProviderUpd from '@components/Layout/FormProviderUpd'
 import { Button } from '@mui/material'
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
-import FormProviderUpd from '@components/Layout/FormProviderUpd'
 
 export default function UpdateProviderInfo() {
 	const [disabled, setDisabled] = React.useState(true)

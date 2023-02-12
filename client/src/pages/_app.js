@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Center } from '@components/common'
 import WebLayout from '@components/Layout'
+import { Typography } from '@mui/material'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
 
@@ -8,8 +10,6 @@ import { AuthContextProvider } from '@/context/AuthContext'
 import axios from '../pages/api/axios'
 
 import '@/styles/globals.css'
-import { Center } from '@components/common'
-import { Typography } from '@mui/material'
 
 export default function App({ Component, pageProps }) {
 	const [auth, setAuth] = useState(null) //{username, role, accessToken}

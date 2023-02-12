@@ -69,7 +69,7 @@ const FormRegister = ({ setData, setPage }) => {
 				helperText={errors?.username ? errors.username.message : null}
 			/>
 			<TextField
-			required
+				required
 				label="Email"
 				variant="outlined"
 				autoComplete="email"

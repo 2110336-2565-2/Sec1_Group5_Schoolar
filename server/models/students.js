@@ -34,7 +34,7 @@ const studentSchema = new Schema({
 	},
 	education: [
 		{
-			gpax: Number,
+			gpax: String,
 		},
 		{
 			faculty: String,
@@ -43,13 +43,11 @@ const studentSchema = new Schema({
 	// below this is the criteria for matching
 	householdIncome: {
 		// backend tranform number to rank
-		required: true,
 		type: String,
 		enum: ['high', 'medium', 'low'], // changing later
 		index: true,
 	},
 	targetNation: {
-		required: true,
 		type: String,
 		maxLength: 60,
 		index: true,
@@ -57,21 +55,18 @@ const studentSchema = new Schema({
 		trim: true,
 	},
 	typeOfScholarship: {
-		required: true,
 		type: String,
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
 	employment: {
 		//currently employed or unemployed
-		required: true,
 		type: Boolean,
 		index: true,
 		trim: true,
 	},
 	field: {
 		// field of interest
-		required: true,
 		type: String,
 		index: true,
 		trim: true,

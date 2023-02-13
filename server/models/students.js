@@ -61,7 +61,6 @@ const studentSchema = new Schema({
 		index: true,
 	},
 	targetNation: {
-		required: true,
 		type: String,
 		maxLength: 60,
 		index: true,
@@ -69,7 +68,6 @@ const studentSchema = new Schema({
 		trim: true,
 	},
 	typeOfScholarship: {
-		required: true,
 		type: String,
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,

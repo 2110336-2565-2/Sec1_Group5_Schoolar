@@ -1,17 +1,26 @@
-import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, TextField } from '@mui/material'
 import { Stack } from '@mui/system'
 
-const FormPvdInfo = () => {
+const FormPvdInfo = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
-	const [value, setValue] = React.useState()
 
-	const onSubmit = (data) => alert(JSON.stringify(data))
+	const [form, setForm] = useState(false)
+
+	const onSubmit = (data) => {
+		alert(JSON.stringify(data))
+		if (!form) setForm(!form)
+		else {
+			let allData = Object.assign(registerData, data)
+			console.log(allData)
+			//axios.post(`/register`, data).then(res => console.log(res.data));
+		}
+	}
 
 	return (
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
@@ -20,6 +29,7 @@ const FormPvdInfo = () => {
 					required
 					id="outlined"
 					label="Provider Name"
+					autoComplete="providerName"
 					{...register('providerName', {
 						required: 'Provider Name is required',
 						minLength: {
@@ -29,7 +39,7 @@ const FormPvdInfo = () => {
 						pattern: {
 							// Contain only alphabets and numbers
 							value: /^[a-zA-Z0-9]+$/,
-							message: 'Provider Name contain invalid character',
+							message: 'Provider Name contains invalid character',
 						},
 					})}
 					error={!!errors?.providerName}
@@ -53,6 +63,8 @@ const FormPvdInfo = () => {
 					label="Phone number"
 					{...register('phoneNumber', {
 						required: 'Phone Number is required',
+						minLength: { value: 9, message: 'Phone Number must be at least 9 digits' },
+						maxLength: { value: 10, message: 'Phone Number must be at most 10 digits' },
 						pattern: {
 							value: /^[0-9]*$/,
 							message: 'Phone number contains invalid character',
@@ -84,7 +96,8 @@ const FormPvdInfo = () => {
 					id="outlined"
 					label="Address"
 					{...register('address', {
-						required: 'Address is required'
+						required: 'Address is required',
+						minLength: { value: 2, message: 'Address must be at least 2 characters' },
 					})}
 					error={!!errors?.address}
 					helperText={errors?.address ? errors.address.message : null}

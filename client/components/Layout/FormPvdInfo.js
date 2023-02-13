@@ -8,7 +8,7 @@ const FormPvdInfo = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm()
+	} = useForm({ mode: 'onBlur' })
 	const [value, setValue] = React.useState()
 
 	const onSubmit = (data) => alert(JSON.stringify(data))
@@ -17,24 +17,26 @@ const FormPvdInfo = () => {
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
 				<TextField
+					required
 					id="outlined"
-					label="Organization"
-					{...register('organization', {
-						required: 'Organization is required',
+					label="Provider Name"
+					{...register('providerName', {
+						required: 'Provider Name is required',
 						minLength: {
 							value: 2,
-							message: 'Organization must be at least 2 characters',
+							message: 'Provider Name must be at least 2 characters',
 						},
 						pattern: {
 							// Contain only alphabets and numbers
 							value: /^[a-zA-Z0-9]+$/,
-							message: 'Organization contain invalid character',
+							message: 'Provider Name contain invalid character',
 						},
 					})}
-					error={!!errors?.organization}
-					helperText={errors?.organization ? errors.organization.message : null}
+					error={!!errors?.providerName}
+					helperText={errors?.providerName ? errors.providerName.message : null}
 				/>
 				<TextField
+					required
 					id="outlined"
 					label="Website"
 					{...register('website', {
@@ -46,6 +48,7 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
 					label="Phone number"
 					{...register('phoneNumber', {
@@ -60,6 +63,7 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
 					label="Credit Card Number"
 					{...register('creditCardNumber', {
@@ -76,19 +80,15 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
-					label="Email"
-					{...register('email', {
-						pattern: {
-							value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-							message: 'Email is incorrect form',
-						},
+					label="Address"
+					{...register('address', {
+						required: 'Address is required'
 					})}
-					error={!!errors?.email}
-					helperText={errors?.email ? errors.email.message : null}
+					error={!!errors?.address}
+					helperText={errors?.address ? errors.address.message : null}
 				/>
-
-				<TextField id="outlined" label="Address" {...register('address')} />
 
 				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 					SUBMIT

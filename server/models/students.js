@@ -32,26 +32,33 @@ const studentSchema = new Schema({
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
 	},
-	degree:{
+	phoneNumber: {
 		required: true,
 		type: String,
-		enum: ['high school', 'bachelor', 'master','doctoral'],
+		maxLength: 10,
+		unique: true,
+		trim: true
 	},
-	school:{
+	degree: {
 		required: true,
 		type: String,
-		trim : true,
+		enum: ['high school', 'bachelor', 'master', 'doctoral'],
 	},
-	program:{
+	school: {
 		required: true,
 		type: String,
-		enum: ['Sci-Math','Art-Cal','Art-Language','Art-Society','Art-General',
-				'Faculty of Allied Health Sciences', 'Faculty of Architecture', 'Faculty of Arts',
-				'Faculty of Commerce and Accountancy','Faculty of Communication Arts','Faculty of Dentistry',
-				'Faculty of Economics','Faculty of Education','Faculty of Engineering','Faculty of Fine and Applied Arts',
-				'Faculty of Law','Faculty of Medicine','Faculty of Nursing','Faculty of Pharmaceutical Sciences',
-				'Faculty of Political Science','Faculty of Psychology','Faculty of Science','Faculty of Sports Science',
-				'Faculty of Veterinary Science'],
+		trim: true,
+	},
+	program: {
+		required: true,
+		type: String,
+		enum: ['Sci-Math', 'Art-Cal', 'Art-Language', 'Art-Society', 'Art-General',
+			'Faculty of Allied Health Sciences', 'Faculty of Architecture', 'Faculty of Arts',
+			'Faculty of Commerce and Accountancy', 'Faculty of Communication Arts', 'Faculty of Dentistry',
+			'Faculty of Economics', 'Faculty of Education', 'Faculty of Engineering', 'Faculty of Fine and Applied Arts',
+			'Faculty of Law', 'Faculty of Medicine', 'Faculty of Nursing', 'Faculty of Pharmaceutical Sciences',
+			'Faculty of Political Science', 'Faculty of Psychology', 'Faculty of Science', 'Faculty of Sports Science',
+			'Faculty of Veterinary Science'],
 	},
 	// below this is the criteria for matching
 	householdIncome: {		// backend tranform number to rank

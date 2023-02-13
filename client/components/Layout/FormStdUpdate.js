@@ -12,12 +12,11 @@ import {
 	FormGroup,
 	FormLabel,
 	MenuItem,
-	TextField,
-	InputLabel,
 	OutlinedInput,
 	FormHelperText,
 	Stack,
 	Grid,
+	TextField,
 } from '@mui/material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -67,7 +66,6 @@ const FormUpdateStdInfo = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	const { auth, setAuth } = useAuth()
 
 	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [password, setPassword] = useState('')
@@ -102,6 +100,7 @@ const FormUpdateStdInfo = () => {
 			console.log(res.data)
 		})
 	}, [])
+
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>

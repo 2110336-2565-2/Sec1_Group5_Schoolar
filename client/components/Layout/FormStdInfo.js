@@ -14,25 +14,31 @@ import {
 } from '@mui/material'
 import { Stack } from '@mui/system'
 import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import dayjs from 'dayjs'
 import axios from 'axios'
 
-const FormProvideStdInfo = () => {
+const FormStdInfo = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm()
+	} = useForm({mode: 'onBlur'})
 
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
+	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [form, setForm] = useState(false)
 
 	const onSubmit = (data) => {
 		alert(JSON.stringify(data))
 		if (!form) setForm(!form)
-		/*
-		else{
-			axios.post(`/register/std-info`, data).then(res => console.log(res.data));
-		}*/
+		else {
+			let allData = Object.assign(registerData, data)
+			console.log(allData)
+			//axios.post(`/register`, data).then(res => console.log(res.data));
+		}
 	}
 
 	return (
@@ -49,6 +55,7 @@ const FormProvideStdInfo = () => {
 								<TextField
 									id="outlined-required"
 									label="Fisrt Name"
+									autoComplete="firstName"
 									{...register('firstName', {
 										required: 'First name is required',
 										minLength: {
@@ -82,16 +89,24 @@ const FormProvideStdInfo = () => {
 									helperText={errors?.lastName ? errors.lastName.message : null}
 								/>
 
-								<TextField
-									id="date"
-									type="date"
-									label="Date of birth"
-									{...register('birthdate', {
-										required: 'Date of birth is required',
-									})}
-									error={!!errors?.birthdate}
-									helperText={errors?.birthdate ? errors.birthdate.message : null}
-								/>
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<DatePicker
+										disableFuture
+										required
+										label="Date of Birth"
+										openTo="year"
+										views={['year', 'month', 'day']}
+										value={value}
+										onChange={(newValue) => {
+											setValue(newValue)
+										}}
+										renderInput={(params) => <TextField {...params} />}
+										{...register('birthdate', {
+											required: 'Date of birth is required',
+										})}
+									/>
+								</LocalizationProvider>
+
 								<TextField
 									select
 									id="outlined"
@@ -125,24 +140,9 @@ const FormProvideStdInfo = () => {
 									}
 								/>
 
-								<TextField
-									id="outlined"
-									label="Email"
-									{...register('email', {
-										required: 'Email is required',
-										pattern: {
-											value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-											message: 'Email is incorrect form',
-										},
-									})}
-									error={!!errors?.email}
-									helperText={errors?.email ? errors.email.message : null}
-								/>
-
 								<Button
 									variant="contained"
 									type="submit"
-									// onClick={handleNext}
 									sx={{ backgroundColor: '#3F51A9' }}
 								>
 									NEXT
@@ -313,4 +313,4 @@ const FormProvideStdInfo = () => {
 	)
 }
 
-export default FormProvideStdInfo
+export default FormStdInfo

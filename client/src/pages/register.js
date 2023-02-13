@@ -9,6 +9,8 @@ export default function Register() {
 	const [data, setData] = useState({})
 	const [page, setPage] = useState('register')
 
+	//console.log(data);
+
 	switch (page) {
 		case 'register':
 			return (
@@ -18,7 +20,7 @@ export default function Register() {
 				/>
 			)
 		case 'student':
-			return <FormPrimary header="Student Information" form={<FormStdInfo />} />
+			return <FormPrimary header="Student Information" form={<FormStdInfo registerData={data}/>} />
 		case 'provider':
 			return <FormPrimary header="Provider Information" form={<FormPvdInfo />} />
 		default:

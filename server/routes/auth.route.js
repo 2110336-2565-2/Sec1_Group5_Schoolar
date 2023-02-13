@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { register, login, refreshToken, profile, isDupe, stdInfo } = require('../controllers/auth.controller')
+const { register, login, refreshToken, profile, isDupe} = require('../controllers/auth.controller')
 
 router.post(
 	'/register',
@@ -40,8 +40,6 @@ router.post(
 	],
 	login,
 )
-
-router.post('register/std-info', stdInfo)
 
 router.get('/refresh-token', refreshToken)
 

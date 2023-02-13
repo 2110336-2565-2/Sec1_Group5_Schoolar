@@ -17,6 +17,7 @@ import {
 	Stack,
 	Grid,
 	TextField,
+	InputLabel,
 } from '@mui/material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -64,12 +65,12 @@ const FormUpdateStdInfo = () => {
 	//* example of using axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 
-	useEffect(() => {
-		//* example of using axios private to get data from route that need token
-		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
-			console.log(res.data)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	//* example of using axios private to get data from route that need token
+	// 	axiosPrivate.get(`/student/${auth.username}`).then((res) => {
+	// 		console.log(res.data)
+	// 	})
+	// }, [])
 
 
 	return (

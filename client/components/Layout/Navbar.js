@@ -46,6 +46,7 @@ function Navbar() {
 	}
 
 	const toEditProfile = () => {
+		router.push('/provider-update')
 		console.log('TO EDIT PROFILE PAGE')
 	}
 
@@ -131,18 +132,18 @@ function Navbar() {
 									anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 								>
 									{auth ? (
-										<>
-											<MenuItem onClick={toEditProfile}>
+										[
+											<MenuItem onClick={toEditProfile} key="Edit Profile">
 												<Avatar />
 												Edit Profile
-											</MenuItem>
-											<MenuItem onClick={toLogin}>
+											</MenuItem>,
+											<MenuItem onClick={toLogin} key={'Logout'}>
 												<ListItemIcon>
 													<Logout fontSize="small" />
 												</ListItemIcon>
 												Logout
-											</MenuItem>
-										</>
+											</MenuItem>,
+										]
 									) : (
 										<MenuItem onClick={toLogin}>
 											<ListItemIcon>

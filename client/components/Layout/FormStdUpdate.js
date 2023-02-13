@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
+import { useAuth } from '@/context/AuthContext'
 import {
 	Box,
 	Button,
@@ -66,6 +67,7 @@ const FormUpdateStdInfo = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+	const { auth, setAuth } = useAuth()
 
 	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [password, setPassword] = useState('')
@@ -96,7 +98,7 @@ const FormUpdateStdInfo = () => {
 
 	useEffect(() => {
 		//* example of using axios private to get data from route that need token
-		axiosPrivate.get('/student/student-update').then((res) => {
+		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
 			console.log(res.data)
 		})
 	}, [])

@@ -19,16 +19,23 @@ exports.register = (req, res) => {
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, role } = req.body
+		const { username, password, email, role
+			, firstName, lastName, birthdate, gender
+			, phoneNumber, degree, school, program, householdIncome
+			, targetNation, typeOfScholarship, employment, field
+			, providerName, address, website, creditCardNumber, verifyStatus } = req.body
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
 				User.create({ username, password: hash, email, role }, (err, user) => {
 					if (err) {
-						res.status(400).json({ err })
+						res.status(400).send({ message: err.message })
 					} else if (role == 'student') {
 						Student.create(
-							{ userID: new ObjectId(user._id), username },
+							{ userID: new ObjectId(user._id), username 
+								,firstName, lastName, birthdate, gender
+								, phoneNumber, degree, school, program
+								, householdIncome, targetNation, typeOfScholarship, employment, field },
 							(err, student) => {
 								if (err) {
 									res.status(400).json({ err })
@@ -38,7 +45,8 @@ exports.register = (req, res) => {
 							},
 						)
 					} else {
-						Provider.create({ username }, (err, provider) => {
+						Provider.create({ userID: new ObjectId(user._id), providerName
+							, address, website, creditCardNumber, phoneNumber, verifyStatus }, (err, provider) => {
 							if (err) {
 								res.status(400).json({ err })
 							} else {

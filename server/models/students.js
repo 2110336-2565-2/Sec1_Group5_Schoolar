@@ -22,8 +22,8 @@ const studentSchema = new Schema({
 	birthdate: {
 		//birthdate ,using Date type has some complicated change
 		required: true,
-		type: Date, //possible to change
-		maxLength: 8,
+		type: String, //possible to change
+		maxLength: 10,
 		trim: true,
 	},
 	// age: calculate from bd
@@ -44,17 +44,14 @@ const studentSchema = new Schema({
 		type: Number,
 	},
 	degree: {
-		required: true,
 		type: String,
 		enum: ['high school', 'bachelor', 'master', 'doctoral'],
 	},
 	school: {
-		required: true,
 		type: String,
 		trim: true,
 	},
 	program: {
-		required: true,
 		type: String,
 		enum: [
 			'Sci-Math',
@@ -85,9 +82,7 @@ const studentSchema = new Schema({
 	},
 	// below this is the criteria for matching
 	householdIncome: {		// backend tranform number to rank
-		required: true,
-		type: String,
-		enum: ['high', 'medium', 'low'], // changing later
+		type: Number,
 		index: true,
 	},
 	targetNation: {
@@ -99,17 +94,15 @@ const studentSchema = new Schema({
 	},
 	typeOfScholarship: {
 		type: String,
-		enum: ['full', 'partial', 'renewable', 'fellow'],
+		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
 	employment: {		//currently employed or unemployed
-		required: true,
 		type: Boolean,
 		index: true,
 		trim: true,
 	},
 	field: {			// field of interest
-		required: true,
 		type: String,
 		index: true,
 		trim: true,

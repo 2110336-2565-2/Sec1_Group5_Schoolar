@@ -165,14 +165,23 @@ exports.isDupe = (req, res) => {
 
 exports.logout = async (req, res) => {
 	// #swagger.tags = ['auth']
-	const { refreshToken } = req.cookies
+	//const cookies = req.cookies
+	
+	const cookies = req.cookies
 	try {
-		const user = await User.findOne({ refreshToken })
+		const user = await User.findOne({ "refreshToken": cookies.jwt })
 		if (!user) return res.status(401).json({message: "Not found user"})
 
 		user.refreshToken = undefined
 		await user.save()
 
+		//res.cookies('jwt', '', {maxAge:1});
+
+		res.clearCookie("jwt", {
+			path: "/",
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+		  });
 		res.clearCookie('refreshToken')
 		res.send('Logged out successfully')
 	} catch (error) {

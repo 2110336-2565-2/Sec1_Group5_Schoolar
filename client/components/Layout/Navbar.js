@@ -18,9 +18,12 @@ import AppBar from '@mui/material/AppBar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function Navbar() {
 	const { auth } = useAuth()
+	const router = useRouter()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -33,10 +36,17 @@ function Navbar() {
 		setAnchorEl(null)
 	}
 
-	const handleLogout = () => {
-		console.log('LOGOUT')
-	}
-
+	const handleLogout = async () => {
+		try {
+			await axios.put('/auth/logout');
+			window.location.reload();
+			  // Clear local storage or perform any necessary cleanup
+		} catch (error) {
+			  console.error(error);
+		}
+	};
+		  
+	
 	const AccountDropDown = () => {
 		switch (auth) {
 			case null:

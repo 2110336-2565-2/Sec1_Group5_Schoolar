@@ -19,16 +19,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
-//{ registerData }
-
-const FormStdInfo = () => {
+const FormStdInfo = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
 
+	const router = useRouter()
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
 	const [value, setValue] = useState(dayjs())
 	const [form, setForm] = useState(false)
@@ -40,21 +40,20 @@ const FormStdInfo = () => {
 			  'Content-Type': 'application/json'
 			}})
 			alert(response.data);
+			router.push('/');
 		} catch (error) {
 		  console.error(error);
 		}
 	  }
-	const registerData = {"username":"gift", "password": "898"}
 
 	const onSubmit = (data) => {
-		alert(JSON.stringify(data))
+		//alert(JSON.stringify(data))
 		if (!form) setForm(!form)
 		else {
 			const allData = Object.assign(registerData, data)
-			const allDataJson = JSON.stringify(allData)
-			//Validate
-			if(allDataJson["degree"] === "") alert(" HEY NO DEGREE")
-			sendData(allData);
+			//const allDataJson = JSON.stringify(allData)
+			//console.log(allDataJson);
+			sendData(JSON.stringify(allData));
 		}
 	}
 
@@ -108,7 +107,7 @@ const FormStdInfo = () => {
 									helperText={errors?.lastName ? errors.lastName.message : null}
 								/>
 
-								<TextField
+								{/* <TextField
 									id="date"
 									type="date"
 									label="Date of birth"
@@ -117,7 +116,7 @@ const FormStdInfo = () => {
 									})}
 									error={!!errors?.birthdate}
 									helperText={errors?.birthdate ? errors.birthdate.message : null}
-								/>
+								/> */}
 
 								{/* <LocalizationProvider dateAdapter={AdapterDayjs}
 								>
@@ -130,11 +129,23 @@ const FormStdInfo = () => {
 										value={value}
 										onChange={(newValue) => {
 											setValue(newValue)
+											
 										}}
 										renderInput={(params) => <TextField {...params} />}
 										
 									/>
 								</LocalizationProvider> */}
+
+								<TextField
+										id="date"
+										label="birth of Date"
+										type="date"
+										name="selectedDate"
+										{...register('date', { required: true })}
+										InputLabelProps={{
+										shrink: true,
+										}}
+									/>
 
 								<TextField
 									required
@@ -164,6 +175,8 @@ const FormStdInfo = () => {
 											value: /^[0-9]*$/,
 											message: 'Phone number contains invalid character',
 										},
+										minLength: {value: 9, message: "Phone number must be at least 9 characters"},
+										maxLength: {value: 10, message: "Phone number must be at most 10 characters"}
 									})}
 									error={!!errors?.phoneNumber}
 									helperText={
@@ -268,15 +281,16 @@ const FormStdInfo = () => {
 								<RadioGroup
 									row
 									sx={{ m: 0, justifyContent: 'space-between' }}
+									defaultValue={false}
 									{...register('employment')}
 								>
 									<FormControlLabel
-										value="true"
+										value={true}
 										control={<Radio />}
 										label="Yes"
 									></FormControlLabel>
 									<FormControlLabel
-										value="false"
+										value={false}
 										control={<Radio />}
 										label="No"
 									></FormControlLabel>

@@ -8,7 +8,7 @@ import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import axios from '../api/axios'
+import axios from './api/axios'
 
 function ForgotPassword() {
 	const router = useRouter()
@@ -29,7 +29,7 @@ function ForgotPassword() {
 
 	const onSubmit = (data) => {
 		console.log(data)
-		axios.post('/resetPassword/email',{"email": data.email}).then((res) => {
+		axios.post('/resetPassword/email', { email: data.email }).then((res) => {
 			console.log(res.data)
 		})
 	}
@@ -42,7 +42,7 @@ function ForgotPassword() {
 		}
 	}
 	return (
-		<Center height={'90vh'}>
+		<Center>
 			<FormControl
 				component="form"
 				display={'flex'}
@@ -54,7 +54,7 @@ function ForgotPassword() {
 			>
 				<Center
 					sx={{
-						border: '0.1rem solid #2C429B',
+						border: '0.2rem solid #2C429B',
 						borderRadius: '1.5rem',
 						width: {
 							xs: '90vw',
@@ -66,11 +66,12 @@ function ForgotPassword() {
 							sm: '500px',
 							xl: '650px',
 						},
+						backgroundColor: 'white',
 					}}
 				>
 					<Center
 						sx={{
-							border: '0.1rem solid #FDBA21',
+							border: '0.2rem solid #FDBA21',
 							borderRadius: '1rem',
 							width: {
 								xs: '80vw',
@@ -125,7 +126,7 @@ function ForgotPassword() {
 								fontWeight={'light'}
 								align="center"
 							>
-								Enter your email address and we’ll send a link to get back to your
+								Enter your email address and we'll send a link to get back to your
 								account.
 							</Typography>
 							<TextField

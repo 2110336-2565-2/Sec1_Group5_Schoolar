@@ -13,39 +13,8 @@ import {
 	TextField,
 } from '@mui/material'
 import { Stack } from '@mui/system'
-
-const genders = [
-	{ value: 'Male', label: 'Male' },
-	{ value: 'Female', label: 'Female' },
-	{ value: 'Non-binary', label: 'Non-binary' },
-]
-
-const faculty = [
-	{ value: 'engineering', label: 'Engineering' },
-	{ value: 'medicine', label: 'Medicine' },
-	{ value: 'dentistry', label: 'Dentistry' },
-	{ value: 'commerceAndAccountancy', label: 'Commerce and Accountancy' },
-	{ value: 'law', label: 'Law' },
-]
-
-const programs = [
-	{ value: 'sci-math', label: 'Sci-math' },
-	{ value: 'art-math', label: 'Art-math' },
-	{ value: 'language-arts', label: 'Language-arts' },
-]
-
-const degrees = [
-	{ value: 'highSchool', label: 'High School' },
-	{ value: 'bachelor', label: 'Bachelor' },
-	{ value: 'master', label: 'Master' },
-]
-
-const scholarshipTypes = [
-	{ value: 'Full scholarship', label: 'Full Scholarship' },
-	{ value: 'Partial scholarship', label: 'Partial Scholarship' },
-	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
-	{ value: 'Followship', label: 'Followship' },
-]
+import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import axios from 'axios'
 
 const FormProvideStdInfo = () => {
 	const {
@@ -54,21 +23,17 @@ const FormProvideStdInfo = () => {
 		formState: { errors },
 	} = useForm()
 
-	
-	const onSubmit = (data) => {
-		//console.log(errors)
-		console.log(data)
-		alert(JSON.stringify(data))
-	}
-
+	const [selectProgram, setSelectProgram] = useState(studentProgram)
 	const [form, setForm] = useState(false)
-	const handleNext = () => {
-		setForm(!form);
+
+	const onSubmit = (data) => {
+		alert(JSON.stringify(data))
+		if (!form) setForm(!form)
+		/*
+		else{
+			axios.post(`/register/std-info`, data).then(res => console.log(res.data));
+		}*/
 	}
-
-	const [degree, setDegree] = useState('');
-
-	console.log(errors);
 
 	return (
 		<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
@@ -101,9 +66,8 @@ const FormProvideStdInfo = () => {
 								/>
 								<TextField
 									id="outlined"
-									label="Surname"
-									autoComplete="Surname"
-									{...register('surname', {
+									label="Last name"
+									{...register('lastName', {
 										required: 'Surname is required',
 										minLength: {
 											value: 2,
@@ -114,23 +78,20 @@ const FormProvideStdInfo = () => {
 											message: 'Surname contain invalid character',
 										},
 									})}
-									error={!!errors?.surname}
-									helperText={errors?.surname ? errors.surname.message : null}
+									error={!!errors?.lastName}
+									helperText={errors?.lastName ? errors.lastName.message : null}
 								/>
 
 								<TextField
 									id="date"
 									type="date"
 									label="Date of birth"
-									{...register('dateOfBirth', {
+									{...register('birthdate', {
 										required: 'Date of birth is required',
 									})}
-									error={!!errors?.dateOfBirth}
-									helperText={
-										errors?.dateOfBirth ? errors.dateOfBirth.message : null
-									}
+									error={!!errors?.birthdate}
+									helperText={errors?.birthdate ? errors.birthdate.message : null}
 								/>
-
 								<TextField
 									select
 									id="outlined"
@@ -180,10 +141,8 @@ const FormProvideStdInfo = () => {
 
 								<Button
 									variant="contained"
-									onClick={() => {
-										const isValid = handleSubmit(onSubmit);
-										if (isValid) {handleNext();}
-									}}
+									type="submit"
+									// onClick={handleNext}
 									sx={{ backgroundColor: '#3F51A9' }}
 								>
 									NEXT
@@ -193,15 +152,47 @@ const FormProvideStdInfo = () => {
 
 						{form && (
 							<>
-								{/* Additional information */}
+								<TextField
+									id="outlined"
+									label="School/University"
+									{...register('school', {
+										pattern: {
+											value: /^[A-Za-z]+$/,
+											message:
+												'School or Univeristy contains invalid character',
+										},
+									})}
+									error={!!errors?.school}
+									helperText={errors?.school ? errors.school.message : null}
+								/>
 
 								<TextField
 									select
 									id="outlined"
 									label="Degree"
-									{...register('education.degree')}
+									onClick={(event) => {
+										if (event.target.value === 'high school') {
+											setSelectProgram(studentProgram)
+										} else {
+											setSelectProgram(uniProgram)
+										}
+									}}
+									{...register('degree')}
 								>
-									{degrees.map((option) => (
+									{degree.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
+
+								<TextField
+									select
+									id="outlined"
+									label="Program/Faculty"
+									{...register('program')}
+								>
+									{selectProgram.map((option) => (
 										<MenuItem key={option.value} value={option.value}>
 											{option.label}
 										</MenuItem>
@@ -210,22 +201,8 @@ const FormProvideStdInfo = () => {
 
 								<TextField
 									id="outlined"
-									label="School/University"
-									{...register('education.school', {
-										pattern: {
-											value: /^[A-Za-z]+$/,
-											message:
-												'School or Univeristy contains invalid character',
-										},
-									})}
-									error={!!errors?.education?.school}
-									helperText={errors?.education?.school ? errors.education?.school.message : null}
-								/>
-
-								<TextField
-									id="outlined"
 									label="GPAX"
-									{...register('education.gpax', {
+									{...register('gpax', {
 										pattern: {
 											value: /^[0-9]*\.[0-9][0-9]$/,
 											message: 'GPAX must be float number with 2 digits',
@@ -233,27 +210,14 @@ const FormProvideStdInfo = () => {
 										min: { value: 0, message: 'GPAX must be positive' },
 										max: { value: 4, message: 'GPAX must be at most 4' },
 									})}
-									error={!!errors?.education?.gpax}
-									helperText={errors?.education?.gpax ? errors.educational?.gpax.message : null}
+									error={!!errors?.gpax}
+									helperText={errors?.gpax ? errors.gpax.message : null}
 								/>
-
-								<TextField
-									select
-									id="outlined"
-									label="Program/Faculty"
-									{...register('education.program')}
-								>
-									{programs.map((option) => (
-										<MenuItem key={option.value} value={option.value}>
-											{option.label}
-										</MenuItem>
-									))}
-								</TextField>
 
 								<TextField
 									id="outlined"
 									label="Household income"
-									{...register('income', {
+									{...register('householdIncome', {
 										pattern: {
 											value: /^[0-9]*$/,
 											message: 'Income must be integer',
@@ -324,14 +288,22 @@ const FormProvideStdInfo = () => {
 									error={!!errors?.field}
 									helperText={errors?.field ? errors.field.message : null}
 								/>
-
-								<Button
-									variant="contained"
-									type="submit"
-									sx={{ backgroundColor: '#3F51A9' }}
-								>
-									SUBMIT
-								</Button>
+								<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+									<Button
+										variant="contained"
+										onClick={() => setForm(!form)}
+										sx={{ backgroundColor: '#3F51A9', width: '100%' }}
+									>
+										BEFORE
+									</Button>
+									<Button
+										variant="contained"
+										type="submit"
+										sx={{ backgroundColor: '#3F51A9', width: '100%' }}
+									>
+										SUBMIT
+									</Button>
+								</Stack>
 							</>
 						)}
 					</Stack>

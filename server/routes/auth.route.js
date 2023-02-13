@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { register, login, refreshToken, profile, isDupe, logout } = require('../controllers/auth.controller')
+const { register, login, refreshToken, profile, isDupe, stdInfo } = require('../controllers/auth.controller')
 
 router.post(
 	'/register',
@@ -41,10 +41,10 @@ router.post(
 	login,
 )
 
+router.post('register/std-info', stdInfo)
+
 router.get('/refresh-token', refreshToken)
 
 router.get('/isDupe/:field/:value', isDupe)
-
-router.delete('/logout', logout)
 
 module.exports = router

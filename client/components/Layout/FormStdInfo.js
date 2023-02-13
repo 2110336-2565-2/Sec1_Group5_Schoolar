@@ -141,7 +141,7 @@ const FormStdInfo = ({ registerData }) => {
 										label="birth of Date"
 										type="date"
 										name="selectedDate"
-										{...register('date', { required: true })}
+										{...register('birthdate', { required: true })}
 										InputLabelProps={{
 										shrink: true,
 										}}

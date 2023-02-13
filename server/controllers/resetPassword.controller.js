@@ -13,6 +13,7 @@ const handleValidationResult = (result, res) => {
 // @route       PUT /resetPassword/password
 // @access      public
 exports.resetPassword = async (req, res) => {
+    // #swagger.tags = ['reset password']
     const result = validationResult(req)
 	handleValidationResult(result, res)
     
@@ -38,6 +39,7 @@ exports.resetPassword = async (req, res) => {
 // @access      public
 // Route to generate a reset password token
 exports.sendEmailResetPassword = async (req, res) => {
+    // #swagger.tags = ['reset password']
     const { email } = req.body;
 
     // Find the user by email

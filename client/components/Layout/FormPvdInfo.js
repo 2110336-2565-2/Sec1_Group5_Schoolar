@@ -1,40 +1,52 @@
-import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, TextField } from '@mui/material'
 import { Stack } from '@mui/system'
 
-const FormPvdInfo = () => {
+const FormPvdInfo = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm()
-	const [value, setValue] = React.useState()
+	} = useForm({ mode: 'onBlur' })
 
-	const onSubmit = (data) => alert(JSON.stringify(data))
+	const [form, setForm] = useState(false)
+
+	const onSubmit = (data) => {
+		alert(JSON.stringify(data))
+		if (!form) setForm(!form)
+		else {
+			let allData = Object.assign(registerData, data)
+			console.log(allData)
+			//axios.post(`/register`, data).then(res => console.log(res.data));
+		}
+	}
 
 	return (
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
 				<TextField
+					required
 					id="outlined"
-					label="Organization"
-					{...register('organization', {
-						required: 'Organization is required',
+					label="Provider Name"
+					autoComplete="providerName"
+					{...register('providerName', {
+						required: 'Provider Name is required',
 						minLength: {
 							value: 2,
-							message: 'Organization must be at least 2 characters',
+							message: 'Provider Name must be at least 2 characters',
 						},
 						pattern: {
 							// Contain only alphabets and numbers
 							value: /^[a-zA-Z0-9]+$/,
-							message: 'Organization contain invalid character',
+							message: 'Provider Name contains invalid character',
 						},
 					})}
-					error={!!errors?.organization}
-					helperText={errors?.organization ? errors.organization.message : null}
+					error={!!errors?.providerName}
+					helperText={errors?.providerName ? errors.providerName.message : null}
 				/>
 				<TextField
+					required
 					id="outlined"
 					label="Website"
 					{...register('website', {
@@ -46,10 +58,13 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
 					label="Phone number"
 					{...register('phoneNumber', {
 						required: 'Phone Number is required',
+						minLength: { value: 9, message: 'Phone Number must be at least 9 digits' },
+						maxLength: { value: 10, message: 'Phone Number must be at most 10 digits' },
 						pattern: {
 							value: /^[0-9]*$/,
 							message: 'Phone number contains invalid character',
@@ -60,6 +75,7 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
 					label="Credit Card Number"
 					{...register('creditCardNumber', {
@@ -76,19 +92,16 @@ const FormPvdInfo = () => {
 				/>
 
 				<TextField
+					required
 					id="outlined"
-					label="Email"
-					{...register('email', {
-						pattern: {
-							value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-							message: 'Email is incorrect form',
-						},
+					label="Address"
+					{...register('address', {
+						required: 'Address is required',
+						minLength: { value: 2, message: 'Address must be at least 2 characters' },
 					})}
-					error={!!errors?.email}
-					helperText={errors?.email ? errors.email.message : null}
+					error={!!errors?.address}
+					helperText={errors?.address ? errors.address.message : null}
 				/>
-
-				<TextField id="outlined" label="Address" {...register('address')} />
 
 				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 					SUBMIT

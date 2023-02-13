@@ -61,19 +61,13 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 				email: res.data.user.email,
 				phoneNumber: res.data.user.phoneNumber,
 			})
-			// defaultValues.providerName = res.data.provider.providerName
-			// defaultValues.website = website
-			// defaultValues.address = address
-			// defaultValues.creditCardNumber = creditCardNumber
-			// defaultValues.email = email
-			// defaultValues.phoneNumber = phoneNumber
 		})
 	}, [])
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, dirtyFields },
+		formState: { errors },
 		getValues,
 		reset,
 		setValue,
@@ -81,7 +75,7 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 		mode: 'onBlur',
 	})
 	const onSubmit = (data) => {
-		console.log(`submitted :`)
+		console.log(`submitted`)
 		alert('Data has been updated successfully')
 		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
 			console.log(res.status)
@@ -229,74 +223,6 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 								helperText={errors?.email ? errors.email.message : null}
 								onChange={handleOnChange}
 							/>
-							{/* <FormControl >
-							<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-password"
-								type={showPassword ? 'text' : 'password'}
-								defaultValue=" "
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge="end"
-											
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-								label="password"
-								variant="outlined"
-								onChange={(e) => {
-									setPassword(e.target.value)
-								}}
-								value={password}
-							/>
-						</FormControl>
-						<FormControl
-							variant="outlined"
-							helperText={password != rePassword ? 'Password not match' : ''}
-							
-						>
-							<InputLabel
-								htmlFor="outlined-adornment-password"
-								error={password != rePassword}
-							>
-								Re-type New Password
-							</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-password"
-								defaultValue=" "
-								type={showPassword ? 'text' : 'password'}
-								value={rePassword}
-								error={password != rePassword}
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={handleMouseDownPassword}
-											edge="end"
-											
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-								label="Re-type New Password"
-								onChange={(e) => {
-									setRePassword(e.target.value)
-								}}
-							/>
-							{password != rePassword && (
-								<FormHelperText error={password != rePassword}>
-									Password not match
-								</FormHelperText>
-							)}
-						</FormControl> */}
 							<InputPassword
 								register={{
 									...register('password', {

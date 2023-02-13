@@ -6,9 +6,8 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.get('/', verifyJWT, getStudent)
 
-router.patch('/', verifyJWT, updateStudentInfo)
 router.patch(
-	'/student-update',
+	'/',
 	[
 		body('firstName')
 			.isLength({ min: 1 })

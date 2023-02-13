@@ -37,6 +37,8 @@ export default function App({ Component, pageProps }) {
 					setError(error)
 					setLoading(false)
 				})
+		} else {
+			setLoading(false)
 		}
 	}, [])
 

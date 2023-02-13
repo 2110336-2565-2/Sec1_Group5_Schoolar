@@ -156,6 +156,7 @@ exports.isDupe = (req, res) => {
 }
 
 exports.logout = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const { refreshToken } = req.cookies
 	try {
 		const user = await User.findOne({ refreshToken })

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
 	Button,
@@ -12,30 +13,33 @@ import {
 	TextField,
 } from '@mui/material'
 import { Stack } from '@mui/system'
+import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
-const genders = [
-	{ value: 'Male', label: 'Male' },
-	{ value: 'Female', label: 'Female' },
-	{ value: 'Non-binary', label: 'Non-binary' },
-]
-
-const scholarshipTypes = [
-	{ value: 'Full scholarship', label: 'Full Scholarship' },
-	{ value: 'Partial scholarship', label: 'Partial Scholarship' },
-	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
-	{ value: 'Followship', label: 'Followship' },
-]
-
-const FormProvideStdInfo = () => {
+const FormStdInfo = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm()
-	const [value, setValue] = React.useState(dayjs())
+	} = useForm({ mode: 'onBlur' })
 
-	const onSubmit = (data) => alert(JSON.stringify(data))
+	const [selectProgram, setSelectProgram] = useState(studentProgram)
+	const [value, setValue] = useState(dayjs('2001-01-01'))
+	const [form, setForm] = useState(false)
+
+	const onSubmit = (data) => {
+		alert(JSON.stringify(data))
+		if (!form) setForm(!form)
+		else {
+			let allData = Object.assign(registerData, data)
+			console.log(allData)
+			//axios.post(`/register`, data).then(res => console.log(res.data));
+		}
+	}
 
 	return (
 		<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
@@ -46,250 +50,266 @@ const FormProvideStdInfo = () => {
 					sx={{ width: '100%' }}
 				>
 					<Stack spacing={3} direction="column">
-						<TextField
-							id="outlined"
-							label="Fisrt Name"
-							{...register('firstName', {
-								required: 'First name is required',
-								minLength: {
-									value: 2,
-									message: 'First name must be at least 2 characters',
-								},
-								pattern: {
-									// Contain only alphabets
-									value: /^[A-Za-z]+$/,
-									message: 'First name contain invalid character',
-								},
-							})}
-							error={!!errors?.firstName}
-							helperText={errors?.firstName ? errors.firstName.message : null}
-						/>
-						<TextField
-							id="outlined"
-							label="Surname"
-							autoComplete="Surname"
-							{...register('surname', {
-								required: 'Surname is required',
-								minLength: {
-									value: 2,
-									message: 'Surname must be at least 2 characters',
-								},
-								pattern: {
-									value: /^[A-Za-z]+$/,
-									message: 'Surname contain invalid character',
-								},
-							})}
-							error={!!errors?.surname}
-							helperText={errors?.surname ? errors.surname.message : null}
-						/>
-						{/* <TextField
-						id="outlined"
-						label="Citizen ID"
-						{...register('citizenID', {
-							required: 'Citizen ID is required',
-							maxLength: { value: 13, message: 'Citizen ID must be 13 digits' },
-							pattern: {
-								value: /\d{13}/,
-								message: 'Citizen ID must be 13 digits',
-							},
-						})}
-						error={!!errors?.citizenID}
-						helperText={errors?.citizenID ? errors.citizenID.message : null}
-					/> */}
+						{!form && (
+							<>
+								<TextField
+									required
+									id="outlined-required"
+									label="Fisrt Name"
+									autoComplete="firstName"
+									{...register('firstName', {
+										required: 'First name is required',
+										minLength: {
+											value: 2,
+											message: 'First name must be at least 2 characters',
+										},
+										pattern: {
+											// Contain only alphabets
+											value: /^[A-Za-z]+$/,
+											message: 'First name contain invalid character',
+										},
+									})}
+									error={!!errors?.firstName}
+									helperText={errors?.firstName ? errors.firstName.message : null}
+								/>
+								<TextField
+									required
+									id="outlined"
+									label="Last name"
+									{...register('lastName', {
+										required: 'Surname is required',
+										minLength: {
+											value: 2,
+											message: 'Surname must be at least 2 characters',
+										},
+										pattern: {
+											value: /^[A-Za-z]+$/,
+											message: 'Surname contain invalid character',
+										},
+									})}
+									error={!!errors?.lastName}
+									helperText={errors?.lastName ? errors.lastName.message : null}
+								/>
 
-						<TextField
-							id="date"
-							label="Date of Birth"
-							type="date"
-							defaultValue="2001-01-01"
-							{...register('dateOfBirth1')}
-						/>
+								<LocalizationProvider dateAdapter={AdapterDayjs}>
+									<DatePicker
+										disableFuture
+										required
+										label="Date of Birth"
+										openTo="year"
+										views={['year', 'month', 'day']}
+										value={value}
+										onChange={(newValue) => {
+											setValue(newValue)
+										}}
+										renderInput={(params) => <TextField {...params} />}
+										{...register('birthdate', {
+											required: 'Date of birth is required',
+										})}
+									/>
+								</LocalizationProvider>
 
-						{/* Value of Date is not update!!
-				<LocalizationProvider dateAdapter= {AdapterDayjs}>
-					<DatePicker
-					disableFuture
-					label="Date of Birth"
-					openTo="year"
-					views={['year', 'month', 'day']}
-					value={value}
-					onChange={(newValue) => { setValue(newValue)}}
-					renderInput={(params) => <TextField {...params}
-					{...register("dateOfBirth")} />}
-					/>
-				</LocalizationProvider> */}
+								<TextField
+									required
+									select
+									id="outlined"
+									label="Gender"
+									{...register('gender', {
+										required: 'Gender is required',
+									})}
+									error={!!errors?.gender}
+									helperText={errors?.gender ? errors.gender.message : null}
+								>
+									{genders.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
 
-						<TextField
-							select
-							id="outlined"
-							label="Gender"
-							defaultValue="Non-binary"
-							{...register('gender')}
-						>
-							{genders.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
+								<TextField
+									required
+									id="outlined"
+									label="Phone number"
+									{...register('phoneNumber', {
+										required: 'Phone number is required',
+										pattern: {
+											value: /^[0-9]*$/,
+											message: 'Phone number contains invalid character',
+										},
+									})}
+									error={!!errors?.phoneNumber}
+									helperText={
+										errors?.phoneNumber ? errors.phoneNumber.message : null
+									}
+								/>
 
-						<TextField
-							id="outlined"
-							label="Faculty"
-							{...register('faculty', {
-								pattern: {
-									value: /^[A-Za-z]+$/,
-									message: 'Faculty contains invalid character',
-								},
-							})}
-							error={!!errors?.faculty}
-							helperText={errors?.faculty ? errors.faculty.message : null}
-						/>
+								<Button
+									variant="contained"
+									type="submit"
+									sx={{ backgroundColor: '#3F51A9' }}
+								>
+									NEXT
+								</Button>
+							</>
+						)}
 
-						<TextField
-							id="outlined"
-							label="Year"
-							{...register('year', {
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Year contains invalid character',
-								},
-							})}
-							error={!!errors?.year}
-							helperText={errors?.year ? errors.year.message : null}
-						/>
+						{form && (
+							<>
+								<TextField
+									id="outlined"
+									label="School/University"
+									{...register('school', {
+										pattern: {
+											value: /^[A-Za-z]+$/,
+											message:
+												'School or Univeristy contains invalid character',
+										},
+									})}
+									error={!!errors?.school}
+									helperText={errors?.school ? errors.school.message : null}
+								/>
 
-						<TextField
-							id="outlined"
-							label="Phone number"
-							{...register('phoneNumber', {
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Phone number contains invalid character',
-								},
-							})}
-							error={!!errors?.phoneNumber}
-							helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
-						/>
+								<TextField
+									select
+									id="outlined"
+									label="Degree"
+									onClick={(event) => {
+										if (event.target.value === 'high school') {
+											setSelectProgram(studentProgram)
+										} else {
+											setSelectProgram(uniProgram)
+										}
+									}}
+									{...register('degree')}
+								>
+									{degree.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
 
-						<TextField
-							id="outlined"
-							label="Email"
-							{...register('email', {
-								pattern: {
-									value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-									message: 'Email is incorrect form',
-								},
-							})}
-							error={!!errors?.email}
-							helperText={errors?.email ? errors.email.message : null}
-						/>
+								<TextField
+									select
+									id="outlined"
+									label="Program/Faculty"
+									{...register('program')}
+								>
+									{selectProgram.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
 
-						<TextField
-							id="outlined"
-							label="GPAX"
-							{...register('gpax', {
-								pattern: {
-									value: /^[0-9]*\.[0-9][0-9]$/,
-									message: 'GPAX must be float number with 2 digits',
-								},
-								min: { value: 0, message: 'GPAX must be positive' },
-								max: { value: 4, message: 'GPAX must be at most 4' },
-							})}
-							error={!!errors?.gpax}
-							helperText={errors?.gpax ? errors.gpax.message : null}
-						/>
+								<TextField
+									id="outlined"
+									label="GPAX"
+									{...register('gpax', {
+										pattern: {
+											value: /^[0-9]*\.[0-9][0-9]$/,
+											message: 'GPAX must be float number with 2 digits',
+										},
+										min: { value: 0, message: 'GPAX must be positive' },
+										max: { value: 4, message: 'GPAX must be at most 4' },
+									})}
+									error={!!errors?.gpax}
+									helperText={errors?.gpax ? errors.gpax.message : null}
+								/>
 
-						{/* Range of age validation is unsure */}
-						<TextField
-							id="outlined"
-							label="Age"
-							{...register('age', {
-								pattern: {
-									value: /^[0-9]*$/,
-									message: 'Age must be number',
-								},
-								min: { value: 6, message: 'Age must be more than 6' },
-								max: { value: 100, message: 'Age must be less than 100' },
-							})}
-							error={!!errors?.age}
-							helperText={errors?.age ? errors.age.message : null}
-						/>
+								<TextField
+									id="outlined"
+									label="Household income"
+									{...register('householdIncome', {
+										pattern: {
+											value: /^[0-9]*$/,
+											message: 'Income must be integer',
+										},
+										min: { value: 0, message: 'Income must be positive' },
+									})}
+									error={!!errors?.householdIncome}
+									helperText={errors?.householdIncome ? errors.householdIncome.message : null}
+								/>
 
-						<TextField id="outlined" label="Education" {...register('education')} />
-						<TextField
-							id="outlined"
-							label="Household income"
-							{...register('income', {
-								pattern: { value: /^[0-9]*$/, message: 'Income must be integer' },
-								min: { value: 0, message: 'Income must be positive' },
-							})}
-							error={!!errors?.income}
-							helperText={errors?.income ? errors.income.message : null}
-						/>
+								<FormLabel component="legend">Current employ</FormLabel>
+								<RadioGroup
+									row
+									sx={{ m: 0, justifyContent: 'space-between' }}
+									{...register('employment')}
+								>
+									<FormControlLabel
+										value="true"
+										control={<Radio />}
+										label="Yes"
+									></FormControlLabel>
+									<FormControlLabel
+										value="false"
+										control={<Radio />}
+										label="No"
+									></FormControlLabel>
+									<Stack></Stack>
+								</RadioGroup>
 
-						<FormLabel component="legend">Current employ</FormLabel>
-						<RadioGroup row sx={{ m: 0, justifyContent: 'space-between' }}>
-							<FormControlLabel
-								value="true"
-								control={<Radio />}
-								label="Yes"
-							></FormControlLabel>
-							<FormControlLabel
-								value="false"
-								control={<Radio />}
-								label="No"
-							></FormControlLabel>
-							<Stack></Stack>
-						</RadioGroup>
+								<TextField
+									id="outlined"
+									label="Target nation"
+									{...register('targetNation', {
+										pattern: {
+											value: /^[A-Za-z]+$/,
+											message: 'Target nation contains invalid characters',
+										},
+									})}
+									error={!!errors?.targetNation}
+									helperText={
+										errors?.targetNation ? errors.targetNation.message : null
+									}
+								/>
 
-						<TextField
-							id="outlined"
-							label="Target nation"
-							{...register('targetNation', {
-								pattern: {
-									value: /^[A-Za-z]+$/,
-									message: 'Target nation contains invalid characters',
-								},
-							})}
-							error={!!errors?.targetNation}
-							helperText={errors?.targetNation ? errors.targetNation.message : null}
-						/>
+								<TextField
+									select
+									id="outlined"
+									label="Type of scholarship"
+									{...register('typeOfScholarship')}
+								>
+									{scholarshipTypes.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
+								</TextField>
 
-						<TextField
-							select
-							id="outlined"
-							label="Type of scholarship"
-							defaultValue="Full scholarship"
-							{...register('typeOfScholarship')}
-						>
-							{scholarshipTypes.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-
-						<TextField
-							id="outlined"
-							label="Field of interest"
-							{...register('field', {
-								pattern: {
-									value: /^[A-Za-z]+$/,
-									message: 'Field of interest contains invalid characters',
-								},
-							})}
-							error={!!errors?.field}
-							helperText={errors?.field ? errors.field.message : null}
-						/>
-
-						<Button
-							variant="contained"
-							type="submit"
-							sx={{ backgroundColor: '#3F51A9' }}
-						>
-							SUBMIT
-						</Button>
+								<TextField
+									id="outlined"
+									label="Field of interest"
+									{...register('field', {
+										pattern: {
+											value: /^[A-Za-z]+$/,
+											message:
+												'Field of interest contains invalid characters',
+										},
+									})}
+									error={!!errors?.field}
+									helperText={errors?.field ? errors.field.message : null}
+								/>
+								<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+									<Button
+										variant="contained"
+										onClick={() => setForm(!form)}
+										sx={{ backgroundColor: '#3F51A9', width: '100%' }}
+									>
+										BEFORE
+									</Button>
+									<Button
+										variant="contained"
+										type="submit"
+										sx={{ backgroundColor: '#3F51A9', width: '100%' }}
+									>
+										SUBMIT
+									</Button>
+								</Stack>
+							</>
+						)}
 					</Stack>
 				</FormControl>
 			</Grid>
@@ -297,4 +317,4 @@ const FormProvideStdInfo = () => {
 	)
 }
 
-export default FormProvideStdInfo
+export default FormStdInfo

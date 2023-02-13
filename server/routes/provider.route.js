@@ -8,7 +8,7 @@ router.get('/:username', verifyJWT, getProvider)
 
 router.patch('/:username', verifyJWT, updateProviderInfo)
 router.patch(
-	'/provider-update/',
+	'/',
 	[
 		body('providerName')
 			.isLength({ min: 1 })

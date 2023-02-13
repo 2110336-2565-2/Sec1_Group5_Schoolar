@@ -12,12 +12,12 @@ import {
 	FormGroup,
 	FormLabel,
 	MenuItem,
-	TextField,
-	InputLabel,
 	OutlinedInput,
 	FormHelperText,
 	Stack,
 	Grid,
+	TextField,
+	InputLabel,
 } from '@mui/material'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -29,37 +29,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-
-const genders = [
-	{ value: 'Male', label: 'Male' },
-	{ value: 'Female', label: 'Female' },
-	{ value: 'Non-binary', label: 'Non-binary' },
-]
-const degree = [
-	{ value: 'High-school Student', label: 'High-school Student' },
-	{ value: "Bachelor's Degree", label: "Bachelor's Degree" },
-	{ value: 'Master Degree', label: 'Master Degree' },
-]
-
-const scholarshipTypes = [
-	{ value: 'Full scholarship', label: 'Full Scholarship' },
-	{ value: 'Partial scholarship', label: 'Partial Scholarship' },
-	{ value: 'Renewable scholarship', label: 'Renewable Scholarship' },
-	{ value: 'Followship', label: 'Followship' },
-]
-const studentProgram = [
-	{ value: 'Science-Math', label: 'Science-Math' },
-	{ value: 'Art-Math', label: 'Art-Math' },
-	{ value: 'Language-Art', label: 'Language-Art' },
-]
-
-const uniProgram = [
-	{ value: 'Engineering', label: 'Engineering' },
-	{ value: 'Medicine', label: 'Medicine' },
-	{ value: 'Dentistry', label: 'Dentistry' },
-	{ value: 'Commerce and Accountancy', label: 'Commerce and Accountancy' },
-	{ value: 'Law', label: 'Law' },
-]
+import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 
 const FormUpdateStdInfo = () => {
 	const {
@@ -67,7 +37,6 @@ const FormUpdateStdInfo = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	const { auth, setAuth } = useAuth()
 
 	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [password, setPassword] = useState('')
@@ -86,7 +55,7 @@ const FormUpdateStdInfo = () => {
 
 	// }
 	const handleSelectDegree = (event) => {
-		if (event.target.value === 'High-school Student') {
+		if (event.target.value === 'high school') {
 			setSelectProgram(studentProgram)
 		} else {
 			setSelectProgram(uniProgram)
@@ -96,12 +65,14 @@ const FormUpdateStdInfo = () => {
 	//* example of using axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 
-	useEffect(() => {
-		//* example of using axios private to get data from route that need token
-		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
-			console.log(res.data)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	//* example of using axios private to get data from route that need token
+	// 	axiosPrivate.get(`/student/${auth.username}`).then((res) => {
+	// 		console.log(res.data)
+	// 	})
+	// }, [])
+
+
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>

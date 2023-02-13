@@ -11,7 +11,9 @@ const WebLayout = ({ children }) => {
 	const { route } = useRouter()
 	const yellowBgPages = ['/register', '/login']
 	if (yellowBgPages.includes(route)) {
-		theme.palette.background.default = '#EEEDE3'
+		theme.palette.background.default = theme.palette.secondary.light
+	} else {
+		theme.palette.background.default = theme.palette.primary.light
 	}
 
 	return (

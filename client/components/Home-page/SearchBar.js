@@ -16,7 +16,13 @@ function SearchBar(props) {
 	}
 	return (
 		<VStack sx={{ p: 3 }} gap={3}>
-			<Image src="/home-page/decor.svg" width="627" height="157"></Image>{' '}
+			<Image
+				src="/home-page/decor.svg"
+				alt="decor"
+				priority="false"
+				width="627"
+				height="157"
+			/>
 			<HStack gap={3}>
 				<Paper
 					onSubmit={onClick}
@@ -39,7 +45,7 @@ function SearchBar(props) {
 						<SearchIcon />
 					</IconButton>
 				</Paper>
-				<Typography variant="h7" align="left" color="textPrimary" gutterButtom>
+				<Typography variant="h7" align="left" color="textPrimary" gutterBottom>
 					OR
 				</Typography>
 				<Button

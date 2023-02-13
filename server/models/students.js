@@ -39,6 +39,10 @@ const studentSchema = new Schema({
 		unique: true,
 		trim: true
 	},
+	gpax: {
+		require: true,
+		type: Number,
+	},
 	degree: {
 		required: true,
 		type: String,

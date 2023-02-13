@@ -4,8 +4,9 @@ const { body } = require('express-validator')
 const { getStudent, updateStudentInfo } = require('../controllers/student.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
-router.get('/', verifyJWT, getStudent)
+router.get('/:username', verifyJWT, getStudent)
 
+router.patch('/:username', verifyJWT, updateStudentInfo)
 router.patch(
 	'/',
 	[

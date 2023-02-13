@@ -10,26 +10,27 @@ const handleValidationResult = (result, res) => {
 
 /*
  * @desc     Get student info
- * @route    GET /student
+ * @route    GET student/:username
  * @access   Private
  */
 exports.getStudent = async (req, res) => {
-	// #swagger.tags = ['student']
-	const result = validationResult(req)
-	handleValidationResult(result, res)
+    // #swagger.tags = ['student']
+    const result = validationResult(req)
+    handleValidationResult(result, res)
 
-	try {
-		const { username } = req.body
-		const user = await User.findOne({ username })
-		if (!user) throw new Error('User not found')
+    try {
+        const username = req.params.username
 
-		const student = await Student.findOne({ userID: user._id })
-		if (!student) throw new Error('Student not found')
+        const user = await User.findOne({ username })
+        if (!user) throw new Error('User not found')
 
-		return res.status(200).json({ student })
-	} catch (error) {
-		return res.status(400).json({ message: error.message })
-	}
+        const student = await Student.findOne({ userID: user._id })
+        if (!student) throw new Error('Student not found')
+
+        return res.status(200).json({ student })
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
 }
 
 /*

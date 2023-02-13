@@ -19,7 +19,7 @@ const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 	}
 
 	return (
-		<FormControl>
+		<FormControl required={true}>
 			<InputLabel htmlFor="outlined-adornment-password" error={error}>
 				{label}
 			</InputLabel>

@@ -1,14 +1,23 @@
-import { Typography, Divider } from '@mui/material'
+import { useEffect, useState } from 'react'
+import Scholarship from '@components/Home-page/Scholarship'
+import SearchBar from '@components/Home-page/SearchBar'
+import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
-import { useState, useEffect } from 'react'
-import SearchBar from './search-scholarship'
-import { Scholarship } from './scholarship'
+
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
+	//* example of using axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
 	useEffect(() => {
+		//* example of using axios private to get data from route that need token
+		axiosPrivate.get('/').then((res) => {
+			console.log(res.data)
+		})
 		setScholars([
 			{ name: 'S1', tag: ['tag1', 'tag2'] },
 			{ name: 'S2', tag: ['tag3', 'tag4'] },
@@ -29,7 +38,7 @@ function Homepage() {
 			<SearchBar searchHandler={searchHandler} />
 			{inputName.length > 0 ? (
 				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
-					Scholarships that related to "{inputName}"
+					{`Scholarships that related to "${inputName}"`}
 				</Typography>
 			) : (
 				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
@@ -42,11 +51,3 @@ function Homepage() {
 	)
 }
 export default Homepage
-
-export async function getStaticProps(context) {
-	return {
-		props: {
-			authRequired: true,
-		},
-	}
-}

@@ -15,18 +15,18 @@ const userSchema = new Schema({
 		type: String,
 	},
 	email: {
-		required: true,
+		//required: true,
 		type: String,
 		unique: true,
 		trim: true,
 	},
 	role: {
-		required: true,
+		//required: true,
 		type: String,
 		enum: ['provider', 'student', 'admin'],
 	},
 	phoneNumber: {
-		required: true,
+		// required: true,
 		type: String,
 		// maxLength:10,
 		// unique:true,
@@ -34,7 +34,7 @@ const userSchema = new Schema({
 	},
 	refreshToken: String,
 	resetPasswordToken: String,
-  	resetPasswordExpires: Date
+	resetPasswordExpires: Date,
 })
 
 module.exports = mongoose.model('Users', userSchema)

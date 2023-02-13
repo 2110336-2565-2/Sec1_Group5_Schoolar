@@ -1,6 +1,7 @@
-const Student = require('../models/students')
+const Provider = require('../models/providers')
 const User = require('../models/users')
 const { validationResult } = require('express-validator')
+const mongoose = require('mongoose')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {
@@ -9,24 +10,24 @@ const handleValidationResult = (result, res) => {
 }
 
 /*
- * @desc     Get student info
- * @route    GET student/
+ * @desc     Get provider info
+ * @route    GET provider/:username
  * @access   Private
  */
-exports.getStudent = async (req, res) => {
+exports.getProvider = async (req, res) => {
 	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
-
 	try {
-		const { username } = req.body
+		const username = req.params.username
+
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
+		//*const provider = await Provider.findOne({ userID: user._id })
+		const provider = await Provider.findById(user._id)
+		if (!provider) throw new Error('Provider not found')
 
-		const student = await Student.findOne({ userID: user._id })
-		if (!student) throw new Error('Student not found')
-
-		return res.status(200).json({ student })
+		return res.status(200).json({ provider })
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}
@@ -37,54 +38,35 @@ exports.getStudent = async (req, res) => {
  * @route    PATCH student/
  * @access   Private
  */
-exports.updateStudentInfo = async (req, res) => {
+exports.updateProviderInfo = async (req, res) => {
 	// #swagger.tags = ['student']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
 	try {
-		const {
-			firstName,
-			lastName,
-			birthdate,
-			gender,
-			education,
-			householdIncome,
-			employment,
-			targetNation,
-			typeOfScholarship,
-			field,
-			username,
-			email,
-			phoneNumber,
-		} = req.body
+		const { providerName, address, website, creditCardNumber, verifyStatus } = req.body
 
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const student = await Student.findOne({ userID: user._id })
-		if (!student) throw new Error('Student not found')
+		const provider = await Provider.findOne({ userID: mongoose.ObjectId(user._id) })
+		if (!provider) throw new Error('Provider not found')
 
-		Object.assign(student, {
-			firstName,
-			lastName,
-			birthdate,
-			gender,
-			education,
-			householdIncome,
-			employment,
-			targetNation,
-			typeOfScholarship,
-			field,
+		Object.assign(provider, {
+			providerName,
+			address,
+			website,
+			creditCardNumber,
+			verifyStatus,
 		})
 		Object.assign(user, { email, phoneNumber })
 
 		await user.save()
-		await student.save()
+		await provider.save()
 
 		return res.status(200).json({
-			message: 'Student information updated successfully',
-			student,
+			message: 'Provider information updated successfully',
+			provider,
 		})
 	} catch (error) {
 		return res.status(400).json({ message: error.message })

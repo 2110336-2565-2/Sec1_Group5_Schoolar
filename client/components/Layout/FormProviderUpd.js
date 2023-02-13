@@ -1,29 +1,55 @@
 import React, { useEffect, useState } from 'react'
-import {
-	Box,
-	FormControl,
-	TextField,
-	InputLabel,
-	OutlinedInput,
-	FormHelperText,
-	Button,
-} from '@mui/material'
-import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import {
+	Box,
+	Button,
+	FormControl,
+	FormHelperText,
+	InputLabel,
+	OutlinedInput,
+	TextField,
+} from '@mui/material'
 import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 import Grid2 from '@mui/material/Unstable_Grid2'
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormUpdatePvdInfo = ({ isDisabled }) => {
+	const { auth, setAuth } = useAuth()
+
+	//* password related value
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [showPassword, setShowPassword] = React.useState(false)
+
+	//* assign value
+	const [username, setUsername] = useState('')
+	const [providerName, setProviderName] = useState('')
+	const [creditCardNumber, setCreditCardNumber] = useState('')
+	const [address, setAddress] = useState('')
+	const [phoneNumber, setPhoneNumber] = useState('')
+	const [email, setEmail] = useState('')
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
 	const handleMouseDownPassword = (event) => {
 		event.preventDefault()
 	}
+
+	//*axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
+	useEffect(() => {
+		//* example of using axios private to get data from route that need token
+		//* console.log(auth.username)
+		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+			//console.log(`providerName: ${res.data.provider.providerName}`)
+			setUsername(res.data.provider.username)
+			setProviderName(res.data.provider.providerName)
+		})
+	}, [])
 
 	return (
 		<Grid2 container direction="column" alignItems="center" justifyContent="center">
@@ -43,42 +69,45 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 					>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="XXXXXXX"
+							value={username}
 							label="Username"
 							variant="outlined"
 							disabled={isDisabled}
+							onChange={(e) => setUsername(e.target.value)}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="ABC"
-							label="Organization"
+							defaultValue={providerName}
+							value={providerName}
+							label="Provider Name"
 							variant="outlined"
 							disabled={isDisabled}
+							onChange={(e) => setProviderName(e.target.value)}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="9999999"
+							value={creditCardNumber}
 							label="Credit Card Number"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue="99/99 xxxxxx"
+							value={address}
 							label="Address"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue=""
+							value={phoneNumber}
 							label="Phone Number"
 							variant="outlined"
 							disabled={isDisabled}
 						/>
 						<TextField
 							id="outlined-start-adornment"
-							defaultValue=""
+							value={email}
 							label="Email"
 							variant="outlined"
 							disabled={isDisabled}

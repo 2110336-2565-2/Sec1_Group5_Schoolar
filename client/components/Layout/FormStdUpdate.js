@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { useEffect } from 'react'
+import { useAuth } from '@/context/AuthContext'
 import {
 	Box,
 	Button,
@@ -10,24 +10,24 @@ import {
 	FormControl,
 	FormControlLabel,
 	FormGroup,
-	FormHelperText,
 	FormLabel,
-	InputLabel,
 	MenuItem,
 	OutlinedInput,
 	FormHelperText,
 	Stack,
 	Grid,
 	TextField,
-
 } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import Grid2 from '@mui/material/Unstable_Grid2'
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import IconButton from '@mui/material/IconButton'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -90,6 +90,17 @@ const FormUpdateStdInfo = () => {
 			setSelectProgram(uniProgram)
 		}
 	}
+
+	//* example of using axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
+	useEffect(() => {
+		//* example of using axios private to get data from route that need token
+		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
+			console.log(res.data)
+		})
+	}, [])
+
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>

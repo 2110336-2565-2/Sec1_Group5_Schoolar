@@ -3,29 +3,30 @@ import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
+import axios from '../api/axios'
 
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
 	//* example of using axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate()
+	
 
 	useEffect(() => {
 		//* example of using axios private to get data from route that need token
-		axiosPrivate.get('/').then((res) => {
-			console.log(res.data)
+		axios.get('/scholarship').then((res) => {
+			console.log(res.data.data)
+			setScholars(res.data.data)
 		})
-		setScholars([
+		/*setScholars([
 			{ name: 'S1', tag: ['tag1', 'tag2'] },
 			{ name: 'S2', tag: ['tag3', 'tag4'] },
 			{ name: 'S3', tag: ['tag5', 'tag6'] },
 			{ name: 'S4', tag: ['tag7', 'tag8'] },
 			{ name: 'S5', tag: ['tag9', 'tag10'] },
 			{ name: 'S6', tag: ['tag11', 'tag12'] },
-		])
+		])*/
 	}, [])
 	const searchHandler = (value) => {
 		setInputName(value.trim())
@@ -51,11 +52,3 @@ function Homepage() {
 	)
 }
 export default Homepage
-
-export async function getStaticProps(context) {
-	return {
-		props: {
-			authRequired: true,
-		},
-	}
-}

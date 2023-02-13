@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
@@ -41,7 +42,6 @@ function Login() {
 			console.log(accessToken)
 			console.log(role)
 			setAuth({ username, accessToken, role })
-			console.log(auth)
 			router.push('/home-page')
 		} catch (err) {
 			if (!err?.response) {

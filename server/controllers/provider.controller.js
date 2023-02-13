@@ -27,7 +27,7 @@ exports.getProvider = async (req, res) => {
 		const provider = await Provider.findById(user._id)
 		if (!provider) throw new Error('Provider not found')
 
-		return res.status(200).json({ provider })
+		return res.status(200).json({ provider, user })
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}
@@ -44,12 +44,13 @@ exports.updateProviderInfo = async (req, res) => {
 	handleValidationResult(result, res)
 
 	try {
-		const { providerName, address, website, creditCardNumber, verifyStatus } = req.body
-
+		const username = req.params.username
+		const { providerName, address, website, creditCardNumber, email, phoneNumber } = req.body
+		console.log(req.body)
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const provider = await Provider.findOne({ userID: mongoose.ObjectId(user._id) })
+		const provider = await Provider.findById(user._id)
 		if (!provider) throw new Error('Provider not found')
 
 		Object.assign(provider, {
@@ -57,7 +58,6 @@ exports.updateProviderInfo = async (req, res) => {
 			address,
 			website,
 			creditCardNumber,
-			verifyStatus,
 		})
 		Object.assign(user, { email, phoneNumber })
 

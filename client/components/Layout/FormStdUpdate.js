@@ -64,20 +64,22 @@ const FormUpdateStdInfo = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ mode: 'onBlur' })
+		getValues,
+		reset,
+		setValue,
+	} = useForm({
+		mode: 'onBlur',
+	})
 
+	const handleOnChange = (e) => {
+		setValue(e.target.name, e.target.value)
+	}
 	const [password, setPassword] = useState('')
 	const [rePassword, setRePassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
 	const [isUpdated, setIsUpdated] = useState(false)
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
-	// const onSubmit = (data) => alert(JSON.stringify(data))
 
-	const handleClickShowPassword = () => setShowPassword((show) => !show)
-
-	const handleMouseDownPassword = (event) => {
-		event.preventDefault()
-	}
 	// const handleClickUpdateBtn = () => {
 
 	// }
@@ -88,30 +90,18 @@ const FormUpdateStdInfo = () => {
 			setSelectProgram(uniProgram)
 		}
 	}
+	
 
 	const { auth, setAuth } = useAuth()
 
 	//* assign value
-	// const [firstName, setFirstName] = useState('')
-	// const [lastName, setLastName] = useState('')
-	// const [birthdate, setBirthDate] = useState('')
-	// const [gender, setGender] = useState('')
-	const [phoneno, setPhoneNo] = useState('')
-	const [email, setEmail] = useState('')
-	// const [school, setSchool] = useState('')
-	// const [deg, setDegree] = useState('')
-	// const [program, setProgram] = useState('')
-	// const [gpax, setGpax] = useState('')
-	// const [income, setIncome] = useState('')
-	// const [target, setTarget] = useState('')
-	// const [scholarship, setScholarship] = useState('')
-	// const [employment, setEmployment] = useState('')
-	// const [interest, setInterest] = useState('')
 	const [studentInfo, setStudentInfo] = useState({
 		firstName: '',
 		lastName: '',
 		birthdate: '',
 		gender: '',
+		phoneno: "",
+    	email: "",
 		school: '',
 		deg: '',
 		program: '',
@@ -121,6 +111,7 @@ const FormUpdateStdInfo = () => {
 		scholarship: '',
 		employment: '',
 		interest: '',
+		type: '',
 	})
 
 	//*axios private to get data from route that need token
@@ -129,53 +120,20 @@ const FormUpdateStdInfo = () => {
 	useEffect(() => {
 		//* example of using axios private to get data from route that need token
 		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
-			// setFirstName(res.data.student.firstName)
-			// setLastName(res.data.student.lastName)
-			// setBirthDate(res.data.student.birthdate)
-			// setGender(res.data.student.gender)
-			setPhoneNo(res.data.user.phoneNumber)
-			setEmail(res.data.user.email)
-			// setSchool(res.data.student.school)
-			// setDegree(res.data.student.degree)
-			// setProgram(res.data.student.program)
-			// setGpax(res.data.student.gpax)
-			// setIncome(res.data.student.householdIncome)
-			// setInterest(res.data.student.field)
-			// setTarget(res.data.student.targetNation)
-			// setScholarship(res.data.student.typeOfScholarship)
-			// setEmployment(res.data.student.employment)
 			setStudentInfo(res.data.student)
-			console.log(res.data.student)
-			console.log(res.data.user)
+			reset({
+				studentInfo: res.data.student,
+			})
 		})
 	}, [])
 
-	const onSubmit = async (data) => {
-		const username = data.username
-		const password = data.password
 
-		console.log(username, password)
-
-		try {
-			const accessToken = response?.data?.accessToken
-			const role = response?.data?.role
-			console.log(accessToken)
-			console.log(role)
-			//set timeout for 3s
-			setAuth({ username, accessToken, role })
-			setTimeout(() => {}, 3000)
-			console.log(auth)
-		} catch (err) {
-			if (!err?.response) {
-				console.log('No Server Response')
-			} else if (err.response?.status === 400) {
-				console.log('Missing Username or Password')
-			} else if (err.response?.status === 401) {
-				console.log('Unauthorized')
-			} else {
-				console.log('Login Failed')
-			}
-		}
+	const onSubmit = (data) => {
+		console.log(`submitted`)
+		alert('Data has been updated successfully')
+		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
+			console.log(res.status)
+		})
 	}
 
 	return (
@@ -191,7 +149,9 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								required
+								value = {studentInfo.firstName}
 								label="Firstname"
+								InputLabelProps={{ shrink: true }}
 								{...register('firstName', {
 									required: 'First name is required',
 									minLength: {
@@ -213,6 +173,8 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								required
 								label="Surname"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.lastName}
 								{...register('surname', {
 									required: 'Surname is required',
 									minLength: {
@@ -234,6 +196,8 @@ const FormUpdateStdInfo = () => {
 									disableFuture
 									required
 									label="Date of Birth"
+									InputLabelProps={{ shrink: true }}
+									value = {studentInfo.birthdate}
 									openTo="year"
 									views={['year', 'month', 'day']}
 									{...register('dateOfBirth1')}
@@ -246,21 +210,26 @@ const FormUpdateStdInfo = () => {
 								required
 								select
 								label="Gender"
-								defaultValue="Female"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.gender}
 								disabled={isUpdated}
 								{...register('gender')}
+								onChange={handleOnChange}
 							>
 								{genders.map((option) => (
 									<MenuItem key={option.value} value={option.value}>
 										{option.label}
 									</MenuItem>
 								))}
+								
 							</TextField>
 							<TextField
 								id="outlined-start-adornment"
 								defaultValue=""
 								required
 								label="Phone Number"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.phoneno}
 								{...register('phoneNumber', {
 									pattern: {
 										value: /^[0-9]*$/,
@@ -277,6 +246,8 @@ const FormUpdateStdInfo = () => {
 								required
 								defaultValue=""
 								label="Email"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.email}
 								{...register('email', {
 									pattern: {
 										value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -289,17 +260,12 @@ const FormUpdateStdInfo = () => {
 								helperText={errors?.email ? errors.email.message : null}
 							/>
 
-							{/* <TextField
-								id="outlined-start-adornment"
-								defaultValue=""
-								label="Age"
-								variant="outlined"
-								disabled={isUpdated}
-							/> */}
 							<TextField
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="School/University"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.school}
 								{...register('School', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
@@ -316,6 +282,8 @@ const FormUpdateStdInfo = () => {
 								select
 								defaultValue=""
 								label="Degree"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.degree}
 								{...register('degree', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
@@ -339,6 +307,8 @@ const FormUpdateStdInfo = () => {
 								select
 								defaultValue=""
 								label="Program/Faculty"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.program}
 								{...register('Program', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
@@ -360,6 +330,8 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="GPAX"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.gpax}
 								{...register('gpax', {
 									pattern: {
 										value: /^[0-9]*\.[0-9][0-9]$/,
@@ -377,6 +349,8 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="Household Income"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.income}
 								{...register('income', {
 									pattern: {
 										value: /^[0-9]*$/,
@@ -393,6 +367,8 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="Target Nation"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.target}
 								variant="outlined"
 								disabled={isUpdated}
 							/>
@@ -402,6 +378,7 @@ const FormUpdateStdInfo = () => {
 								label="Type of scholarship"
 								defaultValue="Full scholarship"
 								disabled={isUpdated}
+								value = {studentInfo.type}
 							>
 								{scholarshipTypes.map((option) => (
 									<MenuItem key={option.value} value={option.value}>
@@ -413,79 +390,12 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								defaultValue=""
 								label="Field of Interest"
+								InputLabelProps={{ shrink: true }}
+								value = {studentInfo.interest}
 								variant="outlined"
 								disabled={isUpdated}
 							/>
-							<FormControl disabled={isUpdated}>
-								<InputLabel htmlFor="outlined-adornment-password">
-									Password
-								</InputLabel>
-								<OutlinedInput
-									id="outlined-adornment-password"
-									type={showPassword ? 'text' : 'password'}
-									defaultValue=" "
-									endAdornment={
-										<InputAdornment position="end">
-											<IconButton
-												aria-label="toggle password visibility"
-												onClick={handleClickShowPassword}
-												onMouseDown={handleMouseDownPassword}
-												edge="end"
-												disabled={isUpdated}
-											>
-												{showPassword ? <VisibilityOff /> : <Visibility />}
-											</IconButton>
-										</InputAdornment>
-									}
-									label="password"
-									variant="outlined"
-									onChange={(e) => {
-										setPassword(e.target.value)
-									}}
-									value={password}
-								/>
-							</FormControl>
-							<FormControl
-								variant="outlined"
-								helperText={password != rePassword ? 'Password not match' : ''}
-								disabled={isUpdated}
-							>
-								<InputLabel
-									htmlFor="outlined-adornment-password"
-									error={password != rePassword}
-								>
-									Re-type New Password
-								</InputLabel>
-								<OutlinedInput
-									id="outlined-adornment-password"
-									defaultValue=" "
-									type={showPassword ? 'text' : 'password'}
-									value={rePassword}
-									error={password != rePassword}
-									endAdornment={
-										<InputAdornment position="end">
-											<IconButton
-												aria-label="toggle password visibility"
-												onClick={handleClickShowPassword}
-												onMouseDown={handleMouseDownPassword}
-												edge="end"
-												disabled={isUpdated}
-											>
-												{showPassword ? <VisibilityOff /> : <Visibility />}
-											</IconButton>
-										</InputAdornment>
-									}
-									label="Re-type New Password"
-									onChange={(e) => {
-										setRePassword(e.target.value)
-									}}
-								/>
-								{password != rePassword && (
-									<FormHelperText error={password != rePassword}>
-										Password not match
-									</FormHelperText>
-								)}
-							</FormControl>
+							
 						</Stack>
 					</FormControl>
 					{/* </Box> */}
@@ -503,7 +413,13 @@ const FormUpdateStdInfo = () => {
 				</Grid>
 
 				<Grid item>
-					<Button variant="contained" disabled={password != rePassword || isUpdated}>
+					<Button variant="contained" 
+					type="submit"
+					onClick={() => {
+						const values = getValues()
+						console.log(values)
+					}}
+					>
 						Update
 					</Button>
 				</Grid>

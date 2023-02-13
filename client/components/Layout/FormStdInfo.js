@@ -20,7 +20,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import axios from 'axios'
 
-const FormStdInfo = ({ registerData }) => {
+//{ registerData }
+
+const FormStdInfo = () => {
 	const {
 		register,
 		handleSubmit,
@@ -28,16 +30,31 @@ const FormStdInfo = ({ registerData }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
-	const [value, setValue] = useState(dayjs('2001-01-01'))
+	const [value, setValue] = useState(dayjs())
 	const [form, setForm] = useState(false)
+
+	const sendData = async (data) => {
+		try {
+		  const response = await axios.post('/auth/register', data, {
+			headers: {
+			  'Content-Type': 'application/json'
+			}})
+			alert(response.data);
+		} catch (error) {
+		  console.error(error);
+		}
+	  }
+	const registerData = {"username":"gift", "password": "898"}
 
 	const onSubmit = (data) => {
 		alert(JSON.stringify(data))
 		if (!form) setForm(!form)
 		else {
-			let allData = Object.assign(registerData, data)
-			console.log(allData)
-			//axios.post(`/register`, data).then(res => console.log(res.data));
+			const allData = Object.assign(registerData, data)
+			const allDataJson = JSON.stringify(allData)
+			//Validate
+			if(allDataJson["degree"] === "") alert(" HEY NO DEGREE")
+			sendData(allData);
 		}
 	}
 
@@ -91,7 +108,19 @@ const FormStdInfo = ({ registerData }) => {
 									helperText={errors?.lastName ? errors.lastName.message : null}
 								/>
 
-								<LocalizationProvider dateAdapter={AdapterDayjs}>
+								<TextField
+									id="date"
+									type="date"
+									label="Date of birth"
+									{...register('birthdate', {
+										required: 'Date of birth is required',
+									})}
+									error={!!errors?.birthdate}
+									helperText={errors?.birthdate ? errors.birthdate.message : null}
+								/>
+
+								{/* <LocalizationProvider dateAdapter={AdapterDayjs}
+								>
 									<DatePicker
 										disableFuture
 										required
@@ -103,11 +132,9 @@ const FormStdInfo = ({ registerData }) => {
 											setValue(newValue)
 										}}
 										renderInput={(params) => <TextField {...params} />}
-										{...register('birthdate', {
-											required: 'Date of birth is required',
-										})}
+										
 									/>
-								</LocalizationProvider>
+								</LocalizationProvider> */}
 
 								<TextField
 									required
@@ -174,14 +201,15 @@ const FormStdInfo = ({ registerData }) => {
 									select
 									id="outlined"
 									label="Degree"
-									onClick={(event) => {
-										if (event.target.value === 'high school') {
+									{...register('degree')}
+									onChange={(event) => {
+										const selectedValue = event.target.value;
+										if (selectedValue === 'high school') {
 											setSelectProgram(studentProgram)
 										} else {
 											setSelectProgram(uniProgram)
 										}
-									}}
-									{...register('degree')}
+									}}									
 								>
 									{degree.map((option) => (
 										<MenuItem key={option.value} value={option.value}>
@@ -229,7 +257,11 @@ const FormStdInfo = ({ registerData }) => {
 										min: { value: 0, message: 'Income must be positive' },
 									})}
 									error={!!errors?.householdIncome}
-									helperText={errors?.householdIncome ? errors.householdIncome.message : null}
+									helperText={
+										errors?.householdIncome
+											? errors.householdIncome.message
+											: null
+									}
 								/>
 
 								<FormLabel component="legend">Current employ</FormLabel>

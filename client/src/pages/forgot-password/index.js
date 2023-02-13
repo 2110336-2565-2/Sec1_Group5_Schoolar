@@ -8,6 +8,7 @@ import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import axios from '../api/axios'
 
 function ForgotPassword() {
 	const router = useRouter()
@@ -26,8 +27,20 @@ function ForgotPassword() {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
 
-	const onSubmit = (data) => console.log(data)
-
+	const onSubmit = (data) => {
+		console.log(data)
+		axios.post('/resetPassword/email',{"email": data.email}).then((res) => {
+			console.log(res.data)
+		})
+	}
+	const isDupe = async (field, value) => {
+		try {
+			const response = await axios.get(`/auth/isDupe/${field}/${value}`)
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
 	return (
 		<Center height={'90vh'}>
 			<FormControl
@@ -129,6 +142,10 @@ function ForgotPassword() {
 									pattern: {
 										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
 										message: 'Invalid email',
+									},
+									validate: {
+										duplicate: async (value) =>
+											(await isDupe('email', value)) || 'Invaild Email',
 									},
 								})}
 								error={!!errors?.email}

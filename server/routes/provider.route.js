@@ -6,9 +6,8 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.get('/:username', verifyJWT, getProvider)
 
-router.patch('/', verifyJWT, updateProviderInfo)
 router.patch(
-	'/provider-update',
+	'/',
 	[
 		body('providerName')
 			.isLength({ min: 1 })

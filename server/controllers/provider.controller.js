@@ -15,7 +15,7 @@ const handleValidationResult = (result, res) => {
  * @access   Private
  */
 exports.getProvider = async (req, res) => {
-	// #swagger.tags = ['student']
+	// #swagger.tags = ['provider']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 	try {
@@ -34,12 +34,12 @@ exports.getProvider = async (req, res) => {
 }
 
 /*
- * @desc     Update student info
- * @route    PATCH student/
+ * @desc     Update provider info
+ * @route    PATCH /provider
  * @access   Private
  */
 exports.updateProviderInfo = async (req, res) => {
-	// #swagger.tags = ['student']
+	// #swagger.tags = ['provider']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 

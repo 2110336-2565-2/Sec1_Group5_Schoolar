@@ -166,6 +166,9 @@
     },
     "/auth/logout": {
       "delete": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -213,23 +216,15 @@
             "description": "Forbidden"
           }
         }
-      },
+      }
+    },
+    "/student/student-update": {
       "patch": {
         "tags": [
           "student"
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -285,18 +280,15 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
     },
     "/resetPassword/password": {
       "put": {
+        "tags": [
+          "reset password"
+        ],
         "description": "",
         "parameters": [
           {
@@ -327,6 +319,9 @@
     },
     "/resetPassword/email": {
       "post": {
+        "tags": [
+          "reset password"
+        ],
         "description": "",
         "parameters": [
           {
@@ -351,6 +346,105 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/scholarship/": {
+      "get": {
+        "tags": [
+          "scholarship"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/provider/{username}": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/provider/provider-update": {
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "providerName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "creditCardNumber": {
+                  "example": "any"
+                },
+                "verifyStatus": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

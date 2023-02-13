@@ -10,7 +10,7 @@ const handleValidationResult = (result, res) => {
 
 /*
  * @desc     Get student info
- * @route    GET student/
+ * @route    GET /student
  * @access   Private
  */
 exports.getStudent = async (req, res) => {
@@ -34,7 +34,7 @@ exports.getStudent = async (req, res) => {
 
 /*
  * @desc     Update student info
- * @route    PATCH student/
+ * @route    PATCH /student
  * @access   Private
  */
 exports.updateStudentInfo = async (req, res) => {

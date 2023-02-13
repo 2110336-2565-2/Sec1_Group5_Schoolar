@@ -25,7 +25,7 @@ const FormStdInfo = ({ registerData }) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({mode: 'onBlur'})
+	} = useForm({ mode: 'onBlur' })
 
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
 	const [value, setValue] = useState(dayjs('2001-01-01'))
@@ -53,6 +53,7 @@ const FormStdInfo = ({ registerData }) => {
 						{!form && (
 							<>
 								<TextField
+									required
 									id="outlined-required"
 									label="Fisrt Name"
 									autoComplete="firstName"
@@ -72,6 +73,7 @@ const FormStdInfo = ({ registerData }) => {
 									helperText={errors?.firstName ? errors.firstName.message : null}
 								/>
 								<TextField
+									required
 									id="outlined"
 									label="Last name"
 									{...register('lastName', {
@@ -108,6 +110,7 @@ const FormStdInfo = ({ registerData }) => {
 								</LocalizationProvider>
 
 								<TextField
+									required
 									select
 									id="outlined"
 									label="Gender"
@@ -125,6 +128,7 @@ const FormStdInfo = ({ registerData }) => {
 								</TextField>
 
 								<TextField
+									required
 									id="outlined"
 									label="Phone number"
 									{...register('phoneNumber', {
@@ -224,8 +228,8 @@ const FormStdInfo = ({ registerData }) => {
 										},
 										min: { value: 0, message: 'Income must be positive' },
 									})}
-									error={!!errors?.income}
-									helperText={errors?.income ? errors.income.message : null}
+									error={!!errors?.householdIncome}
+									helperText={errors?.householdIncome ? errors.householdIncome.message : null}
 								/>
 
 								<FormLabel component="legend">Current employ</FormLabel>

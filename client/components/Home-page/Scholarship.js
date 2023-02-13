@@ -32,7 +32,7 @@ function Scholarship(props) {
 						</Grid>
 						<Divider orientation="horizontal" borderBottomWidth={2} />
 						<Grid margin={1}>
-							{scholar.tag.map((tag, idx) => {
+							{scholar.tag?.map((tag, idx) => {
 								return (
 									<div key={scholar.name + scholar.tag + idx}>
 										<Box

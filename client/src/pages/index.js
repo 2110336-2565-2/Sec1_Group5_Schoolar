@@ -5,18 +5,16 @@ import { Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import axios from './api/axios'
 
-
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
 	//* example of using axios private to get data from route that need token
-	
 
 	useEffect(() => {
 		//* example of using axios private to get data from route that need token
 		axios.get('/scholarship').then((res) => {
-			console.log(res.data.data)
+			// console.log(res.data.data)
 			setScholars(res.data.data)
 		})
 		/*setScholars([
@@ -38,15 +36,15 @@ function Homepage() {
 		<Container maxWidth="lg">
 			<SearchBar searchHandler={searchHandler} />
 			{inputName.length > 0 ? (
-				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
+				<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 					{`Scholarships that related to "${inputName}"`}
 				</Typography>
 			) : (
-				<Typography variant="h5" align="left" color="textPrimary" gutterButtom>
+				<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 					The Latest Scholarships
 				</Typography>
 			)}
-			<Divider orientation="horizontal" flexItem sx={{ borderBottomWidth: 2 }} />
+			<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 			<Scholarship items={filteredScholars} />
 		</Container>
 	)

@@ -88,7 +88,7 @@ function Navbar() {
 		<Box>
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
 				<Toolbar>
-					<HStack container direction="row" justifyContent="space-between">
+					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
 							<Link href="/">
 								<Center>

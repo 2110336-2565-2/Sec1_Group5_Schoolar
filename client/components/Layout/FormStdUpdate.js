@@ -1,30 +1,34 @@
 import { React, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { useEffect } from 'react'
+import { useAuth } from '@/context/AuthContext'
 import {
 	Box,
 	Button,
+	RadioGroup,
+	Radio,
 	FormControl,
 	FormControlLabel,
 	FormGroup,
-	FormHelperText,
 	FormLabel,
-	Grid,
-	InputLabel,
 	MenuItem,
-	OutlinedInput,
-	Radio,
-	RadioGroup,
-	Stack,
 	TextField,
+	InputLabel,
+	OutlinedInput,
+	FormHelperText,
+	Stack,
+	Grid,
 } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import InputAdornment from '@mui/material/InputAdornment'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import IconButton from '@mui/material/IconButton'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const genders = [
 	{ value: 'Male', label: 'Male' },
@@ -63,6 +67,7 @@ const FormUpdateStdInfo = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+	const { auth, setAuth } = useAuth()
 
 	const [value, setValue] = useState(dayjs('2001-01-01'))
 	const [password, setPassword] = useState('')
@@ -87,6 +92,16 @@ const FormUpdateStdInfo = () => {
 			setSelectProgram(uniProgram)
 		}
 	}
+
+	//* example of using axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
+	useEffect(() => {
+		//* example of using axios private to get data from route that need token
+		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
+			console.log(res.data)
+		})
+	}, [])
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>

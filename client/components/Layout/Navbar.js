@@ -46,6 +46,7 @@ function Navbar() {
 	}
 
 	const toEditProfile = () => {
+		router.push('/provider-update')
 		console.log('TO EDIT PROFILE PAGE')
 	}
 

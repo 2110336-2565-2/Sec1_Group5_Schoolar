@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Center, HStack } from '@components/common'
-import { Login, Logout, AppRegistration, Edit } from '@mui/icons-material'
+import { Login, Logout, AppRegistration, Edit, Route } from '@mui/icons-material'
 import {
 	Avatar,
 	Box,
@@ -21,12 +21,18 @@ import { useAuth } from '@/context/AuthContext'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
+
 function Navbar() {
 	const { auth } = useAuth()
+
 	const router = useRouter()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const handleClickReload = () => {
+		router.reload()
+	}
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
@@ -40,13 +46,12 @@ function Navbar() {
 		try {
 			await axios.put('/auth/logout');
 			window.location.reload();
-			  // Clear local storage or perform any necessary cleanup
+			// Clear local storage or perform any necessary cleanup
 		} catch (error) {
-			  console.error(error);
+			console.error(error);
 		}
 	};
-		  
-	
+
 	const AccountDropDown = () => {
 		switch (auth) {
 			case null:
@@ -81,14 +86,12 @@ function Navbar() {
 								Edit Profile
 							</MenuItem>
 						</Link>
-						<Link href="/">
-							<MenuItem onClick={handleLogout} key={'Logout'}>
-								<ListItemIcon>
-									<Logout fontSize="small" />
-								</ListItemIcon>
-								Logout
-							</MenuItem>
-						</Link>
+						<MenuItem onClick={handleLogout} key={'logout'}>
+							<ListItemIcon>
+								<Logout fontSize="small" />
+							</ListItemIcon>
+							Logout
+						</MenuItem>
 					</>
 				)
 		}
@@ -100,11 +103,11 @@ function Navbar() {
 				<Toolbar>
 					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<Link href="/">
+							<MenuItem onClick={handleClickReload}>
 								<Center>
 									<Image src="/logo.svg" alt="logo" width={43} height={51} />
 								</Center>
-							</Link>
+							</MenuItem>
 							<MenuItem>
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>

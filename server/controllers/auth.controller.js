@@ -32,10 +32,12 @@ exports.register = (req, res) => {
 						res.status(400).send({ message: err.message })
 					} else if (role == 'student') {
 						Student.create(
-							{ userID: new ObjectId(user._id), username 
-								,firstName, lastName, birthdate, gender
+							{
+								userID: new ObjectId(user._id), username
+								, firstName, lastName, birthdate, gender
 								, phoneNumber, degree, school, program
-								, householdIncome, targetNation, typeOfScholarship, employment, field },
+								, householdIncome, targetNation, typeOfScholarship, employment, field
+							},
 							(err, student) => {
 								if (err) {
 									res.status(400).json({ err })
@@ -45,8 +47,10 @@ exports.register = (req, res) => {
 							},
 						)
 					} else {
-						Provider.create({ userID: new ObjectId(user._id), providerName
-							, address, website, creditCardNumber, phoneNumber, verifyStatus }, (err, provider) => {
+						Provider.create({
+							userID: new ObjectId(user._id), providerName
+							, address, website, creditCardNumber, phoneNumber, verifyStatus
+						}, (err, provider) => {
 							if (err) {
 								res.status(400).json({ err })
 							} else {
@@ -75,7 +79,7 @@ exports.login = async (req, res) => {
 
 		const foundUser = await User.findOne({ username }).select('+password')
 
-		if (!foundUser) return res.status(401).json({message: "Not found user"})//res.sendStatus(401) //Unauthorized
+		if (!foundUser) return res.status(401).json({ message: "Not found user" })//res.sendStatus(401) //Unauthorized
 
 		const match = await bcrypt.compare(password, foundUser.password)
 		if (match) {
@@ -107,7 +111,7 @@ exports.login = async (req, res) => {
 
 			res.json({ accessToken, role: foundUser.role })
 		} else {
-			res.status(401).json({message: "Not match"})//res.sendStatus(401)
+			res.status(401).json({ message: "Not match" })//res.sendStatus(401)
 		}
 	}
 }
@@ -151,7 +155,6 @@ exports.refreshToken = async (req, res) => {
  * @access   Public
  */
 exports.isDupe = (req, res) => {
-	// #swagger.tags = ['auth']
 	const { field, value } = req.params
 	console.log({ field, value })
 	User.countDocuments({ [field]: value }, (err, user) => {
@@ -163,25 +166,25 @@ exports.isDupe = (req, res) => {
 	})
 }
 
+/*
+ * @desc     Logout user
+ * @route    POST auth/logout
+ * @access   Public
+ */
 exports.logout = async (req, res) => {
-	// #swagger.tags = ['auth']
-	//const cookies = req.cookies
-	
 	const cookies = req.cookies
 	try {
 		const user = await User.findOne({ "refreshToken": cookies.jwt })
-		if (!user) return res.status(401).json({message: "Not found user"})
+		if (!user) return res.status(401).json({ message: "Not found user" })
 
 		user.refreshToken = undefined
 		await user.save()
-
-		//res.cookies('jwt', '', {maxAge:1});
 
 		res.clearCookie("jwt", {
 			path: "/",
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
-		  });
+		});
 		res.clearCookie('refreshToken')
 		res.send('Logged out successfully')
 	} catch (error) {

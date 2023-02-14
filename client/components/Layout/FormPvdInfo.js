@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, TextField } from '@mui/material'
 import { Stack } from '@mui/system'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const FormPvdInfo = ({ registerData }) => {
 	const {
@@ -10,16 +12,26 @@ const FormPvdInfo = ({ registerData }) => {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
 
-	const [form, setForm] = useState(false)
+	const router = useRouter()
 
-	const onSubmit = (data) => {
-		alert(JSON.stringify(data))
-		if (!form) setForm(!form)
-		else {
-			let allData = Object.assign(registerData, data)
-			console.log(allData)
-			//axios.post(`/register`, data).then(res => console.log(res.data));
+	const sendData = async (data) => {
+
+		try {
+			const response = await axios.post('/auth/register', data, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			alert(response.data);
+			router.push('/login')
+		} catch (error) {
+			console.error(error);
 		}
+	}
+
+	const onSubmit = async (data) => {
+		const allData = Object.assign(registerData, data)
+		sendData(JSON.stringify(allData));
 	}
 
 	return (
@@ -32,10 +44,8 @@ const FormPvdInfo = ({ registerData }) => {
 					autoComplete="providerName"
 					{...register('providerName', {
 						required: 'Provider Name is required',
-						minLength: {
-							value: 2,
-							message: 'Provider Name must be at least 2 characters',
-						},
+						minLength: { value: 2, message: 'Provider Name must be at least 2 characters', },
+						maxLength: { value: 40, message: 'Provider Name must be at most 40 characters' },
 						pattern: {
 							// Contain only alphabets and numbers
 							value: /^[a-zA-Z0-9]+$/,
@@ -52,6 +62,7 @@ const FormPvdInfo = ({ registerData }) => {
 					{...register('website', {
 						required: 'Website is required',
 						minLength: { value: 2, message: 'Website must be at least 2 characters' },
+						maxLength: { value: 250, message: 'Website must be at most 250 characters' },
 					})}
 					error={!!errors?.website}
 					helperText={errors?.website ? errors.website.message : null}
@@ -69,6 +80,10 @@ const FormPvdInfo = ({ registerData }) => {
 							value: /^[0-9]*$/,
 							message: 'Phone number contains invalid character',
 						},
+						// validate: {
+						// 	duplicate: async (value) =>
+						// 		!(await isDupe('phoneNumber', value)) || 'Phone Number has been taken',
+						// },
 					})}
 					error={!!errors?.phoneNumber}
 					helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
@@ -86,6 +101,10 @@ const FormPvdInfo = ({ registerData }) => {
 							value: /^[0-9]*$/,
 							message: 'Credit Card Number contains invalid character',
 						},
+						// validate: {
+						// 	duplicate: async (value) =>
+						// 		!(await isDupe('creditCardNumber', value)) || 'Credit Card Number has been taken',
+						// },
 					})}
 					error={!!errors?.creditCardNumber}
 					helperText={errors?.creditCardNumber ? errors.creditCardNumber.message : null}
@@ -98,6 +117,7 @@ const FormPvdInfo = ({ registerData }) => {
 					{...register('address', {
 						required: 'Address is required',
 						minLength: { value: 2, message: 'Address must be at least 2 characters' },
+						maxLength: { value: 255, message: 'Address must be at most 255 characters' },
 					})}
 					error={!!errors?.address}
 					helperText={errors?.address ? errors.address.message : null}

@@ -19,11 +19,30 @@ exports.register = (req, res) => {
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, role
-			, firstName, lastName, birthdate, gender
-			, phoneNumber, degree, school, program, householdIncome
-			, targetNation, typeOfScholarship, employment, field
-			, providerName, address, website, creditCardNumber, verifyStatus } = req.body
+		const {
+			username,
+			password,
+			email,
+			role,
+			firstName,
+			lastName,
+			birthdate,
+			gender,
+			phoneNumber,
+			degree,
+			school,
+			program,
+			householdIncome,
+			targetNation,
+			typeOfScholarship,
+			employment,
+			field,
+			providerName,
+			address,
+			website,
+			creditCardNumber,
+			verifyStatus,
+		} = req.body
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
@@ -32,10 +51,23 @@ exports.register = (req, res) => {
 						res.status(400).send({ message: err.message })
 					} else if (role == 'student') {
 						Student.create(
-							{ userID: new ObjectId(user._id), username 
-								,firstName, lastName, birthdate, gender
-								, phoneNumber, degree, school, program
-								, householdIncome, targetNation, typeOfScholarship, employment, field },
+							{
+								userID: new ObjectId(user._id),
+								username,
+								firstName,
+								lastName,
+								birthdate,
+								gender,
+								phoneNumber,
+								degree,
+								school,
+								program,
+								householdIncome,
+								targetNation,
+								typeOfScholarship,
+								employment,
+								field,
+							},
 							(err, student) => {
 								if (err) {
 									res.status(400).json({ err })
@@ -45,14 +77,24 @@ exports.register = (req, res) => {
 							},
 						)
 					} else {
-						Provider.create({ userID: new ObjectId(user._id), providerName
-							, address, website, creditCardNumber, phoneNumber, verifyStatus }, (err, provider) => {
-							if (err) {
-								res.status(400).json({ err })
-							} else {
-								res.send(`Create provider ${username} success`)
-							}
-						})
+						Provider.create(
+							{
+								userID: new ObjectId(user._id),
+								providerName,
+								address,
+								website,
+								creditCardNumber,
+								phoneNumber,
+								verifyStatus,
+							},
+							(err, provider) => {
+								if (err) {
+									res.status(400).json({ err })
+								} else {
+									res.send(`Create provider ${username} success`)
+								}
+							},
+						)
 					}
 				})
 			})
@@ -75,7 +117,7 @@ exports.login = async (req, res) => {
 
 		const foundUser = await User.findOne({ username }).select('+password')
 
-		if (!foundUser) return res.status(401).json({message: "Not found user"})//res.sendStatus(401) //Unauthorized
+		if (!foundUser) return res.status(401).json({ message: 'Not found user' }) //res.sendStatus(401) //Unauthorized
 
 		const match = await bcrypt.compare(password, foundUser.password)
 		if (match) {
@@ -107,7 +149,7 @@ exports.login = async (req, res) => {
 
 			res.json({ accessToken, role: foundUser.role })
 		} else {
-			res.status(401).json({message: "Not match"})//res.sendStatus(401)
+			res.status(401).json({ message: 'Not match' }) //res.sendStatus(401)
 		}
 	}
 }
@@ -166,25 +208,52 @@ exports.isDupe = (req, res) => {
 exports.logout = async (req, res) => {
 	// #swagger.tags = ['auth']
 	//const cookies = req.cookies
-	
+
 	const cookies = req.cookies
 	try {
-		const user = await User.findOne({ "refreshToken": cookies.jwt })
-		if (!user) return res.status(401).json({message: "Not found user"})
+		const user = await User.findOne({ refreshToken: cookies.jwt })
+		if (!user) return res.status(401).json({ message: 'Not found user' })
 
 		user.refreshToken = undefined
 		await user.save()
 
 		//res.cookies('jwt', '', {maxAge:1});
 
-		res.clearCookie("jwt", {
-			path: "/",
+		res.clearCookie('jwt', {
+			path: '/',
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
-		  });
+			secure: process.env.NODE_ENV === 'production',
+		})
 		res.clearCookie('refreshToken')
 		res.send('Logged out successfully')
 	} catch (error) {
 		res.status(400).send({ message: error.message })
+	}
+}
+
+/*
+ * @desc     Get user info
+ * @route    GET user/:username
+ * @access   Private
+ */
+const handleValidationResult = (result, res) => {
+	if (!result.isEmpty()) {
+		return res.status(400).json({ errors: result.array() })
+	}
+}
+
+exports.getUser = async (req, res) => {
+	// #swagger.tags = ['provider']
+	const result = validationResult(req)
+	handleValidationResult(result, res)
+	try {
+		const username = req.params.username
+
+		const user = await User.findOne({ username })
+		if (!user) throw new Error('User not found')
+
+		return res.status(200).json({ user })
+	} catch (error) {
+		return res.status(400).json({ message: error.message })
 	}
 }

@@ -7,5 +7,5 @@ import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
 
 export default function UpdateProviderInfo() {
-	return <FormPrimary header="Update ProviderInformation" form={<FormProviderUpd />} />
+	return <FormPrimary header="Update Provider Information" form={<FormProviderUpd />} />
 }

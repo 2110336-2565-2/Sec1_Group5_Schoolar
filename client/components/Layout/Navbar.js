@@ -19,11 +19,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
 import axios from 'axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
 
 function Navbar() {
 	const { auth } = useAuth()
 	const router = useRouter()
+	// const { role, setRole } = React.useState()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
@@ -38,15 +40,26 @@ function Navbar() {
 
 	const handleLogout = async () => {
 		try {
-			await axios.put('/auth/logout');
-			window.location.reload();
-			  // Clear local storage or perform any necessary cleanup
+			await axios.put('/auth/logout')
+			window.location.reload()
+			// Clear local storage or perform any necessary cleanup
 		} catch (error) {
-			  console.error(error);
+			console.error(error)
 		}
-	};
-		  
-	
+	}
+	const axiosPrivate = useAxiosPrivate()
+	const handleEditInfo = () => {
+		axiosPrivate.get(`/auth/${auth.username}`).then((res) => {
+			console.log(`Edit role : ${res.data.user.role}`)
+			const role = res.data.user.role
+			if (role === 'student') {
+				router.push('/student-update')
+			} else if (role === 'provider') {
+				router.push('/provider-update')
+			}
+		})
+	}
+
 	const AccountDropDown = () => {
 		switch (auth) {
 			case null:
@@ -73,8 +86,8 @@ function Navbar() {
 			default:
 				return (
 					<>
-						<Link href="/edit">
-							<MenuItem key="Edit Profile">
+						<Link href="/">
+							<MenuItem onClick={handleEditInfo} key="Edit Profile">
 								<ListItemIcon>
 									<Edit fontSize="small" />
 								</ListItemIcon>

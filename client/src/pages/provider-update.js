@@ -9,3 +9,11 @@ import Image from 'next/image'
 export default function UpdateProviderInfo() {
 	return <FormPrimary header="Update Provider Information" form={<FormProviderUpd />} />
 }
+
+export async function getStaticProps(context) {
+	return {
+		props: {
+			authRequired: true,
+		},
+	}
+}

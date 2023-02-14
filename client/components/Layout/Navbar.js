@@ -43,7 +43,6 @@ function Navbar({ setOpen }) {
 			await axios.put('/auth/logout')
 			setOpen(true)
 			setAuth(null)
-			router.reload()
 		} catch (error) {
 			console.error(error)
 		}

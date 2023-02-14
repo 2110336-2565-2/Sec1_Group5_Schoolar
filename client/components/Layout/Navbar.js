@@ -31,6 +31,14 @@ function Navbar({ setOpen }) {
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
 
+	const handleLogo = () => {
+		if (router.asPath == '/') {
+			router.reload()
+		} else {
+			router.push('/')
+		}
+	}
+
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
 	}
@@ -66,11 +74,10 @@ function Navbar({ setOpen }) {
 				<Toolbar>
 					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<Link href="/">
-								<Center>
-									<Image src="/logo.svg" alt="logo" width={43} height={51} />
-								</Center>
-							</Link>
+							<Center onClick={handleLogo}>
+								<Image src="/logo.svg" alt="logo" width={43} height={51} />
+							</Center>
+
 							<MenuItem>
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>

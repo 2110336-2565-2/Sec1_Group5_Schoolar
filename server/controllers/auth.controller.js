@@ -25,7 +25,7 @@ exports.register = (req, res) => {
 			, targetNation, typeOfScholarship, employment, field
 			, providerName, address, website, creditCardNumber, verifyStatus } = req.body
 
-		console.log(req.body);
+		//console.log(req.body);
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {

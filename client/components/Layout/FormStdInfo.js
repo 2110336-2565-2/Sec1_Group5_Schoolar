@@ -166,7 +166,7 @@ const FormStdInfo = ({ registerData }) => {
 											message: 'Phone number contains invalid character',
 										},
 										minLength: { value: 9, message: "Phone number must be at least 9 characters" },
-										maxLength: { value: 10, message: "Phone number must be at most 10 characters" }
+										maxLength: { value: 10, message: "Phone number must be at most 10 characters" },
 										validate: {
 											duplicate: async (value) =>
 												!(await isDupe('student', "phoneNumber", value)) || 'Phone number has been taken',

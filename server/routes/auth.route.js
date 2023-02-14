@@ -52,7 +52,7 @@ router.post(
 router.get('/:username', getUser)
 router.get('/refresh-token', refreshToken)
 
-router.get('/isDupe/:field/:value', isDupe)
+router.get('/isDupe/:role/:field/:value', isDupe)
 
 router.put('/logout', logout)
 

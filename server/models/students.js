@@ -36,7 +36,7 @@ const studentSchema = new Schema({
 		required: true,
 		type: String,
 		maxLength: 10,
-		//unique: true,
+		unique: true,
 		trim: true
 	},
 	gpax: {

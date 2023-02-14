@@ -55,6 +55,15 @@ const FormStdInfo = ({ registerData }) => {
 		}
 	}
 
+	const isDupe = async (role, field, value) => {
+		try {
+			const response = await axios.get(`/auth/isDupe/${role}/${field}/${value}`)
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	return (
 		<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
 			<Grid container sx={{ m: 2 }}>
@@ -116,23 +125,6 @@ const FormStdInfo = ({ registerData }) => {
 									helperText={errors?.birthdate ? errors.birthdate.message : null}
 								/> */}
 
-								{/* <LocalizationProvider dateAdapter={AdapterDayjs}
-								>
-									<DatePicker
-										disableFuture
-										required
-										label="Date of Birth"
-										openTo="year"
-										views={['year', 'month', 'day']}
-										value={value}
-										onChange={(newValue) => {
-											setValue(newValue)
-											
-										}}
-										renderInput={(params) => <TextField {...params} />}
-										
-									/>
-								</LocalizationProvider> */}
 
 								<TextField
 									id="date"
@@ -175,6 +167,10 @@ const FormStdInfo = ({ registerData }) => {
 										},
 										minLength: { value: 9, message: "Phone number must be at least 9 characters" },
 										maxLength: { value: 10, message: "Phone number must be at most 10 characters" }
+										validate: {
+											duplicate: async (value) =>
+												!(await isDupe('student', "phoneNumber", value)) || 'Phone number has been taken',
+										}
 									})}
 									error={!!errors?.phoneNumber}
 									helperText={

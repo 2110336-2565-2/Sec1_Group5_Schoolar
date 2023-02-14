@@ -1,10 +1,8 @@
 import { React, useState } from 'react'
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
-	Box,
 	Button,
 	FormControl,
 	FormControlLabel,

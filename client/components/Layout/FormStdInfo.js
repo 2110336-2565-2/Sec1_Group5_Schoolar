@@ -13,15 +13,12 @@ import {
 	TextField,
 } from '@mui/material'
 import { Stack } from '@mui/system'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import axios from 'axios'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 
-import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import axios from '@/pages/api/axios'
 
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 const FormStdInfo = ({ registerData }) => {
 	const {
 		register,

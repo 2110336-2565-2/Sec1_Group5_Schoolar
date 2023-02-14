@@ -143,7 +143,6 @@ function Navbar({ setOpen }) {
 								transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 								anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 							>
-								{/* <AccountDropDown auth={auth} /> */}
 								{
 
 									auth ?
@@ -188,8 +187,8 @@ function Navbar({ setOpen }) {
 						</Stack>
 					</HStack>
 				</Toolbar>
-			</AppBar >
-		</Box >
+			</AppBar>
+		</Box>
 	)
 }
 

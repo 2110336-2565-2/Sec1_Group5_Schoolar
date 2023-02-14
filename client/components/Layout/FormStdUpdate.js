@@ -33,7 +33,7 @@ const genders = [
 	{ value: 'Female', label: 'Female' },
 	{ value: 'Non-binary', label: 'Non-binary' },
 ]
-const degree = [
+const degreeDropDown = [
 	{ value: 'High-school Student', label: 'High-school Student' },
 	{ value: "Bachelor's Degree", label: "Bachelor's Degree" },
 	{ value: 'Master Degree', label: 'Master Degree' },
@@ -71,12 +71,6 @@ const FormUpdateStdInfo = () => {
 		mode: 'onBlur',
 	})
 
-	const handleOnChange = (e) => {
-		setValue(e.target.name, e.target.value)
-	}
-	const [password, setPassword] = useState('')
-	const [rePassword, setRePassword] = useState('')
-	const [showPassword, setShowPassword] = useState(false)
 	const [isUpdated, setIsUpdated] = useState(false)
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
 
@@ -90,7 +84,6 @@ const FormUpdateStdInfo = () => {
 			setSelectProgram(uniProgram)
 		}
 	}
-	
 
 	const { auth, setAuth } = useAuth()
 
@@ -100,12 +93,11 @@ const FormUpdateStdInfo = () => {
 		lastName: '',
 		birthdate: '',
 		gender: '',
-		phoneno: "",
-    	email: "",
-		school: '',
-		deg: '',
-		program: '',
+		phoneNumber: '',
 		gpax: '',
+		degree: '',
+		school: '',
+		program: '',
 		income: '',
 		target: '',
 		scholarship: '',
@@ -113,7 +105,19 @@ const FormUpdateStdInfo = () => {
 		interest: '',
 		type: '',
 	})
-
+	const [email, setEmail] = useState('')
+	const handleOnChange = (e) => {
+		if (e.target.name === 'email') {
+			setEmail(e.target.value)
+		} else {
+			let newStudentInfo = studentInfo
+			newStudentInfo[e.target.name] = e.target.value
+			let update = {}
+			update[e.target.name] = e.target.value
+			setStudentInfo(newStudentInfo)
+			reset(update)
+		}
+	}
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 
@@ -121,13 +125,36 @@ const FormUpdateStdInfo = () => {
 		//* example of using axios private to get data from route that need token
 		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
 			setStudentInfo(res.data.student)
-			reset({
-				studentInfo: res.data.student,
-			})
+			setEmail(res.data.user.email)
 		})
 	}, [])
+	useEffect(() => {
+		reset({
+			email: email,
+		})
+	}, [email])
 
-
+	useEffect(() => {
+		const data = {
+			firstName: studentInfo.firstName,
+			lastName: studentInfo.lastName,
+			birthdate: studentInfo.birthdate,
+			gender: studentInfo.gender,
+			phoneNumber: studentInfo.phoneNumber,
+			gpax: studentInfo.gpax,
+			deg: studentInfo.deg,
+			school: studentInfo.school,
+			program: studentInfo.program,
+			income: studentInfo.income,
+			target: studentInfo.target,
+			scholarship: studentInfo.scholarship,
+			employment: studentInfo.employment,
+			interest: studentInfo.interest,
+			type: studentInfo.type
+		}
+		console.log(data)
+		reset(data)
+	}, [studentInfo])
 	const onSubmit = (data) => {
 		console.log(`submitted`)
 		alert('Data has been updated successfully')
@@ -149,7 +176,8 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								required
-								value = {studentInfo.firstName}
+								value={studentInfo.firstName}
+								name="firstName"
 								label="Firstname"
 								InputLabelProps={{ shrink: true }}
 								{...register('firstName', {
@@ -167,15 +195,17 @@ const FormUpdateStdInfo = () => {
 								error={!!errors?.firstName}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 								helperText={errors?.firstName ? errors.firstName.message : null}
 							/>
 							<TextField
 								id="outlined-start-adornment"
 								required
 								label="Surname"
+								name="lastName"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.lastName}
-								{...register('surname', {
+								value={studentInfo.lastName}
+								{...register('lastName', {
 									required: 'Surname is required',
 									minLength: {
 										value: 2,
@@ -189,6 +219,7 @@ const FormUpdateStdInfo = () => {
 								error={!!errors?.surname}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 								helperText={errors?.surname ? errors.surname.message : null}
 							/>
 							<LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -197,12 +228,14 @@ const FormUpdateStdInfo = () => {
 									required
 									label="Date of Birth"
 									InputLabelProps={{ shrink: true }}
-									value = {studentInfo.birthdate}
+									value={studentInfo.birthdate}
+									name="birthdate"
 									openTo="year"
 									views={['year', 'month', 'day']}
-									{...register('dateOfBirth1')}
+									{...register('birthdate')}
 									renderInput={(params) => <TextField {...params} />}
 									disabled={isUpdated}
+									onChange={handleOnChange}
 								/>
 							</LocalizationProvider>
 							<TextField
@@ -210,8 +243,9 @@ const FormUpdateStdInfo = () => {
 								required
 								select
 								label="Gender"
+								name="gender"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.gender}
+								value={studentInfo.gender}
 								disabled={isUpdated}
 								{...register('gender')}
 								onChange={handleOnChange}
@@ -221,16 +255,15 @@ const FormUpdateStdInfo = () => {
 										{option.label}
 									</MenuItem>
 								))}
-								
 							</TextField>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								required
 								label="Phone Number"
+								name="phoneno"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.phoneno}
-								{...register('phoneNumber', {
+								value={studentInfo.phoneno}
+								{...register('phoneno', {
 									pattern: {
 										value: /^[0-9]*$/,
 										message: 'Phone number contains invalid character',
@@ -239,15 +272,16 @@ const FormUpdateStdInfo = () => {
 								error={!!errors?.phoneNumber}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 								helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
 							/>
 							<TextField
 								id="outlined-start-adornment"
 								required
-								defaultValue=""
 								label="Email"
+								name="email"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.email}
+								value={studentInfo.email}
 								{...register('email', {
 									pattern: {
 										value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -257,16 +291,17 @@ const FormUpdateStdInfo = () => {
 								error={!!errors?.email}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 								helperText={errors?.email ? errors.email.message : null}
 							/>
 
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								label="School/University"
+								name="school"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.school}
-								{...register('School', {
+								value={studentInfo.school}
+								{...register('school', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
 										message: 'School contains invalid character',
@@ -276,15 +311,16 @@ const FormUpdateStdInfo = () => {
 								helperText={errors?.School ? errors.School.message : null}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined-start-adornment"
 								select
-								defaultValue=""
 								label="Degree"
+								name="deg"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.degree}
-								{...register('degree', {
+								value={studentInfo.degree}
+								{...register('deg', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
 										message: 'Degree contains invalid character',
@@ -305,11 +341,11 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								select
-								defaultValue=""
 								label="Program/Faculty"
+								name="program"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.program}
-								{...register('Program', {
+								value={studentInfo.program}
+								{...register('program', {
 									pattern: {
 										value: /^[A-Za-z]+$/,
 										message: 'Program contains invalid character',
@@ -319,6 +355,7 @@ const FormUpdateStdInfo = () => {
 								helperText={errors?.Program ? errors.Program.message : null}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							>
 								{selectProgram.map((option) => (
 									<MenuItem key={option.value} value={option.value}>
@@ -328,10 +365,10 @@ const FormUpdateStdInfo = () => {
 							</TextField>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								label="GPAX"
+								name="gpax"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.gpax}
+								value={studentInfo.gpax}
 								{...register('gpax', {
 									pattern: {
 										value: /^[0-9]*\.[0-9][0-9]$/,
@@ -344,13 +381,14 @@ const FormUpdateStdInfo = () => {
 								helperText={errors?.gpax ? errors.gpax.message : null}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								label="Household Income"
+								name="income"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.income}
+								value={studentInfo.income}
 								{...register('income', {
 									pattern: {
 										value: /^[0-9]*$/,
@@ -362,23 +400,26 @@ const FormUpdateStdInfo = () => {
 								helperText={errors?.income ? errors.income.message : null}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								label="Target Nation"
+								name="target"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.target}
+								value={studentInfo.target}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined-select-gender"
 								select
 								label="Type of scholarship"
-								defaultValue="Full scholarship"
+								name="type"
 								disabled={isUpdated}
-								value = {studentInfo.type}
+								value={studentInfo.type}
+								onChange={handleOnChange}
 							>
 								{scholarshipTypes.map((option) => (
 									<MenuItem key={option.value} value={option.value}>
@@ -388,40 +429,41 @@ const FormUpdateStdInfo = () => {
 							</TextField>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue=""
 								label="Field of Interest"
+								name="interest"
 								InputLabelProps={{ shrink: true }}
-								value = {studentInfo.interest}
+								value={studentInfo.interest}
 								variant="outlined"
 								disabled={isUpdated}
+								onChange={handleOnChange}
 							/>
-							
 						</Stack>
+						<Grid
+							container
+							spacing={2}
+							alignItems="stretch"
+							justifyContent="space-evenly"
+							sx={{ padding: '20px 0px 20px 0px' }}
+						>
+							<Grid item>
+								<Button variant="contained">Cancel</Button>
+							</Grid>
+
+							<Grid item>
+								<Button
+									variant="contained"
+									type="submit"
+									onClick={() => {
+										const values = getValues()
+										console.log(values)
+									}}
+								>
+									Update
+								</Button>
+							</Grid>
+						</Grid>
 					</FormControl>
 					{/* </Box> */}
-				</Grid>
-			</Grid>
-			<Grid
-				container
-				spacing={2}
-				alignItems="stretch"
-				justifyContent="space-evenly"
-				sx={{ padding: '20px 0px 20px 0px' }}
-			>
-				<Grid item>
-					<Button variant="contained">Cancel</Button>
-				</Grid>
-
-				<Grid item>
-					<Button variant="contained" 
-					type="submit"
-					onClick={() => {
-						const values = getValues()
-						console.log(values)
-					}}
-					>
-						Update
-					</Button>
 				</Grid>
 			</Grid>
 		</Stack>

@@ -27,7 +27,7 @@ exports.getStudent = async (req, res) => {
         const student = await Student.findOne({ userID: user._id })
         if (!student) throw new Error('Student not found')
 
-        return res.status(200).json({ student })
+        return res.status(200).json({ student, user})
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }

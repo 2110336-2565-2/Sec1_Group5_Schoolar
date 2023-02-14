@@ -37,7 +37,7 @@ const studentSchema = new Schema({
 		type: String,
 		maxLength: 10,
 		unique: true,
-		trim: true
+		trim: true,
 	},
 	gpax: {
 		require: true,
@@ -82,7 +82,8 @@ const studentSchema = new Schema({
 		],
 	},
 	// below this is the criteria for matching
-	householdIncome: {		// backend tranform number to rank
+	householdIncome: {
+		// backend tranform number to rank
 		type: Number,
 		index: true,
 	},
@@ -98,12 +99,14 @@ const studentSchema = new Schema({
 		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {		//currently employed or unemployed
+	employment: {
+		//currently employed or unemployed
 		type: Boolean,
 		index: true,
 		trim: true,
 	},
-	field: {			// field of interest
+	field: {
+		// field of interest
 		type: String,
 		index: true,
 		trim: true,

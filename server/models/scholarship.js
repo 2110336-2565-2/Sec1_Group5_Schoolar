@@ -49,7 +49,7 @@ const scholarshipSchema = new Schema({
 			'Faculty of Science',
 			'Faculty of Sports Science',
 			'Faculty of Veterinary Science',
-		]
+		],
 	},
 	householdIncome: {
 		// backend tranform number to rank

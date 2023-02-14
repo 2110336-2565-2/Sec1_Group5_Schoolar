@@ -44,11 +44,6 @@ const providerSchema = new Schema({
 		unique: true,
 		trim: true,
 	},
-	verifyStatus: {
-		required: true,
-		type: Boolean,
-		trim: true,
-	},
 })
 
 module.exports = mongoose.model('Providers', providerSchema)

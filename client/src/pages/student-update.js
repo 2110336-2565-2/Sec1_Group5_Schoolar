@@ -16,3 +16,11 @@ export default function UpdateStudentInfo() {
 
 	return <FormPrimary header="Update Student Information" form={<FormStdUpdate />} />
 }
+
+export async function getStaticProps(context) {
+	return {
+		props: {
+			authRequired: true,
+		},
+	}
+}

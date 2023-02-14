@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Center, HStack } from '@components/common'
-import { Login, Logout, AppRegistration, Edit } from '@mui/icons-material'
+import { AppRegistration, Edit, Login, Logout, Route } from '@mui/icons-material'
 import {
 	Avatar,
 	Box,
@@ -15,20 +15,29 @@ import {
 	Typography,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
-import axios from 'axios'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
 
-function Navbar() {
-	const { auth } = useAuth()
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
+function Navbar({ setOpen }) {
+	const { auth, setAuth } = useAuth()
+
 	const router = useRouter()
-	// const { role, setRole } = React.useState()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const handleLogo = () => {
+		if (router.asPath == '/') {
+			router.reload()
+		} else {
+			router.push('/')
+		}
+	}
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
@@ -37,19 +46,18 @@ function Navbar() {
 	const handleClose = () => {
 		setAnchorEl(null)
 	}
-
 	const handleLogout = async () => {
 		try {
 			await axios.put('/auth/logout')
-			window.location.reload()
-			// Clear local storage or perform any necessary cleanup
+			setOpen(true)
+			setAuth(null)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 	const axiosPrivate = useAxiosPrivate()
 	const handleEditInfo = () => {
-		axiosPrivate.get(`/auth/${auth.username}`).then((res) => {
+		axiosPrivate.get(`/user/${auth.username}`).then((res) => {
 			console.log(`Edit role : ${res.data.user.role}`)
 			const role = res.data.user.role
 			if (role === 'student') {
@@ -60,64 +68,16 @@ function Navbar() {
 		})
 	}
 
-	const AccountDropDown = () => {
-		switch (auth) {
-			case null:
-				return (
-					<>
-						<Link href="/login">
-							<MenuItem>
-								<ListItemIcon>
-									<Login fontSize="small" />
-								</ListItemIcon>
-								Login
-							</MenuItem>
-						</Link>
-						<Link href="/register">
-							<MenuItem>
-								<ListItemIcon>
-									<AppRegistration fontSize="small" />
-								</ListItemIcon>
-								Register
-							</MenuItem>
-						</Link>
-					</>
-				)
-			default:
-				return (
-					<>
-						<Link href="/">
-							<MenuItem onClick={handleEditInfo} key="Edit Profile">
-								<ListItemIcon>
-									<Edit fontSize="small" />
-								</ListItemIcon>
-								Edit Profile
-							</MenuItem>
-						</Link>
-						<Link href="/">
-							<MenuItem onClick={handleLogout} key={'Logout'}>
-								<ListItemIcon>
-									<Logout fontSize="small" />
-								</ListItemIcon>
-								Logout
-							</MenuItem>
-						</Link>
-					</>
-				)
-		}
-	}
-
 	return (
 		<Box>
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
 				<Toolbar>
 					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<Link href="/">
-								<Center>
-									<Image src="/logo.svg" alt="logo" width={43} height={51} />
-								</Center>
-							</Link>
+							<Center onClick={handleLogo}>
+								<Image src="/logo.svg" alt="logo" width={43} height={51} />
+							</Center>
+
 							<MenuItem>
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>
@@ -188,7 +148,39 @@ function Navbar() {
 								transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 								anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 							>
-								<AccountDropDown />
+								{auth
+									? [
+											<MenuItem onClick={handleEditInfo} key="Edit Profile">
+												<ListItemIcon>
+													<Edit fontSize="small" />
+												</ListItemIcon>
+												Edit Profile
+											</MenuItem>,
+											<MenuItem onClick={handleLogout} key={'logout'}>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												Logout
+											</MenuItem>,
+									  ]
+									: [
+											<Link href="/login">
+												<MenuItem>
+													<ListItemIcon>
+														<Login fontSize="small" />
+													</ListItemIcon>
+													Login
+												</MenuItem>
+											</Link>,
+											<Link href="/register">
+												<MenuItem>
+													<ListItemIcon>
+														<AppRegistration fontSize="small" />
+													</ListItemIcon>
+													Register
+												</MenuItem>
+											</Link>,
+									  ]}
 							</Menu>
 						</Stack>
 					</HStack>

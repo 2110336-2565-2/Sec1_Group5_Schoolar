@@ -34,7 +34,6 @@ router.patch(
 			.withMessage('Credit card number must be at most 16 characters')
 			.matches(/^[0-9]*$]/)
 			.withMessage('Credit card number must contain only numeric characters'),
-		body('verifyStatus').isIn([true, false]).withMessage('Verify status is invalid'),
 	],
 	updateProviderInfo,
 )

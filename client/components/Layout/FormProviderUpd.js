@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import {
-	Box,
-	Button,
-	FormControl,
-	FormHelperText,
-	InputLabel,
-	OutlinedInput,
-	TextField,
-	Grid,
-	Stack,
-} from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import Grid2 from '@mui/material/Unstable_Grid2'
+import { useForm } from 'react-hook-form'
+import { Button, FormControl, Grid, Stack, TextField } from '@mui/material'
+
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 import InputPassword from './InputPassword'
-import { useForm } from 'react-hook-form'
 
 const FormUpdatePvdInfo = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()

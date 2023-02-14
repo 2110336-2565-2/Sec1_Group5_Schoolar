@@ -8,6 +8,7 @@ import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+
 import axios from './api/axios'
 
 function ForgotPassword() {

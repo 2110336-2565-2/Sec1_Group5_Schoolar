@@ -13,13 +13,14 @@ import {
 	TextField,
 } from '@mui/material'
 import { Stack } from '@mui/system'
-import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import dayjs from 'dayjs'
 import axios from 'axios'
+import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
+
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 
 const FormStdInfo = ({ registerData }) => {
 	const {
@@ -37,13 +38,13 @@ const FormStdInfo = ({ registerData }) => {
 		try {
 			const response = await axios.post('/auth/register', data, {
 				headers: {
-					'Content-Type': 'application/json'
-				}
+					'Content-Type': 'application/json',
+				},
 			})
-			alert(response.data);
-			router.push('/login');
+			alert(response.data)
+			router.push('/login')
 		} catch (error) {
-			console.error(error);
+			console.error(error)
 		}
 	}
 
@@ -51,7 +52,7 @@ const FormStdInfo = ({ registerData }) => {
 		if (!form) setForm(!form)
 		else {
 			const allData = Object.assign(registerData, data)
-			sendData(JSON.stringify(allData));
+			sendData(JSON.stringify(allData))
 		}
 	}
 
@@ -125,7 +126,6 @@ const FormStdInfo = ({ registerData }) => {
 									helperText={errors?.birthdate ? errors.birthdate.message : null}
 								/> */}
 
-
 								<TextField
 									id="date"
 									label="birth of Date"
@@ -165,12 +165,19 @@ const FormStdInfo = ({ registerData }) => {
 											value: /^[0-9]*$/,
 											message: 'Phone number contains invalid character',
 										},
-										minLength: { value: 9, message: "Phone number must be at least 9 characters" },
-										maxLength: { value: 10, message: "Phone number must be at most 10 characters" },
+										minLength: {
+											value: 9,
+											message: 'Phone number must be at least 9 characters',
+										},
+										maxLength: {
+											value: 10,
+											message: 'Phone number must be at most 10 characters',
+										},
 										validate: {
 											duplicate: async (value) =>
-												!(await isDupe('student', "phoneNumber", value)) || 'Phone number has been taken',
-										}
+												!(await isDupe('student', 'phoneNumber', value)) ||
+												'Phone number has been taken',
+										},
 									})}
 									error={!!errors?.phoneNumber}
 									helperText={
@@ -210,7 +217,7 @@ const FormStdInfo = ({ registerData }) => {
 									label="Degree"
 									{...register('degree')}
 									onChange={(event) => {
-										const selectedValue = event.target.value;
+										const selectedValue = event.target.value
 										if (selectedValue === 'high school') {
 											setSelectProgram(studentProgram)
 										} else {

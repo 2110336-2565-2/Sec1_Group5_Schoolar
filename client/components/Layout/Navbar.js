@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Center, HStack } from '@components/common'
-import { Login, Logout, AppRegistration, Edit, Route } from '@mui/icons-material'
+import { AppRegistration, Edit, Login, Logout, Route } from '@mui/icons-material'
 import {
 	Avatar,
 	Box,
@@ -15,22 +15,25 @@ import {
 	Typography,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
-import axios from 'axios'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
 
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
-function Navbar() {
-	const { auth } = useAuth()
+function Navbar({ setOpen }) {
+	const { auth, setAuth } = useAuth()
 
 	const router = useRouter()
-	// const { role, setRole } = React.useState()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const handleClickReload = () => {
+		router.push('/')
+	}
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
@@ -43,12 +46,12 @@ function Navbar() {
 	const handleLogout = async () => {
 		try {
 			await axios.put('/auth/logout')
-			window.location.reload()
-			// Clear local storage or perform any necessary cleanup
+			setOpen(true)
+			setAuth(null)
+			router.push('/')
 		} catch (error) {
 			console.error(error)
 		}
-
 	}
 	const axiosPrivate = useAxiosPrivate()
 	const handleEditInfo = () => {

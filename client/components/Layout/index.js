@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '@components/Layout/Navbar'
 import { Box, CssBaseline } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -8,6 +10,8 @@ import { useRouter } from 'next/router'
 import theme from '../../src/styles/theme'
 
 const WebLayout = ({ children }) => {
+	const [open, setOpen] = React.useState(false)
+
 	const { route } = useRouter()
 	const yellowBgPages = ['/register', '/login']
 	if (yellowBgPages.includes(route)) {
@@ -15,6 +19,14 @@ const WebLayout = ({ children }) => {
 	} else {
 		theme.palette.background.default = theme.palette.primary.light
 	}
+
+	useEffect(() => {
+		if (open) {
+			setTimeout(() => {
+				setOpen(false)
+			}, 3000)
+		}
+	}, [open])
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -30,7 +42,19 @@ const WebLayout = ({ children }) => {
 					flexFlow: 'column',
 				}}
 			>
-				<Navbar sx={{ flex: '0 1 auto' }} />
+				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
+				<Box>
+					{open && (
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'flex-end',
+							}}
+						>
+							<Alert severity="success">Logout successfully</Alert>
+						</Box>
+					)}
+				</Box>
 				<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 			</Box>
 		</ThemeProvider>

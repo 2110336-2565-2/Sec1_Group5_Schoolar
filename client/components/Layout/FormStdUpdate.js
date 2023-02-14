@@ -1,35 +1,36 @@
 import { React, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
-import { useAuth } from '@/context/AuthContext'
+import { useForm } from 'react-hook-form'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
 	Box,
 	Button,
-	RadioGroup,
-	Radio,
 	FormControl,
 	FormControlLabel,
 	FormGroup,
+	FormHelperText,
 	FormLabel,
+	Grid,
+	InputLabel,
 	MenuItem,
 	OutlinedInput,
-	FormHelperText,
+	Radio,
+	RadioGroup,
 	Stack,
-	Grid,
 	TextField,
-	InputLabel,
 } from '@mui/material'
-
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import IconButton from '@mui/material/IconButton'
+
+import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { genders, degree, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 
 const FormUpdateStdInfo = () => {
 	const {
@@ -71,7 +72,6 @@ const FormUpdateStdInfo = () => {
 	// 		console.log(res.data)
 	// 	})
 	// }, [])
-
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">

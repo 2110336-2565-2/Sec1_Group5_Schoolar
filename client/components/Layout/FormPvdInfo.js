@@ -14,6 +14,15 @@ const FormPvdInfo = ({ registerData }) => {
 
 	const router = useRouter()
 
+	const isDupe = async (role, field, value) => {
+		try {
+			const response = await axios.get(`/auth/isDupe/${role}/${field}/${value}`)
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	const sendData = async (data) => {
 
 		try {
@@ -80,10 +89,10 @@ const FormPvdInfo = ({ registerData }) => {
 							value: /^[0-9]*$/,
 							message: 'Phone number contains invalid character',
 						},
-						// validate: {
-						// 	duplicate: async (value) =>
-						// 		!(await isDupe('phoneNumber', value)) || 'Phone Number has been taken',
-						// },
+						validate: {
+							duplicate: async (value) =>
+								!(await isDupe('provider', "phoneNumber", value)) || 'Phone number has been taken',
+						}
 					})}
 					error={!!errors?.phoneNumber}
 					helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}

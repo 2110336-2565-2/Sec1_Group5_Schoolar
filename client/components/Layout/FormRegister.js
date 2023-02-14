@@ -33,9 +33,9 @@ const FormRegister = ({ setData, setPage }) => {
 		setRole(newrole)
 	}
 
-	const isDupe = async (field, value) => {
+	const isDupe = async (role, field, value) => {
 		try {
-			const response = await axios.get(`/auth/isDupe/${field}/${value}`)
+			const response = await axios.get(`/auth/isDupe/${role}/${field}/${value}`)
 			return response.data
 		} catch (err) {
 			console.log(err)
@@ -62,7 +62,7 @@ const FormRegister = ({ setData, setPage }) => {
 					},
 					validate: {
 						duplicate: async (value) =>
-							!(await isDupe('username', value)) || 'Username has been taken',
+							!(await isDupe('user', "username", value)) || 'Username has been taken',
 					},
 				})}
 				error={!!errors?.username}
@@ -81,7 +81,7 @@ const FormRegister = ({ setData, setPage }) => {
 					},
 					validate: {
 						duplicate: async (value) =>
-							!(await isDupe('email', value)) || 'Email has been taken',
+							!(await isDupe('user', 'email', value)) || 'Email has been taken',
 					},
 				})}
 				error={!!errors?.email}

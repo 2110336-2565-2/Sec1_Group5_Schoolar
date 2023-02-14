@@ -24,6 +24,8 @@ exports.register = (req, res) => {
 			, phoneNumber, degree, school, program, householdIncome
 			, targetNation, typeOfScholarship, employment, field
 			, providerName, address, website, creditCardNumber, verifyStatus } = req.body
+
+		console.log(req.body);
 		const saltRounds = 10
 		bcrypt.genSalt(saltRounds, function (err, salt) {
 			bcrypt.hash(password, salt, function (err, hash) {
@@ -38,6 +40,7 @@ exports.register = (req, res) => {
 								, householdIncome, targetNation, typeOfScholarship, employment, field },
 							(err, student) => {
 								if (err) {
+									console.log(err.message);
 									res.status(400).json({ err })
 								} else {
 									res.send(`Create student ${username} success`)
@@ -147,21 +150,44 @@ exports.refreshToken = async (req, res) => {
 
 /*
  * @desc     Check Duplicate field
- * @route    GET auth/isDupe/:field/:value
+ * @route    GET auth/isDupe/:role/:field/:value
  * @access   Public
  */
 exports.isDupe = (req, res) => {
 	// #swagger.tags = ['auth']
-	const { field, value } = req.params
-	console.log({ field, value })
-	User.countDocuments({ [field]: value }, (err, user) => {
-		if (err) {
-			res.status(400).json({ err })
-		} else {
-			res.send(!!user)
-		}
-	})
+	const { role, field, value } = req.params
+	switch(role){
+		case "user":
+			User.countDocuments({ [field]: value }, (err, user) => {
+				if (err) {
+					res.status(400).json({ message: "User not found"})
+				} else {
+					res.send(!!user)
+				}
+			})
+			break;
+		case "student":
+			Student.countDocuments({ [field]: value }, (err, student) => {
+				if (err) {
+					res.status(400).json({ err })
+				} else {
+					res.send(!!student)
+				}
+			})
+			break;
+		case "provider":
+			Provider.countDocuments({ [field]: value }, (err, provider) => {
+				if (err) {
+					res.status(400).json({ err })
+				} else {
+					res.send(!!provider)
+				}
+			})
+			break;
+	}
+	
 }
+
 
 exports.logout = async (req, res) => {
 	// #swagger.tags = ['auth']

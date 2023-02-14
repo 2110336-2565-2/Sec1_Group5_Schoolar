@@ -32,10 +32,6 @@ function Navbar() {
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
 
-	const handleClickReload = () => {
-		router.reload()
-	}
-
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
 	}
@@ -118,11 +114,11 @@ function Navbar() {
 				<Toolbar>
 					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<MenuItem onClick={handleClickReload}>
+							<Link href="/">
 								<Center>
 									<Image src="/logo.svg" alt="logo" width={43} height={51} />
 								</Center>
-							</MenuItem>
+							</Link>
 							<MenuItem>
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>

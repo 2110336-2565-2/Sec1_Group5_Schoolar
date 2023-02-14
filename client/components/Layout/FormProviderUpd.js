@@ -24,7 +24,16 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
-
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		getValues,
+		reset,
+		setValue,
+	} = useForm({
+		mode: 'onBlur',
+	})
 	//* password related value
 	const [isSubmitted, setIsCancel] = useState(false)
 	const [password, setPassword] = useState('')
@@ -44,41 +53,40 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 		//* example of using axios private to get data from route that need token
 		//* console.log(auth.username)
 		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-			//console.log(`providerName: ${res.data.provider.providerName}`)
+			console.log(res.data.provider.providerName)
 
 			setUsername(res.data.provider.username)
 			setProviderName(res.data.provider.providerName)
 			setCreditCardNumber(res.data.provider.creditCardNumber)
 			setAddress(res.data.provider.address)
 			setEmail(res.data.user.email)
-			setPhoneNumber(res.data.user.phoneNumber)
+			setPhoneNumber(res.data.provider.phoneNumber)
 			setWebsite(res.data.provider.website)
 			reset({
-				providerName: res.data.provider.username,
+				providerName: res.data.provider.providerName,
 				website: res.data.provider.website,
 				address: res.data.provider.address,
 				creditCardNumber: res.data.provider.creditCardNumber,
 				email: res.data.user.email,
-				phoneNumber: res.data.user.phoneNumber,
+				phoneNumber: res.data.provider.phoneNumber,
 			})
+			console.log(`after : ${providerName}`)
 		})
 	}, [])
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		getValues,
-		reset,
-		setValue,
-	} = useForm({
-		mode: 'onBlur',
-	})
 	const onSubmit = (data) => {
 		console.log(`submitted`)
 		alert('Data has been updated successfully')
 		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
 			console.log(res.status)
+		})
+		reset({
+			providerName: getValues('providerName'),
+			website: getValues('website'),
+			address: getValues('address'),
+			creditCardNumber: getValues('creditCardNumber'),
+			email: getValues('email'),
+			phoneNumber: getValues('phoneNumber'),
 		})
 	}
 
@@ -120,7 +128,7 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 							/>
 							<TextField
 								id="outlined-start-adornment"
-								defaultValue={providerName}
+								value={getValues(providerName)}
 								label="Provider Name"
 								InputLabelProps={{ shrink: true }}
 								{...register('providerName', {
@@ -222,57 +230,6 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 								error={!!errors?.email}
 								helperText={errors?.email ? errors.email.message : null}
 								onChange={handleOnChange}
-							/>
-							<InputPassword
-								register={{
-									...register('password', {
-										required: false,
-										minLength: {
-											value: 8,
-											message: 'Password must be at least 8 characters',
-										},
-										maxLength: {
-											value: 40,
-											message: 'Password must be at most 40 characters',
-										},
-										validate: {
-											upper: (value) =>
-												/(?=.*[A-Z])/.test(value) ||
-												'Password must have at least one uppercase letter',
-											lower: (value) =>
-												/(?=.*[a-z])/.test(value) ||
-												'Password must have at least one lower letter',
-											special: (value) =>
-												/(?=.*[0-9!"#$%&'()*+,-./:;<=>?@_`{|}~\[\]\\])/.test(
-													value,
-												) ||
-												'Password must have at least one digit number or special character',
-											space: (value) =>
-												/^\S*$/.test(value) ||
-												'Password must not contain spaces',
-										},
-									}),
-								}}
-								error={!!errors?.password}
-								helperText={errors?.password ? errors.password.message : null}
-							/>
-							<InputPassword
-								label={'Confirmed Password'}
-								register={{
-									...register('cfpassword', {
-										validate: {
-											similar: (value) =>
-												value === getValues('password') ||
-												'Password do not match!',
-										},
-									}),
-								}}
-								error={!!errors?.cfpassword && errors.cfpassword.type === 'similar'}
-								helperText={
-									errors?.cfpassword
-										? errors.cfpassword.message
-										: 'Use 8 or more characters with a mix of letters, numbers & special character'
-								}
 							/>
 						</Stack>
 						<Grid

@@ -49,7 +49,6 @@ router.post(
 	login,
 )
 
-router.get('/:username', getUser)
 router.get('/refresh-token', refreshToken)
 
 router.get('/isDupe/:role/:field/:value', isDupe)

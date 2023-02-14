@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
 import Image from 'next/image'
 

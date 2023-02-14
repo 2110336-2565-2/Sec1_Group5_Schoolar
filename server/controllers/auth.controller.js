@@ -19,11 +19,30 @@ exports.register = (req, res) => {
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password, email, role
-			, firstName, lastName, birthdate, gender
-			, phoneNumber, degree, school, program, householdIncome
-			, targetNation, typeOfScholarship, employment, field
-			, providerName, address, website, creditCardNumber, verifyStatus } = req.body
+		const {
+			username,
+			password,
+			email,
+			role,
+			firstName,
+			lastName,
+			birthdate,
+			gender,
+			phoneNumber,
+			degree,
+			school,
+			program,
+			householdIncome,
+			targetNation,
+			typeOfScholarship,
+			employment,
+			field,
+			providerName,
+			address,
+			website,
+			creditCardNumber,
+			verifyStatus,
+		} = req.body
 
 		//console.log(req.body);
 		const saltRounds = 10
@@ -53,7 +72,7 @@ exports.register = (req, res) => {
 							},
 							(err, student) => {
 								if (err) {
-									console.log(err.message);
+									console.log(err.message)
 									res.status(400).json({ err })
 								} else {
 									res.send(`Create student ${username} success`)
@@ -79,7 +98,6 @@ exports.register = (req, res) => {
 								}
 							},
 						)
-
 					}
 				})
 			})
@@ -180,17 +198,17 @@ exports.refreshToken = async (req, res) => {
 exports.isDupe = (req, res) => {
 	// #swagger.tags = ['auth']
 	const { role, field, value } = req.params
-	switch(role){
-		case "user":
+	switch (role) {
+		case 'user':
 			User.countDocuments({ [field]: value }, (err, user) => {
 				if (err) {
-					res.status(400).json({ message: "User not found"})
+					res.status(400).json({ message: 'User not found' })
 				} else {
 					res.send(!!user)
 				}
 			})
-			break;
-		case "student":
+			break
+		case 'student':
 			Student.countDocuments({ [field]: value }, (err, student) => {
 				if (err) {
 					res.status(400).json({ err })
@@ -198,8 +216,8 @@ exports.isDupe = (req, res) => {
 					res.send(!!student)
 				}
 			})
-			break;
-		case "provider":
+			break
+		case 'provider':
 			Provider.countDocuments({ [field]: value }, (err, provider) => {
 				if (err) {
 					res.status(400).json({ err })
@@ -207,17 +225,13 @@ exports.isDupe = (req, res) => {
 					res.send(!!provider)
 				}
 			})
-			break;
+			break
 	}
-	
 }
 
-
 exports.logout = async (req, res) => {
-
 	const cookies = req.cookies
 	try {
-
 		const user = await User.findOne({ refreshToken: cookies.jwt })
 		if (!user) return res.status(401).json({ message: 'Not found user' })
 
@@ -233,32 +247,5 @@ exports.logout = async (req, res) => {
 		res.send('Logged out successfully')
 	} catch (error) {
 		res.status(400).send({ message: error.message })
-	}
-}
-
-/*
- * @desc     Get user info
- * @route    GET user/:username
- * @access   Private
- */
-const handleValidationResult = (result, res) => {
-	if (!result.isEmpty()) {
-		return res.status(400).json({ errors: result.array() })
-	}
-}
-
-exports.getUser = async (req, res) => {
-	// #swagger.tags = ['provider']
-	const result = validationResult(req)
-	handleValidationResult(result, res)
-	try {
-		const username = req.params.username
-
-		const user = await User.findOne({ username })
-		if (!user) throw new Error('User not found')
-
-		return res.status(200).json({ user })
-	} catch (error) {
-		return res.status(400).json({ message: error.message })
 	}
 }

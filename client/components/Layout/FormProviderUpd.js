@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import {
-	Box,
-	Button,
-	FormControl,
-	FormHelperText,
-	Grid,
-	InputLabel,
-	OutlinedInput,
-	Stack,
-	TextField,
-} from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import Grid2 from '@mui/material/Unstable_Grid2'
+import { Button, FormControl, Grid, Stack, TextField } from '@mui/material'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'

@@ -50,7 +50,7 @@ function Navbar({ setOpen }) {
 	}
 	const axiosPrivate = useAxiosPrivate()
 	const handleEditInfo = () => {
-		axiosPrivate.get(`/auth/${auth.username}`).then((res) => {
+		axiosPrivate.get(`/user/${auth.username}`).then((res) => {
 			console.log(`Edit role : ${res.data.user.role}`)
 			const role = res.data.user.role
 			if (role === 'student') {

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'

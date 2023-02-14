@@ -36,7 +36,7 @@ const studentSchema = new Schema({
 		required: true,
 		type: String,
 		maxLength: 10,
-		unique: true,
+		//unique: true,
 		trim: true
 	},
 	gpax: {
@@ -45,7 +45,7 @@ const studentSchema = new Schema({
 	},
 	degree: {
 		type: String,
-		enum: ['high school', 'bachelor', 'master', 'doctoral'],
+		enum: ['', 'high school', 'bachelor', 'master', 'doctoral'],
 	},
 	school: {
 		type: String,
@@ -54,6 +54,7 @@ const studentSchema = new Schema({
 	program: {
 		type: String,
 		enum: [
+			'',
 			'Sci-Math',
 			'Art-Cal',
 			'Art-Language',

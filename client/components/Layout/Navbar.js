@@ -61,7 +61,6 @@ function Navbar({ setOpen }) {
 		})
 	}
 
-
 	return (
 		<Box>
 			<AppBar position="static" sx={{ bgcolor: 'primary' }}>
@@ -143,28 +142,22 @@ function Navbar({ setOpen }) {
 								transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 								anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 							>
-								{
-
-									auth ?
-										<>
-											<Link href="/">
-												<MenuItem onClick={handleEditInfo} key="Edit Profile">
-													<ListItemIcon>
-														<Edit fontSize="small" />
-													</ListItemIcon>
-													Edit Profile
-												</MenuItem>
-												<MenuItem onClick={handleLogout} key={'logout'}>
-													<ListItemIcon>
-														<Logout fontSize="small" />
-													</ListItemIcon>
-													Logout
-												</MenuItem>
-											</Link>
-										</>
-										:
-										<>
-
+								{auth
+									? [
+											<MenuItem onClick={handleEditInfo} key="Edit Profile">
+												<ListItemIcon>
+													<Edit fontSize="small" />
+												</ListItemIcon>
+												Edit Profile
+											</MenuItem>,
+											<MenuItem onClick={handleLogout} key={'logout'}>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												Logout
+											</MenuItem>,
+									  ]
+									: [
 											<Link href="/login">
 												<MenuItem>
 													<ListItemIcon>
@@ -172,7 +165,7 @@ function Navbar({ setOpen }) {
 													</ListItemIcon>
 													Login
 												</MenuItem>
-											</Link>
+											</Link>,
 											<Link href="/register">
 												<MenuItem>
 													<ListItemIcon>
@@ -180,9 +173,8 @@ function Navbar({ setOpen }) {
 													</ListItemIcon>
 													Register
 												</MenuItem>
-											</Link>
-										</>
-								}
+											</Link>,
+									  ]}
 							</Menu>
 						</Stack>
 					</HStack>

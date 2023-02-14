@@ -31,10 +31,6 @@ function Navbar({ setOpen }) {
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
 
-	const handleClickReload = () => {
-		router.push('/')
-	}
-
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
 	}
@@ -42,7 +38,6 @@ function Navbar({ setOpen }) {
 	const handleClose = () => {
 		setAnchorEl(null)
 	}
-
 	const handleLogout = async () => {
 		try {
 			await axios.put('/auth/logout')
@@ -66,50 +61,6 @@ function Navbar({ setOpen }) {
 		})
 	}
 
-	const AccountDropDown = () => {
-		switch (auth) {
-			case null:
-				return (
-					<>
-						<Link href="/login">
-							<MenuItem>
-								<ListItemIcon>
-									<Login fontSize="small" />
-								</ListItemIcon>
-								Login
-							</MenuItem>
-						</Link>
-						<Link href="/register">
-							<MenuItem>
-								<ListItemIcon>
-									<AppRegistration fontSize="small" />
-								</ListItemIcon>
-								Register
-							</MenuItem>
-						</Link>
-					</>
-				)
-			default:
-				return (
-					<>
-						<Link href="/">
-							<MenuItem onClick={handleEditInfo} key="Edit Profile">
-								<ListItemIcon>
-									<Edit fontSize="small" />
-								</ListItemIcon>
-								Edit Profile
-							</MenuItem>
-						</Link>
-						<MenuItem onClick={handleLogout} key={'logout'}>
-							<ListItemIcon>
-								<Logout fontSize="small" />
-							</ListItemIcon>
-							Logout
-						</MenuItem>
-					</>
-				)
-		}
-	}
 
 	return (
 		<Box>
@@ -192,13 +143,53 @@ function Navbar({ setOpen }) {
 								transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 								anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 							>
-								<AccountDropDown />
+								{/* <AccountDropDown auth={auth} /> */}
+								{
+
+									auth ?
+										<>
+											<Link href="/">
+												<MenuItem onClick={handleEditInfo} key="Edit Profile">
+													<ListItemIcon>
+														<Edit fontSize="small" />
+													</ListItemIcon>
+													Edit Profile
+												</MenuItem>
+												<MenuItem onClick={handleLogout} key={'logout'}>
+													<ListItemIcon>
+														<Logout fontSize="small" />
+													</ListItemIcon>
+													Logout
+												</MenuItem>
+											</Link>
+										</>
+										:
+										<>
+
+											<Link href="/login">
+												<MenuItem>
+													<ListItemIcon>
+														<Login fontSize="small" />
+													</ListItemIcon>
+													Login
+												</MenuItem>
+											</Link>
+											<Link href="/register">
+												<MenuItem>
+													<ListItemIcon>
+														<AppRegistration fontSize="small" />
+													</ListItemIcon>
+													Register
+												</MenuItem>
+											</Link>
+										</>
+								}
 							</Menu>
 						</Stack>
 					</HStack>
 				</Toolbar>
-			</AppBar>
-		</Box>
+			</AppBar >
+		</Box >
 	)
 }
 

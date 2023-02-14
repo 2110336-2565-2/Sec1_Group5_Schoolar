@@ -35,24 +35,22 @@ const FormStdInfo = ({ registerData }) => {
 
 	const sendData = async (data) => {
 		try {
-		  const response = await axios.post('/auth/register', data, {
-			headers: {
-			  'Content-Type': 'application/json'
-			}})
+			const response = await axios.post('/auth/register', data, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
 			alert(response.data);
-			router.push('/');
+			router.push('/login');
 		} catch (error) {
-		  console.error(error);
+			console.error(error);
 		}
-	  }
+	}
 
 	const onSubmit = (data) => {
-		//alert(JSON.stringify(data))
 		if (!form) setForm(!form)
 		else {
 			const allData = Object.assign(registerData, data)
-			//const allDataJson = JSON.stringify(allData)
-			//console.log(allDataJson);
 			sendData(JSON.stringify(allData));
 		}
 	}
@@ -137,15 +135,15 @@ const FormStdInfo = ({ registerData }) => {
 								</LocalizationProvider> */}
 
 								<TextField
-										id="date"
-										label="birth of Date"
-										type="date"
-										name="selectedDate"
-										{...register('birthdate', { required: true })}
-										InputLabelProps={{
+									id="date"
+									label="birth of Date"
+									type="date"
+									name="selectedDate"
+									{...register('birthdate', { required: true })}
+									InputLabelProps={{
 										shrink: true,
-										}}
-									/>
+									}}
+								/>
 
 								<TextField
 									required
@@ -175,8 +173,8 @@ const FormStdInfo = ({ registerData }) => {
 											value: /^[0-9]*$/,
 											message: 'Phone number contains invalid character',
 										},
-										minLength: {value: 9, message: "Phone number must be at least 9 characters"},
-										maxLength: {value: 10, message: "Phone number must be at most 10 characters"}
+										minLength: { value: 9, message: "Phone number must be at least 9 characters" },
+										maxLength: { value: 10, message: "Phone number must be at most 10 characters" }
 									})}
 									error={!!errors?.phoneNumber}
 									helperText={
@@ -222,7 +220,7 @@ const FormStdInfo = ({ registerData }) => {
 										} else {
 											setSelectProgram(uniProgram)
 										}
-									}}									
+									}}
 								>
 									{degree.map((option) => (
 										<MenuItem key={option.value} value={option.value}>

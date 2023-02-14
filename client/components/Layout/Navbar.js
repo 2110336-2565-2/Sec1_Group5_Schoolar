@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Center, HStack } from '@components/common'
-import { Login, Logout, AppRegistration, Edit } from '@mui/icons-material'
+import { Login, Logout, AppRegistration, Edit, Route } from '@mui/icons-material'
 import {
 	Avatar,
 	Box,
@@ -22,13 +22,19 @@ import axios from 'axios'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
 
+
 function Navbar() {
 	const { auth } = useAuth()
+
 	const router = useRouter()
 	// const { role, setRole } = React.useState()
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const handleClickReload = () => {
+		router.reload()
+	}
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget)
@@ -46,6 +52,7 @@ function Navbar() {
 		} catch (error) {
 			console.error(error)
 		}
+
 	}
 	const axiosPrivate = useAxiosPrivate()
 	const handleEditInfo = () => {
@@ -94,14 +101,12 @@ function Navbar() {
 								Edit Profile
 							</MenuItem>
 						</Link>
-						<Link href="/">
-							<MenuItem onClick={handleLogout} key={'Logout'}>
-								<ListItemIcon>
-									<Logout fontSize="small" />
-								</ListItemIcon>
-								Logout
-							</MenuItem>
-						</Link>
+						<MenuItem onClick={handleLogout} key={'logout'}>
+							<ListItemIcon>
+								<Logout fontSize="small" />
+							</ListItemIcon>
+							Logout
+						</MenuItem>
 					</>
 				)
 		}
@@ -113,11 +118,11 @@ function Navbar() {
 				<Toolbar>
 					<HStack direction="row" justifyContent="space-between">
 						<Stack direction="row" spacing={2}>
-							<Link href="/">
+							<MenuItem onClick={handleClickReload}>
 								<Center>
 									<Image src="/logo.svg" alt="logo" width={43} height={51} />
 								</Center>
-							</Link>
+							</MenuItem>
 							<MenuItem>
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>

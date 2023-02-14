@@ -95,6 +95,7 @@ exports.register = (req, res) => {
 								}
 							},
 						)
+
 					}
 				})
 			})
@@ -193,7 +194,6 @@ exports.refreshToken = async (req, res) => {
  * @access   Public
  */
 exports.isDupe = (req, res) => {
-	// #swagger.tags = ['auth']
 	const { field, value } = req.params
 	console.log({ field, value })
 	User.countDocuments({ [field]: value }, (err, user) => {
@@ -205,19 +205,21 @@ exports.isDupe = (req, res) => {
 	})
 }
 
+/*
+ * @desc     Logout user
+ * @route    POST auth/logout
+ * @access   Public
+ */
 exports.logout = async (req, res) => {
-	// #swagger.tags = ['auth']
-	//const cookies = req.cookies
 
 	const cookies = req.cookies
 	try {
+
 		const user = await User.findOne({ refreshToken: cookies.jwt })
 		if (!user) return res.status(401).json({ message: 'Not found user' })
 
 		user.refreshToken = undefined
 		await user.save()
-
-		//res.cookies('jwt', '', {maxAge:1});
 
 		res.clearCookie('jwt', {
 			path: '/',

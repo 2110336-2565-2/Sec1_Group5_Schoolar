@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
-import { Divider, Typography, Box } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
+
 import axios from './api/axios'
 
 function Homepage() {

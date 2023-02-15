@@ -51,6 +51,7 @@ function Navbar({ setOpen }) {
 			await axios.put('/auth/logout')
 			setOpen(true)
 			setAuth(null)
+			router.push('/login')
 		} catch (error) {
 			console.error(error)
 		}
@@ -150,37 +151,37 @@ function Navbar({ setOpen }) {
 							>
 								{auth
 									? [
-											<MenuItem onClick={handleEditInfo} key="Edit Profile">
-												<ListItemIcon>
-													<Edit fontSize="small" />
-												</ListItemIcon>
-												Edit Profile
-											</MenuItem>,
-											<MenuItem onClick={handleLogout} key={'logout'}>
-												<ListItemIcon>
-													<Logout fontSize="small" />
-												</ListItemIcon>
-												Logout
-											</MenuItem>,
-									  ]
+										<MenuItem onClick={handleEditInfo} key="Edit Profile">
+											<ListItemIcon>
+												<Edit fontSize="small" />
+											</ListItemIcon>
+											Edit Profile
+										</MenuItem>,
+										<MenuItem onClick={handleLogout} key={'logout'}>
+											<ListItemIcon>
+												<Logout fontSize="small" />
+											</ListItemIcon>
+											Logout
+										</MenuItem>,
+									]
 									: [
-											<Link href="/login">
-												<MenuItem>
-													<ListItemIcon>
-														<Login fontSize="small" />
-													</ListItemIcon>
-													Login
-												</MenuItem>
-											</Link>,
-											<Link href="/register">
-												<MenuItem>
-													<ListItemIcon>
-														<AppRegistration fontSize="small" />
-													</ListItemIcon>
-													Register
-												</MenuItem>
-											</Link>,
-									  ]}
+										<Link href="/login">
+											<MenuItem>
+												<ListItemIcon>
+													<Login fontSize="small" />
+												</ListItemIcon>
+												Login
+											</MenuItem>
+										</Link>,
+										<Link href="/register">
+											<MenuItem>
+												<ListItemIcon>
+													<AppRegistration fontSize="small" />
+												</ListItemIcon>
+												Register
+											</MenuItem>
+										</Link>,
+									]}
 							</Menu>
 						</Stack>
 					</HStack>

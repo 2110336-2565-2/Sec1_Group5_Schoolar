@@ -8,7 +8,7 @@ const FormPrimary = ({ header, form }) => {
 			container
 			spacing={2}
 			sx={{
-				height: '100%',
+				height: '100vh',
 				width: '100%',
 				padding: '20px 30px',
 				margin: '0 auto',

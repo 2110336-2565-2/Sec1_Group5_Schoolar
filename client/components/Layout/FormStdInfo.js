@@ -99,16 +99,16 @@ const FormStdInfo = ({ registerData }) => {
 								<TextField
 									required
 									id="outlined"
-									label="Last name"
+									label="Last Name"
 									{...register('lastName', {
-										required: 'Surname is required',
+										required: 'Last Name is required',
 										minLength: {
 											value: 2,
-											message: 'Surname must be at least 2 characters',
+											message: 'Last Name must be at least 2 characters',
 										},
 										pattern: {
 											value: /^[A-Za-z]+$/,
-											message: 'Surname contain invalid character',
+											message: 'Last Name contain invalid character',
 										},
 									})}
 									error={!!errors?.lastName}

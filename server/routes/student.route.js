@@ -40,9 +40,6 @@ router.patch(
 		body('typeOfScholarship')
 			.isIn(['Full Scholarship', 'Partial Scholarship', 'Reneable Scholarship', 'Followship'])
 			.withMessage('Type of Scholarship is invalid'),
-		body('employment')
-			.isIn(['Employed', 'Unemployed'])
-			.withMessage('Employment status is invalid'),
 		body('field').isLength({ min: 1 }).withMessage('Field of interest is required'),
 	],
 	updateStudentInfo,

@@ -29,34 +29,12 @@ import { useAuth } from '@/context/AuthContext'
 import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 
 const FormUpdateStdInfo = () => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		getValues,
-		reset,
-		setValue,
-	} = useForm({
-		mode: 'onBlur',
-	})
-
+	// States
 	const [isUpdated, setIsUpdated] = useState(false)
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
 
-	// const handleClickUpdateBtn = () => {
-
-	// }
-	const handleSelectDegree = (event) => {
-		if (event.target.value === 'High-school Student') {
-			setSelectProgram(studentProgram)
-		} else {
-			setSelectProgram(uniProgram)
-		}
-	}
-
 	const { auth, setAuth } = useAuth()
-
-	//* assign value
+	const [email, setEmail] = useState('')
 	const [studentInfo, setStudentInfo] = useState({
 		firstName: '',
 		lastName: '',
@@ -70,10 +48,57 @@ const FormUpdateStdInfo = () => {
 		householdIncome: '',
 		targetNation: '',
 		typeOfScholarship: '',
-		employment: '',
 		field: '',
 	})
-	const [email, setEmail] = useState('')
+
+	// Form hook
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		getValues,
+		reset,
+		setValue,
+	} = useForm({
+		mode: 'onBlur',
+	})
+	// Get the current data from API
+	const axiosPrivate = useAxiosPrivate()
+	useEffect(() => {
+		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
+			let studentRes = res.data.student
+			studentRes.gpax = studentRes.gpax.toFixed(2)
+			setStudentInfo(studentRes)
+			setEmail(res.data.user.email)
+		})
+	}, [])
+
+	// Update the form value in case of state change
+	useEffect(() => {
+		reset({
+			email: email,
+		})
+	}, [email])
+	useEffect(() => {
+		const data = {
+			firstName: studentInfo.firstName,
+			lastName: studentInfo.lastName,
+			birthdate: studentInfo.birthdate,
+			gender: studentInfo.gender,
+			phoneNumber: studentInfo.phoneNumber,
+			gpax: studentInfo.gpax,
+			degree: studentInfo.degree,
+			school: studentInfo.school,
+			program: studentInfo.program,
+			householdIncome: studentInfo.householdIncome,
+			targetNation: studentInfo.targetNation,
+			typeOfScholarship: studentInfo.typeOfScholarship,
+			field: studentInfo.field,
+		}
+		reset(data)
+	}, [studentInfo])
+
+	// Form Handlers
 	const handleOnChange = (e) => {
 		if (e.target.name === 'email') {
 			setEmail(e.target.value)
@@ -94,26 +119,9 @@ const FormUpdateStdInfo = () => {
 			}
 		}
 	}
-	//*axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate()
-
-	useEffect(() => {
-		//* example of using axios private to get data from route that need token
-		axiosPrivate.get(`/student/${auth.username}`).then((res) => {
-			console.log('data')
-			console.log(res.data.user)
-			setStudentInfo(res.data.student)
-			setEmail(res.data.user.email)
-		})
-	}, [])
-	useEffect(() => {
+	const handleCancelBtn = (e) => {
 		reset({
 			email: email,
-		})
-	}, [email])
-
-	useEffect(() => {
-		const data = {
 			firstName: studentInfo.firstName,
 			lastName: studentInfo.lastName,
 			birthdate: studentInfo.birthdate,
@@ -126,19 +134,38 @@ const FormUpdateStdInfo = () => {
 			householdIncome: studentInfo.income,
 			targetNation: studentInfo.target,
 			typeOfScholarship: studentInfo.scholarship,
-			employment: studentInfo.employment,
 			field: studentInfo.interest,
-		}
-		console.log(data)
-		reset(data)
-	}, [studentInfo])
-	const onSubmit = (data) => {
-		console.log(`submitted`)
-		alert('Data has been updated successfully')
-		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
-			console.log(res.status)
-			console.log('submitted successfully')
 		})
+	}
+	const formOnSubmit = (data) => {
+		// Update data using patch request
+		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
+			alert('Data has been updated successfully')
+			console.log('submitted successfully')
+			reset({
+				firstName: getValues('firstName'),
+				lastName: getValues('lastName'),
+				birthdate: getValues('birthdate'),
+				gender: getValues('gender'),
+				phoneNumber: getValues('phoneNumber'),
+				gpax: getValues('gpax'),
+				degree: getValues('degree'),
+				school: getValues('school'),
+				program: getValues('program'),
+				householdIncome: getValues('householdIncome'),
+				targetNation: getValues('targetNation'),
+				typeOfScholarship: getValues('typeOfScholarship'),
+				field: getValues('field'),
+			})
+		})
+	}
+	const formOnError = (err) => {
+		// Alert the users of incorrect pattern
+		let messages = []
+		Object.keys(err).forEach((key) => {
+			messages.push(err[key].message)
+		})
+		alert(messages.join('\n'))
 	}
 
 	return (
@@ -147,7 +174,7 @@ const FormUpdateStdInfo = () => {
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
 						component="form"
-						onSubmit={handleSubmit(onSubmit)}
+						onSubmit={handleSubmit(formOnSubmit, formOnError)}
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
@@ -220,8 +247,6 @@ const FormUpdateStdInfo = () => {
 										update['birthdate'] = value
 										setStudentInfo(newStudentInfo)
 										reset(update)
-
-										//onChange(value)
 									}}
 								/>
 							</LocalizationProvider>
@@ -304,14 +329,14 @@ const FormUpdateStdInfo = () => {
 								id="outlined-start-adornment"
 								select
 								label="Degree"
-								name="deg"
+								name="degree"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.degree}
 								{...register('degree', {
-									pattern: {
-										value: /^[A-Za-z]+$/,
-										message: 'Degree contains invalid character',
-									},
+									// pattern: {
+									// 	value: /^[A-Za-z]+$/,
+									// 	message: 'Degree contains invalid character',
+									// },
 								})}
 								error={!!errors?.Degree}
 								helperText={errors?.Degree ? errors.Degree.message : null}
@@ -333,10 +358,10 @@ const FormUpdateStdInfo = () => {
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.program}
 								{...register('program', {
-									pattern: {
-										value: /^[A-Za-z]+$/,
-										message: 'Program contains invalid character',
-									},
+									// pattern: {
+									// 	value: /^[A-Za-z]+$/,
+									// 	message: 'Program contains invalid character',
+									// },
 								})}
 								error={!!errors?.Program}
 								helperText={errors?.Program ? errors.Program.message : null}
@@ -373,7 +398,7 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								label="Household Income"
-								name="income"
+								name="householdIncome"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.householdIncome}
 								{...register('householdIncome', {
@@ -392,7 +417,7 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								label="Target Nation"
-								name="target"
+								name="targetNation"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.targetNation}
 								{...register('targetNation', {
@@ -408,12 +433,13 @@ const FormUpdateStdInfo = () => {
 								onChange={handleOnChange}
 							/>
 							<TextField
-								id="outlined-select-gender"
+								id="outlined-select-scholarship"
 								select
 								label="Type of scholarship"
-								name="type"
+								name="typeOfScholarship"
 								disabled={isUpdated}
 								value={studentInfo.typeOfScholarship}
+								{...register('typeOfScholarship')}
 								onChange={handleOnChange}
 							>
 								{scholarshipTypes.map((option) => (
@@ -425,7 +451,8 @@ const FormUpdateStdInfo = () => {
 							<TextField
 								id="outlined-start-adornment"
 								label="Field of Interest"
-								name="interest"
+								name="field"
+								{...register('field')}
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.field}
 								variant="outlined"
@@ -435,30 +462,23 @@ const FormUpdateStdInfo = () => {
 						</Stack>
 						<Grid
 							container
-							spacing={2}
+							spacing={1}
 							alignItems="stretch"
 							justifyContent="space-evenly"
 							sx={{ padding: '20px 0px 20px 0px' }}
 						>
 							<Grid item>
-								<Button variant="contained">Cancel</Button>
+								<Button variant="contained" onClick={handleCancelBtn}>
+									Cancel
+								</Button>
 							</Grid>
-
 							<Grid item>
-								<Button
-									variant="contained"
-									type="submit"
-									onClick={() => {
-										const values = getValues()
-										console.log(values)
-									}}
-								>
+								<Button variant="contained" type="submit">
 									Update
 								</Button>
 							</Grid>
 						</Grid>
 					</FormControl>
-					{/* </Box> */}
 				</Grid>
 			</Grid>
 		</Stack>

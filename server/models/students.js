@@ -10,13 +10,13 @@ const studentSchema = new Schema({
 	firstName: {
 		required: true,
 		type: String,
-		lowercase: true,
+		// lowercase: true,
 		trim: true,
 	},
 	lastName: {
 		required: true,
 		type: String,
-		lowercase: true,
+		// lowercase: true,
 		trim: true,
 	},
 	birthdate: {
@@ -91,7 +91,7 @@ const studentSchema = new Schema({
 		type: String,
 		maxLength: 60,
 		index: true,
-		lowercase: true,
+		// lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {

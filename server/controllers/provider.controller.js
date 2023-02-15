@@ -58,8 +58,9 @@ exports.updateProviderInfo = async (req, res) => {
 			address,
 			website,
 			creditCardNumber,
+			phoneNumber,
 		})
-		Object.assign(user, { email, phoneNumber })
+		Object.assign(user, { email })
 
 		await user.save()
 		await provider.save()

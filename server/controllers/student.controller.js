@@ -10,7 +10,7 @@ const handleValidationResult = (result, res) => {
 
 /*
  * @desc     Get student info
- * @route    GET /student
+ * @route    GET student/:username
  * @access   Private
  */
 exports.getStudent = async (req, res) => {
@@ -19,14 +19,16 @@ exports.getStudent = async (req, res) => {
 	handleValidationResult(result, res)
 
 	try {
-		const { username } = req.body
+		const username = req.params.username
+
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const student = await Student.findOne({ userID: user._id })
+		//const student = await Student.findOne({ userID: user._id })
+		const student = await Student.findById(user._id)
 		if (!student) throw new Error('Student not found')
 
-		return res.status(200).json({ student })
+		return res.status(200).json({ student, user })
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}
@@ -43,6 +45,7 @@ exports.updateStudentInfo = async (req, res) => {
 	handleValidationResult(result, res)
 
 	try {
+		const username = req.params.username
 		const {
 			firstName,
 			lastName,
@@ -54,7 +57,6 @@ exports.updateStudentInfo = async (req, res) => {
 			targetNation,
 			typeOfScholarship,
 			field,
-			username,
 			email,
 			phoneNumber,
 		} = req.body
@@ -62,7 +64,8 @@ exports.updateStudentInfo = async (req, res) => {
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const student = await Student.findOne({ userID: user._id })
+		// const student = await Student.findOne({ userID: user._id })
+		const student = await Student.findById(user._id)
 		if (!student) throw new Error('Student not found')
 
 		Object.assign(student, {

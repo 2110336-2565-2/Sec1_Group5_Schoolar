@@ -41,7 +41,7 @@ function Login() {
 			console.log(accessToken)
 			console.log(role)
 			setAuth({ username, accessToken, role })
-			router.push('/')
+			window.location = '/'
 		} catch (err) {
 			if (!err?.response) {
 				console.log('No Server Response')

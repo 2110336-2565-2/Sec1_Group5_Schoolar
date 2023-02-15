@@ -110,10 +110,10 @@ const FormPvdInfo = ({ registerData }) => {
 							value: /^[0-9]*$/,
 							message: 'Credit Card Number contains invalid character',
 						},
-						// validate: {
-						// 	duplicate: async (value) =>
-						// 		!(await isDupe('creditCardNumber', value)) || 'Credit Card Number has been taken',
-						// },
+						validate: {
+							duplicate: async (value) =>
+								!(await isDupe('provider', 'creditCardNumber', value)) || 'Credit Card Number has been taken',
+						},
 					})}
 					error={!!errors?.creditCardNumber}
 					helperText={errors?.creditCardNumber ? errors.creditCardNumber.message : null}

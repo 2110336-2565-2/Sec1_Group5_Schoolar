@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const userSchema = new Schema({
-	// id: create automatically in mongoDB
 	username: {
 		required: true,
 		type: String,

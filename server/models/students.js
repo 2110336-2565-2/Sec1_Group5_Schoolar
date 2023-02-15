@@ -2,21 +2,17 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const studentSchema = new Schema({
-	// id: create automatically in mongoDB
 	userID: {
 		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		// get: write function to get from user ID ,
 	},
 	firstName: {
 		required: true,
 		type: String,
-		// lowercase: true,
 		trim: true,
 	},
 	lastName: {
 		required: true,
 		type: String,
-		// lowercase: true,
 		trim: true,
 	},
 	birthdate: {
@@ -26,7 +22,6 @@ const studentSchema = new Schema({
 		maxLength: 10,
 		trim: true,
 	},
-	// age: calculate from bd
 	gender: {
 		required: true,
 		type: String,

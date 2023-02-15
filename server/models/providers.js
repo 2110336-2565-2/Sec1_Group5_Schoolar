@@ -2,18 +2,13 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	// id: create automatically in mongoDB
 	userID: {
 		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		// get: write function to get from user ID ,
-		// unique:true,
-		// trim:true
 	},
 	providerName: {
 		required: true,
 		type: String,
 		maxLength: 40,
-		lowercase: true,
 		trim: true,
 	},
 	address: {

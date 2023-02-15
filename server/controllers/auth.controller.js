@@ -53,7 +53,6 @@ exports.register = async (req, res) => {
 		const hash = await bcrypt.hash(password, salt)
 
 		const user = await User.create([{ username, password: hash, email, role }], { session })
-		console.log(user)
 		if (role === 'student') {
 			const student = await Student.create(
 				[{

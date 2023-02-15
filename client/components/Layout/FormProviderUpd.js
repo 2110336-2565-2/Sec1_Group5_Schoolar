@@ -249,23 +249,6 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 						</Grid>
 					</FormControl>
 				</Grid>
-				{/* <Grid
-					container
-					spacing={1}
-					alignItems="stretch"
-					justifyContent="space-evenly"
-					sx={{ padding: '20px 0px 20px 0px' }}
-				>
-					<Grid item>
-						<Button variant="contained">Cancel</Button>
-					</Grid>
-
-					<Grid item>
-						<Button variant="contained" type="submit">
-							Update
-						</Button>
-					</Grid>
-				</Grid> */}
 			</Grid>
 		</Stack>
 	)

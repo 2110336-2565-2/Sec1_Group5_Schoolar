@@ -486,10 +486,3 @@ const FormUpdateStdInfo = () => {
 }
 
 export default FormUpdateStdInfo
-export async function getStaticProps(context) {
-	return {
-		props: {
-			authRequired: true,
-		},
-	}
-}

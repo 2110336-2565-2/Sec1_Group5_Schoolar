@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }) {
 			</Center>
 		)
 
-	if (!loading && error && pageProps.authRequired) {
+	if (!loading && pageProps.authRequired && error?.response?.status == 401) {
 		router.push('/login')
 		return (
 			<Center height={'100vh'}>

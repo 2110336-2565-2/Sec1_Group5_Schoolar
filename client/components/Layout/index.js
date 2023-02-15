@@ -42,19 +42,12 @@ const WebLayout = ({ children }) => {
 				}}
 			>
 				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-				<Box>
-					{open && (
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'flex-end',
-							}}
-						>
-							<Alert severity="success">Logout successfully</Alert>
-						</Box>
-					)}
+				<Box sx={{ position: 'relative' }}>
+					<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
+						{open && <Alert severity="success">Logout successfully</Alert>}
+					</Box>
+					<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 				</Box>
-				<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 			</Box>
 		</ThemeProvider>
 	)

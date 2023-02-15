@@ -39,34 +39,39 @@ function Navbar({ setOpen }) {
 		}
 	}
 
-	const handleClick = (event) => {
+	const handleMenuClick = (event) => {
 		setAnchorEl(event.currentTarget)
 	}
 
-	const handleClose = () => {
+	const handleMenuClose = () => {
 		setAnchorEl(null)
 	}
+
 	const handleLogout = async () => {
 		try {
-			await axios.put('/auth/logout')
+			await logoutUser()
 			setOpen(true)
 			setAuth(null)
-			router.push('/login')
+			router.push('/')
 		} catch (error) {
 			console.error(error)
 		}
 	}
-	const axiosPrivate = useAxiosPrivate()
+
 	const handleEditInfo = () => {
-		axiosPrivate.get(`/user/${auth.username}`).then((res) => {
-			console.log(`Edit role : ${res.data.user.role}`)
-			const role = res.data.user.role
-			if (role === 'student') {
-				router.push('/student-update')
-			} else if (role === 'provider') {
-				router.push('/provider-update')
-			}
-		})
+		const role = auth.role
+		console.log(role)
+		if (role === 'student') {
+			router.push('/student-update')
+		} else if (role === 'provider') {
+			router.push('/provider-update')
+		}
+	}
+
+	const axiosPrivate = useAxiosPrivate()
+
+	const logoutUser = async () => {
+		await axiosPrivate.put('/auth/logout')
 	}
 
 	return (
@@ -103,7 +108,7 @@ function Navbar({ setOpen }) {
 							>
 								<Tooltip title="Account settings">
 									<IconButton
-										onClick={handleClick}
+										onClick={handleMenuClick}
 										size="small"
 										sx={{ ml: 2 }}
 										aria-controls={open ? 'account-menu' : undefined}
@@ -118,8 +123,8 @@ function Navbar({ setOpen }) {
 								anchorEl={anchorEl}
 								id="account-menu"
 								open={open}
-								onClose={handleClose}
-								onClick={handleClose}
+								onClose={handleMenuClose}
+								onClick={handleMenuClose}
 								PaperProps={{
 									elevation: 0,
 									sx: {
@@ -151,37 +156,37 @@ function Navbar({ setOpen }) {
 							>
 								{auth
 									? [
-										<MenuItem onClick={handleEditInfo} key="Edit Profile">
-											<ListItemIcon>
-												<Edit fontSize="small" />
-											</ListItemIcon>
-											Edit Profile
-										</MenuItem>,
-										<MenuItem onClick={handleLogout} key={'logout'}>
-											<ListItemIcon>
-												<Logout fontSize="small" />
-											</ListItemIcon>
-											Logout
-										</MenuItem>,
-									]
+											<MenuItem onClick={handleEditInfo} key="Edit Profile">
+												<ListItemIcon>
+													<Edit fontSize="small" />
+												</ListItemIcon>
+												Edit Profile
+											</MenuItem>,
+											<MenuItem onClick={handleLogout} key={'logout'}>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												Logout
+											</MenuItem>,
+									  ]
 									: [
-										<Link href="/login">
-											<MenuItem>
-												<ListItemIcon>
-													<Login fontSize="small" />
-												</ListItemIcon>
-												Login
-											</MenuItem>
-										</Link>,
-										<Link href="/register">
-											<MenuItem>
-												<ListItemIcon>
-													<AppRegistration fontSize="small" />
-												</ListItemIcon>
-												Register
-											</MenuItem>
-										</Link>,
-									]}
+											<Link href="/login">
+												<MenuItem>
+													<ListItemIcon>
+														<Login fontSize="small" />
+													</ListItemIcon>
+													Login
+												</MenuItem>
+											</Link>,
+											<Link href="/register">
+												<MenuItem>
+													<ListItemIcon>
+														<AppRegistration fontSize="small" />
+													</ListItemIcon>
+													Register
+												</MenuItem>
+											</Link>,
+									  ]}
 							</Menu>
 						</Stack>
 					</HStack>

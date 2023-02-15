@@ -15,22 +15,27 @@ function SearchBar(props) {
 		props.searchHandler(inputName)
 	}
 	return (
-		<VStack sx={{ p: 3 }} gap={3}>
+		<VStack
+			sx={{ p: { xs: 1, md: 3 }, maxWidth: { xs: '100%', md: 800 }, margin: '0 auto' }}
+			gap={3}
+		>
 			<Image
 				src="/home-page/decor.svg"
 				alt="decor"
-				priority="false"
-				width="627"
-				height="157"
+				layout="responsive"
+				width={627}
+				height={157}
 			/>
-			<HStack gap={3}>
+
+			<HStack gap={3} sx={{ width: '100%' }}>
 				<Paper
 					onSubmit={onClick}
 					component="form"
 					sx={{
 						display: 'flex',
-						width: 500,
+						flex: '1 1 auto',
 						height: 35,
+						minWidth: { xs: 'auto', md: 500 },
 					}}
 				>
 					<IconButton type="button" sx={{ p: '10px' }}>
@@ -45,13 +50,24 @@ function SearchBar(props) {
 						<SearchIcon />
 					</IconButton>
 				</Paper>
-				<Typography variant="h7" align="left" color="textPrimary" gutterBottom>
+				<Typography
+					variant="h7"
+					align="left"
+					color="textPrimary"
+					gutterBottom
+					sx={{ display: { xs: 'none', md: 'block' } }}
+				>
 					OR
 				</Typography>
 				<Button
 					variant="contained"
 					size="small"
-					sx={{ fontSize: 15, width: 100, height: 35 }}
+					sx={{
+						fontSize: 15,
+						width: 100,
+						height: 35,
+						display: { xs: 'none', md: 'inline-block' },
+					}}
 					style={{ textTransform: 'none' }}
 				>
 					match
@@ -60,4 +76,5 @@ function SearchBar(props) {
 		</VStack>
 	)
 }
+
 export default SearchBar

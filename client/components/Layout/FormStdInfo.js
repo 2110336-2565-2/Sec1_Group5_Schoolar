@@ -13,7 +13,6 @@ import {
 	TextField,
 } from '@mui/material'
 import { Stack } from '@mui/system'
-import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 
 import axios from '@/pages/api/axios'
@@ -27,8 +26,12 @@ const FormStdInfo = ({ registerData }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const router = useRouter()
-	const [selectProgram, setSelectProgram] = useState(studentProgram)
-	const [value, setValue] = useState(dayjs())
+	const today = new Date().toISOString().split('T')[0];
+	const [selectProgram, setSelectProgram] = useState(studentProgram);
+	const [gender, setGender] = useState('');
+	const [degrees, setDegree] = useState('');
+	const [program, setProgram] = useState('');
+	const [scholarship, setScholarship] = useState('');
 	const [form, setForm] = useState(false)
 
 	const sendData = async (data) => {
@@ -112,26 +115,19 @@ const FormStdInfo = ({ registerData }) => {
 									helperText={errors?.lastName ? errors.lastName.message : null}
 								/>
 
-								{/* <TextField
-									id="date"
-									type="date"
-									label="Date of birth"
-									{...register('birthdate', {
-										required: 'Date of birth is required',
-									})}
-									error={!!errors?.birthdate}
-									helperText={errors?.birthdate ? errors.birthdate.message : null}
-								/> */}
-
+							
 								<TextField
 									id="date"
-									label="birth of Date"
+									label="Birth Date"
 									type="date"
 									name="selectedDate"
 									{...register('birthdate', { required: true })}
 									InputLabelProps={{
 										shrink: true,
 									}}
+									inputProps={{
+										max: today,
+									  }}
 								/>
 
 								<TextField
@@ -144,6 +140,8 @@ const FormStdInfo = ({ registerData }) => {
 									})}
 									error={!!errors?.gender}
 									helperText={errors?.gender ? errors.gender.message : null}
+									value={gender}
+									onChange={(event)=> setGender(event.target.value)}
 								>
 									{genders.map((option) => (
 										<MenuItem key={option.value} value={option.value}>
@@ -199,7 +197,7 @@ const FormStdInfo = ({ registerData }) => {
 									label="School/University"
 									{...register('school', {
 										pattern: {
-											value: /^[A-Za-z]+$/,
+											value: /^[A-Za-z0-9 ]*$/,
 											message:
 												'School or Univeristy contains invalid character',
 										},
@@ -213,9 +211,10 @@ const FormStdInfo = ({ registerData }) => {
 									id="outlined"
 									label="Degree"
 									{...register('degree')}
+									value={degrees}
 									onChange={(event) => {
-										const selectedValue = event.target.value
-										if (selectedValue === 'high school') {
+										setDegree(event.target.value);
+										if (degrees === 'high school') {
 											setSelectProgram(studentProgram)
 										} else {
 											setSelectProgram(uniProgram)
@@ -234,6 +233,8 @@ const FormStdInfo = ({ registerData }) => {
 									id="outlined"
 									label="Program/Faculty"
 									{...register('program')}
+									value={program}
+									onChange={(event)=> setProgram(event.target.value)}
 								>
 									{selectProgram.map((option) => (
 										<MenuItem key={option.value} value={option.value}>
@@ -259,7 +260,7 @@ const FormStdInfo = ({ registerData }) => {
 
 								<TextField
 									id="outlined"
-									label="Household income"
+									label="Household income per month"
 									{...register('householdIncome', {
 										pattern: {
 											value: /^[0-9]*$/,
@@ -300,7 +301,7 @@ const FormStdInfo = ({ registerData }) => {
 									label="Target nation"
 									{...register('targetNation', {
 										pattern: {
-											value: /^[A-Za-z]+$/,
+											value: /^[A-Za-z0-9 ]*$/,
 											message: 'Target nation contains invalid characters',
 										},
 									})}
@@ -315,6 +316,8 @@ const FormStdInfo = ({ registerData }) => {
 									id="outlined"
 									label="Type of scholarship"
 									{...register('typeOfScholarship')}
+									value={scholarship}
+									onChange={(event)=> setScholarship(event.target.value)}
 								>
 									{scholarshipTypes.map((option) => (
 										<MenuItem key={option.value} value={option.value}>
@@ -328,7 +331,7 @@ const FormStdInfo = ({ registerData }) => {
 									label="Field of interest"
 									{...register('field', {
 										pattern: {
-											value: /^[A-Za-z]+$/,
+											value: /^[A-Za-z0-9 ]*$/,
 											message:
 												'Field of interest contains invalid characters',
 										},

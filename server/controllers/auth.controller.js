@@ -29,6 +29,7 @@ exports.register = async (req, res) => {
 		birthdate,
 		gender,
 		phoneNumber,
+		gpax,
 		degree,
 		school,
 		program,
@@ -63,6 +64,7 @@ exports.register = async (req, res) => {
 					birthdate,
 					gender,
 					phoneNumber,
+					gpax,
 					degree,
 					school,
 					program,
@@ -136,7 +138,7 @@ exports.login = async (req, res) => {
 
 			foundUser.refreshToken = refreshToken
 			const result = await foundUser.save()
-			console.log(result)
+			// console.log(result)
 
 			res.cookie('jwt', refreshToken, {
 				httpOnly: true,
@@ -160,7 +162,7 @@ exports.refreshToken = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 
-	console.log(cookies)
+	// console.log(cookies)
 
 	if (!cookies?.jwt) return res.sendStatus(401)
 	const refreshToken = cookies.jwt

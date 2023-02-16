@@ -56,16 +56,6 @@ function Navbar({ setOpen }) {
 		}
 	}
 
-	const handleEditInfo = () => {
-		const role = auth.role
-		console.log(role)
-		if (role === 'student') {
-			router.push('/student-update')
-		} else if (role === 'provider') {
-			router.push('/provider-update')
-		}
-	}
-
 	const axiosPrivate = useAxiosPrivate()
 
 	const logoutUser = async () => {
@@ -154,12 +144,14 @@ function Navbar({ setOpen }) {
 							>
 								{auth
 									? [
-											<MenuItem onClick={handleEditInfo} key="Edit Profile">
-												<ListItemIcon>
-													<Edit fontSize="small" />
-												</ListItemIcon>
-												Edit Profile
-											</MenuItem>,
+											<Link href="/profile/edit" key="edit">
+												<MenuItem key="Edit Profile">
+													<ListItemIcon>
+														<Edit fontSize="small" />
+													</ListItemIcon>
+													Edit Profile
+												</MenuItem>
+											</Link>,
 											<MenuItem onClick={handleLogout} key="logout">
 												<ListItemIcon>
 													<Logout fontSize="small" />

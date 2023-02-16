@@ -7,7 +7,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 import InputPassword from './InputPassword'
 
-const FormUpdatePvdInfo = ({ isDisabled }) => {
+const FormPvdEdit = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
@@ -255,4 +255,4 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 	)
 }
 
-export default FormUpdatePvdInfo
+export default FormPvdEdit

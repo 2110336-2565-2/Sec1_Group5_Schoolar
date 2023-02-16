@@ -28,7 +28,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
 
-const FormUpdateStdInfo = () => {
+const FormStdEdit = () => {
 	// States
 	const [isUpdated, setIsUpdated] = useState(false)
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
@@ -485,4 +485,4 @@ const FormUpdateStdInfo = () => {
 	)
 }
 
-export default FormUpdateStdInfo
+export default FormStdEdit

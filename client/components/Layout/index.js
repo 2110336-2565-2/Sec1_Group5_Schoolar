@@ -45,11 +45,11 @@ const WebLayout = ({ children }) => {
 				}}
 			>
 				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-				<Box sx={{ position: 'relative' }}>
+				<Box sx={{ flex: '1 1 auto', position: 'relative' }}>
 					<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
 						{open && <Alert severity="success">Logout successfully</Alert>}
 					</Box>
-					<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
+					{children}
 				</Box>
 			</Box>
 		</ThemeProvider>

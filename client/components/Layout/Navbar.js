@@ -160,7 +160,7 @@ function Navbar({ setOpen }) {
 												</ListItemIcon>
 												Edit Profile
 											</MenuItem>,
-											<MenuItem onClick={handleLogout} key={'logout'}>
+											<MenuItem onClick={handleLogout} key="logout">
 												<ListItemIcon>
 													<Logout fontSize="small" />
 												</ListItemIcon>
@@ -168,7 +168,7 @@ function Navbar({ setOpen }) {
 											</MenuItem>,
 									  ]
 									: [
-											<Link href="/login">
+											<Link href="/login" key="login">
 												<MenuItem>
 													<ListItemIcon>
 														<Login fontSize="small" />
@@ -176,7 +176,7 @@ function Navbar({ setOpen }) {
 													Login
 												</MenuItem>
 											</Link>,
-											<Link href="/register">
+											<Link href="/register" key="register">
 												<MenuItem>
 													<ListItemIcon>
 														<AppRegistration fontSize="small" />

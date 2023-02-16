@@ -1,11 +1,17 @@
 import { React } from 'react'
+import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 import FormPrimary from '@components/Layout/FormPrimary'
 import FormStdEdit from '@components/Layout/FormStdEdit'
 import FormPvdEdit from '@components/Layout/FormPvdEdit'
 
-export default function Update() {
+export default function Edit() {
 	const { auth } = useAuth()
+	const router = useRouter()
+	if (!auth) {
+		router.push('/login')
+		return
+	}
 	if (auth.role === 'student') {
 		return <FormPrimary header="Edit Profile" form={<FormStdEdit />} />
 	} else {

@@ -18,7 +18,7 @@ import { useRouter } from 'next/router'
 import axios from '@/pages/api/axios'
 
 import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
-const FormStdInfo = ({ registerData }) => {
+const FormRegStd = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
@@ -364,4 +364,4 @@ const FormStdInfo = ({ registerData }) => {
 	)
 }
 
-export default FormStdInfo
+export default FormRegStd

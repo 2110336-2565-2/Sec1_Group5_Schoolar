@@ -5,7 +5,7 @@ import { Stack } from '@mui/system'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
-const FormPvdInfo = ({ registerData }) => {
+const FormRegPvd = ({ registerData }) => {
 	const {
 		register,
 		handleSubmit,
@@ -140,4 +140,4 @@ const FormPvdInfo = ({ registerData }) => {
 	)
 }
 
-export default FormPvdInfo
+export default FormRegPvd

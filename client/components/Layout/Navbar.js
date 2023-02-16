@@ -51,8 +51,6 @@ function Navbar({ setOpen }) {
 		try {
 			await logoutUser()
 			setOpen(true)
-			setAuth(null)
-			router.push('/login')
 		} catch (error) {
 			console.error(error)
 		}

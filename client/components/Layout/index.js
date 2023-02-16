@@ -5,10 +5,12 @@ import Alert from '@mui/material/Alert'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/AuthContext'
 
 import theme from '../../src/styles/theme'
 
 const WebLayout = ({ children }) => {
+	const { auth, setAuth } = useAuth()
 	const [open, setOpen] = React.useState(false)
 
 	const { route } = useRouter()
@@ -22,8 +24,9 @@ const WebLayout = ({ children }) => {
 	useEffect(() => {
 		if (open) {
 			setTimeout(() => {
+				setAuth(null)
 				setOpen(false)
-			}, 3000)
+			}, 1000)
 		}
 	}, [open])
 

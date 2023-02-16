@@ -57,6 +57,7 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 				email: res.data.user.email,
 				phoneNumber: res.data.provider.phoneNumber,
 			})
+			console.log(`after : ${providerName}`)
 		})
 	}, [])
 

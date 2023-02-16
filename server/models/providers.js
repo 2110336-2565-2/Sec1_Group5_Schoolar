@@ -2,16 +2,40 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	username: {
-		type: String,
+	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	providerName: {
 		required: true,
+		type: String,
+		maxLength: 40,
+		trim: true,
+	},
+	address: {
+		required: true,
+		type: String,
+		maxLength: 255,
+		lowercase: true,
+		trim: true,
+	},
+	website: {
+		required: true,
+		type: String,
+		maxLength: 250,
+		lowercase: true,
+		trim: true,
+	},
+	phoneNumber: {
+		required: true,
+		type: String,
+		maxLength: 10,
 		unique: true,
+		trim: true,
 	},
-	name: {
-		type: String,
-	},
-	schoolar_credit: {
-		type: String,
+	creditCardNumber: {
+		required: true,
+		type: Number,
+		maxLength: 16,
+		unique: true,
+		trim: true,
 	},
 })
 

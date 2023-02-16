@@ -3,30 +3,30 @@ const { Schema } = mongoose
 
 const userSchema = new Schema({
 	username: {
-		type: String,
 		required: true,
+		type: String,
+		maxLength: 40,
 		unique: true,
+		trim: true,
 	},
 	password: {
-		type: String,
 		required: true,
+		type: String,
 	},
 	email: {
-		type: String,
 		required: true,
+		type: String,
 		unique: true,
+		trim: true,
 	},
-	type: {
-		type: String,
+	role: {
 		required: true,
-	},
-	tel: {
 		type: String,
-	},
-	address: {
-		type: String,
+		enum: ['provider', 'student', 'admin'],
 	},
 	refreshToken: String,
+	resetPasswordToken: String,
+	resetPasswordExpires: Date,
 })
 
 module.exports = mongoose.model('Users', userSchema)

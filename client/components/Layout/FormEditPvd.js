@@ -7,7 +7,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 import InputPassword from './InputPassword'
 
-const FormPvdEdit = ({ isDisabled }) => {
+const FormEditPvd = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
@@ -98,7 +98,7 @@ const FormPvdEdit = ({ isDisabled }) => {
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
-			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
 						component="form"
@@ -106,13 +106,13 @@ const FormPvdEdit = ({ isDisabled }) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							<TextField
+							{/* <TextField
 								id="outlined-start-adornment"
 								value={username}
 								label="Username"
 								variant="outlined"
 								disabled
-							/>
+							/> */}
 							<TextField
 								id="outlined-start-adornment"
 								value={getValues(providerName)}
@@ -255,4 +255,4 @@ const FormPvdEdit = ({ isDisabled }) => {
 	)
 }
 
-export default FormPvdEdit
+export default FormEditPvd

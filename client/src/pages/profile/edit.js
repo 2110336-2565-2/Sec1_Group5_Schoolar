@@ -2,8 +2,8 @@ import { React } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormStdEdit from '@components/Layout/FormStdEdit'
-import FormPvdEdit from '@components/Layout/FormPvdEdit'
+import FormEditStd from '@components/Layout/FormEditStd'
+import FormEditPvd from '@components/Layout/FormEditPvd'
 
 export default function Edit() {
 	const { auth } = useAuth()
@@ -13,9 +13,9 @@ export default function Edit() {
 		return
 	}
 	if (auth.role === 'student') {
-		return <FormPrimary header="Edit Profile" form={<FormStdEdit />} />
+		return <FormPrimary header="Edit Profile" form={<FormEditStd />} />
 	} else {
-		return <FormPrimary header="Edit Profile" form={<FormPvdEdit />} />
+		return <FormPrimary header="Edit Profile" form={<FormEditPvd />} />
 	}
 }
 

@@ -26,9 +26,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
-import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from '@utils/StdInformation'
 
-const FormStdEdit = () => {
+const FormEditStd = () => {
 	// States
 	const [isUpdated, setIsUpdated] = useState(false)
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
@@ -170,7 +170,7 @@ const FormStdEdit = () => {
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
-			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
 						component="form"
@@ -485,4 +485,4 @@ const FormStdEdit = () => {
 	)
 }
 
-export default FormStdEdit
+export default FormEditStd

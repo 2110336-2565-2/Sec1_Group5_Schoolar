@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 
 import axios from '@/pages/api/axios'
 
-import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from './StdInformation'
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from '@utils/StdInformation'
 const FormRegStd = ({ registerData }) => {
 	const {
 		register,

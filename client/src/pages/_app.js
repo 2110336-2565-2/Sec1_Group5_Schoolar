@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }) {
 		} else {
 			setLoading(false)
 		}
-	}, [])
+	}, [auth])
 
 	if (loading)
 		return (

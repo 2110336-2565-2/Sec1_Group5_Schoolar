@@ -52,7 +52,7 @@ function Navbar({ setOpen }) {
 			await logoutUser()
 			setOpen(true)
 			setAuth(null)
-			router.push('/')
+			router.push('/login')
 		} catch (error) {
 			console.error(error)
 		}

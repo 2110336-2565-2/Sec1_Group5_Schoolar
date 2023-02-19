@@ -7,13 +7,8 @@ import TextField from '@mui/material/TextField'
 import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-
 import axios from '@/pages/api/axios'
-import { getValidation } from '@utils/formUtils'
-
-function ForgotPassword() {
-	const router = useRouter()
-}
+import { getErrMsg, getRegEx } from '@utils/formUtils'
 
 function ForgotPassword({ router }) {
 	const Root = styled('div')(({ theme }) => ({
@@ -118,12 +113,7 @@ function ForgotPassword({ router }) {
 									},
 								}}
 							>
-								<Image
-									src={PasswordIcon}
-									alt="Password Icon"
-									layout="fill"
-									objectFit="contain"
-								></Image>
+								<Image src={PasswordIcon} alt="Password Icon" layout="fill" objectFit="contain"></Image>
 							</Box>
 							<Typography
 								fontSize={{
@@ -134,10 +124,10 @@ function ForgotPassword({ router }) {
 								fontWeight={'light'}
 								align="center"
 							>
-								Enter your email address and we'll send a link to get back to your
-								account.
+								Enter your email address and we'll send a link to get back to your account.
 							</Typography>
 							<TextField
+								required
 								id="reset-email"
 								label="Email address"
 								variant="outlined"
@@ -146,7 +136,17 @@ function ForgotPassword({ router }) {
 								size="small"
 								inputProps={{ style: { fontSize: 12 } }} // font size of input text
 								InputLabelProps={{ style: { fontSize: 12 } }}
-								{...register('email', getValidation('email'))}
+								{...register('email', {
+									required: getErrMsg('email', 'required'),
+									pattern: {
+										value: getRegEx('email'),
+										message: getErrMsg('email', 'pattern'),
+									},
+									validate: {
+										duplicate: async (value) =>
+											(await isDupe('email', value)) || 'Email is not registered yet',
+									},
+								})}
 								error={!!errors?.email}
 								helperText={errors?.email ? errors.email.message : null}
 							/>

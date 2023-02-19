@@ -11,8 +11,7 @@ export const TextFieldComponent = (
 	required,
 	register,
 	errors,
-	label = getTitleCase(name),
-	autoComplete = name,
+	{ label = getTitleCase(name), autoComplete = name, validation = getValidation(name) } = {},
 ) => {
 	return (
 		<TextField
@@ -20,7 +19,7 @@ export const TextFieldComponent = (
 			label={label}
 			variant="outlined"
 			autoComplete={autoComplete}
-			{...register(name, getValidation(name))}
+			{...register(name, validation)}
 			error={!!errors?.[name]}
 			helperText={errors?.[name] ? errors[name].message : null}
 		/>

@@ -134,33 +134,7 @@ function NewPassword({ router }) {
 							</Typography>
 							<InputPassword
 								register={{
-									...register('password', {
-										required: 'Password is required',
-										minLength: {
-											value: 8,
-											message: 'Password must be at least 8 characters',
-										},
-										maxLength: {
-											value: 40,
-											message: 'Password must be at most 40 characters',
-										},
-										validate: {
-											upper: (value) =>
-												/(?=.*[A-Z])/.test(value) ||
-												'Password must have at least one uppercase letter',
-											lower: (value) =>
-												/(?=.*[a-z])/.test(value) ||
-												'Password must have at least one lower letter',
-											special: (value) =>
-												/(?=.*[0-9!"#$%&'()*+,-./:;<=>?@_`{|}~\[\]\\])/.test(
-													value,
-												) ||
-												'Password must have at least one digit number or special character',
-											space: (value) =>
-												/^\S*$/.test(value) ||
-												'Password must not contain spaces',
-										},
-									}),
+									...register('password', getValidation('password')),
 								}}
 								error={!!errors?.password}
 								helperText={errors?.password ? errors.password.message : null}
@@ -170,13 +144,12 @@ function NewPassword({ router }) {
 								register={{
 									...register('cfpassword', {
 										validate: {
-											similar: (value) =>
-												value === getValues('password') ||
-												'Password do not match!',
+											match: (value) =>
+												value === getValues('password') || getErrMsg('password', 'match'),
 										},
 									}),
 								}}
-								error={!!errors?.cfpassword && errors.cfpassword.type === 'similar'}
+								error={!!errors?.cfpassword && errors.cfpassword.type === 'match'}
 								helperText={errors?.cfpassword ? errors.cfpassword.message : null}
 							/>
 							<Button

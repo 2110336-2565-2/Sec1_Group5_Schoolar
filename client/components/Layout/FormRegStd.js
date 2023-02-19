@@ -105,7 +105,7 @@ const FormRegStd = ({ registerData }) => {
 
 				{form && (
 					<>
-						{TextFieldComponent('school', false, register, errors, 'School/University')}
+						{TextFieldComponent('school', false, register, errors, { label: 'School/University' })}
 						<TextField
 							select
 							id="outlined"
@@ -141,8 +141,10 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-						{TextFieldComponent('gpax', false, register, errors, 'GPAX')}
-						{TextFieldComponent('householdIncome', false, register, errors, 'Household income per month')}
+						{TextFieldComponent('gpax', false, register, errors, { label: 'GPAX' })}
+						{TextFieldComponent('householdIncome', false, register, errors, {
+							label: 'Household income per month',
+						})}
 
 						<FormLabel component="legend">Current employ</FormLabel>
 						<RadioGroup
@@ -170,7 +172,7 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-						{TextFieldComponent('fieldOfInterest', false, register, errors, 'Field of interest')}
+						{TextFieldComponent('fieldOfInterest', false, register, errors, { label: 'Field of interest' })}
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

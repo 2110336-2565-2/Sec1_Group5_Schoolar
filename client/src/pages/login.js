@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext'
 import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 
 function Login() {
 	const { auth, setAuth } = useAuth()
@@ -61,30 +62,8 @@ function Login() {
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<TextField
-						required
-						fullWidth
-						id="username"
-						name="username"
-						autoFocus
-						label="Username"
-						variant="outlined"
-						autoComplete="username"
-						{...register('username', {
-							required: getErrMsg('username', 'required'),
-						})}
-						error={!!errors?.username}
-						helperText={errors?.username ? errors.username.message : null}
-					/>
-					<InputPassword
-						register={{
-							...register('password', {
-								required: getErrMsg('password', 'required'),
-							}),
-						}}
-						error={!!errors?.password}
-						helperText={errors?.password ? errors.password.message : null}
-					/>
+					{TextFieldComponent('username', true, register, errors, { validation: {} })}
+					{TextFieldComponent('password', true, register, errors, { validation: {} })}
 					<Box sx={{ textAlign: 'right' }}>
 						<Typography color="primary">
 							<Link href="/forgot-password">Forgot password?</Link>

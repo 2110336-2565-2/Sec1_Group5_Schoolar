@@ -1,13 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-	Button,
-	FormControl,
-	TextField,
-	ToggleButton,
-	ToggleButtonGroup,
-	Typography,
-} from '@mui/material'
+import { Button, FormControl, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import InputPassword from './InputPassword'
@@ -37,11 +30,7 @@ const FormRegister = ({ setData, setPage }) => {
 	}
 
 	return (
-		<FormControl
-			component="form"
-			sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
-			onSubmit={handleSubmit(onSubmit)}
-		>
+		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
 			{TextFieldComponent('username', true, register, errors)}
 			{TextFieldComponent('email', true, register, errors)}
 			<InputPassword
@@ -56,16 +45,13 @@ const FormRegister = ({ setData, setPage }) => {
 				register={{
 					...register('cfpassword', {
 						validate: {
-							match: (value) =>
-								value === getValues('password') || getErrMsg('password', 'match'),
+							match: (value) => value === getValues('password') || getErrMsg('password', 'match'),
 						},
 					}),
 				}}
 				error={!!errors?.cfpassword && errors.cfpassword.type === 'match'}
 				helperText={
-					errors?.cfpassword
-						? errors.cfpassword.message
-						: 'Use 8 or more characters with a mix of letters, numbers & special character'
+					errors?.cfpassword ? errors.cfpassword.message : 'Use 8 or more characters with a mix of letters, numbers & special character'
 				}
 			/>
 			<Box sx={{ width: '100%' }}>

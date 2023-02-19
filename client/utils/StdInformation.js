@@ -4,7 +4,7 @@ export const genders = [
 	{ value: 'non-binary', label: 'Non-binary' },
 ]
 
-export const uniProgram = [
+export const uniPrograms = [
 	{ value: 'Faculty of Allied Health Sciences', label: 'Faculty of Allied Health Sciences' },
 	{ value: 'Faculty of Architecture', label: 'Faculty of Architecture' },
 	{ value: 'Faculty of Arts', label: 'Faculty of Arts' },
@@ -26,7 +26,7 @@ export const uniProgram = [
     { value: 'Faculty of Veterinary Science', label: 'Faculty of Veterinary Science' },
 ]
 
-export const studentProgram = [
+export const studentPrograms = [
 	{ value: 'Sci-Math', label: 'Science-math' },
     { value: 'Art-Math', label: 'Art-Math' },
     { value: 'Art-Langauage', label: 'Art-Language' },
@@ -34,7 +34,7 @@ export const studentProgram = [
 	{ value: 'Art-General', label: 'Art-General' },
 ]
 
-export const degree = [
+export const degrees = [
 	{ value: 'high school', label: 'High School' },
 	{ value: 'bachelor', label: 'Bachelor' },
 	{ value: 'master', label: 'Master' },

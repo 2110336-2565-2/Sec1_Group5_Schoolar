@@ -172,7 +172,7 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-						{TextFieldComponent('fieldOfInterest', false, register, errors, { label: 'Field of interest' })}
+						{TextFieldComponent('field', false, register, errors, { label: 'Field of interest' })}
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

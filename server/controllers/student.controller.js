@@ -50,6 +50,10 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
+			gpax,
+			degree,
+			school,
+			program,
 			education,
 			householdIncome,
 			employment,
@@ -59,7 +63,6 @@ exports.updateStudentInfo = async (req, res) => {
 			email,
 			phoneNumber,
 		} = req.body
-
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
@@ -71,6 +74,10 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
+			gpax,
+			degree,
+			school,
+			program,
 			education,
 			householdIncome,
 			employment,
@@ -82,7 +89,6 @@ exports.updateStudentInfo = async (req, res) => {
 
 		await user.save()
 		await student.save()
-
 		return res.status(200).json({
 			message: 'Student information updated successfully',
 			student,

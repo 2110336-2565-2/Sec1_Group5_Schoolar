@@ -62,8 +62,16 @@ function Login() {
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					{TextFieldComponent('username', true, register, errors, { validation: {} })}
-					{TextFieldComponent('password', true, register, errors, { validation: {} })}
+					{TextFieldComponent('username', true, register, errors, {
+						validation: {
+							required: getErrMsg('username', 'required'),
+						},
+					})}
+					{TextFieldComponent('password', true, register, errors, {
+						validation: {
+							required: getErrMsg('email', 'required'),
+						},
+					})}
 					<Box sx={{ textAlign: 'right' }}>
 						<Typography color="primary">
 							<Link href="/forgot-password">Forgot password?</Link>

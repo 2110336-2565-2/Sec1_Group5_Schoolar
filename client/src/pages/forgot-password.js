@@ -140,14 +140,15 @@ function ForgotPassword() {
 								inputProps={{ style: { fontSize: 12 } }} // font size of input text
 								InputLabelProps={{ style: { fontSize: 12 } }}
 								{...register('email', {
-									required: 'Email is required',
+									required: getErrMsg('email', 'required'),
 									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: 'Invalid email',
+										value: getRegEx('email'),
+										message: getErrMsg('email', 'pattern'),
 									},
 									validate: {
 										duplicate: async (value) =>
-											(await isDupe('email', value)) || 'Email is not registered yet',
+											(await isDupe('email', value)) ||
+											getErrMsg('email', 'notRegister'),
 									},
 								})}
 								error={!!errors?.email}

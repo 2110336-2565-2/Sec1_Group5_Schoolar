@@ -117,7 +117,7 @@ const FormEditPvd = ({ isDisabled }) => {
 							<TextField
 								id="outlined"
 								label="Email"
-								defaultValues={email}
+								defaultValue={email}
 								InputLabelProps={{ shrink: true }}
 								{...register('email', getValidation('email'))}
 								error={!!errors?.email}
@@ -162,7 +162,7 @@ const FormEditPvd = ({ isDisabled }) => {
 							<TextField
 								id="outlined"
 								label="Credit Card Number"
-								defaultValues={creditCardNumber}
+								defaultValue={creditCardNumber}
 								InputLabelProps={{ shrink: true }}
 								{...register('creditCardNumber', getValidation('creditCardNumber'))}
 								error={!!errors?.creditCardNumber}

@@ -49,8 +49,8 @@ function ForgotPassword({ router }) {
 			<FormControl
 				component="form"
 				display={'flex'}
-				justifyContent={'center'}
-				alignItems={'center'}
+				justifycontent={'center'}
+				alignitems={'center'}
 				height={'100%'}
 				width={'100%'}
 				onSubmit={handleSubmit(onSubmit)}

@@ -6,8 +6,8 @@ import { Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
+import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
 
@@ -71,7 +71,7 @@ function Login() {
 						variant="outlined"
 						autoComplete="username"
 						{...register('username', {
-							required: 'Username is required',
+							required: getErrMsg('username', 'required'),
 						})}
 						error={!!errors?.username}
 						helperText={errors?.username ? errors.username.message : null}
@@ -79,7 +79,7 @@ function Login() {
 					<InputPassword
 						register={{
 							...register('password', {
-								required: 'Password is required',
+								required: getErrMsg('password', 'required'),
 							}),
 						}}
 						error={!!errors?.password}

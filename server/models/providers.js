@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	username: {
+		type: String,
+		ref: 'User',
+	},
 	providerName: {
 		required: true,
 		type: String,
@@ -34,7 +37,6 @@ const providerSchema = new Schema({
 		required: true,
 		type: String,
 		maxLength: 16,
-		unique: true,
 		trim: true,
 	},
 })

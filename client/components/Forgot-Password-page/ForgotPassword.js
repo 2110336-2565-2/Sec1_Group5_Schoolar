@@ -9,6 +9,11 @@ import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
 
 import axios from '@/pages/api/axios'
+import { getValidation } from '@utils/formUtils'
+
+function ForgotPassword() {
+	const router = useRouter()
+}
 
 function ForgotPassword({ router }) {
 	const Root = styled('div')(({ theme }) => ({
@@ -141,18 +146,7 @@ function ForgotPassword({ router }) {
 								size="small"
 								inputProps={{ style: { fontSize: 12 } }} // font size of input text
 								InputLabelProps={{ style: { fontSize: 12 } }}
-								{...register('email', {
-									required: 'Email is required',
-									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: 'Invalid email',
-									},
-									validate: {
-										duplicate: async (value) =>
-											(await isDupe('email', value)) ||
-											'Email is not registered yet',
-									},
-								})}
+								{...register('email', getValidation('email'))}
 								error={!!errors?.email}
 								helperText={errors?.email ? errors.email.message : null}
 							/>

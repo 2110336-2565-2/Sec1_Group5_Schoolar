@@ -26,7 +26,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
-import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from '@utils/StdInformation'
+import {
+	degree,
+	genders,
+	scholarshipTypes,
+	studentProgram,
+	uniProgram,
+} from '@utils/StdInformation'
+import { getValidation } from '@utils/formUtils'
 
 const FormEditStd = () => {
 	// States
@@ -183,20 +190,9 @@ const FormEditStd = () => {
 								required
 								value={studentInfo.firstName}
 								name="firstName"
-								label="Firstname"
+								label="First Name"
 								InputLabelProps={{ shrink: true }}
-								{...register('firstName', {
-									required: 'First name is required',
-									minLength: {
-										value: 2,
-										message: 'First name must be at least 2 characters',
-									},
-									pattern: {
-										// Contain only alphabets
-										value: /^[A-Za-z]+$/,
-										message: 'First name contain invalid character',
-									},
-								})}
+								{...register('firstName', getValidation('firstName'))}
 								error={!!errors?.firstName}
 								variant="outlined"
 								disabled={isUpdated}
@@ -206,38 +202,28 @@ const FormEditStd = () => {
 							<TextField
 								id="outlined-start-adornment"
 								required
-								label="Surname"
+								label="Last Name"
 								name="lastName"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.lastName}
-								{...register('lastName', {
-									required: 'Surname is required',
-									minLength: {
-										value: 2,
-										message: 'Surname must be at least 2 characters',
-									},
-									pattern: {
-										value: /^[A-Za-z]+$/,
-										message: 'Surname contain invalid character',
-									},
-								})}
-								error={!!errors?.surname}
+								{...register('lastName', getValidation('lastName'))}
+								error={!!errors?.lastName}
 								variant="outlined"
 								disabled={isUpdated}
 								onChange={handleOnChange}
-								helperText={errors?.surname ? errors.surname.message : null}
+								helperText={errors?.lastName ? errors.lastName.message : null}
 							/>
 							<LocalizationProvider dateAdapter={AdapterDayjs}>
 								<DatePicker
 									disableFuture
 									required
-									label="Date of Birth"
+									label="Birth Date"
 									InputLabelProps={{ shrink: true }}
 									value={studentInfo.birthdate}
 									name="birthdate"
 									openTo="year"
 									views={['year', 'month', 'day']}
-									{...register('birthdate')}
+									{...register('birthdate', getValidation('birthdate'))}
 									renderInput={(params) => <TextField {...params} />}
 									disabled={isUpdated}
 									onChange={(value) => {
@@ -259,7 +245,7 @@ const FormEditStd = () => {
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.gender}
 								disabled={isUpdated}
-								{...register('gender')}
+								{...register('gender', getValidation('gender'))}
 								onChange={handleOnChange}
 							>
 								{genders.map((option) => (
@@ -272,15 +258,10 @@ const FormEditStd = () => {
 								id="outlined-start-adornment"
 								required
 								label="Phone Number"
-								name="phoneno"
+								name="phoneNumber"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.phoneNumber}
-								{...register('phoneNumber', {
-									pattern: {
-										value: /^[0-9]*$/,
-										message: 'Phone number contains invalid character',
-									},
-								})}
+								{...register('phoneNumber', getValidation('phoneNumber'))}  //TODO ignore validation isDupe if not change value
 								error={!!errors?.phoneNumber}
 								variant="outlined"
 								disabled={isUpdated}
@@ -294,12 +275,7 @@ const FormEditStd = () => {
 								name="email"
 								InputLabelProps={{ shrink: true }}
 								value={email}
-								{...register('email', {
-									pattern: {
-										value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-										message: 'Email is incorrect form',
-									},
-								})}
+								{...register('email', getValidation('email'))} //TODO ignore validation isDupe if not change value
 								error={!!errors?.email}
 								variant="outlined"
 								disabled={isUpdated}
@@ -313,14 +289,9 @@ const FormEditStd = () => {
 								name="school"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.school}
-								{...register('school', {
-									pattern: {
-										value: /^[A-Za-z]+$/,
-										message: 'School contains invalid character',
-									},
-								})}
-								error={!!errors?.School}
-								helperText={errors?.School ? errors.School.message : null}
+								{...register('school', getValidation('school'))}
+								error={!!errors?.school}
+								helperText={errors?.school ? errors.school.message : null}
 								variant="outlined"
 								disabled={isUpdated}
 								onChange={handleOnChange}
@@ -332,12 +303,7 @@ const FormEditStd = () => {
 								name="degree"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.degree}
-								{...register('degree', {
-									// pattern: {
-									// 	value: /^[A-Za-z]+$/,
-									// 	message: 'Degree contains invalid character',
-									// },
-								})}
+								{...register('degree')}
 								error={!!errors?.Degree}
 								helperText={errors?.Degree ? errors.Degree.message : null}
 								variant="outlined"
@@ -357,12 +323,7 @@ const FormEditStd = () => {
 								name="program"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.program}
-								{...register('program', {
-									// pattern: {
-									// 	value: /^[A-Za-z]+$/,
-									// 	message: 'Program contains invalid character',
-									// },
-								})}
+								{...register('program')}
 								error={!!errors?.Program}
 								helperText={errors?.Program ? errors.Program.message : null}
 								variant="outlined"
@@ -381,14 +342,7 @@ const FormEditStd = () => {
 								name="gpax"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.gpax}
-								{...register('gpax', {
-									pattern: {
-										value: /^[0-9]*\.[0-9][0-9]$/,
-										message: 'GPAX must be float number with 2 digits',
-									},
-									min: { value: 0, message: 'GPAX must be positive' },
-									max: { value: 4, message: 'GPAX must be at most 4' },
-								})}
+								{...register('gpax', getValidation('gpax'))}
 								error={!!errors?.gpax}
 								helperText={errors?.gpax ? errors.gpax.message : null}
 								variant="outlined"
@@ -401,15 +355,9 @@ const FormEditStd = () => {
 								name="householdIncome"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.householdIncome}
-								{...register('householdIncome', {
-									pattern: {
-										value: /^[0-9]*$/,
-										message: 'Income must be integer',
-									},
-									min: { value: 0, message: 'Income must be positive' },
-								})}
-								error={!!errors?.income}
-								helperText={errors?.income ? errors.income.message : null}
+								{...register('householdIncome', getValidation('householdIncome'))}
+								error={!!errors?.householdIncome}
+								helperText={errors?.householdIncome ? errors.householdIncome.message : null}
 								variant="outlined"
 								disabled={isUpdated}
 								onChange={handleOnChange}
@@ -420,14 +368,9 @@ const FormEditStd = () => {
 								name="targetNation"
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.targetNation}
-								{...register('targetNation', {
-									pattern: {
-										value: /^[a-zA-Z\s]*$/,
-										message: 'Target Nation contains prohibited characters',
-									},
-								})}
-								error={!!errors?.income}
-								helperText={errors?.income ? errors.income.message : null}
+								{...register('targetNation', getValidation('targetNation'))}
+								error={!!errors?.targetNation}
+								helperText={errors?.targetNation ? errors.targetNation.message : null}
 								variant="outlined"
 								disabled={isUpdated}
 								onChange={handleOnChange}
@@ -452,9 +395,11 @@ const FormEditStd = () => {
 								id="outlined-start-adornment"
 								label="Field of Interest"
 								name="field"
-								{...register('field')}
+								{...register('field', getValidation('fieldOfInterest'))}
 								InputLabelProps={{ shrink: true }}
 								value={studentInfo.field}
+								error={!!errors?.field}
+								helperText={errors?.field ? errors.field.message : null}
 								variant="outlined"
 								disabled={isUpdated}
 								onChange={handleOnChange}

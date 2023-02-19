@@ -11,9 +11,6 @@ import { useAuth } from '@/context/AuthContext'
 
 import axios from './api/axios'
 
-// Just Mock Login -> pls re-implement this again
-// NOTE
-// username: Admin1234, password: Admin1234
 function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()

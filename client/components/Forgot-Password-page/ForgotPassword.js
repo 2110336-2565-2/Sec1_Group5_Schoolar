@@ -7,13 +7,10 @@ import TextField from '@mui/material/TextField'
 import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
-import axios from './api/axios'
+import axios from '@/pages/api/axios'
 
-function ForgotPassword() {
-	const router = useRouter()
-
+function ForgotPassword({ router }) {
 	const Root = styled('div')(({ theme }) => ({
 		width: '100%',
 		...theme.typography.body2,
@@ -30,9 +27,14 @@ function ForgotPassword() {
 
 	const onSubmit = (data) => {
 		console.log(data)
-		axios.post('/resetPassword/email', { email: data.email }).then((res) => {
-			console.log(res.data)
-		})
+		try {
+			axios.post('/resetPassword/email', { email: data.email }).then((res) => {
+				console.log(res.data)
+			})
+		} catch (err) {
+			console.log(err)
+			router.push('/login')
+		}
 	}
 	const isDupe = async (field, value) => {
 		try {
@@ -147,7 +149,8 @@ function ForgotPassword() {
 									},
 									validate: {
 										duplicate: async (value) =>
-											(await isDupe('email', value)) || 'Email is not registered yet',
+											(await isDupe('email', value)) ||
+											'Email is not registered yet',
 									},
 								})}
 								error={!!errors?.email}

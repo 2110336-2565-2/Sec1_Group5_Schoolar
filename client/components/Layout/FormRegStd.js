@@ -17,14 +17,9 @@ import { useRouter } from 'next/router'
 
 import axios from '@/pages/api/axios'
 
-import {
-	degree,
-	genders,
-	scholarshipTypes,
-	studentProgram,
-	uniProgram,
-} from '@utils/StdInformation'
+import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from '@utils/StdInformation'
 import { getValidation } from '@utils/formUtils'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 const FormRegStd = ({ registerData }) => {
 	const {
 		register,
@@ -68,24 +63,8 @@ const FormRegStd = ({ registerData }) => {
 			<Stack spacing={3} direction="column">
 				{!form && (
 					<>
-						<TextField
-							required
-							id="outlined-required"
-							label="Fisrt Name"
-							autoComplete="firstName"
-							{...register('firstName', getValidation('firstName'))}
-							error={!!errors?.firstName}
-							helperText={errors?.firstName ? errors.firstName.message : null}
-						/>
-						<TextField
-							required
-							id="outlined"
-							label="Last Name"
-							{...register('lastName', getValidation('lastName'))}
-							error={!!errors?.lastName}
-							helperText={errors?.lastName ? errors.lastName.message : null}
-						/>
-
+						{TextFieldComponent('firstName', true, register, errors)}
+						{TextFieldComponent('lastName', true, register, errors)}
 						<TextField
 							required
 							id="date"
@@ -100,7 +79,6 @@ const FormRegStd = ({ registerData }) => {
 								max: today,
 							}}
 						/>
-
 						<TextField
 							required
 							select
@@ -118,21 +96,8 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-
-						<TextField
-							required
-							id="outlined"
-							label="Phone number"
-							{...register('phoneNumber', getValidation('phoneNumber'))}
-							error={!!errors?.phoneNumber}
-							helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
-						/>
-
-						<Button
-							variant="contained"
-							type="submit"
-							sx={{ backgroundColor: '#3F51A9' }}
-						>
+						{TextFieldComponent('phoneNumber', true, register, errors)}
+						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 							NEXT
 						</Button>
 					</>
@@ -140,14 +105,7 @@ const FormRegStd = ({ registerData }) => {
 
 				{form && (
 					<>
-						<TextField
-							id="outlined"
-							label="School/University"
-							{...register('school', getValidation('school'))}
-							error={!!errors?.school}
-							helperText={errors?.school ? errors.school.message : null}
-						/>
-
+						{TextFieldComponent('school', false, register, errors, 'School/University')}
 						<TextField
 							select
 							id="outlined"
@@ -169,7 +127,6 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-
 						<TextField
 							select
 							id="outlined"
@@ -184,24 +141,8 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-
-						<TextField
-							id="outlined"
-							label="GPAX"
-							{...register('gpax', getValidation('gpax'))}
-							error={!!errors?.gpax}
-							helperText={errors?.gpax ? errors.gpax.message : null}
-						/>
-
-						<TextField
-							id="outlined"
-							label="Household income per month"
-							{...register('householdIncome', getValidation('householdIncome'))}
-							error={!!errors?.householdIncome}
-							helperText={
-								errors?.householdIncome ? errors.householdIncome.message : null
-							}
-						/>
+						{TextFieldComponent('gpax', false, register, errors, 'GPAX')}
+						{TextFieldComponent('householdIncome', false, register, errors, 'Household income per month')}
 
 						<FormLabel component="legend">Current employ</FormLabel>
 						<RadioGroup
@@ -210,27 +151,11 @@ const FormRegStd = ({ registerData }) => {
 							defaultValue={false}
 							{...register('employment')}
 						>
-							<FormControlLabel
-								value={true}
-								control={<Radio />}
-								label="Yes"
-							></FormControlLabel>
-							<FormControlLabel
-								value={false}
-								control={<Radio />}
-								label="No"
-							></FormControlLabel>
+							<FormControlLabel value={true} control={<Radio />} label="Yes"></FormControlLabel>
+							<FormControlLabel value={false} control={<Radio />} label="No"></FormControlLabel>
 							<Stack></Stack>
 						</RadioGroup>
-
-						<TextField
-							id="outlined"
-							label="Target nation"
-							{...register('targetNation', getValidation('targetNation'))}
-							error={!!errors?.targetNation}
-							helperText={errors?.targetNation ? errors.targetNation.message : null}
-						/>
-
+						{TextFieldComponent('targetNation', false, register, errors)}
 						<TextField
 							select
 							id="outlined"
@@ -245,14 +170,7 @@ const FormRegStd = ({ registerData }) => {
 								</MenuItem>
 							))}
 						</TextField>
-
-						<TextField
-							id="outlined"
-							label="Field of interest"
-							{...register('field', getValidation('fieldOfInterest'))}
-							error={!!errors?.field}
-							helperText={errors?.field ? errors.field.message : null}
-						/>
+						{TextFieldComponent('fieldOfInterest', false, register, errors, 'Field of interest')}
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

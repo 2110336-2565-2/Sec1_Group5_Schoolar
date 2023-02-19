@@ -12,6 +12,7 @@ import { Box } from '@mui/system'
 import Link from 'next/link'
 import InputPassword from './InputPassword'
 import { getErrMsg, getValidation } from '@utils/formUtils'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegister = ({ setData, setPage }) => {
 	const [role, setRole] = useState('student')
@@ -24,6 +25,7 @@ const FormRegister = ({ setData, setPage }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = (data) => {
+		console.log(data)
 		setData({ ...data, role })
 		setPage(role)
 	}
@@ -40,24 +42,8 @@ const FormRegister = ({ setData, setPage }) => {
 			sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 			onSubmit={handleSubmit(onSubmit)}
 		>
-			<TextField
-				required
-				label="Username"
-				variant="outlined"
-				autoComplete="username"
-				{...register('username', getValidation('username'))}
-				error={!!errors?.username}
-				helperText={errors?.username ? errors.username.message : null}
-			/>
-			<TextField
-				required
-				label="Email"
-				variant="outlined"
-				autoComplete="email"
-				{...register('email', getValidation('email'))}
-				error={!!errors?.email}
-				helperText={errors?.email ? errors.email.message : null}
-			/>
+			{TextFieldComponent('username', true, register, errors)}
+			{TextFieldComponent('email', true, register, errors)}
 			<InputPassword
 				register={{
 					...register('password', getValidation('password')),

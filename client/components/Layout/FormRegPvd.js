@@ -5,6 +5,7 @@ import { Stack } from '@mui/system'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { getValidation } from '@utils/formUtils'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegPvd = ({ registerData }) => {
 	const {
@@ -37,51 +38,11 @@ const FormRegPvd = ({ registerData }) => {
 	return (
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
-				<TextField
-					required
-					id="outlined"
-					label="Provider Name"
-					autoComplete="providerName"
-					{...register('providerName', getValidation('providerName'))}
-					error={!!errors?.providerName}
-					helperText={errors?.providerName ? errors.providerName.message : null}
-				/>
-				<TextField
-					required
-					id="outlined"
-					label="Website"
-					{...register('website', getValidation('website'))}
-					error={!!errors?.website}
-					helperText={errors?.website ? errors.website.message : null}
-				/>
-
-				<TextField
-					required
-					id="outlined"
-					label="Phone number"
-					{...register('phoneNumber', getValidation('phoneNumber'))}
-					error={!!errors?.phoneNumber}
-					helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
-				/>
-
-				<TextField
-					required
-					id="outlined"
-					label="Credit Card Number"
-					{...register('creditCardNumber', getValidation('creditCardNumber'))}
-					error={!!errors?.creditCardNumber}
-					helperText={errors?.creditCardNumber ? errors.creditCardNumber.message : null}
-				/>
-
-				<TextField
-					required
-					id="outlined"
-					label="Address"
-					{...register('address', getValidation('address'))}
-					error={!!errors?.address}
-					helperText={errors?.address ? errors.address.message : null}
-				/>
-
+				{TextFieldComponent('providerName', true, register, errors)}
+				{TextFieldComponent('website', true, register, errors)}
+				{TextFieldComponent('phoneNumber', true, register, errors)}
+				{TextFieldComponent('creditCardNumber', true, register, errors)}
+				{TextFieldComponent('address', true, register, errors)}
 				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 					SUBMIT
 				</Button>

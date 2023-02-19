@@ -16,7 +16,7 @@ export const TextFieldComponent = (
 		autoComplete = name,
 		validation = getValidation(name),
 		disabled = false,
-		shrink = false,
+		shrink,
 	} = {},
 ) => {
 	return (

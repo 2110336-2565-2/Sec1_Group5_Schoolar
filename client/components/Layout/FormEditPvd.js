@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, TextField } from '@mui/material'
-
+import { Button, FormControl, Grid, Stack } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-
-import InputPassword from './InputPassword'
 import { getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormEditPvd = ({ isDisabled }) => {
-	const { auth, setAuth } = useAuth()
+	const { auth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 
@@ -48,17 +45,9 @@ const FormEditPvd = ({ isDisabled }) => {
 
 	const onSubmit = (data) => {
 		console.log(`submitted`)
-		alert('Data has been updated successfully')
 		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
 			console.log(res.status)
-		})
-		reset({
-			providerName: getValues('providerName'),
-			website: getValues('website'),
-			address: getValues('address'),
-			creditCardNumber: getValues('creditCardNumber'),
-			email: getValues('email'),
-			phoneNumber: getValues('phoneNumber'),
+			alert('Data has been updated successfully')
 		})
 	}
 
@@ -94,17 +83,7 @@ const FormEditPvd = ({ isDisabled }) => {
 							sx={{ padding: '20px 0px 20px 0px' }}
 						>
 							<Grid item>
-								<Button
-									variant="contained"
-									type="submit"
-									onClick={() => {
-										const values = getValues() // { test: "test-input", test1: "test1-input" }
-										// const singleValue = getValues('test') // "test-input"
-										// const multipleValues = getValues(['test', 'test1'])
-										// ["test-input", "test1-input"]
-										// console.log(values)
-									}}
-								>
+								<Button variant="contained" type="submit">
 									Update
 								</Button>
 							</Grid>

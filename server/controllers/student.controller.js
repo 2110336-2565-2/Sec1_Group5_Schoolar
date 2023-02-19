@@ -24,7 +24,7 @@ exports.getStudent = async (req, res) => {
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const student = await Student.findOne({ userID: user._id })
+		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
 
 		return res.status(200).json({ student, user })
@@ -63,7 +63,7 @@ exports.updateStudentInfo = async (req, res) => {
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const student = await Student.findOne({ userID: user._id })
+		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
 
 		Object.assign(student, {

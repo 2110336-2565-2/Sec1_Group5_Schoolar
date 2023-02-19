@@ -11,7 +11,13 @@ export const TextFieldComponent = (
 	required,
 	register,
 	errors,
-	{ label = getTitleCase(name), autoComplete = name, validation = getValidation(name) } = {},
+	{
+		label = getTitleCase(name),
+		autoComplete = name,
+		validation = getValidation(name),
+		disabled = false,
+		shrink = false,
+	} = {},
 ) => {
 	return (
 		<TextField
@@ -22,6 +28,8 @@ export const TextFieldComponent = (
 			{...register(name, validation)}
 			error={!!errors?.[name]}
 			helperText={errors?.[name] ? errors[name].message : null}
+			disabled={disabled}
+			InputLabelProps={{ shrink }}
 		/>
 	)
 }

@@ -167,8 +167,8 @@ export const getValidation = (field) => {
 				},
 				validate: {
 					duplicate: async (value) =>
-						!(await isDupe('student', 'phoneNumber', value)) ||
-						getErrMsg('Phone Number', 'taken'),
+						!(await isDupe('student', 'phoneNumber', value)) || //TODO move to User
+						getErrMsg('Phone Number', 'taken'), 
 				},
 			}
 		case 'school':

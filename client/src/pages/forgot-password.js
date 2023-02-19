@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import axios from './api/axios'
+import { getValidation } from '@utils/formUtils'
 
 function ForgotPassword() {
 	const router = useRouter()
@@ -139,18 +140,7 @@ function ForgotPassword() {
 								size="small"
 								inputProps={{ style: { fontSize: 12 } }} // font size of input text
 								InputLabelProps={{ style: { fontSize: 12 } }}
-								{...register('email', {
-									required: getErrMsg('email', 'required'),
-									pattern: {
-										value: getRegEx('email'),
-										message: getErrMsg('email', 'pattern'),
-									},
-									validate: {
-										duplicate: async (value) =>
-											(await isDupe('email', value)) ||
-											getErrMsg('email', 'notRegister'),
-									},
-								})}
+								{...register('email', getValidation('email'))}
 								error={!!errors?.email}
 								helperText={errors?.email ? errors.email.message : null}
 							/>

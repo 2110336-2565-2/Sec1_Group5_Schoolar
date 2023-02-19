@@ -117,6 +117,7 @@ export const getValidation = (field) => {
 						getRegEx('noSpace').test(value) || getErrMsg('Password', 'space'),
 				},
 			}
+		// Student
 		case 'firstName':
 			return {
 				required: getErrMsg('First Name', 'required'),
@@ -190,9 +191,9 @@ export const getValidation = (field) => {
 			return {
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Income must be number',
+					message: 'Household Income must be number',
 				},
-				min: { value: 0, message: getErrMsg('Income', 'positive') },
+				min: { value: 0, message: getErrMsg('Household Income', 'positive') },
 			}
 		case 'targetNation':
 			return {
@@ -205,9 +206,10 @@ export const getValidation = (field) => {
 			return {
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
-					message: getErrMsg('Field Of Interest', 'pattern'),
+					message: getErrMsg('Field of Interest', 'pattern'),
 				},
 			}
+		// Provider
 		case 'providerName':
 			return {
 				required: getErrMsg('Provider Name', 'required'),
@@ -233,11 +235,6 @@ export const getValidation = (field) => {
 					value: getRegEx('onlyNumber'),
 					message: 'Credit Card Number contains invalid character',
 				},
-				validate: {
-					duplicate: async (value) =>
-						!(await isDupe('provider', 'creditCardNumber', value)) ||
-						getErrMsg('Credit Card Number', 'taken'),
-				},
 			}
 		case 'address':
 			return {
@@ -245,7 +242,7 @@ export const getValidation = (field) => {
 				minLength: { value: 2, message: getErrMsg('Address', 'minLength', 2) },
 				maxLength: {
 					value: 255,
-					message: getErrMsg('ProAddress', 'maxLength', 255),
+					message: getErrMsg('Address', 'maxLength', 255),
 				},
 			}
 		default:

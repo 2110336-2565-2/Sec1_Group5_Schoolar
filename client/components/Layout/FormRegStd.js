@@ -87,6 +87,7 @@ const FormRegStd = ({ registerData }) => {
 						/>
 
 						<TextField
+							required
 							id="date"
 							label="Birth Date"
 							type="date"

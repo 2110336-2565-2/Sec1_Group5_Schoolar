@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 import InputPassword from './InputPassword'
+import { getValidation } from '@utils/formUtils'
 
 const FormEditPvd = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()
@@ -106,25 +107,29 @@ const FormEditPvd = ({ isDisabled }) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							{/* <TextField
+							<TextField
 								id="outlined-start-adornment"
 								value={username}
 								label="Username"
 								variant="outlined"
 								disabled
-							/> */}
+							/>
+							<TextField
+								id="outlined"
+								label="Email"
+								defaultValues={email}
+								InputLabelProps={{ shrink: true }}
+								{...register('email', getValidation('email'))}
+								error={!!errors?.email}
+								helperText={errors?.email ? errors.email.message : null}
+								onChange={handleOnChange}
+							/>
 							<TextField
 								id="outlined-start-adornment"
 								value={getValues(providerName)}
 								label="Provider Name"
 								InputLabelProps={{ shrink: true }}
-								{...register('providerName', {
-									required: 'Provider Name is required',
-									maxLength: {
-										value: 40,
-										message: 'Provider Name must be at most 40 characters',
-									},
-								})}
+								{...register('providerName', getValidation('providerName'))}
 								error={!!errors?.providerName}
 								helperText={
 									errors?.providerName ? errors.providerName.message : null
@@ -137,23 +142,9 @@ const FormEditPvd = ({ isDisabled }) => {
 								label="Website"
 								defaultValue={website}
 								InputLabelProps={{ shrink: true }}
-								{...register('website', {
-									required: 'Website is required',
-									minLength: {
-										value: 2,
-										message: 'Website must be at least 2 characters',
-									},
-								})}
+								{...register('website', getValidation('website'))}
 								error={!!errors?.website}
 								helperText={errors?.website ? errors.website.message : null}
-								onChange={handleOnChange}
-							/>
-							<TextField
-								id="outlined"
-								label="Address"
-								defaultValue={address}
-								InputLabelProps={{ shrink: true }}
-								{...register('address')}
 								onChange={handleOnChange}
 							/>
 
@@ -162,13 +153,7 @@ const FormEditPvd = ({ isDisabled }) => {
 								label="Phone number"
 								defaultValue={phoneNumber}
 								InputLabelProps={{ shrink: true }}
-								{...register('phoneNumber', {
-									required: 'Phone Number is required',
-									pattern: {
-										value: /^[0-9]*$/,
-										message: 'Phone number contains invalid character',
-									},
-								})}
+								{...register('phoneNumber', getValidation('phoneNumber'))}
 								error={!!errors?.phoneNumber}
 								helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
 								onChange={handleOnChange}
@@ -179,21 +164,7 @@ const FormEditPvd = ({ isDisabled }) => {
 								label="Credit Card Number"
 								defaultValues={creditCardNumber}
 								InputLabelProps={{ shrink: true }}
-								{...register('creditCardNumber', {
-									required: 'Credit Card Number is required',
-									minLength: {
-										value: 16,
-										message: 'Credit Card Number must be 16 digits',
-									},
-									maxLength: {
-										value: 16,
-										message: 'Credit Card Number must be 16 digits',
-									},
-									pattern: {
-										value: /^[0-9]*$/,
-										message: 'Credit Card Number contains invalid character',
-									},
-								})}
+								{...register('creditCardNumber', getValidation('creditCardNumber'))}
 								error={!!errors?.creditCardNumber}
 								helperText={
 									errors?.creditCardNumber
@@ -202,21 +173,15 @@ const FormEditPvd = ({ isDisabled }) => {
 								}
 								onChange={handleOnChange}
 							/>
-
 							<TextField
 								id="outlined"
-								label="Email"
-								defaultValues={email}
+								label="Address"
+								defaultValue={address}
 								InputLabelProps={{ shrink: true }}
-								{...register('email', {
-									pattern: {
-										value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-										message: 'Email is incorrect form',
-									},
-								})}
-								error={!!errors?.email}
-								helperText={errors?.email ? errors.email.message : null}
+								{...register('address', getValidation('address'))}
 								onChange={handleOnChange}
+								error={!!errors?.address}
+								helperText={errors?.address ? errors.address.message : null}
 							/>
 						</Stack>
 						<Grid

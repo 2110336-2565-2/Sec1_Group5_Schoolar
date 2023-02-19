@@ -37,7 +37,6 @@ const providerSchema = new Schema({
 		required: true,
 		type: String,
 		maxLength: 16,
-		unique: true,
 		trim: true,
 	},
 })

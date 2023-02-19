@@ -36,7 +36,7 @@ const studentSchema = new Schema({
 		trim: true,
 	},
 	gpax: {
-		require: true,
+		required: true,
 		type: Number,
 	},
 	degree: {

@@ -143,9 +143,17 @@ export const getValidation = (field, defaultValue) => {
 					message: getErrMsg('Last Name', 'pattern'),
 				},
 			}
-		case 'birthDate':
+		case 'birthdate':
 			return {
 				required: getErrMsg('Birth date', 'required'),
+				validate: {
+					future: (value) => {
+						const [day, month, year] = value.split('/').map(Number)
+						const inputDate = new Date(year, month - 1, day)
+						const today = new Date()
+						return inputDate < today || getErrMsg('Birthdate', 'pattern')
+					},
+				},
 			}
 		case 'gender':
 			return {

@@ -10,19 +10,15 @@ export default function Edit() {
 	const { auth } = useAuth()
 	const router = useRouter()
 	const [data, setData] = useState({})
-	if (!auth) {
-		router.push('/login')
-		return
-	}
 
 	useEffect(() => {
 		// Fetch database values from server using Axios
 		console.log('Fetch data')
-		if (auth.role === 'student') {
+		if (auth?.role === 'student') {
 			axiosPrivate
 				.get(`/student/${auth.username}`)
 				.then((response) => {
-					console.log('-->', { ...response.data.user, ...response.data.student })
+					// console.log('-->', { ...response.data.user, ...response.data.student })
 					setData({ ...response.data.user, ...response.data.student })
 				})
 				.catch((error) => {
@@ -32,7 +28,7 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/provider/${auth.username}`)
 				.then((response) => {
-					console.log('-->', { ...response.data.user, ...response.data.provider })
+					// console.log('-->', { ...response.data.user, ...response.data.provider })
 					setData({ ...response.data.user, ...response.data.provider })
 				})
 				.catch((error) => {
@@ -41,7 +37,7 @@ export default function Edit() {
 		}
 	}, [])
 
-	if (auth.role === 'student') {
+	if (auth?.role === 'student') {
 		return <FormPrimary header="Edit Profile" form={<FormEditStd oldValue={data} />} />
 	} else {
 		return <FormPrimary header="Edit Profile" form={<FormEditPvd oldValue={data} />} />

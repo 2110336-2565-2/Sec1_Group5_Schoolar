@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, TextField, Alert, AlertTitle } from '@mui/material'
+import { Button, FormControl, Grid, Stack } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
@@ -8,7 +8,7 @@ import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
 
 const FormEditPvd = ({ oldValue }) => {
-	const { auth, setAuth } = useAuth()
+	const { auth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
@@ -16,7 +16,6 @@ const FormEditPvd = ({ oldValue }) => {
 		register,
 		handleSubmit,
 		formState: { errors, defaultValues },
-		getValues,
 		reset,
 		setValue,
 	} = useForm({
@@ -89,14 +88,7 @@ const FormEditPvd = ({ oldValue }) => {
 							</Grid>
 
 							<Grid item>
-								<Button
-									variant="contained"
-									type="submit"
-									onClick={() => {
-										const values = getValues()
-										console.log('VALUE:', values)
-									}}
-								>
+								<Button variant="contained" type="submit">
 									SUBMIT
 								</Button>
 							</Grid>

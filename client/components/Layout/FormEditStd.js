@@ -1,17 +1,12 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, MenuItem, Stack, TextField } from '@mui/material'
+import { Button, FormControl, Grid, Stack } from '@mui/material'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
-import { genders, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/StdInformation'
 import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormEditStd = ({ oldValue }) => {
-	const { auth, setAuth } = useAuth()
-	//*axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate()
-
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',
@@ -19,21 +14,20 @@ const FormEditStd = ({ oldValue }) => {
 		program: '',
 		typeOfScholarship: '',
 	})
-
-	// Update the data
-	const today = new Date().toISOString().split('T')[0]
-
 	// Form hook
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, defaultValues },
-		getValues,
 		reset,
 		setValue,
 	} = useForm({
 		mode: 'onBlur',
 	})
+
+	const { auth } = useAuth()
+	//*axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
 		if (oldValue) {
@@ -93,7 +87,6 @@ const FormEditStd = ({ oldValue }) => {
 		alert(messages.join('\n'))
 	}
 
-	console.log(values)
 	const formProps = { register, errors, values, setValues }
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">

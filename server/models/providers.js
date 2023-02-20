@@ -3,6 +3,13 @@ const { Schema } = mongoose
 
 const providerSchema = new Schema({
 	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	username: {
+		required: true,
+		type: String,
+		maxLength: 40,
+		unique: true,
+		trim: true,
+	},
 	providerName: {
 		required: true,
 		type: String,

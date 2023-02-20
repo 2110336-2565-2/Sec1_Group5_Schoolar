@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, TextField } from '@mui/material'
-
+import { Button, FormControl, Grid, Stack, TextField, Alert, AlertTitle } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useRouter } from 'next/router'
 
-import InputPassword from './InputPassword'
-
-const FormEditPvd = ({ isDisabled }) => {
+const FormEditPvd = ({oldValue}) => {
 	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -19,85 +18,49 @@ const FormEditPvd = ({ isDisabled }) => {
 		reset,
 		setValue,
 	} = useForm({
-		mode: 'onBlur',
+		mode: 'onBlur'
 	})
-	//* password related value
-	const [isSubmitted, setIsCancel] = useState(false)
-	const [password, setPassword] = useState('')
-	const [rePassword, setRePassword] = useState('')
-	const [showPassword, setShowPassword] = React.useState(false)
-
-	//* assign value
-	const [username, setUsername] = useState('')
-	const [providerName, setProviderName] = useState('')
-	const [creditCardNumber, setCreditCardNumber] = useState('')
-	const [address, setAddress] = useState('')
-	const [phoneNumber, setPhoneNumber] = useState('')
-	const [email, setEmail] = useState('')
-	const [website, setWebsite] = useState('')
 
 	useEffect(() => {
-		//* example of using axios private to get data from route that need token
-		//* console.log(auth.username)
-		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-			console.log(res.data.provider.providerName)
-
-			setUsername(res.data.provider.username)
-			setProviderName(res.data.provider.providerName)
-			setCreditCardNumber(res.data.provider.creditCardNumber)
-			setAddress(res.data.provider.address)
-			setEmail(res.data.user.email)
-			setPhoneNumber(res.data.provider.phoneNumber)
-			setWebsite(res.data.provider.website)
-			reset({
-				providerName: res.data.provider.providerName,
-				website: res.data.provider.website,
-				address: res.data.provider.address,
-				creditCardNumber: res.data.provider.creditCardNumber,
-				email: res.data.user.email,
-				phoneNumber: res.data.provider.phoneNumber,
-			})
-			console.log(`after : ${providerName}`)
-		})
-	}, [])
+		if (oldValue) {
+			setValue('providerName', oldValue.providerName);
+			setValue('website', oldValue.website);
+			setValue('address', oldValue.address);
+			setValue('creditCardNumber', oldValue.creditCardNumber);
+			setValue('phoneNumber', oldValue.phoneNumber);
+		  }
+	}, [oldValue, setValue]);
+	
 
 	const onSubmit = (data) => {
 		console.log(`submitted`)
 		alert('Data has been updated successfully')
-		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-			console.log(res.status)
-		})
-		reset({
-			providerName: getValues('providerName'),
-			website: getValues('website'),
-			address: getValues('address'),
-			creditCardNumber: getValues('creditCardNumber'),
-			email: getValues('email'),
-			phoneNumber: getValues('phoneNumber'),
-		})
+		try {
+			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
+				console.log(`Success update at ${res.status}`);
+			})
+			router.push('/')
+		} catch (err) {
+			alert("NOT SUCCESS");
+			console.log(err)
+		}
 	}
 
-	const handleClickShowPassword = () => setShowPassword((show) => !show)
+	const isDupe = async (field, value) => {
+		try {
+			const response = await axiosPrivate.get(`/auth/isDupe/provider/${field}/${value}`)
+			if(field === 'phoneNumber' && oldValue.phoneNumber === value) return false;
+			if(field === 'creditCardNumber' && oldValue.creditCardNumber === value) return false;
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
-	const handleMouseDownPassword = (event) => {
-		event.preventDefault()
-	}
-	const handleOnChange = (e) => {
-		setValue(e.target.name, e.target.value)
-	}
-	const handleCancelBtn = (e) => {
-		reset({
-			providerName: providerName,
-			website: website,
-			address: address,
-			creditCardNumber: creditCardNumber,
-			email: email,
-			phoneNumber: phoneNumber,
-		})
-	}
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
+			{/* {alertOpen && renderAlert()} */}
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
@@ -106,16 +69,9 @@ const FormEditPvd = ({ isDisabled }) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							{/* <TextField
-								id="outlined-start-adornment"
-								value={username}
-								label="Username"
-								variant="outlined"
-								disabled
-							/> */}
 							<TextField
 								id="outlined-start-adornment"
-								value={getValues(providerName)}
+								defaultValue={oldValue.providerName}
 								label="Provider Name"
 								InputLabelProps={{ shrink: true }}
 								{...register('providerName', {
@@ -130,12 +86,11 @@ const FormEditPvd = ({ isDisabled }) => {
 									errors?.providerName ? errors.providerName.message : null
 								}
 								variant="outlined"
-								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined"
 								label="Website"
-								defaultValue={website}
+								defaultValue={oldValue.website}
 								InputLabelProps={{ shrink: true }}
 								{...register('website', {
 									required: 'Website is required',
@@ -146,38 +101,47 @@ const FormEditPvd = ({ isDisabled }) => {
 								})}
 								error={!!errors?.website}
 								helperText={errors?.website ? errors.website.message : null}
-								onChange={handleOnChange}
 							/>
 							<TextField
 								id="outlined"
 								label="Address"
-								defaultValue={address}
+								defaultValue={oldValue.address}
 								InputLabelProps={{ shrink: true }}
 								{...register('address')}
-								onChange={handleOnChange}
 							/>
 
 							<TextField
 								id="outlined"
 								label="Phone number"
-								defaultValue={phoneNumber}
+								defaultValue={oldValue.phoneNumber}
 								InputLabelProps={{ shrink: true }}
 								{...register('phoneNumber', {
 									required: 'Phone Number is required',
+									minLength: {
+										value: 9,
+										message: 'Phone Number must be at least 9 digits',
+									},
+									maxLength: {
+										value: 10,
+										message: 'Phone Number must be at most 10 digits',
+									},
 									pattern: {
 										value: /^[0-9]*$/,
 										message: 'Phone number contains invalid character',
 									},
+									validate: {
+										duplicate: async (value) =>
+											!(await isDupe('phoneNumber', value)) || 'Phone number has been taken',
+									},
 								})}
 								error={!!errors?.phoneNumber}
 								helperText={errors?.phoneNumber ? errors.phoneNumber.message : null}
-								onChange={handleOnChange}
 							/>
 
 							<TextField
 								id="outlined"
 								label="Credit Card Number"
-								defaultValues={creditCardNumber}
+								defaultValue={oldValue.creditCardNumber}
 								InputLabelProps={{ shrink: true }}
 								{...register('creditCardNumber', {
 									required: 'Credit Card Number is required',
@@ -193,31 +157,15 @@ const FormEditPvd = ({ isDisabled }) => {
 										value: /^[0-9]*$/,
 										message: 'Credit Card Number contains invalid character',
 									},
-								})}
-								error={!!errors?.creditCardNumber}
-								helperText={
-									errors?.creditCardNumber
-										? errors.creditCardNumber.message
-										: null
-								}
-								onChange={handleOnChange}
-							/>
-
-							<TextField
-								id="outlined"
-								label="Email"
-								defaultValues={email}
-								InputLabelProps={{ shrink: true }}
-								{...register('email', {
-									pattern: {
-										value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-										message: 'Email is incorrect form',
+									validate: {
+										duplicate: async (value) =>
+											!(await isDupe('creditCardNumber', value)) || 'Credit Card Number has been taken',
 									},
 								})}
-								error={!!errors?.email}
-								helperText={errors?.email ? errors.email.message : null}
-								onChange={handleOnChange}
+								error={!!errors?.creditCardNumber}
+								helperText={errors?.creditCardNumber? errors.creditCardNumber.message: null}
 							/>
+
 						</Stack>
 						<Grid
 							container
@@ -227,8 +175,8 @@ const FormEditPvd = ({ isDisabled }) => {
 							sx={{ padding: '20px 0px 20px 0px' }}
 						>
 							<Grid item>
-								<Button variant="contained" onClick={handleCancelBtn}>
-									Cancel
+								<Button variant="contained" onClick={() => router.push('/')}>
+									BACK
 								</Button>
 							</Grid>
 
@@ -237,14 +185,11 @@ const FormEditPvd = ({ isDisabled }) => {
 									variant="contained"
 									type="submit"
 									onClick={() => {
-										const values = getValues() // { test: "test-input", test1: "test1-input" }
-										// const singleValue = getValues('test') // "test-input"
-										// const multipleValues = getValues(['test', 'test1'])
-										// ["test-input", "test1-input"]
+										const values = getValues() 
 										console.log(values)
 									}}
 								>
-									Update
+									SUBMIT
 								</Button>
 							</Grid>
 						</Grid>

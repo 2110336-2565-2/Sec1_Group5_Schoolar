@@ -72,7 +72,7 @@ function Navbar({ setOpen }) {
 								<Image src="/logo.svg" alt="logo" width={43} height={51} />
 							</Center>
 
-							<MenuItem>
+							<MenuItem component={Link} href="#footer">
 								<Typography textAlign="center">Contact Us</Typography>
 							</MenuItem>
 						</Stack>

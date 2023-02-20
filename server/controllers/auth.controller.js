@@ -14,6 +14,7 @@ const mongoose = require('mongoose')
  */
 
 exports.register = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		return res.status(400).json({ errors: result.array() })
@@ -58,7 +59,6 @@ exports.register = async (req, res) => {
 		if (role === 'student') {
 			const student = await Student.create(
 				[{
-					userID: new ObjectId(user[0]._id),
 					username,
 					firstName,
 					lastName,
@@ -81,7 +81,6 @@ exports.register = async (req, res) => {
 		} else {
 			const provider = await Provider.create(
 				[{
-					userID: new ObjectId(user[0]._id),
 					username,
 					providerName,
 					address,
@@ -228,6 +227,7 @@ exports.isDupe = (req, res) => {
 }
 
 exports.logout = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 	try {
 		const user = await User.findOne({ refreshToken: cookies.jwt })

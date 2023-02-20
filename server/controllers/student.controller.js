@@ -54,7 +54,6 @@ exports.updateStudentInfo = async (req, res) => {
 			degree,
 			school,
 			program,
-			education,
 			householdIncome,
 			targetNation,
 			typeOfScholarship,
@@ -72,7 +71,6 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
-			phoneNumber,
 			school,
 			degree,
 			program,
@@ -82,8 +80,7 @@ exports.updateStudentInfo = async (req, res) => {
 			typeOfScholarship,
 			field,
 		})
-		Object.assign(user, { email, phoneNumber })
-    
+
 		await user.save()
 		await student.save()
 		return res.status(200).json({

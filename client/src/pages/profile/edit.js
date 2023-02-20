@@ -9,20 +9,17 @@ import FormEditPvd from '@components/Layout/FormEditPvd'
 export default function Edit() {
 	const { auth } = useAuth()
 	const router = useRouter()
-	const [data, setData] = useState([])
-	if (!auth) {
-		router.push('/login')
-		return
-	}
+	const [data, setData] = useState({})
 
 	useEffect(() => {
 		// Fetch database values from server using Axios
-		if (auth.role === 'student') {
+		console.log('Fetch data')
+		if (auth?.role === 'student') {
 			axiosPrivate
 				.get(`/student/${auth.username}`)
 				.then((response) => {
-					//console.log(response.data.student)
-					setData(response.data.student)
+					// console.log('-->', { ...response.data.user, ...response.data.student })
+					setData({ ...response.data.user, ...response.data.student })
 				})
 				.catch((error) => {
 					console.error(error)
@@ -31,8 +28,8 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/provider/${auth.username}`)
 				.then((response) => {
-					//console.log(response.data.provider)
-					setData(response.data.provider)
+					// console.log('-->', { ...response.data.user, ...response.data.provider })
+					setData({ ...response.data.user, ...response.data.provider })
 				})
 				.catch((error) => {
 					console.error(error)
@@ -40,10 +37,10 @@ export default function Edit() {
 		}
 	}, [])
 
-	if (auth.role === 'student') {
-		return <FormPrimary header="Edit Profile" form={<FormEditStd oldValue={data}/>} />
+	if (auth?.role === 'student') {
+		return <FormPrimary header="Edit Profile" form={<FormEditStd oldValue={data} />} />
 	} else {
-		return <FormPrimary header="Edit Profile" form={<FormEditPvd oldValue={data}/>} />
+		return <FormPrimary header="Edit Profile" form={<FormEditPvd oldValue={data} />} />
 	}
 }
 

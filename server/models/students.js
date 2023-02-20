@@ -28,13 +28,6 @@ const studentSchema = new Schema({
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
 	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
-	},
 	gpax: {
 		required: true,
 		type: Number,
@@ -52,7 +45,7 @@ const studentSchema = new Schema({
 		enum: [
 			'',
 			'Sci-Math',
-			'Art-Cal',
+			'Art-Math',
 			'Art-Language',
 			'Art-Society',
 			'Art-General',

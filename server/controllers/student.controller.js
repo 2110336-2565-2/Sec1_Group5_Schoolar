@@ -54,15 +54,12 @@ exports.updateStudentInfo = async (req, res) => {
 			degree,
 			school,
 			program,
-			education,
 			householdIncome,
-			employment,
 			targetNation,
 			typeOfScholarship,
 			field,
-			email,
-			phoneNumber,
 		} = req.body
+		console.log(req.body)
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
@@ -74,24 +71,22 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
-			gpax,
-			degree,
 			school,
+			degree,
 			program,
-			education,
+			gpax,
 			householdIncome,
-			employment,
 			targetNation,
 			typeOfScholarship,
 			field,
 		})
-		Object.assign(user, { email, phoneNumber })
 
 		await user.save()
 		await student.save()
 		return res.status(200).json({
 			message: 'Student information updated successfully',
 			student,
+			user,
 		})
 	} catch (error) {
 		return res.status(400).json({ message: error.message })

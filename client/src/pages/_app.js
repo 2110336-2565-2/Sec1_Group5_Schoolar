@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
 	const [error, setError] = useState(null)
 	const router = useRouter()
 
-	console.log(auth)
+	// console.log(auth)
 
 	useEffect(() => {
 		setLoading(true)

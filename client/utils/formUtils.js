@@ -1,4 +1,5 @@
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export const getErrMsg = (field, type, amount, unit = 'characters') => {
 	field = field.charAt(0).toUpperCase() + field.slice(1)
@@ -145,6 +146,14 @@ export const getValidation = (field, defaultValue) => {
 		case 'birthdate':
 			return {
 				required: getErrMsg('Birth date', 'required'),
+				validate: {
+					future: (value) => {
+						const [day, month, year] = value.split('/').map(Number)
+						const inputDate = new Date(year, month - 1, day)
+						const today = new Date()
+						return inputDate < today || getErrMsg('Birthdate', 'pattern')
+					},
+				},
 			}
 		case 'gender':
 			return {
@@ -167,8 +176,10 @@ export const getValidation = (field, defaultValue) => {
 				},
 				validate: {
 					duplicate: async (value) => {
+						console.log(value, defaultValue)
 						if (value === defaultValue) return true //if value is not edited, don't check isDupe
-						return !(await isDupe('student', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
+						console.log('SDDF', value, defaultValue)
+						return !(await isDupe('user', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
 					},
 				},
 			}

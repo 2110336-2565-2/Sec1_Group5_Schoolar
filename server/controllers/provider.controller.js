@@ -61,6 +61,8 @@ exports.updateProviderInfo = async (req, res) => {
 			phoneNumber,
 		})
 
+		Object.assign(user, { phoneNumber })
+
 		await user.save()
 		await provider.save()
 

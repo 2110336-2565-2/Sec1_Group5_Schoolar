@@ -1,29 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import {
-	Button,
-	FormControl,
-	FormControlLabel,
-	FormGroup,
-	FormHelperText,
-	FormLabel,
-	Grid,
-	InputLabel,
-	MenuItem,
-	OutlinedInput,
-	Radio,
-	RadioGroup,
-	Stack,
-	TextField,
-} from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import dayjs from 'dayjs'
+import { Button, FormControl, Grid, MenuItem, Stack, TextField } from '@mui/material'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/StdInformation'
@@ -48,9 +25,7 @@ const FormEditStd = () => {
 		register,
 		handleSubmit,
 		formState: { errors, defaultValues },
-		getValues,
 		reset,
-		setValue,
 	} = useForm({
 		mode: 'onBlur',
 	})
@@ -112,13 +87,6 @@ const FormEditStd = () => {
 			messages.push(err[key].message)
 		})
 		alert(messages.join('\n'))
-	}
-
-	const isModified = (field) => {
-		console.log(field)
-		if (!defaultValues) return false
-		console.log(defaultValues[field], getValues(field))
-		return defaultValues[field] !== getValues(field)
 	}
 
 	return (

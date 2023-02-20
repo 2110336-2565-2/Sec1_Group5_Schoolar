@@ -7,7 +7,7 @@ import FormRegPvd from '@components/Layout/FormRegPvd'
 
 export default function Register() {
 	const [data, setData] = useState({})
-	const [page, setPage] = useState('register')
+	const [page, setPage] = useState('student')
 
 	switch (page) {
 		case 'register':

@@ -142,7 +142,7 @@ export const getValidation = (field, defaultValue) => {
 					message: getErrMsg('Last Name', 'pattern'),
 				},
 			}
-		case 'birthdate':
+		case 'birthDate':
 			return {
 				required: getErrMsg('Birth date', 'required'),
 			}

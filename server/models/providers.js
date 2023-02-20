@@ -31,13 +31,6 @@ const providerSchema = new Schema({
 		lowercase: true,
 		trim: true,
 	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
-	},
 	creditCardNumber: {
 		required: true,
 		type: String,

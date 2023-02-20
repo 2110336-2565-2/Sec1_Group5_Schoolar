@@ -72,7 +72,7 @@ const FormEditStd = () => {
 				lastName: res.data.student.lastName,
 				birthdate: res.data.student.birthdate,
 				gender: res.data.student.gender,
-				phoneNumber: res.data.student.phoneNumber,
+				phoneNumber: res.data.user.phoneNumber,
 				email: res.data.user.email,
 				gpax: res.data.student.gpax,
 				degree: res.data.student.degree,
@@ -99,7 +99,7 @@ const FormEditStd = () => {
 
 	const formOnSubmit = (data) => {
 		// Update data using patch request
-		console.log('DATA', data)
+		console.log('submitting', data)
 		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
 			alert('Data has been updated successfully')
 			console.log('submitted successfully')

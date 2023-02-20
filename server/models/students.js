@@ -28,13 +28,6 @@ const studentSchema = new Schema({
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
 	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
-	},
 	gpax: {
 		required: true,
 		type: Number,

@@ -168,7 +168,7 @@ export const getValidation = (field, defaultValue) => {
 				validate: {
 					duplicate: async (value) => {
 						if (value === defaultValue) return true //if value is not edited, don't check isDupe
-						return !(await isDupe('student', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
+						return !(await isDupe('user', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
 					},
 				},
 			}

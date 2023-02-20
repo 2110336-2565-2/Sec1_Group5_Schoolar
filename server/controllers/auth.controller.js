@@ -53,7 +53,9 @@ exports.register = async (req, res) => {
 		const saltRounds = 10
 		const salt = await bcrypt.genSalt(saltRounds)
 		const hash = await bcrypt.hash(password, salt)
-		const user = await User.create([{ username, password: hash, email, role }], { session })
+		const user = await User.create([{ username, password: hash, email, phoneNumber, role }], {
+			session,
+		})
 		if (role === 'student') {
 			const student = await Student.create(
 				[
@@ -63,7 +65,6 @@ exports.register = async (req, res) => {
 						lastName,
 						birthdate,
 						gender,
-						phoneNumber,
 						gpax,
 						degree,
 						school,
@@ -87,7 +88,6 @@ exports.register = async (req, res) => {
 						address,
 						website,
 						creditCardNumber,
-						phoneNumber,
 						verifyStatus,
 					},
 				],

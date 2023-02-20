@@ -20,16 +20,6 @@ const FormEditStd = ({oldValue}) => {
 	const [selectProgram, setSelectProgram] = useState(studentProgram)
 	const router = useRouter()
 	// Update the data 
-	const axiosPrivate = useAxiosPrivate()
-	const [selectProgram, setSelectProgram] = useState(studentPrograms)
-
-	// console.log(selectProgram)
-	const [gender, setGender] = useState('')
-	const [degree, setDegree] = useState('')
-	const [program, setProgram] = useState('')
-	const [scholarship, setScholarship] = useState('')
-
-	const { auth } = useAuth()
 	const today = new Date().toISOString().split('T')[0]
 
 	// Form hook

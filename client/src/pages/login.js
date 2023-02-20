@@ -6,14 +6,12 @@ import { Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
+import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 
-// Just Mock Login -> pls re-implement this again
-// NOTE
-// username: Admin1234, password: Admin1234
 function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
@@ -64,30 +62,16 @@ function Login() {
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<TextField
-						required
-						fullWidth
-						id="username"
-						name="username"
-						autoFocus
-						label="Username"
-						variant="outlined"
-						autoComplete="username"
-						{...register('username', {
-							required: 'Username is required',
-						})}
-						error={!!errors?.username}
-						helperText={errors?.username ? errors.username.message : null}
-					/>
-					<InputPassword
-						register={{
-							...register('password', {
-								required: 'Password is required',
-							}),
-						}}
-						error={!!errors?.password}
-						helperText={errors?.password ? errors.password.message : null}
-					/>
+					{TextFieldComponent('username', true, register, errors, {
+						validation: {
+							required: getErrMsg('username', 'required'),
+						},
+					})}
+					{TextFieldComponent('password', true, register, errors, {
+						validation: {
+							required: getErrMsg('email', 'required'),
+						},
+					})}
 					<Box sx={{ textAlign: 'right' }}>
 						<Typography color="primary">
 							<Link href="/forgot-password">Forgot password?</Link>

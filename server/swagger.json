@@ -63,6 +63,63 @@
                 },
                 "role": {
                   "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "gpax": {
+                  "example": "any"
+                },
+                "degree": {
+                  "example": "any"
+                },
+                "school": {
+                  "example": "any"
+                },
+                "program": {
+                  "example": "any"
+                },
+                "householdIncome": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "employment": {
+                  "example": "any"
+                },
+                "field": {
+                  "example": "any"
+                },
+                "providerName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "creditCardNumber": {
+                  "example": "any"
+                },
+                "verifyStatus": {
+                  "example": "any"
                 }
               }
             }
@@ -134,13 +191,19 @@
         }
       }
     },
-    "/auth/isDupe/{field}/{value}": {
+    "/auth/isDupe/{role}/{field}/{value}": {
       "get": {
         "tags": [
           "auth"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "field",
             "in": "path",
@@ -165,7 +228,7 @@
       }
     },
     "/auth/logout": {
-      "delete": {
+      "put": {
         "tags": [
           "auth"
         ],
@@ -184,13 +247,19 @@
         }
       }
     },
-    "/student/": {
+    "/student/{username}": {
       "get": {
         "tags": [
           "student"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -216,9 +285,92 @@
             "description": "Forbidden"
           }
         }
+      },
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "education": {
+                  "example": "any"
+                },
+                "householdIncome": {
+                  "example": "any"
+                },
+                "employment": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "field": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
       }
     },
-    "/student/student-update": {
+    "/student/": {
       "patch": {
         "tags": [
           "student"
@@ -259,9 +411,6 @@
                   "example": "any"
                 },
                 "field": {
-                  "example": "any"
-                },
-                "username": {
                   "example": "any"
                 },
                 "email": {
@@ -405,9 +554,74 @@
             "description": "Forbidden"
           }
         }
+      },
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "providerName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "creditCardNumber": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
       }
     },
-    "/provider/provider-update": {
+    "/provider/": {
       "patch": {
         "tags": [
           "provider"
@@ -432,11 +646,38 @@
                 "creditCardNumber": {
                   "example": "any"
                 },
-                "verifyStatus": {
+                "email": {
+                  "example": "any"
+                },
+                "phoneNumber": {
                   "example": "any"
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

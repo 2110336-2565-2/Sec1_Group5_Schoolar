@@ -1,9 +1,7 @@
 import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { getErrMsg, getRegEx, getValidation } from '@utils/formUtils'
-import dayjs from 'dayjs'
-import { useState } from 'react'
+import { getValidation } from '@utils/formUtils'
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './StdInformation'
 
 export const getTitleCase = (text) => {
@@ -52,13 +50,14 @@ export const DatePickerComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
+	disableFuture,
 }) => {
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<DatePicker
 				label={label}
 				value={values[name]}
-				inputFormat="DD-MM-YYYY"
+				inputFormat="DD/MM/YYYY"
 				renderInput={(params) => (
 					<TextField
 						{...params}
@@ -68,6 +67,7 @@ export const DatePickerComponent = ({
 						helperText={errors?.[name] ? errors[name].message : null}
 					/>
 				)}
+				disableFuture={disableFuture}
 				onChange={(value) => setValues({ ...values, [name]: value })}
 				disabled={disabled}
 				InputLabelProps={{ shrink }}
@@ -87,7 +87,6 @@ export const SelectComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
-	program,
 }) => {
 	let options = {}
 	switch (name) {

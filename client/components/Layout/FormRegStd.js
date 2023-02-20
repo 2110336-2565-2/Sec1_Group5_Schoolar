@@ -17,9 +17,7 @@ const FormRegStd = ({ registerData }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const router = useRouter()
-	const today = new Date().toISOString().split('T')[0]
 	const [form, setForm] = useState(false)
-
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',
@@ -59,9 +57,8 @@ const FormRegStd = ({ registerData }) => {
 					<>
 						{TextFieldComponent('firstName', true, register, errors)}
 						{TextFieldComponent('lastName', true, register, errors)}
-						<DatePickerComponent name={'birthDate'} required={true} {...props} />
+						<DatePickerComponent name={'birthDate'} required={true} disableFuture={true} {...props} />
 						<SelectComponent name={'gender'} required={true} {...props} />
-
 						{TextFieldComponent('phoneNumber', true, register, errors)}
 						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 							NEXT
@@ -78,18 +75,23 @@ const FormRegStd = ({ registerData }) => {
 						{TextFieldComponent('householdIncome', false, register, errors, {
 							label: 'Household income per month',
 						})}
-						{/* TODO fix if not click = null */}
-						<FormLabel component="legend">Current employ</FormLabel>
-						<RadioGroup
-							row
-							sx={{ m: 0, justifyContent: 'space-between' }}
-							defaultValue={false}
-							{...register('employment')}
-						>
-							<FormControlLabel value={true} control={<Radio />} label="Yes"></FormControlLabel>
-							<FormControlLabel value={false} control={<Radio />} label="No"></FormControlLabel>
-							<Stack></Stack>
-						</RadioGroup>
+						<FormControl>
+							<FormLabel>Current employ</FormLabel>
+							<RadioGroup row sx={{ mt: 1, gap: 4 }} defaultValue={false}>
+								<FormControlLabel
+									value={true}
+									control={<Radio />}
+									label="Yes"
+									{...register('employment')}
+								/>
+								<FormControlLabel
+									value={false}
+									control={<Radio />}
+									label="No"
+									{...register('employment')}
+								/>
+							</RadioGroup>
+						</FormControl>
 						{TextFieldComponent('targetNation', false, register, errors)}
 						<SelectComponent name={'typeOfScholarship'} {...props} />
 						{TextFieldComponent('field', false, register, errors, { label: 'Field of interest' })}

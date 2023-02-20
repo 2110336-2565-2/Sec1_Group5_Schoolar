@@ -4,6 +4,8 @@ import { Button, FormControl, Grid, Stack, TextField, Alert, AlertTitle } from '
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useRouter } from 'next/router'
+import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getValidation } from '@utils/formUtils'
 
 const FormEditPvd = ({ oldValue }) => {
 	const { auth, setAuth } = useAuth()
@@ -31,24 +33,6 @@ const FormEditPvd = ({ oldValue }) => {
 		}
 	}, [oldValue, setValue])
 
-	//merge conflict
-	// useEffect(() => {
-	// 	// * example of using axios private to get data from route that need token
-	// 	// * console.log(auth.username)
-	// 	axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-	// 		reset({
-	// 			username: res.data.provider.username,
-	// 			email: res.data.user.email,
-	// 			providerName: res.data.provider.providerName,
-	// 			website: res.data.provider.website,
-	// 			phoneNumber: res.data.provider.phoneNumber,
-	// 			creditCardNumber: res.data.provider.creditCardNumber,
-	// 			address: res.data.provider.address,
-	// 		})
-	// 	})
-	// }, [])
-	// }
-
 	const onSubmit = (data) => {
 		try {
 			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
@@ -75,23 +59,14 @@ const FormEditPvd = ({ oldValue }) => {
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
-							{TextFieldComponent('username', false, register, errors, {
-								disabled: true,
-								shrink: true,
-								validation: isModified('username') ? getValidation('username') : {},
-							})}
-							{TextFieldComponent('email', false, register, errors, {
-								shrink: true,
-								validation: isModified('email') ? getValidation('email') : {}, // if not modified don't do validation
-							})}
 							{TextFieldComponent('providerName', false, register, errors, { shrink: true })}
 							{TextFieldComponent('website', false, register, errors, { shrink: true })}
+							{TextFieldComponent('address', false, register, errors, { shrink: true })}
 							{TextFieldComponent('phoneNumber', false, register, errors, {
 								shrink: true,
 								validation: isModified('phoneNumber') ? getValidation('phoneNumber') : {},
 							})}
 							{TextFieldComponent('creditCardNumber', false, register, errors, { shrink: true })}
-							{TextFieldComponent('address', false, register, errors, { shrink: true })}
 						</Stack>
 						<Grid
 							container
@@ -112,7 +87,7 @@ const FormEditPvd = ({ oldValue }) => {
 									type="submit"
 									onClick={() => {
 										const values = getValues()
-										console.log(values)
+										console.log('VALUE:', values)
 									}}
 								>
 									SUBMIT

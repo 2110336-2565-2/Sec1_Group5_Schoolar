@@ -5,6 +5,11 @@ const providerSchema = new Schema({
 	username: {
 		type: String,
 		ref: 'User',
+    required: true,
+		type: String,
+		maxLength: 40,
+		unique: true,
+		trim: true,
 	},
 	providerName: {
 		required: true,

@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack } from '@mui/material'
+import { Button, FormControl, Grid, Stack, TextField, Alert, AlertTitle } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { getValidation } from '@utils/formUtils'
+import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getValidation } from '@utils/formUtils'
 
-const FormEditPvd = ({ isDisabled }) => {
-	const { auth } = useAuth()
+const FormEditPvd = ({ oldValue }) => {
+	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
-
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -22,58 +23,53 @@ const FormEditPvd = ({ isDisabled }) => {
 		mode: 'onBlur',
 	})
 
-	const isModified = (field) => {
-		if (!defaultValues) return false
-		return defaultValues[field] !== getValues(field)
-	}
-
 	useEffect(() => {
-		// * example of using axios private to get data from route that need token
-		// * console.log(auth.username)
-		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+		if (oldValue) {
+			setValue('providerName', oldValue.providerName)
+			setValue('website', oldValue.website)
+			setValue('address', oldValue.address)
+			setValue('creditCardNumber', oldValue.creditCardNumber)
+			setValue('phoneNumber', oldValue.phoneNumber)
+			// set default value, use in isDupe validate
 			reset({
-				username: res.data.provider.username,
-				email: res.data.user.email,
-				providerName: res.data.provider.providerName,
-				website: res.data.provider.website,
-				phoneNumber: res.data.provider.phoneNumber,
-				creditCardNumber: res.data.provider.creditCardNumber,
-				address: res.data.provider.address,
+				providerName: oldValue.providerName,
+				website: oldValue.website,
+				address: oldValue.address,
+				phoneNumber: oldValue.phoneNumber,
+				creditCardNumber: oldValue.creditCardNumber,
 			})
-		})
-	}, [])
+		}
+	}, [oldValue, setValue])
 
 	const onSubmit = (data) => {
-		console.log(`submitted`)
-		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-			console.log(res.status)
-			alert('Data has been updated successfully')
-		})
+		try {
+			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
+				console.log(`submitted`)
+				alert('Data has been updated successfully')
+				console.log(`Success update at ${res.status}`)
+			})
+			router.push('/')
+		} catch (err) {
+			alert('NOT SUCCESS')
+			console.log(err)
+		}
 	}
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
+			{/* {alertOpen && renderAlert()} */}
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
-							{TextFieldComponent('username', false, register, errors, {
-								disabled: true,
-								shrink: true,
-								validation: isModified('username') ? getValidation('username') : {},
-							})}
-							{TextFieldComponent('email', false, register, errors, {
-								shrink: true,
-								validation: isModified('email') ? getValidation('email') : {}, // if not modified don't do validation
-							})}
 							{TextFieldComponent('providerName', false, register, errors, { shrink: true })}
 							{TextFieldComponent('website', false, register, errors, { shrink: true })}
+							{TextFieldComponent('address', false, register, errors, { shrink: true })}
 							{TextFieldComponent('phoneNumber', false, register, errors, {
 								shrink: true,
-								validation: isModified('phoneNumber') ? getValidation('phoneNumber') : {},
+								validation: getValidation('phoneNumber', defaultValues?.phoneNumber),
 							})}
 							{TextFieldComponent('creditCardNumber', false, register, errors, { shrink: true })}
-							{TextFieldComponent('address', false, register, errors, { shrink: true })}
 						</Stack>
 						<Grid
 							container
@@ -83,8 +79,21 @@ const FormEditPvd = ({ isDisabled }) => {
 							sx={{ padding: '20px 0px 20px 0px' }}
 						>
 							<Grid item>
-								<Button variant="contained" type="submit">
-									Update
+								<Button variant="contained" onClick={() => router.push('/')}>
+									BACK
+								</Button>
+							</Grid>
+
+							<Grid item>
+								<Button
+									variant="contained"
+									type="submit"
+									onClick={() => {
+										const values = getValues()
+										console.log('VALUE:', values)
+									}}
+								>
+									SUBMIT
 								</Button>
 							</Grid>
 						</Grid>

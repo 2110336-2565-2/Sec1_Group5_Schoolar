@@ -189,11 +189,11 @@ const FormEditStd = () => {
 							</TextField>
 							{TextFieldComponent('phoneNumber', false, register, errors, {
 								shrink: true,
-								validation: isModified('phoneNumber') ? getValidation('phoneNumber') : {}, // if not modified don't do validation
+								validation: getValidation('phoneNumber', defaultValues?.phoneNumber),
 							})}
 							{TextFieldComponent('email', false, register, errors, {
 								shrink: true,
-								validation: isModified('email') ? getValidation('email') : {},
+								validation: getValidation('email', defaultValues?.email),
 							})}
 							{TextFieldComponent('school', false, register, errors, {
 								label: 'School/University',

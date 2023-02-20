@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack } from '@mui/material'
+import { Button, FormControl, Grid, Stack, TextField, Alert, AlertTitle } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { getValidation } from '@utils/formUtils'
-import { TextFieldComponent } from '@utils/formComponentUtils'
+import { useRouter } from 'next/router'
 
-const FormEditPvd = ({ isDisabled }) => {
-	const { auth } = useAuth()
+const FormEditPvd = ({oldValue}) => {
+	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
-
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -19,14 +18,51 @@ const FormEditPvd = ({ isDisabled }) => {
 		reset,
 		setValue,
 	} = useForm({
-		mode: 'onBlur',
+		mode: 'onBlur'
 	})
 
+	useEffect(() => {
+		if (oldValue) {
+			setValue('providerName', oldValue.providerName);
+			setValue('website', oldValue.website);
+			setValue('address', oldValue.address);
+			setValue('creditCardNumber', oldValue.creditCardNumber);
+			setValue('phoneNumber', oldValue.phoneNumber);
+		  }
+	}, [oldValue, setValue]);
+	
+
+	const onSubmit = (data) => {
+		try {
+			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
+      	console.log(`submitted`)
+		    alert('Data has been updated successfully')
+				console.log(`Success update at ${res.status}`);
+			})
+			router.push('/')
+		} catch (err) {
+			alert("NOT SUCCESS");
+			console.log(err)
+		}
+	}
+
+	const isDupe = async (field, value) => {
+		try {
+			const response = await axiosPrivate.get(`/auth/isDupe/provider/${field}/${value}`)
+			if(field === 'phoneNumber' && oldValue.phoneNumber === value) return false;
+			if(field === 'creditCardNumber' && oldValue.creditCardNumber === value) return false;
+			return response.data
+		} catch (err) {
+			console.log(err)
+		}
+
+//merge conflict
 	const isModified = (field) => {
 		if (!defaultValues) return false
 		return defaultValues[field] !== getValues(field)
 	}
-
+  
+//merge conflict
 	useEffect(() => {
 		// * example of using axios private to get data from route that need token
 		// * console.log(auth.username)
@@ -43,16 +79,12 @@ const FormEditPvd = ({ isDisabled }) => {
 		})
 	}, [])
 
-	const onSubmit = (data) => {
-		console.log(`submitted`)
-		axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-			console.log(res.status)
-			alert('Data has been updated successfully')
-		})
 	}
+
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
+			{/* {alertOpen && renderAlert()} */}
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
@@ -83,8 +115,21 @@ const FormEditPvd = ({ isDisabled }) => {
 							sx={{ padding: '20px 0px 20px 0px' }}
 						>
 							<Grid item>
-								<Button variant="contained" type="submit">
-									Update
+								<Button variant="contained" onClick={() => router.push('/')}>
+									BACK
+								</Button>
+							</Grid>
+
+							<Grid item>
+								<Button
+									variant="contained"
+									type="submit"
+									onClick={() => {
+										const values = getValues() 
+										console.log(values)
+									}}
+								>
+									SUBMIT
 								</Button>
 							</Grid>
 						</Grid>

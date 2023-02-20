@@ -1,23 +1,25 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, MenuItem, Stack, TextField } from '@mui/material'
+import { Button, FormControl,Grid,MenuItem,	Stack,	TextField} from '@mui/material'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/StdInformation'
 import { getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormEditStd = () => {
+const FormEditStd = ({oldValue}) => {
 	// States
-	const [selectProgram, setSelectProgram] = useState(studentPrograms)
-
-	// console.log(selectProgram)
-	const [gender, setGender] = useState('')
-	const [degree, setDegree] = useState('')
-	const [program, setProgram] = useState('')
-	const [scholarship, setScholarship] = useState('')
-
-	const { auth } = useAuth()
+	const { auth, setAuth } = useAuth();
+	const [gender, setGender] = useState(oldValue?.gender || '');
+	const [degrees, setDegree] = useState(oldValue?.degree || '');
+	const [program, setProgram] = useState(oldValue?.program || '');
+	const [scholarship, setScholarship] = useState(oldValue?.typeOfScholarship || '');
+	const [selectProgram, setSelectProgram] = useState(studentProgram)
+	const router = useRouter()
+	// Update the data 
 	const today = new Date().toISOString().split('T')[0]
 
 	// Form hook
@@ -29,6 +31,26 @@ const FormEditStd = () => {
 	} = useForm({
 		mode: 'onBlur',
 	})
+
+	useEffect(() => {
+		if (oldValue) {
+			setValue('firstName', oldValue.firstName);
+			setValue('lastName', oldValue.lastName);
+			setValue('birthdate', oldValue.birthdate);
+			setValue('gender', oldValue.gender);
+			setValue('phoneNumber', oldValue.phoneNumber);
+			setValue('school', oldValue.school);
+			setValue('degree', oldValue.degree);
+			setValue('program', oldValue.program);
+			setValue('gpax', oldValue.gpax);
+			setValue('householdIncome', oldValue.householdIncome);
+			setValue('targetNation', oldValue.targetNation);
+			setValue('typeOfScholarship', oldValue.typeOfScholarship);
+			setValue('field', oldValue.field);
+		  }
+		
+	}, [oldValue, setValue]);
+		
 	// Get the current data from API
 	const axiosPrivate = useAxiosPrivate()
 	useEffect(() => {
@@ -91,6 +113,7 @@ const FormEditStd = () => {
 
 	const formProps = { register, errors }
 	return (
+		
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>

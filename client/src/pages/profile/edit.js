@@ -22,7 +22,6 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/student/${auth.username}`)
 				.then((response) => {
-					console.log('std')
 					console.log('-->', { ...response.data.user, ...response.data.student })
 					setData({ ...response.data.user, ...response.data.student })
 				})

@@ -1,12 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, FormControlLabel, FormLabel, MenuItem, Radio, RadioGroup, TextField } from '@mui/material'
+import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import { Stack } from '@mui/system'
 import { useRouter } from 'next/router'
 import axios from '@/pages/api/axios'
-import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/StdInformation'
-import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegStd = ({ registerData }) => {

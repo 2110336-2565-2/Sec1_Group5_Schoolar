@@ -29,7 +29,7 @@ export const uniPrograms = [
 export const studentPrograms = [
 	{ value: 'Sci-Math', label: 'Science-math' },
     { value: 'Art-Math', label: 'Art-Math' },
-    { value: 'Art-Langauage', label: 'Art-Language' },
+    { value: 'Art-Language', label: 'Art-Language' },
 	{ value: 'Art-Society', label: 'Art-Society' },
 	{ value: 'Art-General', label: 'Art-General' },
 ]

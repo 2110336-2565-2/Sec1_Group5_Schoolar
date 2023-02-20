@@ -1,10 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, TextField } from '@mui/material'
+import { Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegPvd = ({ registerData }) => {

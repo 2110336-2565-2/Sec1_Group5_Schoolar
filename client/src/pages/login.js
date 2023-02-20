@@ -26,7 +26,7 @@ function Login() {
 		const username = data.username
 		const password = data.password
 
-		console.log(username, password)
+		// console.log(username, password)
 
 		try {
 			const response = await axios.post('/auth/login', {

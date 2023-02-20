@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 
 import axios from '@/pages/api/axios'
 
-import { degree, genders, scholarshipTypes, studentProgram, uniProgram } from '@utils/StdInformation'
+import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/StdInformation'
 import { getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 const FormRegStd = ({ registerData }) => {
@@ -29,9 +29,9 @@ const FormRegStd = ({ registerData }) => {
 
 	const router = useRouter()
 	const today = new Date().toISOString().split('T')[0]
-	const [selectProgram, setSelectProgram] = useState(studentProgram)
+	const [selectProgram, setSelectProgram] = useState(studentPrograms)
 	const [gender, setGender] = useState('')
-	const [degrees, setDegree] = useState('')
+	const [degree, setDegree] = useState('')
 	const [program, setProgram] = useState('')
 	const [scholarship, setScholarship] = useState('')
 	const [form, setForm] = useState(false)
@@ -111,17 +111,17 @@ const FormRegStd = ({ registerData }) => {
 							id="outlined"
 							label="Degree"
 							{...register('degree')}
-							value={degrees}
+							value={degree}
 							onChange={(event) => {
-								setDegree(event.target.value)
-								if (degrees === 'high school') {
-									setSelectProgram(studentProgram)
+								setDegree(event.target.value) //TODO fix this
+								if (degree === 'high school') {
+									setSelectProgram(studentPrograms)
 								} else {
-									setSelectProgram(uniProgram)
+									setSelectProgram(uniPrograms)
 								}
 							}}
 						>
-							{degree.map((option) => (
+							{degrees.map((option) => (
 								<MenuItem key={option.value} value={option.value}>
 									{option.label}
 								</MenuItem>

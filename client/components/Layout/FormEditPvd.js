@@ -30,6 +30,14 @@ const FormEditPvd = ({ oldValue }) => {
 			setValue('address', oldValue.address)
 			setValue('creditCardNumber', oldValue.creditCardNumber)
 			setValue('phoneNumber', oldValue.phoneNumber)
+			// set default value, use in isDupe validate
+			reset({
+				providerName: oldValue.providerName,
+				website: oldValue.website,
+				address: oldValue.address,
+				phoneNumber: oldValue.phoneNumber,
+				creditCardNumber: oldValue.creditCardNumber,
+			})
 		}
 	}, [oldValue, setValue])
 
@@ -47,11 +55,6 @@ const FormEditPvd = ({ oldValue }) => {
 		}
 	}
 
-	const isModified = (field) => {
-		if (!defaultValues) return false
-		return defaultValues[field] !== getValues(field)
-	}
-
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			{/* {alertOpen && renderAlert()} */}
@@ -64,7 +67,7 @@ const FormEditPvd = ({ oldValue }) => {
 							{TextFieldComponent('address', false, register, errors, { shrink: true })}
 							{TextFieldComponent('phoneNumber', false, register, errors, {
 								shrink: true,
-								validation: isModified('phoneNumber') ? getValidation('phoneNumber') : {},
+								validation: getValidation('phoneNumber', defaultValues?.phoneNumber),
 							})}
 							{TextFieldComponent('creditCardNumber', false, register, errors, { shrink: true })}
 						</Stack>

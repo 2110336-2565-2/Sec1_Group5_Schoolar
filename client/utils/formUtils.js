@@ -70,7 +70,8 @@ export const isDupe = async (role, field, value) => {
 	}
 }
 
-export const getValidation = (field) => {
+export const getValidation = (field, defaultValue) => {
+	// use defaultValue in edit page, to prevent check isDupe when input is not edited
 	switch (field) {
 		case 'username':
 			return {
@@ -81,9 +82,10 @@ export const getValidation = (field) => {
 					message: getErrMsg('Username', 'pattern'),
 				},
 				validate: {
-					duplicate: async (value) =>
-						!(await isDupe('user', 'username', value)) ||
-						getErrMsg('Username', 'taken'),
+					duplicate: async (value) => {
+						if (value === defaultValue) return true //if value is not edited, don't check isDupe
+						return !(await isDupe('user', 'username', value)) || getErrMsg('Username', 'taken')
+					},
 				},
 			}
 		case 'email':
@@ -94,8 +96,10 @@ export const getValidation = (field) => {
 					message: getErrMsg('Email', 'pattern'),
 				},
 				validate: {
-					duplicate: async (value) =>
-						!(await isDupe('user', 'email', value)) || getErrMsg('Email', 'taken'),
+					duplicate: async (value) => {
+						if (value === defaultValue) return true //if value is not edited, don't check isDupe
+						return !(await isDupe('user', 'email', value)) || getErrMsg('Email', 'taken')
+					},
 				},
 			}
 		case 'password':
@@ -107,14 +111,10 @@ export const getValidation = (field) => {
 					message: getErrMsg('Password', 'maxLength', 40),
 				},
 				validate: {
-					upper: (value) =>
-						getRegEx('hasUpper').test(value) || getErrMsg('Password', 'upper'),
-					lower: (value) =>
-						getRegEx('hasLower').test(value) || getErrMsg('Password', 'lower'),
-					special: (value) =>
-						getRegEx('hasSpecial').test(value) || getErrMsg('Password', 'special'),
-					space: (value) =>
-						getRegEx('noSpace').test(value) || getErrMsg('Password', 'space'),
+					upper: (value) => getRegEx('hasUpper').test(value) || getErrMsg('Password', 'upper'),
+					lower: (value) => getRegEx('hasLower').test(value) || getErrMsg('Password', 'lower'),
+					special: (value) => getRegEx('hasSpecial').test(value) || getErrMsg('Password', 'special'),
+					space: (value) => getRegEx('noSpace').test(value) || getErrMsg('Password', 'space'),
 				},
 			}
 		// Student
@@ -166,9 +166,10 @@ export const getValidation = (field) => {
 					message: getErrMsg('Phone Number', 'maxLength', 10, 'digits'),
 				},
 				validate: {
-					duplicate: async (value) =>
-						!(await isDupe('student', 'phoneNumber', value)) || //TODO move to User
-						getErrMsg('Phone Number', 'taken'), 
+					duplicate: async (value) => {
+						if (value === defaultValue) return true //if value is not edited, don't check isDupe
+						return !(await isDupe('student', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
+					},
 				},
 			}
 		case 'school':

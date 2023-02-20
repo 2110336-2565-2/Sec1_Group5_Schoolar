@@ -28,7 +28,6 @@ const FormEditStd = ({oldValue}) => {
 		handleSubmit,
 		formState: { errors, defaultValues },
 		reset,
-		setValue,
 	} = useForm({
 		mode: 'onBlur',
 	})
@@ -70,7 +69,7 @@ const FormEditStd = ({oldValue}) => {
 				lastName: res.data.student.lastName,
 				birthdate: res.data.student.birthdate,
 				gender: res.data.student.gender,
-				phoneNumber: res.data.student.phoneNumber,
+				phoneNumber: res.data.user.phoneNumber,
 				email: res.data.user.email,
 				gpax: res.data.student.gpax,
 				degree: res.data.student.degree,
@@ -97,7 +96,7 @@ const FormEditStd = ({oldValue}) => {
 
 	const formOnSubmit = (data) => {
 		// Update data using patch request
-		console.log('DATA', data)
+		console.log('submitting', data)
 		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
 			alert('Data has been updated successfully')
 			console.log('submitted successfully')
@@ -112,23 +111,7 @@ const FormEditStd = ({oldValue}) => {
 		alert(messages.join('\n'))
 	}
 
-	const isDupe = async (field, value) => {
-		try {
-			const response = await axiosPrivate.get(`/auth/isDupe/student/${field}/${value}`)
-			if(field === 'phoneNumber' && oldValue.phoneNumber === value) return false;
-			return response.data
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	const isModified = (field) => {
-		console.log(field)
-		if (!defaultValues) return false
-		console.log(defaultValues[field], getValues(field))
-		return defaultValues[field] !== getValues(field)
-	}
-
+	const formProps = { register, errors }
 	return (
 		
 		<Stack direction="column" alignItems="center" justifyContent="center">
@@ -140,8 +123,8 @@ const FormEditStd = ({oldValue}) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							{TextFieldComponent('firstName', true, register, errors, { shrink: true })}
-							{TextFieldComponent('lastName', true, register, errors, { shrink: true })}
+							<TextFieldComponent name={'firstName'} required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name={'lastName'} required={true} shrink={true} {...formProps} />
 							<TextField
 								required
 								id="date"
@@ -156,27 +139,6 @@ const FormEditStd = ({oldValue}) => {
 									max: today,
 								}}
 							/>
-							{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-								<DatePicker
-									disableFuture
-									required
-									label="Birth Date"
-									InputLabelProps={{ shrink: true }}
-									name="birthdate"
-									openTo="year"
-									views={['year', 'month', 'day']}
-									{...register('birthdate', getValidation('birthdate'))}
-									renderInput={(params) => <TextField {...params} />}
-									onChange={(value) => {
-										let newStudentInfo = studentInfo
-										newStudentInfo['birthdate'] = value
-										let update = {}
-										update['birthdate'] = value
-										setStudentInfo(newStudentInfo)
-										reset(update)
-									}}
-								/>
-							</LocalizationProvider> */}
 							<TextField
 								required
 								select
@@ -194,18 +156,27 @@ const FormEditStd = ({oldValue}) => {
 									</MenuItem>
 								))}
 							</TextField>
-							{TextFieldComponent('phoneNumber', false, register, errors, {
-								shrink: true,
-								validation: isModified('phoneNumber') ? getValidation('phoneNumber') : {}, // if not modified don't do validation
-							})}
-							{TextFieldComponent('email', false, register, errors, {
-								shrink: true,
-								validation: isModified('email') ? getValidation('email') : {},
-							})}
-							{TextFieldComponent('school', false, register, errors, {
-								label: 'School/University',
-								shrink: true,
-							})}
+							<TextFieldComponent
+								name={'phoneNumber'}
+								required={true}
+								shrink={true}
+								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
+								{...formProps}
+							/>
+							<TextFieldComponent
+								name="email"
+								required={true}
+								shrink={true}
+								validation={getValidation('email', defaultValues?.email)}
+								{...formProps}
+							/>
+							<TextFieldComponent
+								name="school"
+								required={true}
+								shrink={true}
+								label="School/University"
+								{...formProps}
+							/>
 							<TextField
 								id="outlined-start-adornment"
 								select
@@ -247,12 +218,14 @@ const FormEditStd = ({oldValue}) => {
 									</MenuItem>
 								))}
 							</TextField>
-							{TextFieldComponent('gpax', false, register, errors, { shrink: true, label: 'GPAX' })}
-							{TextFieldComponent('householdIncome', false, register, errors, {
-								shrink: true,
-								label: 'Household income per month',
-							})}
-							{TextFieldComponent('targetNation', false, register, errors, { shrink: true })}
+							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
+							<TextFieldComponent
+								name="householdIncome"
+								shrink={true}
+								label="Household income per month"
+								{...formProps}
+							/>
+							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
 							<TextField
 								id="outlined-select-scholarship"
 								select
@@ -268,10 +241,7 @@ const FormEditStd = ({oldValue}) => {
 									</MenuItem>
 								))}
 							</TextField>
-							{TextFieldComponent('field', false, register, errors, {
-								shrink: true,
-								label: 'Field of interest',
-							})}
+							<TextFieldComponent name="field" shrink={true} field="Field of interest" {...formProps} />
 						</Stack>
 						<Grid
 							container

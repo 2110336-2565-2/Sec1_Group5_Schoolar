@@ -11,7 +11,12 @@ export default function Register() {
 
 	switch (page) {
 		case 'register':
-			return <FormPrimary header="Register to Schoolar" form={<FormRegister setData={setData} setPage={setPage} />}/>
+			return (
+				<FormPrimary
+					header="Register to Schoolar"
+					form={<FormRegister setData={setData} setPage={setPage} />}
+				/>
+			)
 		case 'student':
 			return <FormPrimary header="Register as Student" form={<FormRegStd registerData={data} />} />
 		case 'provider':

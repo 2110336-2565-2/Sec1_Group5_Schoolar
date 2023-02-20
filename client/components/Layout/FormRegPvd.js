@@ -35,14 +35,15 @@ const FormRegPvd = ({ registerData }) => {
 		sendData(JSON.stringify(allData))
 	}
 
+	const formProps = { register, errors }
 	return (
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
-				{TextFieldComponent('providerName', true, register, errors)}
-				{TextFieldComponent('website', true, register, errors)}
-				{TextFieldComponent('phoneNumber', true, register, errors)}
-				{TextFieldComponent('creditCardNumber', true, register, errors)}
-				{TextFieldComponent('address', true, register, errors)}
+				<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+				<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+				<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
+				<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+				<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
 				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 					SUBMIT
 				</Button>

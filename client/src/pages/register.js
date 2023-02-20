@@ -7,11 +7,16 @@ import FormRegPvd from '@components/Layout/FormRegPvd'
 
 export default function Register() {
 	const [data, setData] = useState({})
-	const [page, setPage] = useState('student')
+	const [page, setPage] = useState('register')
 
 	switch (page) {
 		case 'register':
-			return <FormPrimary header="Register to Schoolar" form={<FormRegister setData={setData} setPage={setPage} />}/>
+			return (
+				<FormPrimary
+					header="Register to Schoolar"
+					form={<FormRegister setData={setData} setPage={setPage} />}
+				/>
+			)
 		case 'student':
 			return <FormPrimary header="Register as Student" form={<FormRegStd registerData={data} />} />
 		case 'provider':

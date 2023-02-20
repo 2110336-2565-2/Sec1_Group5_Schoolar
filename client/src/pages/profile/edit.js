@@ -20,11 +20,11 @@ export default function Edit() {
 		console.log('Fetch data')
 		if (auth.role === 'student') {
 			axiosPrivate
-			.get(`/student/${auth.username}`)
-			.then((response) => {
-					console.log("std")
-					console.log('-->', {...response.data.user, ...response.data.student})
-					setData({...response.data.user, ...response.data.student})
+				.get(`/student/${auth.username}`)
+				.then((response) => {
+					console.log('std')
+					console.log('-->', { ...response.data.user, ...response.data.student })
+					setData({ ...response.data.user, ...response.data.student })
 				})
 				.catch((error) => {
 					console.error(error)
@@ -33,8 +33,8 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/provider/${auth.username}`)
 				.then((response) => {
-					console.log('-->', [...response.data.user, ...response.data.provider])
-					setData([...response.data.user, ...response.data.provider])
+					console.log('-->', { ...response.data.user, ...response.data.provider })
+					setData({ ...response.data.user, ...response.data.provider })
 				})
 				.catch((error) => {
 					console.error(error)

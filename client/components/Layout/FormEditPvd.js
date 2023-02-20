@@ -55,6 +55,7 @@ const FormEditPvd = ({ oldValue }) => {
 		}
 	}
 
+	const formProps = { register, errors }
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			{/* {alertOpen && renderAlert()} */}
@@ -62,14 +63,17 @@ const FormEditPvd = ({ oldValue }) => {
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
-							{TextFieldComponent('providerName', false, register, errors, { shrink: true })}
-							{TextFieldComponent('website', false, register, errors, { shrink: true })}
-							{TextFieldComponent('address', false, register, errors, { shrink: true })}
-							{TextFieldComponent('phoneNumber', false, register, errors, {
-								shrink: true,
-								validation: getValidation('phoneNumber', defaultValues?.phoneNumber),
-							})}
-							{TextFieldComponent('creditCardNumber', false, register, errors, { shrink: true })}
+							<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent
+								name="phoneNumber"
+								required={true}
+								shrink={true}
+								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
+								{...formProps}
+							/>
+							<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
 						</Stack>
 						<Grid
 							container

@@ -49,32 +49,29 @@ const FormRegStd = ({ registerData }) => {
 		}
 	}
 
-	const props = { register, errors, values, setValues }
+	const formProps = { register, errors, values, setValues }
 	return (
 		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 			<Stack spacing={3} direction="column">
 				{!form && (
 					<>
-						{TextFieldComponent('firstName', true, register, errors)}
-						{TextFieldComponent('lastName', true, register, errors)}
-						<DatePickerComponent name={'birthDate'} required={true} disableFuture={true} {...props} />
-						<SelectComponent name={'gender'} required={true} {...props} />
-						{TextFieldComponent('phoneNumber', true, register, errors)}
+						<TextFieldComponent name="firstName" required={true} {...formProps} />
+						<TextFieldComponent name="lastName" required={true} {...formProps} />
+						<DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
+						<SelectComponent name="gender" required={true} {...formProps} />
+						<TextFieldComponent name="phoneNumber" required={true} {...formProps} />
 						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
 							NEXT
 						</Button>
 					</>
 				)}
-
 				{form && (
 					<>
-						{TextFieldComponent('school', false, register, errors, { label: 'School/University' })}
-						<SelectComponent name={'degree'} {...props} />
-						<SelectComponent name={'program'} {...props} />
-						{TextFieldComponent('gpax', false, register, errors, { label: 'GPAX' })}
-						{TextFieldComponent('householdIncome', false, register, errors, {
-							label: 'Household income per month',
-						})}
+						<TextFieldComponent name="school" label="School/University" {...formProps} />
+						<SelectComponent name="degree" {...formProps} />
+						<SelectComponent name="program" {...formProps} />
+						<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
+						<TextFieldComponent name="householdIncome" label="Household income per month" {...formProps} />
 						<FormControl>
 							<FormLabel>Current employ</FormLabel>
 							<RadioGroup row sx={{ mt: 1, gap: 4 }} defaultValue={false}>
@@ -92,9 +89,9 @@ const FormRegStd = ({ registerData }) => {
 								/>
 							</RadioGroup>
 						</FormControl>
-						{TextFieldComponent('targetNation', false, register, errors)}
-						<SelectComponent name={'typeOfScholarship'} {...props} />
-						{TextFieldComponent('field', false, register, errors, { label: 'Field of interest' })}
+						<TextFieldComponent name="targetNation" {...formProps} />
+						<SelectComponent name="typeOfScholarship" {...formProps} />
+						<TextFieldComponent name="field" label="Field of interest" {...formProps} />
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

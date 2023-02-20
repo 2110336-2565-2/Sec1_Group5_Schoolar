@@ -10,20 +10,17 @@ export const getTitleCase = (text) => {
 	return finalResult
 }
 
-//TODO fix to used as <Component /> and not as Component()
-export const TextFieldComponent = (
+export const TextFieldComponent = ({
 	name,
 	required,
 	register,
 	errors,
-	{
-		label = getTitleCase(name),
-		autoComplete = name,
-		validation = getValidation(name),
-		disabled = false,
-		shrink,
-	} = {},
-) => {
+	label = getTitleCase(name),
+	autoComplete = name,
+	validation = getValidation(name),
+	disabled = false,
+	shrink,
+}) => {
 	return (
 		<TextField
 			required={required}

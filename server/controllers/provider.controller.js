@@ -45,7 +45,7 @@ exports.updateProviderInfo = async (req, res) => {
 
 	try {
 		const username = req.params.username
-		const { providerName, address, website, creditCardNumber, email, phoneNumber } = req.body
+		const { providerName, address, website, creditCardNumber, phoneNumber } = req.body
 
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
@@ -61,7 +61,7 @@ exports.updateProviderInfo = async (req, res) => {
 			phoneNumber,
 		})
 
-		Object.assign(user, { email, phoneNumber })
+		Object.assign(user, { phoneNumber })
 
 		await user.save()
 		await provider.save()

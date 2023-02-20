@@ -53,6 +53,7 @@ function Login() {
 		}
 	}
 
+	const formProps = { register, errors }
 	return (
 		<FormPrimary
 			header="Login to Schoolar"
@@ -62,16 +63,23 @@ function Login() {
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					{TextFieldComponent('username', true, register, errors, {
-						validation: {
+					<TextFieldComponent
+						name={'username'}
+						required={true}
+						validation={{
 							required: getErrMsg('username', 'required'),
-						},
-					})}
-					{TextFieldComponent('password', true, register, errors, {
-						validation: {
-							required: getErrMsg('email', 'required'),
-						},
-					})}
+						}}
+						{...formProps}
+					/>
+					<InputPassword
+						register={{
+							...register('password', {
+								required: getErrMsg('password', 'required'),
+							}),
+						}}
+						error={!!errors?.password}
+						helperText={errors?.password ? errors.password.message : null}
+					/>
 					<Box sx={{ textAlign: 'right' }}>
 						<Typography color="primary">
 							<Link href="/forgot-password">Forgot password?</Link>

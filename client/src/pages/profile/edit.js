@@ -21,7 +21,7 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/student/${auth.username}`)
 				.then((response) => {
-					//console.log(response.data.student)
+					console.log(response.data.student)
 					setData(response.data.student)
 				})
 				.catch((error) => {
@@ -31,7 +31,7 @@ export default function Edit() {
 			axiosPrivate
 				.get(`/provider/${auth.username}`)
 				.then((response) => {
-					//console.log(response.data.provider)
+					console.log(response.data.provider)
 					setData(response.data.provider)
 				})
 				.catch((error) => {

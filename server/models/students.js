@@ -49,7 +49,7 @@ const studentSchema = new Schema({
 		enum: [
 			'',
 			'Sci-Math',
-			'Art-Cal',
+			'Art-Math',
 			'Art-Language',
 			'Art-Society',
 			'Art-General',

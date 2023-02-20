@@ -50,14 +50,15 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
-			education,
+			phoneNumber,
+			school,
+			degree,
+			program,
+			gpax,
 			householdIncome,
-			employment,
 			targetNation,
 			typeOfScholarship,
 			field,
-			email,
-			phoneNumber,
 		} = req.body
 
 		const user = await User.findOne({ username })
@@ -71,14 +72,16 @@ exports.updateStudentInfo = async (req, res) => {
 			lastName,
 			birthdate,
 			gender,
-			education,
+			phoneNumber,
+			school,
+			degree,
+			program,
+			gpax,
 			householdIncome,
-			employment,
 			targetNation,
 			typeOfScholarship,
 			field,
 		})
-		Object.assign(user, { email, phoneNumber })
 
 		await user.save()
 		await student.save()

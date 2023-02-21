@@ -7,6 +7,8 @@ import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormEditStd = ({ oldValue }) => {
+	//state for storing data that is not TextFieldComponent
+	//TextFieldComponent only need register
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',
@@ -117,7 +119,12 @@ const FormEditStd = ({ oldValue }) => {
 								label="Type of Scholarship"
 								{...formProps}
 							/>
-							<TextFieldComponent name="field" label="Field of Interest" shrink={true} {...formProps} />
+							<TextFieldComponent
+								name="fieldOfInterest"
+								label="Field of Interest"
+								shrink={true}
+								{...formProps}
+							/>
 						</Stack>
 						<Grid
 							container

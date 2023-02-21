@@ -56,7 +56,7 @@ exports.updateStudentInfo = async (req, res) => {
 			program,
 			targetNation,
 			typeOfScholarship,
-			field,
+			fieldOfInterest,
 		} = req.body
 		console.log(req.body)
 		const user = await User.findOne({ username })
@@ -76,7 +76,7 @@ exports.updateStudentInfo = async (req, res) => {
 			gpax,
 			targetNation,
 			typeOfScholarship,
-			field,
+			fieldOfInterest,
 		})
 
 		await user.save()

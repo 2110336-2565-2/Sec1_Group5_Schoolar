@@ -1,5 +1,4 @@
 import axios from 'axios'
-import dayjs from 'dayjs'
 
 export const getErrMsg = (field, type, amount, unit = 'characters') => {
 	field = field.charAt(0).toUpperCase() + field.slice(1)

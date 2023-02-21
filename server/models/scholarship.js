@@ -73,9 +73,21 @@ const scholarshipSchema = new Schema({
 		index: true,
 		trim: true,
 	},
-	due: {
+	paymentDueDate: {
 		required: true,
 		type: Date,
+	},
+	quota: {
+		type: Number,
+	},
+	amount: {
+		type: Number,
+	},
+	applicationDeadline: {
+		type: Number,
+	},
+	detail: {
+		type: String,
 	},
 })
 

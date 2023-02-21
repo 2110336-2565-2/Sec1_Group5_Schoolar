@@ -8,6 +8,8 @@ import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
 
 const FormEditPvd = ({ oldValue }) => {
+	//state for storing data that is not TextFieldComponent
+	//TextFieldComponent only need register
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()

@@ -71,7 +71,7 @@ const FormRegStd = ({ registerData }) => {
 						<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
 						<TextFieldComponent name="targetNation" {...formProps} />
 						<SelectComponent name="typeOfScholarship" label="Type of Scholarship"{...formProps} />
-						<TextFieldComponent name="field" label="Field of Interest" {...formProps} />
+						<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

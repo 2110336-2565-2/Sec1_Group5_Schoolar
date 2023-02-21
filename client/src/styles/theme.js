@@ -18,9 +18,6 @@ const theme = createTheme({
 	},
 	// change color theme here
 	palette: {
-		background: {
-			default: '#DADEEA',
-		},
 		primary: {
 			main: '#2C429B',
 			light: '#DADEEA',

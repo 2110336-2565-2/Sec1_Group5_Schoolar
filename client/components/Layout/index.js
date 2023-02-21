@@ -28,7 +28,7 @@ const WebLayout = ({ children }) => {
 		if (auth.role === 'student') return 'student.png'
 		return 'teacher.png'
 	}
-	
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -38,7 +38,8 @@ const WebLayout = ({ children }) => {
 			<CssBaseline />
 			<Box
 				sx={{
-					height: '100vh',
+					minHeight: '100vh',
+					height: '100%',
 					display: 'flex',
 					flexFlow: 'column',
 					backgroundImage: `url(/background/${getBgImage()})`,

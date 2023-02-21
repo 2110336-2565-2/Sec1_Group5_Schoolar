@@ -11,16 +11,11 @@ export default function Register() {
 
 	switch (page) {
 		case 'register':
-			return (
-				<FormPrimary
-					header="Register to Schoolar"
-					form={<FormRegister setData={setData} setPage={setPage} />}
-				/>
-			)
+			return <FormPrimary form={<FormRegister setData={setData} setPage={setPage} />} />
 		case 'student':
-			return <FormPrimary header="Register as Student" form={<FormRegStd registerData={data} />} />
+			return <FormPrimary form={<FormRegStd registerData={data} />} />
 		case 'provider':
-			return <FormPrimary header="Register as Provider" form={<FormRegPvd registerData={data} />} />
+			return <FormPrimary form={<FormRegPvd registerData={data} />} />
 		default:
 			return <Error statusCode={404} />
 	}

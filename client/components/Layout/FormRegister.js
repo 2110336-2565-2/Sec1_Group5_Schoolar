@@ -1,29 +1,21 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Button, FormControl, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
+import { Button, FormControl, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import InputPassword from './InputPassword'
 import { getErrMsg, getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegister = ({ setData, setPage }) => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		getValues,
-	} = useForm({ mode: 'onBlur' })
-
+const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues }) => {
 	const handleSubmitStudent = () => {
 		handleSubmit((data) => {
-			setData({ ...data, role: 'student' })
+			setValue('role', 'student')
 			setPage('student')
 		})()
 	}
 	const handleSubmitProvider = () => {
 		handleSubmit((data) => {
-			setData({ ...data, role: 'provider' })
+			setValue('role', 'provider')
 			setPage('provider')
 		})()
 	}

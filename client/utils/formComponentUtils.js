@@ -2,7 +2,7 @@ import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { getValidation } from '@utils/formUtils'
-import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './StdInformation'
+import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './formOptUtils'
 
 export const getTitleCase = (text) => {
 	const result = text.replace(/([A-Z])/g, ' $1')
@@ -130,4 +130,15 @@ export const SelectComponent = ({
 			))}
 		</TextField>
 	)
+}
+
+//RadioGroup
+{
+	/* <FormControl>
+	<FormLabel>Current employ</FormLabel>
+	<RadioGroup row sx={{ mt: 1, gap: 4 }} defaultValue={false}>
+		<FormControlLabel value={true} control={<Radio />} label="Yes" {...register('employment')} />
+		<FormControlLabel value={false} control={<Radio />} label="No" {...register('employment')} />
+	</RadioGroup>
+</FormControl> */
 }

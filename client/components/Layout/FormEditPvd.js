@@ -8,6 +8,8 @@ import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
 
 const FormEditPvd = ({ oldValue }) => {
+	//state for storing data that is not TextFieldComponent
+	//TextFieldComponent only need register
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
@@ -24,11 +26,6 @@ const FormEditPvd = ({ oldValue }) => {
 
 	useEffect(() => {
 		if (oldValue) {
-			setValue('providerName', oldValue.providerName)
-			setValue('website', oldValue.website)
-			setValue('address', oldValue.address)
-			setValue('creditCardNumber', oldValue.creditCardNumber)
-			setValue('phoneNumber', oldValue.phoneNumber)
 			// set default value, use in isDupe validate
 			reset({
 				providerName: oldValue.providerName,

@@ -7,22 +7,9 @@ import { useRouter } from 'next/router'
 import axios from '@/pages/api/axios'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegStd = ({ registerData }) => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ mode: 'onBlur' })
-
+const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue }) => {
 	const router = useRouter()
 	const [form, setForm] = useState(false)
-	const [values, setValues] = useState({
-		birthDate: '',
-		gender: '',
-		degree: '',
-		program: '',
-		typeOfScholarship: '',
-	})
 
 	const sendData = async (data) => {
 		try {
@@ -42,8 +29,7 @@ const FormRegStd = ({ registerData }) => {
 		console.log('DATA', data)
 		if (!form) setForm(!form)
 		else {
-			const allData = Object.assign(registerData, data)
-			sendData(JSON.stringify(allData))
+			sendData(data)
 		}
 	}
 
@@ -70,7 +56,7 @@ const FormRegStd = ({ registerData }) => {
 						<SelectComponent name="program" {...formProps} />
 						<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
 						<TextFieldComponent name="targetNation" {...formProps} />
-						<SelectComponent name="typeOfScholarship" label="Type of Scholarship"{...formProps} />
+						<SelectComponent name="typeOfScholarship" label="Type of Scholarship" {...formProps} />
 						<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button

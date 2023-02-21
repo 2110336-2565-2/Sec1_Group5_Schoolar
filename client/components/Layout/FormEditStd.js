@@ -7,6 +7,8 @@ import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormEditStd = ({ oldValue }) => {
+	//state for storing data that is not TextFieldComponent
+	//TextFieldComponent only need register
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',
@@ -31,20 +33,6 @@ const FormEditStd = ({ oldValue }) => {
 
 	useEffect(() => {
 		if (oldValue) {
-			setValue('firstName', oldValue.firstName)
-			setValue('lastName', oldValue.lastName)
-			setValue('birthdate', oldValue.birthdate)
-			setValue('gender', oldValue.gender)
-			setValue('phoneNumber', oldValue.phoneNumber)
-			setValue('school', oldValue.school)
-			setValue('degree', oldValue.degree)
-			setValue('program', oldValue.program)
-			setValue('gpax', oldValue.gpax)
-			setValue('householdIncome', oldValue.householdIncome)
-			setValue('targetNation', oldValue.targetNation)
-			setValue('typeOfScholarship', oldValue.typeOfScholarship)
-			setValue('field', oldValue.field)
-
 			// set default value, use in isDupe validate
 			reset({
 				firstName: oldValue.firstName,
@@ -56,9 +44,8 @@ const FormEditStd = ({ oldValue }) => {
 				degree: oldValue.degree,
 				program: oldValue.program,
 				gpax: oldValue.gpax,
-				householdIncome: oldValue.householdIncome,
 				targetNation: oldValue.targetNation,
-				field: oldValue.field,
+				fieldOfInterest: oldValue.fieldOfInterest,
 			})
 			setValues({
 				birthDate: oldValue.birthdate,
@@ -125,15 +112,19 @@ const FormEditStd = ({ oldValue }) => {
 							<SelectComponent name="degree" shrink={true} {...formProps} />
 							<SelectComponent name="program" shrink={true} {...formProps} />
 							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
-							<TextFieldComponent
-								name="householdIncome"
+							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
+							<SelectComponent
+								name="typeOfScholarship"
 								shrink={true}
-								label="Household income per month"
+								label="Type of Scholarship"
 								{...formProps}
 							/>
-							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
-							<SelectComponent name="typeOfScholarship" shrink={true} {...formProps} />
-							<TextFieldComponent name="field" shrink={true} field="Field of interest" {...formProps} />
+							<TextFieldComponent
+								name="fieldOfInterest"
+								label="Field of Interest"
+								shrink={true}
+								{...formProps}
+							/>
 						</Stack>
 						<Grid
 							container

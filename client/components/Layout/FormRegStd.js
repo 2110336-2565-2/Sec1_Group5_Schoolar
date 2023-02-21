@@ -69,27 +69,9 @@ const FormRegStd = ({ registerData }) => {
 						<SelectComponent name="degree" {...formProps} />
 						<SelectComponent name="program" {...formProps} />
 						<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
-						<TextFieldComponent name="householdIncome" label="Household income per month" {...formProps} />
-						<FormControl>
-							<FormLabel>Current employ</FormLabel>
-							<RadioGroup row sx={{ mt: 1, gap: 4 }} defaultValue={false}>
-								<FormControlLabel
-									value={true}
-									control={<Radio />}
-									label="Yes"
-									{...register('employment')}
-								/>
-								<FormControlLabel
-									value={false}
-									control={<Radio />}
-									label="No"
-									{...register('employment')}
-								/>
-							</RadioGroup>
-						</FormControl>
 						<TextFieldComponent name="targetNation" {...formProps} />
-						<SelectComponent name="typeOfScholarship" {...formProps} />
-						<TextFieldComponent name="field" label="Field of interest" {...formProps} />
+						<SelectComponent name="typeOfScholarship" label="Type of Scholarship"{...formProps} />
+						<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
 						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 							<Button
 								variant="contained"

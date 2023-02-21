@@ -1,5 +1,4 @@
 import axios from 'axios'
-import dayjs from 'dayjs'
 
 export const getErrMsg = (field, type, amount, unit = 'characters') => {
 	field = field.charAt(0).toUpperCase() + field.slice(1)
@@ -198,14 +197,6 @@ export const getValidation = (field, defaultValue) => {
 				},
 				min: { value: 0, message: getErrMsg('GPAX', 'positive') },
 				max: { value: 4, message: 'GPAX must be at most 4' },
-			}
-		case 'householdIncome':
-			return {
-				pattern: {
-					value: getRegEx('onlyNumber'),
-					message: 'Household Income must be number',
-				},
-				min: { value: 0, message: getErrMsg('Household Income', 'positive') },
 			}
 		case 'targetNation':
 			return {

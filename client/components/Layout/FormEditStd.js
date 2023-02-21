@@ -45,7 +45,7 @@ const FormEditStd = ({ oldValue }) => {
 				program: oldValue.program,
 				gpax: oldValue.gpax,
 				targetNation: oldValue.targetNation,
-				field: oldValue.field,
+				fieldOfInterest: oldValue.fieldOfInterest,
 			})
 			setValues({
 				birthDate: oldValue.birthdate,

@@ -71,11 +71,6 @@ const studentSchema = new Schema({
 		],
 	},
 	// below this is the criteria for matching
-	householdIncome: {
-		// backend tranform number to rank
-		type: Number,
-		index: true,
-	},
 	targetNation: {
 		type: String,
 		maxLength: 60,
@@ -88,18 +83,13 @@ const studentSchema = new Schema({
 		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
-		type: Boolean,
-		index: true,
-		trim: true,
-	},
-	field: {
+	fieldOfInterest: {
 		// field of interest
 		type: String,
 		index: true,
 		trim: true,
 	},
+	pinScholarships: [{ type: mongoose.Schema.Types.ObjectId, ref: 'scholarship' }],
 })
 
 module.exports = mongoose.model('Students', studentSchema)

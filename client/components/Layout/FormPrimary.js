@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Image from 'next/image'
 
-const FormPrimary = ({ form }) => {
+const FormPrimary = ({ header, form }) => {
 	return (
 		<Grid
 			container
@@ -52,7 +52,7 @@ const FormPrimary = ({ form }) => {
 							fontSize: { xs: 38, sm: 42, md: 47 },
 						}}
 					>
-						Register
+						{header}
 					</Typography>
 					{form}
 				</Box>

@@ -28,11 +28,21 @@ export default function Register() {
 	const formProps = { register, handleSubmit, errors, setValue, getValues }
 	switch (page) {
 		case 'register':
-			return <FormPrimary form={<FormRegister setPage={setPage} {...formProps} />} />
+			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />
 		case 'student':
-			return <FormPrimary form={<FormRegStd values={values} setValues={setValues} {...formProps} />} />
+			return (
+				<FormPrimary
+					header="Personal Information"
+					form={<FormRegStd values={values} setValues={setValues} {...formProps} />}
+				/>
+			)
 		case 'provider':
-			return <FormPrimary form={<FormRegPvd values={values} setValues={setValues} {...formProps} />} />
+			return (
+				<FormPrimary
+					header="Personal Information"
+					form={<FormRegPvd values={values} setValues={setValues} {...formProps} />}
+				/>
+			)
 		default:
 			return <Error statusCode={404} />
 	}

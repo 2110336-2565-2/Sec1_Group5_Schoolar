@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	username: {
+		type: String,
+		ref: 'User',
+	},
 	providerName: {
 		required: true,
 		type: String,
@@ -23,18 +26,10 @@ const providerSchema = new Schema({
 		lowercase: true,
 		trim: true,
 	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
-	},
 	creditCardNumber: {
 		required: true,
 		type: String,
 		maxLength: 16,
-		unique: true,
 		trim: true,
 	},
 })

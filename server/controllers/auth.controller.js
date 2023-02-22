@@ -14,6 +14,7 @@ const mongoose = require('mongoose')
  */
 
 exports.register = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		return res.status(400).json({ errors: result.array() })
@@ -33,11 +34,9 @@ exports.register = async (req, res) => {
 		degree,
 		school,
 		program,
-		householdIncome,
 		targetNation,
 		typeOfScholarship,
-		employment,
-		field,
+		fieldOfInterest,
 		providerName,
 		address,
 		website,
@@ -52,42 +51,42 @@ exports.register = async (req, res) => {
 		const saltRounds = 10
 		const salt = await bcrypt.genSalt(saltRounds)
 		const hash = await bcrypt.hash(password, salt)
-
-		const user = await User.create([{ username, password: hash, email, role }], { session })
+		const user = await User.create([{ username, password: hash, email, phoneNumber, role }], {
+			session,
+		})
 		if (role === 'student') {
 			const student = await Student.create(
-				[{
-					userID: new ObjectId(user[0]._id),
-					username,
-					firstName,
-					lastName,
-					birthdate,
-					gender,
-					phoneNumber,
-					gpax,
-					degree,
-					school,
-					program,
-					householdIncome,
-					targetNation,
-					typeOfScholarship,
-					employment,
-					field,
-				}],
+				[
+					{
+						username,
+						firstName,
+						lastName,
+						birthdate,
+						gender,
+						gpax,
+						degree,
+						school,
+						program,
+						targetNation,
+						typeOfScholarship,
+						fieldOfInterest,
+					},
+				],
 				{ session },
 			)
 			res.send(`Create student ${username} success`)
 		} else {
 			const provider = await Provider.create(
-				[{
-					userID: new ObjectId(user[0]._id),
-					providerName,
-					address,
-					website,
-					creditCardNumber,
-					phoneNumber,
-					verifyStatus,
-				}],
+				[
+					{
+						username,
+						providerName,
+						address,
+						website,
+						creditCardNumber,
+						verifyStatus,
+					},
+				],
 				{ session },
 			)
 			res.send(`Create provider ${username} success`)
@@ -198,7 +197,7 @@ exports.isDupe = (req, res) => {
 		case 'user':
 			User.countDocuments({ [field]: value }, (err, user) => {
 				if (err) {
-					res.status(400).json({ message: 'User not found' })
+					res.status(400).json({ err })
 				} else {
 					res.send(!!user)
 				}
@@ -222,10 +221,13 @@ exports.isDupe = (req, res) => {
 				}
 			})
 			break
+		default:
+			res.status(400).send('Invalid role')
 	}
 }
 
 exports.logout = async (req, res) => {
+	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 	try {
 		const user = await User.findOne({ refreshToken: cookies.jwt })

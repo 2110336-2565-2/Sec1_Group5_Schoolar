@@ -9,8 +9,9 @@ const scholarshipSchema = new Schema({
 		lowercase: true,
 		trim: true,
 	},
-	provider_id: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+	provider: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Provider',
 	},
 	degree: {
 		required: true,
@@ -18,7 +19,7 @@ const scholarshipSchema = new Schema({
 		enum: ['high school', 'bachelor', 'master', 'doctoral'],
 	},
 	gpax: {
-		require: true,
+		required: true,
 		type: Number,
 	},
 	program: {
@@ -51,13 +52,6 @@ const scholarshipSchema = new Schema({
 			'Faculty of Veterinary Science',
 		],
 	},
-	householdIncome: {
-		// backend tranform number to rank
-		required: true,
-		type: String,
-		enum: ['high', 'medium', 'low'], // changing later
-		index: true,
-	},
 	targetNation: {
 		required: true,
 		type: String,
@@ -72,23 +66,28 @@ const scholarshipSchema = new Schema({
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
-		required: true,
-		type: Boolean,
-		index: true,
-		trim: true,
-	},
-	field: {
+	fieldOfInterest: {
 		// field of interest
 		required: true,
 		type: String,
 		index: true,
 		trim: true,
 	},
-	due: {
+	paymentDueDate: {
 		required: true,
 		type: Date,
+	},
+	quota: {
+		type: Number,
+	},
+	amount: {
+		type: Number,
+	},
+	applicationDeadline: {
+		type: Number,
+	},
+	detail: {
+		type: String,
 	},
 })
 

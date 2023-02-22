@@ -7,13 +7,10 @@ import TextField from '@mui/material/TextField'
 import { Box } from '@mui/system'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import axios from '@/pages/api/axios'
+import { getErrMsg, getRegEx } from '@utils/formUtils'
 
-import axios from './api/axios'
-
-function ForgotPassword() {
-	const router = useRouter()
-
+function ForgotPassword({ router }) {
 	const Root = styled('div')(({ theme }) => ({
 		width: '100%',
 		...theme.typography.body2,
@@ -30,9 +27,14 @@ function ForgotPassword() {
 
 	const onSubmit = (data) => {
 		console.log(data)
-		axios.post('/resetPassword/email', { email: data.email }).then((res) => {
-			console.log(res.data)
-		})
+		try {
+			axios.post('/resetPassword/email', { email: data.email }).then((res) => {
+				console.log(res.data)
+			})
+		} catch (err) {
+			console.log(err)
+			router.push('/login')
+		}
 	}
 	const isDupe = async (field, value) => {
 		try {
@@ -47,8 +49,8 @@ function ForgotPassword() {
 			<FormControl
 				component="form"
 				display={'flex'}
-				justifyContent={'center'}
-				alignItems={'center'}
+				justifycontent={'center'}
+				alignitems={'center'}
 				height={'100%'}
 				width={'100%'}
 				onSubmit={handleSubmit(onSubmit)}
@@ -111,12 +113,7 @@ function ForgotPassword() {
 									},
 								}}
 							>
-								<Image
-									src={PasswordIcon}
-									alt="Password Icon"
-									layout="fill"
-									objectFit="contain"
-								></Image>
+								<Image src={PasswordIcon} alt="Password Icon" layout="fill" objectFit="contain"></Image>
 							</Box>
 							<Typography
 								fontSize={{
@@ -127,10 +124,10 @@ function ForgotPassword() {
 								fontWeight={'light'}
 								align="center"
 							>
-								Enter your email address and we'll send a link to get back to your
-								account.
+								Enter your email address and we'll send a link to get back to your account.
 							</Typography>
 							<TextField
+								required
 								id="reset-email"
 								label="Email address"
 								variant="outlined"
@@ -140,10 +137,10 @@ function ForgotPassword() {
 								inputProps={{ style: { fontSize: 12 } }} // font size of input text
 								InputLabelProps={{ style: { fontSize: 12 } }}
 								{...register('email', {
-									required: 'Email is required',
+									required: getErrMsg('email', 'required'),
 									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: 'Invalid email',
+										value: getRegEx('email'),
+										message: getErrMsg('email', 'pattern'),
 									},
 									validate: {
 										duplicate: async (value) =>

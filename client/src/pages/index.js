@@ -6,6 +6,7 @@ import { Container } from '@mui/system'
 import { scholarshipTypes } from '@utils/StdInformation'
 
 import axios from './api/axios'
+import Footer from '@components/Home-page/footer'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
@@ -51,22 +52,25 @@ function Homepage() {
 	})
 
 	return (
-		<Container maxWidth="lg">
-			<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
-			<Box sx={{ my: 3 }}>
-				{inputName.length > 0 ? (
-					<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-						{`Scholarships related to "${inputName}"`}
-					</Typography>
-				) : (
-					<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-						The Latest Scholarships
-					</Typography>
-				)}
-				<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-			</Box>
-			<Scholarship items={filteredScholars} />
-		</Container>
+		<>
+			<Container maxWidth="lg">
+				<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
+				<Box sx={{ my: 3 }}>
+					{inputName.length > 0 ? (
+						<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+							{`Scholarships related to "${inputName}"`}
+						</Typography>
+					) : (
+						<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+							The Latest Scholarships
+						</Typography>
+					)}
+					<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
+				</Box>
+				<Scholarship items={filteredScholars} />
+			</Container>
+			<Footer />
+		</>
 	)
 }
 

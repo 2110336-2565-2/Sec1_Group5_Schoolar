@@ -23,8 +23,8 @@ exports.getProvider = async (req, res) => {
 
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
-		//*const provider = await Provider.findOne({ userID: user._id })
-		const provider = await Provider.findById(user._id)
+
+		const provider = await Provider.findOne({ userID: user._id })
 		if (!provider) throw new Error('Provider not found')
 
 		return res.status(200).json({ provider, user })
@@ -50,7 +50,7 @@ exports.updateProviderInfo = async (req, res) => {
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const provider = await Provider.findById(user._id)
+		const provider = await Provider.findOne({ userID: user._id })
 		if (!provider) throw new Error('Provider not found')
 
 		Object.assign(provider, {

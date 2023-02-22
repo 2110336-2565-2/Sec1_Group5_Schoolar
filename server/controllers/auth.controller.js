@@ -5,103 +5,99 @@ const Provider = require('../models/providers')
 const Student = require('../models/students')
 const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
+const mongoose = require('mongoose')
 
-// POST after submit from US1-6/ US1-7
 /*
  * @desc     Resigter user
  * @route    POST auth/register
  * @access   Public
  */
 
-exports.register = (req, res) => {
-	// #swagger.tags = ['auth']
+exports.register = async (req, res) => {
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
-		res.status(400).json({ errors: result.array() })
-	} else {
-		const {
-			username,
-			password,
-			email,
-			role,
-			firstName,
-			lastName,
-			birthdate,
-			gender,
-			phoneNumber,
-			degree,
-			school,
-			program,
-			householdIncome,
-			targetNation,
-			typeOfScholarship,
-			employment,
-			field,
-			providerName,
-			address,
-			website,
-			creditCardNumber,
-			verifyStatus,
-		} = req.body
+		return res.status(400).json({ errors: result.array() })
+	}
 
-		//console.log(req.body);
+	const {
+		username,
+		password,
+		email,
+		role,
+		firstName,
+		lastName,
+		birthdate,
+		gender,
+		phoneNumber,
+		gpax,
+		degree,
+		school,
+		program,
+		householdIncome,
+		targetNation,
+		typeOfScholarship,
+		employment,
+		field,
+		providerName,
+		address,
+		website,
+		creditCardNumber,
+		verifyStatus,
+	} = req.body
+
+	const session = await mongoose.startSession()
+	session.startTransaction()
+
+	try {
 		const saltRounds = 10
-		bcrypt.genSalt(saltRounds, function (err, salt) {
-			bcrypt.hash(password, salt, function (err, hash) {
-				User.create({ username, password: hash, email, role }, (err, user) => {
-					if (err) {
-						res.status(400).send({ message: err.message })
-					} else if (role == 'student') {
-						Student.create(
-							{
-								userID: new ObjectId(user._id),
-								username,
-								firstName,
-								lastName,
-								birthdate,
-								gender,
-								phoneNumber,
-								degree,
-								school,
-								program,
-								householdIncome,
-								targetNation,
-								typeOfScholarship,
-								employment,
-								field,
-							},
-							(err, student) => {
-								if (err) {
-									console.log(err.message)
-									res.status(400).json({ err })
-								} else {
-									res.send(`Create student ${username} success`)
-								}
-							},
-						)
-					} else {
-						Provider.create(
-							{
-								userID: new ObjectId(user._id),
-								providerName,
-								address,
-								website,
-								creditCardNumber,
-								phoneNumber,
-								verifyStatus,
-							},
-							(err, provider) => {
-								if (err) {
-									res.status(400).json({ err })
-								} else {
-									res.send(`Create provider ${username} success`)
-								}
-							},
-						)
-					}
-				})
-			})
-		})
+		const salt = await bcrypt.genSalt(saltRounds)
+		const hash = await bcrypt.hash(password, salt)
+
+		const user = await User.create([{ username, password: hash, email, role }], { session })
+		if (role === 'student') {
+			const student = await Student.create(
+				[{
+					userID: new ObjectId(user[0]._id),
+					username,
+					firstName,
+					lastName,
+					birthdate,
+					gender,
+					phoneNumber,
+					gpax,
+					degree,
+					school,
+					program,
+					householdIncome,
+					targetNation,
+					typeOfScholarship,
+					employment,
+					field,
+				}],
+				{ session },
+			)
+			res.send(`Create student ${username} success`)
+		} else {
+			const provider = await Provider.create(
+				[{
+					userID: new ObjectId(user[0]._id),
+					providerName,
+					address,
+					website,
+					creditCardNumber,
+					phoneNumber,
+					verifyStatus,
+				}],
+				{ session },
+			)
+			res.send(`Create provider ${username} success`)
+		}
+		await session.commitTransaction()
+	} catch (error) {
+		await session.abortTransaction()
+		res.status(400).send({ message: error.message })
+	} finally {
+		session.endSession()
 	}
 }
 
@@ -142,7 +138,7 @@ exports.login = async (req, res) => {
 
 			foundUser.refreshToken = refreshToken
 			const result = await foundUser.save()
-			console.log(result)
+			// console.log(result)
 
 			res.cookie('jwt', refreshToken, {
 				httpOnly: true,
@@ -166,7 +162,7 @@ exports.refreshToken = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const cookies = req.cookies
 
-	console.log(cookies)
+	// console.log(cookies)
 
 	if (!cookies?.jwt) return res.sendStatus(401)
 	const refreshToken = cookies.jwt

@@ -147,7 +147,7 @@ function ForgotPassword() {
 									},
 									validate: {
 										duplicate: async (value) =>
-											(await isDupe('email', value)) || 'Invaild Email',
+											(await isDupe('email', value)) || 'Email is not registered yet',
 									},
 								})}
 								error={!!errors?.email}

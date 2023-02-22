@@ -7,7 +7,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 import InputPassword from './InputPassword'
 
-const FormUpdatePvdInfo = ({ isDisabled }) => {
+const FormEditPvd = ({ isDisabled }) => {
 	const { auth, setAuth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
@@ -97,7 +97,7 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
-			<Grid container sx={{ overflow: 'scroll', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
 						component="form"
@@ -105,13 +105,13 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							<TextField
+							{/* <TextField
 								id="outlined-start-adornment"
 								value={username}
 								label="Username"
 								variant="outlined"
 								disabled
-							/>
+							/> */}
 							<TextField
 								id="outlined-start-adornment"
 								value={getValues(providerName)}
@@ -249,26 +249,9 @@ const FormUpdatePvdInfo = ({ isDisabled }) => {
 						</Grid>
 					</FormControl>
 				</Grid>
-				{/* <Grid
-					container
-					spacing={1}
-					alignItems="stretch"
-					justifyContent="space-evenly"
-					sx={{ padding: '20px 0px 20px 0px' }}
-				>
-					<Grid item>
-						<Button variant="contained">Cancel</Button>
-					</Grid>
-
-					<Grid item>
-						<Button variant="contained" type="submit">
-							Update
-						</Button>
-					</Grid>
-				</Grid> */}
 			</Grid>
 		</Stack>
 	)
 }
 
-export default FormUpdatePvdInfo
+export default FormEditPvd

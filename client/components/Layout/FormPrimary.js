@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material'
 import Grid2 from '@mui/material/Unstable_Grid2'
+import { Box } from '@mui/system'
 import Image from 'next/image'
 
 const FormPrimary = ({ header, form }) => {
@@ -43,7 +44,7 @@ const FormPrimary = ({ header, form }) => {
 						sizes="100vw"
 						priority="false"
 						style={{
-							width: '200%',
+							width: '180%',
 							height: 'auto',
 							position: 'absolute',
 							top: '50%',
@@ -59,7 +60,7 @@ const FormPrimary = ({ header, form }) => {
 						height={0}
 						sizes="100vw"
 						style={{
-							width: '100%',
+							width: '80%',
 							height: 'auto',
 							padding: '20px',
 							position: 'relative',
@@ -68,7 +69,9 @@ const FormPrimary = ({ header, form }) => {
 				</Grid2>
 			</Grid2>
 			<Grid2 xs={12} sm={7} lg={4}>
-				{form}
+				<Box sx={{ overflowY: 'auto', overflowX: 'hidden', maxHeight: '80vh', py: 1 }}>
+					{form}
+				</Box>
 			</Grid2>
 		</Grid2>
 	)

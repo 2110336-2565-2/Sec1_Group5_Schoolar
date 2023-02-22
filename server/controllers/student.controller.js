@@ -45,6 +45,7 @@ exports.updateStudentInfo = async (req, res) => {
 	handleValidationResult(result, res)
 
 	try {
+		const username = req.params.username
 		const {
 			firstName,
 			lastName,
@@ -56,7 +57,6 @@ exports.updateStudentInfo = async (req, res) => {
 			targetNation,
 			typeOfScholarship,
 			field,
-			username,
 			email,
 			phoneNumber,
 		} = req.body

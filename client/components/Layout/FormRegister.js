@@ -30,7 +30,9 @@ const FormRegister = ({ setData, setPage }) => {
 	}
 
 	const handleRole = (event, newrole) => {
-		setRole(newrole)
+		if (newrole !== null) {
+			setRole(newrole)
+		}
 	}
 
 	const isDupe = async (role, field, value) => {
@@ -62,7 +64,7 @@ const FormRegister = ({ setData, setPage }) => {
 					},
 					validate: {
 						duplicate: async (value) =>
-							!(await isDupe('user', "username", value)) || 'Username has been taken',
+							!(await isDupe('user', 'username', value)) || 'Username has been taken',
 					},
 				})}
 				error={!!errors?.username}

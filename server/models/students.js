@@ -2,21 +2,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const studentSchema = new Schema({
-	// id: create automatically in mongoDB
-	userID: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		// get: write function to get from user ID ,
-	},
+	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	firstName: {
 		required: true,
 		type: String,
-		lowercase: true,
 		trim: true,
 	},
 	lastName: {
 		required: true,
 		type: String,
-		lowercase: true,
 		trim: true,
 	},
 	birthdate: {
@@ -26,7 +20,6 @@ const studentSchema = new Schema({
 		maxLength: 10,
 		trim: true,
 	},
-	// age: calculate from bd
 	gender: {
 		required: true,
 		type: String,
@@ -37,7 +30,7 @@ const studentSchema = new Schema({
 		type: String,
 		maxLength: 10,
 		unique: true,
-		trim: true
+		trim: true,
 	},
 	gpax: {
 		require: true,
@@ -82,7 +75,8 @@ const studentSchema = new Schema({
 		],
 	},
 	// below this is the criteria for matching
-	householdIncome: {		// backend tranform number to rank
+	householdIncome: {
+		// backend tranform number to rank
 		type: Number,
 		index: true,
 	},
@@ -90,7 +84,7 @@ const studentSchema = new Schema({
 		type: String,
 		maxLength: 60,
 		index: true,
-		lowercase: true,
+		// lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {
@@ -98,12 +92,14 @@ const studentSchema = new Schema({
 		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {		//currently employed or unemployed
+	employment: {
+		//currently employed or unemployed
 		type: Boolean,
 		index: true,
 		trim: true,
 	},
-	field: {			// field of interest
+	field: {
+		// field of interest
 		type: String,
 		index: true,
 		trim: true,

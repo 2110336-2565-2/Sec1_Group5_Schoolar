@@ -5,10 +5,12 @@ import Alert from '@mui/material/Alert'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/AuthContext'
 
 import theme from '../../src/styles/theme'
 
 const WebLayout = ({ children }) => {
+	const { auth, setAuth } = useAuth()
 	const [open, setOpen] = React.useState(false)
 
 	const { route } = useRouter()
@@ -22,8 +24,9 @@ const WebLayout = ({ children }) => {
 	useEffect(() => {
 		if (open) {
 			setTimeout(() => {
+				setAuth(null)
 				setOpen(false)
-			}, 3000)
+			}, 1000)
 		}
 	}, [open])
 
@@ -42,19 +45,12 @@ const WebLayout = ({ children }) => {
 				}}
 			>
 				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-				<Box>
-					{open && (
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'flex-end',
-							}}
-						>
-							<Alert severity="success">Logout successfully</Alert>
-						</Box>
-					)}
+				<Box sx={{ flex: '1 1 auto', position: 'relative' }}>
+					<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
+						{open && <Alert severity="success">Logout successfully</Alert>}
+					</Box>
+					{children}
 				</Box>
-				<Box sx={{ flex: '1 1 auto' }}>{children}</Box>
 			</Box>
 		</ThemeProvider>
 	)

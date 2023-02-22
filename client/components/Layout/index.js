@@ -24,9 +24,9 @@ const WebLayout = ({ children }) => {
 	}, [open])
 
 	const getBgImage = () => {
-		if (!auth) return 'classroom.png'
-		if (auth.role === 'student') return 'student.png'
-		return 'teacher.png'
+		if (!auth) return 'pencils.jpg'
+		if (auth.role === 'student') return 'cambridge.jpg'
+		return 'school.png'
 	}
 
 	return (

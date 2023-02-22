@@ -23,9 +23,6 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 	const formProps = { register, errors }
 	return (
 		<>
-			<Typography variant="h3" sx={{ textAlign: 'center', fontWeight: 'bold', mb: '20px' }}>
-				Register
-			</Typography>
 			<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
 				<TextFieldComponent name={'username'} required={true} {...formProps} />
 				<TextFieldComponent name={'email'} required={true} {...formProps} />

@@ -35,48 +35,46 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 
 	const formProps = { register, errors, values, setValues }
 	return (
-		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
-			<Stack spacing={3} direction="column">
-				{!form && (
-					<>
-						<TextFieldComponent name="firstName" required={true} {...formProps} />
-						<TextFieldComponent name="lastName" required={true} {...formProps} />
-						<DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
-						<SelectComponent name="gender" required={true} {...formProps} />
-						<TextFieldComponent name="phoneNumber" required={true} {...formProps} />
-						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-							NEXT
+		<FormControl
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+			sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+		>
+			{!form && (
+				<>
+					<TextFieldComponent name="firstName" required={true} {...formProps} />
+					<TextFieldComponent name="lastName" required={true} {...formProps} />
+					<DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
+					<SelectComponent name="gender" required={true} {...formProps} />
+					<TextFieldComponent name="phoneNumber" required={true} {...formProps} />
+					<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
+						NEXT
+					</Button>
+				</>
+			)}
+			{form && (
+				<>
+					<TextFieldComponent name="school" label="School/University" {...formProps} />
+					<SelectComponent name="degree" {...formProps} />
+					<SelectComponent name="program" {...formProps} />
+					<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
+					<TextFieldComponent name="targetNation" {...formProps} />
+					<SelectComponent name="typeOfScholarship" label="Type of Scholarship" {...formProps} />
+					<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
+					<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+						<Button
+							variant="contained"
+							onClick={() => setForm(!form)}
+							sx={{ backgroundColor: '#3F51A9', width: '100%' }}
+						>
+							BEFORE
 						</Button>
-					</>
-				)}
-				{form && (
-					<>
-						<TextFieldComponent name="school" label="School/University" {...formProps} />
-						<SelectComponent name="degree" {...formProps} />
-						<SelectComponent name="program" {...formProps} />
-						<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
-						<TextFieldComponent name="targetNation" {...formProps} />
-						<SelectComponent name="typeOfScholarship" label="Type of Scholarship" {...formProps} />
-						<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
-						<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-							<Button
-								variant="contained"
-								onClick={() => setForm(!form)}
-								sx={{ backgroundColor: '#3F51A9', width: '100%' }}
-							>
-								BEFORE
-							</Button>
-							<Button
-								variant="contained"
-								type="submit"
-								sx={{ backgroundColor: '#3F51A9', width: '100%' }}
-							>
-								SUBMIT
-							</Button>
-						</Stack>
-					</>
-				)}
-			</Stack>
+						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9', width: '100%' }}>
+							SUBMIT
+						</Button>
+					</Stack>
+				</>
+			)}
 		</FormControl>
 	)
 }

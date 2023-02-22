@@ -46,10 +46,10 @@ const FormPrimary = ({ header, form }) => {
 					<Typography
 						variant="h3"
 						sx={{
-							textAlign: 'left',
+							textAlign: { xs: 'center', sm: 'left' },
 							fontWeight: 'bold',
 							mb: { xs: 2, md: 3 },
-							fontSize: { xs: 38, sm: 42, md: 47 },
+							fontSize: { xs: 38, sm: 42, md: 46 },
 						}}
 					>
 						{header}

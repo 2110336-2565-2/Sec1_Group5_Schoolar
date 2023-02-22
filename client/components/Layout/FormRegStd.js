@@ -38,7 +38,7 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 		<FormControl
 			component="form"
 			onSubmit={handleSubmit(onSubmit)}
-			sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
 		>
 			{!form && (
 				<>

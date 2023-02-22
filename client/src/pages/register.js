@@ -5,6 +5,7 @@ import FormPrimary from '@components/Layout/FormPrimary'
 import FormRegister from '@components/Layout/FormRegister'
 import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegPvd from '@components/Layout/FormRegPvd'
+import FormSecondary from '@components/Layout/FormSecondary'
 
 export default function Register() {
 	const {
@@ -31,14 +32,14 @@ export default function Register() {
 			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />
 		case 'student':
 			return (
-				<FormPrimary
+				<FormSecondary
 					header="Personal Information"
 					form={<FormRegStd values={values} setValues={setValues} {...formProps} />}
 				/>
 			)
 		case 'provider':
 			return (
-				<FormPrimary
+				<FormSecondary
 					header="Personal Information"
 					form={<FormRegPvd values={values} setValues={setValues} {...formProps} />}
 				/>

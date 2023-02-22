@@ -38,8 +38,8 @@ const WebLayout = ({ children }) => {
 			<CssBaseline />
 			<Box
 				sx={{
-					minHeight: '100vh',
-					height: '100%',
+					// minHeight: '100vh',
+					height: '100vh',
 					display: 'flex',
 					flexFlow: 'column',
 					backgroundImage: `url(/background/${getBgImage()})`,

@@ -8,9 +8,7 @@ const FormPrimary = ({ form }) => {
 			container
 			spacing={2}
 			sx={{
-				bgcolor: 'blue',
-				// minHeight: '100vh',
-				// height: '100%',
+				height: '100%',
 				width: '100%',
 				p: 0,
 				m: 0,

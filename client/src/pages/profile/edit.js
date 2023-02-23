@@ -2,9 +2,9 @@ import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 import { axiosPrivate } from '../api/axios'
-import FormPrimary from '@components/Layout/FormPrimary'
 import FormEditStd from '@components/Layout/FormEditStd'
 import FormEditPvd from '@components/Layout/FormEditPvd'
+import FormEdit from '@components/Layout/FormEdit'
 
 export default function Edit() {
 	const { auth } = useAuth()
@@ -38,9 +38,9 @@ export default function Edit() {
 	}, [])
 
 	if (auth?.role === 'student') {
-		return <FormPrimary header="Edit Profile" form={<FormEditStd oldValue={data} />} />
+		return <FormEdit header="Update Information" form={<FormEditStd oldValue={data} />} />
 	} else {
-		return <FormPrimary header="Edit Profile" form={<FormEditPvd oldValue={data} />} />
+		return <FormEdit header="Update Information" form={<FormEditPvd oldValue={data} />} />
 	}
 }
 

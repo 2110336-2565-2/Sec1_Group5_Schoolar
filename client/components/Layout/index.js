@@ -24,8 +24,8 @@ const WebLayout = ({ children }) => {
 
 	const getBgImage = () => {
 		if (!auth) return 'pencils.jpg'
-		if (auth.role === 'student') return 'cambridge.jpg'
-		return 'school.png'
+		if (auth.role === 'student') return 'bg_student.svg'
+		return 'bg_provider.svg'
 	}
 
 	return (
@@ -47,7 +47,7 @@ const WebLayout = ({ children }) => {
 			>
 				<Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 					<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-					<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>
+					<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative', justifyContent:"center" }}>
 						<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
 							{open && <Alert severity="success">Logout successfully</Alert>}
 						</Box>

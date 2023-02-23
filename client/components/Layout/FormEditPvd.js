@@ -55,7 +55,7 @@ const FormEditPvd = ({ oldValue }) => {
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			{/* {alertOpen && renderAlert()} */}
-			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
@@ -70,26 +70,14 @@ const FormEditPvd = ({ oldValue }) => {
 								{...formProps}
 							/>
 							<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+							<Stack spacing={3} direction="row" justifyContent="space-evenly">
+								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
+								<Button sx={{width: "100%"}} variant="contained" type="submit">
+									Update
+								</Button>
+							</Stack>
 						</Stack>
-						<Grid
-							container
-							spacing={1}
-							alignItems="stretch"
-							justifyContent="space-evenly"
-							sx={{ padding: '20px 0px 20px 0px' }}
-						>
-							<Grid item>
-								<Button variant="contained" onClick={() => router.push('/')}>
-									BACK
-								</Button>
-							</Grid>
-
-							<Grid item>
-								<Button variant="contained" type="submit">
-									SUBMIT
-								</Button>
-							</Grid>
-						</Grid>
+						
 					</FormControl>
 				</Grid>
 			</Grid>

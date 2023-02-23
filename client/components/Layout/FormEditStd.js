@@ -1,10 +1,11 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack } from '@mui/material'
+import { Button, FormControl, Grid, Stack, Typography } from '@mui/material'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { useRouter } from 'next/router'
 
 const FormEditStd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
@@ -30,6 +31,7 @@ const FormEditStd = ({ oldValue }) => {
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
+	const router = useRouter();
 
 	useEffect(() => {
 		if (oldValue) {
@@ -64,6 +66,7 @@ const FormEditStd = ({ oldValue }) => {
 			alert('Data has been updated successfully')
 			console.log('submitted successfully')
 		})
+		router.push('/');
 	}
 	const formOnError = (err) => {
 		// Alert the users of incorrect pattern
@@ -77,7 +80,7 @@ const FormEditStd = ({ oldValue }) => {
 	const formProps = { register, errors, values, setValues }
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
-			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl
 						component="form"
@@ -112,6 +115,7 @@ const FormEditStd = ({ oldValue }) => {
 							<SelectComponent name="degree" shrink={true} {...formProps} />
 							<SelectComponent name="program" shrink={true} {...formProps} />
 							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
+							<Typography variant="h5">Target Scholarship</Typography>
 							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
 							<SelectComponent
 								name="typeOfScholarship"
@@ -125,20 +129,13 @@ const FormEditStd = ({ oldValue }) => {
 								shrink={true}
 								{...formProps}
 							/>
-						</Stack>
-						<Grid
-							container
-							spacing={1}
-							alignItems="stretch"
-							justifyContent="space-evenly"
-							sx={{ padding: '20px 0px 20px 0px' }}
-						>
-							<Grid item>
-								<Button variant="contained" type="submit">
+							<Stack spacing={3} direction="row" justifyContent="space-evenly">
+								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
+								<Button sx={{width: "100%"}} variant="contained" type="submit">
 									Update
 								</Button>
-							</Grid>
-						</Grid>
+							</Stack>
+						</Stack>
 					</FormControl>
 				</Grid>
 			</Grid>

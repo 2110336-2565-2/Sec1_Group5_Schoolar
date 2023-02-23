@@ -26,7 +26,7 @@ export default function Register() {
 
 	const [page, setPage] = useState('register')
 
-	const formProps = { register, handleSubmit, errors, setValue, getValues }
+	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5 }
 	switch (page) {
 		case 'register':
 			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />
@@ -34,14 +34,14 @@ export default function Register() {
 			return (
 				<FormSecondary
 					header="Personal Information"
-					form={<FormRegStd values={values} setValues={setValues} {...formProps} />}
+					form={<FormRegStd values={values} setValues={setValues} setPage={setPage} {...formProps} />}
 				/>
 			)
 		case 'provider':
 			return (
 				<FormSecondary
 					header="Personal Information"
-					form={<FormRegPvd values={values} setValues={setValues} {...formProps} />}
+					form={<FormRegPvd values={values} setValues={setValues} setPage={setPage} {...formProps} />}
 				/>
 			)
 		default:

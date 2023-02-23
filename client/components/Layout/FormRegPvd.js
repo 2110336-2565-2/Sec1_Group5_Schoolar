@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue }) => {
+const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue, gap }) => {
 	const router = useRouter()
 
 	const sendData = async (data) => {
@@ -32,7 +32,7 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 		<FormControl
 			component="form"
 			onSubmit={handleSubmit(onSubmit)}
-			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
+			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
 			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />

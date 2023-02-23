@@ -5,15 +5,46 @@ const theme = createTheme({
 		fontFamily: 'Barlow',
 		h1: {
 			fontFamily: 'Barlow',
+			fontSize: '6rem',
+			'@media (max-width:900px)': {
+				fontSize: '3rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '2.25rem',
+			},
 		},
 		h2: {
 			fontFamily: 'Barlow',
+			fontSize: '3.75rem',
+			'@media (max-width:900px)': {
+				fontSize: '3rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '1.875rem',
+			},
 		},
 		h3: {
 			fontFamily: 'Barlow',
+			fontSize: '3rem',
+			'@media (max-width:900px)': {
+				fontSize: '2.5rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '1.5rem',
+			},
 		},
 		h4: {
 			fontFamily: 'Barlow',
+			fontSize: '2.125rem',
+			'@media (max-width:900px)': {
+				fontSize: '2rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '1.25rem',
+			},
+		},
+		button: {
+			fontWeight: 'bold',
 		},
 	},
 	// change color theme here
@@ -28,8 +59,8 @@ const theme = createTheme({
 		},
 		text: {
 			primary: '#404040',
-			secondary: '#0B3C6E'
-		}
+			secondary: '#0B3C6E',
+		},
 	},
 })
 

@@ -36,7 +36,6 @@ const FormSecondary = ({ header, form }) => {
 						textAlign: 'center',
 						fontWeight: 'bold',
 						mb: { xs: 2, md: 3 },
-						fontSize: { xs: 32, sm: 36, md: 40 },
 					}}
 				>
 					{header}

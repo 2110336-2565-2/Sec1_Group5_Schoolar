@@ -36,8 +36,8 @@ const FormPrimary = ({ header, form }) => {
 						backgroundColor: 'primary.light',
 						boxShadow: 12,
 						px: { xs: 2, sm: 4, md: 6 },
-						pt: { xs: 2, md: 3 },
-						pb: { xs: 3, md: 5 },
+						pt: { xs: 2, sm: 2.5, md: 3 },
+						pb: { xs: 3, sm: 4, md: 5 },
 						mx: { xs: 2, sm: 3, md: 4 },
 						mt: { xs: 0, sm: 3 },
 						mb: 3,
@@ -49,7 +49,6 @@ const FormPrimary = ({ header, form }) => {
 							textAlign: { xs: 'center', sm: 'left' },
 							fontWeight: 'bold',
 							mb: { xs: 2, md: 3 },
-							fontSize: { xs: 38, sm: 42, md: 46 },
 						}}
 					>
 						{header}

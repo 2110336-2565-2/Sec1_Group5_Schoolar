@@ -5,6 +5,7 @@ import FormPrimary from '@components/Layout/FormPrimary'
 import FormRegister from '@components/Layout/FormRegister'
 import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegPvd from '@components/Layout/FormRegPvd'
+import FormSecondary from '@components/Layout/FormSecondary'
 
 export default function Register() {
 	const {
@@ -28,11 +29,21 @@ export default function Register() {
 	const formProps = { register, handleSubmit, errors, setValue, getValues }
 	switch (page) {
 		case 'register':
-			return <FormPrimary form={<FormRegister setPage={setPage} {...formProps} />} />
+			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />
 		case 'student':
-			return <FormPrimary form={<FormRegStd values={values} setValues={setValues} {...formProps} />} />
+			return (
+				<FormSecondary
+					header="Personal Information"
+					form={<FormRegStd values={values} setValues={setValues} {...formProps} />}
+				/>
+			)
 		case 'provider':
-			return <FormPrimary form={<FormRegPvd values={values} setValues={setValues} {...formProps} />} />
+			return (
+				<FormSecondary
+					header="Personal Information"
+					form={<FormRegPvd values={values} setValues={setValues} {...formProps} />}
+				/>
+			)
 		default:
 			return <Error statusCode={404} />
 	}

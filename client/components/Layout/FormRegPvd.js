@@ -1,24 +1,9 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import { Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap }) => {
-	const router = useRouter()
-
-	const sendData = async (data) => {
-		try {
-			const response = await axios.post('/auth/register', data)
-			alert(response.data)
-			router.push('/login')
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
+const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap, sendData }) => {
 	const onSubmit = async (data) => {
 		console.log('Submit', data)
 		sendData(data)

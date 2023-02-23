@@ -24,6 +24,7 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 	}
 
 	const onSubmit = async (data) => {
+		console.log('Submit', data)
 		sendData(data)
 	}
 
@@ -39,9 +40,14 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
-			<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-				SUBMIT
-			</Button>
+			<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+				<Button fullWidth variant="contained" onClick={() => setPage('register')}>
+					Back
+				</Button>
+				<Button fullWidth variant="contained" type="submit">
+					Submit
+				</Button>
+			</Stack>
 		</FormControl>
 	)
 }

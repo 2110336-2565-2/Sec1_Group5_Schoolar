@@ -26,9 +26,9 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 	}
 
 	const onSubmit = (data) => {
-		console.log('DATA', data)
 		if (!form) setForm(!form)
 		else {
+			console.log("Submit", data)
 			sendData(data)
 		}
 	}
@@ -71,7 +71,7 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 							Back
 						</Button>
 						<Button fullWidth variant="contained" type="submit">
-							Sumbit
+							Submit
 						</Button>
 					</Stack>
 				</>

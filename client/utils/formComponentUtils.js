@@ -85,7 +85,7 @@ export const SelectComponent = ({
 	disabled = false,
 	shrink,
 }) => {
-	let options = null
+	let options = []
 	switch (name) {
 		case 'degree':
 			options = degrees
@@ -95,7 +95,6 @@ export const SelectComponent = ({
 			break
 		case 'program':
 			if (values['degree'] === '') {
-				options = null
 				disabled = true
 			} else if (values['degree'] === 'high school') {
 				options = studentPrograms
@@ -126,7 +125,7 @@ export const SelectComponent = ({
 			disabled={disabled}
 			InputLabelProps={{ shrink }}
 		>
-			{options?.map((option) => (
+			{options.map((option) => (
 				<MenuItem key={option.value} value={option.value}>
 					{option.label}
 				</MenuItem>

@@ -17,14 +17,14 @@ export default function Register() {
 	} = useForm({ mode: 'onBlur' })
 
 	const [values, setValues] = useState({
-		birthDate: null,
+		birthDate: '',
 		gender: '',
 		degree: '',
 		program: '',
 		typeOfScholarship: '',
 	})
 
-	const [page, setPage] = useState('student')
+	const [page, setPage] = useState('register')
 
 	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5 }
 	switch (page) {

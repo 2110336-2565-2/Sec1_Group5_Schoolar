@@ -1,56 +1,87 @@
-import { VStack } from '@components/common'
-import FilterListIcon from '@mui/icons-material/FilterList'
-import { MenuItem, Menu, ListSubheader } from '@mui/material'
 import { useState } from 'react'
-import { scholarshipTypes } from '@utils/StdInformation'
+import { scholarshipTypes, uniPrograms, studentPrograms, degrees } from '@utils/formOptUtils'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormGroup } from '@material-ui/core'
+import { FilterList as FilterListIcon } from '@mui/icons-material'
+import FilterSearchBar from './FilterSearchBar'
+
+function getStyles(name, ssTypes, theme) {
+	return {
+		fontWeight:
+			ssTypes.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
+	}
+}
 
 function FilterScholar(props) {
 	// Handle Filter menu
-	const [anchorEl, setAnchorEl] = useState(null)
-	const open = Boolean(anchorEl)
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget)
-	}
-	const handleClose = (e) => {
-		props.filterHandler(e.target.innerText)
-		setAnchorEl(null)
+	const [open, setOpen] = useState(false)
+
+	// set filters list
+	const [scholarshipFilters, setScholarshipFilters] = useState([])
+	const [degreeFilters, setDegreeFilters] = useState([])
+	const [facultyFilters, setFacultyFilters] = useState([])
+	const [studentProgramFilters, setStudentProgramFilters] = useState([])
+
+	const handleOpen = () => {
+		setOpen(true)
 	}
 
+	const handleClose = () => {
+		setOpen(false)
+	}
+
+	const handleApplyFilters = () => {
+		console.log(scholarshipFilters)
+		console.log(degreeFilters)
+		console.log(facultyFilters)
+		console.log(studentProgramFilters)
+		handleClose()
+	}
 	return (
-		<VStack>
-			<FilterListIcon
-				id="FilterIcon"
-				aria-controls={open ? 'FilterList' : undefined}
-				aria-haspopup="true"
-				aria-expanded={open ? 'true' : undefined}
-				onClick={handleClick}
-			/>
-			<Menu
-				id="FilterList"
-				anchorEl={anchorEl}
-				open={open}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'left',
-				}}
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'left',
-				}}
-			>
-				<MenuItem onClick={handleClose}>All Scholarship</MenuItem>
-				<ListSubheader>Type of Scholarship</ListSubheader>
-				<MenuItem onClick={handleClose}>Full Scholarship</MenuItem>
-				<MenuItem onClick={handleClose}>Partial Scholarship</MenuItem>
-				<MenuItem onClick={handleClose}>Renewable Scholarship</MenuItem>
-				<MenuItem onClick={handleClose}>Fellowship</MenuItem>
-				<ListSubheader>Degree</ListSubheader>
-				<MenuItem onClick={handleClose}>Degree</MenuItem>
-				<ListSubheader>Faculty</ListSubheader>
-				<MenuItem onClick={handleClose}>Faculty</MenuItem>
-			</Menu>
-		</VStack>
+		<div>
+			<Button color="inherit" onClick={handleOpen}>
+				<FilterListIcon />
+			</Button>
+			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+				<DialogTitle>Filters</DialogTitle>
+				<DialogContent>
+					<FormGroup>
+						<FilterSearchBar
+							item={scholarshipTypes}
+							label={'Scholarship Type'}
+							filters={scholarshipFilters}
+							setFilters={setScholarshipFilters}
+						/>
+						<FilterSearchBar
+							item={degrees}
+							label={'Degree'}
+							filters={degreeFilters}
+							setFilters={setDegreeFilters}
+						/>
+						<FilterSearchBar
+							item={uniPrograms}
+							label={'Faculty'}
+							filters={facultyFilters}
+							setFilters={setFacultyFilters}
+						/>
+						<FilterSearchBar
+							item={studentPrograms}
+							label={'Student Program'}
+							filters={studentProgramFilters}
+							setFilters={setStudentProgramFilters}
+						/>
+					</FormGroup>
+				</DialogContent>
+
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						Cancel
+					</Button>
+					<Button onClick={handleApplyFilters} color="primary">
+						Apply
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</div>
 	)
 }
 

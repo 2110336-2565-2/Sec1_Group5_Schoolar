@@ -40,7 +40,6 @@ exports.register = async (req, res) => {
 		providerName,
 		address,
 		website,
-		creditCardNumber,
 		verifyStatus,
 	} = req.body
 
@@ -83,7 +82,6 @@ exports.register = async (req, res) => {
 						providerName,
 						address,
 						website,
-						creditCardNumber,
 						verifyStatus,
 					},
 				],
@@ -111,9 +109,14 @@ exports.login = async (req, res) => {
 	if (!result.isEmpty()) {
 		res.status(400).json({ errors: result.array() })
 	} else {
-		const { username, password } = req.body
+		const { usernameEmail, password } = req.body
 
-		const foundUser = await User.findOne({ username }).select('+password')
+		let foundUser = null
+		if (usernameEmail.includes('@')) {
+			foundUser = await User.findOne({ email: usernameEmail }).select('+password')
+		} else {
+			foundUser = await User.findOne({ username: usernameEmail }).select('+password')
+		}
 
 		if (!foundUser) return res.status(401).json({ message: 'Not found user' }) //res.sendStatus(401) //Unauthorized
 
@@ -145,7 +148,7 @@ exports.login = async (req, res) => {
 				maxAge: 7 * 24 * 60 * 60 * 1000,
 			})
 
-			res.json({ accessToken, role: foundUser.role })
+			res.json({ accessToken, role: foundUser.role, username: foundUser.username })
 		} else {
 			res.status(401).json({ message: 'Not match' }) //res.sendStatus(401)
 		}

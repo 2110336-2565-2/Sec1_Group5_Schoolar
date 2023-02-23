@@ -27,7 +27,6 @@ const providerSchema = new Schema({
 		trim: true,
 	},
 	creditCardNumber: {
-		required: true,
 		type: String,
 		maxLength: 16,
 		trim: true,

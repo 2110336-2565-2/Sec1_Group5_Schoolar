@@ -23,7 +23,7 @@ const WebLayout = ({ children }) => {
 	}, [open])
 
 	const getBgImage = () => {
-		if (!auth) return 'pencils.jpg'
+		if (!auth) return 'pencils.svg'
 		if (auth.role === 'student') return 'cambridge.jpg'
 		return 'school.png'
 	}

@@ -3,11 +3,9 @@ import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Box, Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
-import { scholarshipTypes } from '@utils/StdInformation'
-
 import axios from './api/axios'
 import Footer from '@components/Home-page/footer'
-
+import { scholarshipTypes } from '@utils/formOptUtils'
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
@@ -65,9 +63,9 @@ function Homepage() {
 		// ||scholar.typeOfScholarship.includes(filterInput.toLowerCase())
 	})
 
-	const filteredTypes = scholars.filter((scholar) => {
-		return scholarshipFilters.includes(scholar.typeOfScholarShip)
-	})
+	// const filteredTypes = scholars.filter((scholar) => {
+	// 	return scholarshipFilters.includes(scholar.typeOfScholarShip)
+	// })
 
 	return (
 		<>

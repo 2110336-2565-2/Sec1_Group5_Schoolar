@@ -53,7 +53,7 @@ export const DatePickerComponent = ({
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<DatePicker
 				label={label}
-				value={values[name]}
+				value={values[name] || null}
 				inputFormat="DD/MM/YYYY"
 				renderInput={(params) => (
 					<TextField

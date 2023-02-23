@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import axios from '@/pages/api/axios'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue, gap }) => {
+const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap }) => {
 	const router = useRouter()
 	const [form, setForm] = useState(false)
 
@@ -67,10 +67,10 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 					<SelectComponent name="typeOfScholarship" label="Type of Scholarship" {...formProps} />
 					<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
 					<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-						<Button variant="contained" onClick={() => setForm(!form)}>
+						<Button fullWidth variant="contained" onClick={() => setForm(!form)}>
 							Back
 						</Button>
-						<Button variant="contained" type="submit">
+						<Button fullWidth variant="contained" type="submit">
 							Sumbit
 						</Button>
 					</Stack>

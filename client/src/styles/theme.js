@@ -10,7 +10,7 @@ const theme = createTheme({
 				fontSize: '3rem',
 			},
 			'@media (max-width:600px)': {
-				fontSize: '2.25rem',
+				fontSize: '2.5rem',
 			},
 		},
 		h2: {
@@ -20,7 +20,7 @@ const theme = createTheme({
 				fontSize: '3rem',
 			},
 			'@media (max-width:600px)': {
-				fontSize: '1.875rem',
+				fontSize: '2.5rem',
 			},
 		},
 		h3: {
@@ -30,7 +30,7 @@ const theme = createTheme({
 				fontSize: '2.5rem',
 			},
 			'@media (max-width:600px)': {
-				fontSize: '1.5rem',
+				fontSize: '2rem',
 			},
 		},
 		h4: {
@@ -40,7 +40,7 @@ const theme = createTheme({
 				fontSize: '2rem',
 			},
 			'@media (max-width:600px)': {
-				fontSize: '1.25rem',
+				fontSize: '1.5rem',
 			},
 		},
 		button: {

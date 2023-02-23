@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue, gap }) => {
+const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap }) => {
 	const router = useRouter()
 
 	const sendData = async (data) => {

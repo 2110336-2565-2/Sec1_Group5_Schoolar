@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Error from 'next/error'
 import FormPrimary from '@components/Layout/FormPrimary'
@@ -17,14 +17,14 @@ export default function Register() {
 	} = useForm({ mode: 'onBlur' })
 
 	const [values, setValues] = useState({
-		birthDate: '',
+		birthDate: null,
 		gender: '',
 		degree: '',
 		program: '',
 		typeOfScholarship: '',
 	})
 
-	const [page, setPage] = useState('register')
+	const [page, setPage] = useState('student')
 
 	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5 }
 	switch (page) {

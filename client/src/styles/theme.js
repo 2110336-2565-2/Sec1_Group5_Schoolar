@@ -18,17 +18,18 @@ const theme = createTheme({
 	},
 	// change color theme here
 	palette: {
-		background: {
-			default: '#DADEEA',
-		},
 		primary: {
-			main: '#2C429B',
-			light: '#DADEEA',
+			main: '#036EC5',
+			light: '#FFFFFF',
 		},
 		secondary: {
 			main: '#FDBA21',
 			light: '#EEEDE3',
 		},
+		text: {
+			primary: '#404040',
+			secondary: '#0B3C6E'
+		}
 	},
 })
 

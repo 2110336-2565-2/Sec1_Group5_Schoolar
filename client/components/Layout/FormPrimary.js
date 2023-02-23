@@ -1,79 +1,63 @@
-import { Typography } from '@mui/material'
-import Grid2 from '@mui/material/Unstable_Grid2'
+import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Image from 'next/image'
 
 const FormPrimary = ({ header, form }) => {
 	return (
-		<Grid2
+		<Grid
 			container
 			spacing={2}
 			sx={{
-				height: '100%',
-				width: '100%',
-				padding: '20px 30px',
-				margin: '0 auto',
-				justifyContent: 'center',
-				alignItems: 'center',
-				overflow: 'hidden',
+				p: 0,
+				m: 0,
 			}}
 		>
-			<Grid2 container xs={12} sm={5} lg={8} sx={{ alignItems: 'center' }}>
-				<Grid2 xs={12} lg={5}>
+			<Grid xs={12} sm={4} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+				<Image
+					src="/primary/slogan.png"
+					alt="overlay"
+					width={0}
+					height={0}
+					sizes="100vw"
+					priority="false"
+					style={{
+						width: '70%',
+						height: 'auto',
+						margin: '20px 0',
+					}}
+				/>
+			</Grid>
+			<Grid xs={12} sm={8} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+				<Box
+					sx={{
+						maxWidth: 500,
+						width: '100%',
+						borderRadius: 5,
+						backgroundColor: 'primary.light',
+						boxShadow: 12,
+						px: { xs: 2, sm: 4, md: 6 },
+						pt: { xs: 2, md: 3 },
+						pb: { xs: 3, md: 5 },
+						mx: { xs: 2, sm: 3, md: 4 },
+						mt: { xs: 0, sm: 3 },
+						mb: 3,
+					}}
+				>
 					<Typography
 						variant="h3"
-						sx={{ textAlign: 'center', fontWeight: 'bold', mb: '20px' }}
+						sx={{
+							textAlign: { xs: 'center', sm: 'left' },
+							fontWeight: 'bold',
+							mb: { xs: 2, md: 3 },
+							fontSize: { xs: 38, sm: 42, md: 46 },
+						}}
 					>
 						{header}
 					</Typography>
-				</Grid2>
-				<Grid2
-					xs={0}
-					sm={12}
-					lg={7}
-					sx={{
-						position: 'relative',
-						display: { xs: 'none', sm: 'block' },
-					}}
-				>
-					<Image
-						src="/overlay.png"
-						alt="overlay"
-						width={0}
-						height={0}
-						sizes="100vw"
-						priority="false"
-						style={{
-							width: '180%',
-							height: 'auto',
-							position: 'absolute',
-							top: '50%',
-							left: '50%',
-							transform: 'translate(-50%, -50%)',
-							zIndex: -1,
-						}}
-					/>
-					<Image
-						src="/women.png"
-						alt="women"
-						width={0}
-						height={0}
-						sizes="100vw"
-						style={{
-							width: '80%',
-							height: 'auto',
-							padding: '20px',
-							position: 'relative',
-						}}
-					/>
-				</Grid2>
-			</Grid2>
-			<Grid2 xs={12} sm={7} lg={4}>
-				<Box sx={{ overflowY: 'auto', overflowX: 'hidden', maxHeight: '80vh', py: 1 }}>
 					{form}
 				</Box>
-			</Grid2>
-		</Grid2>
+			</Grid>
+		</Grid>
 	)
 }
 

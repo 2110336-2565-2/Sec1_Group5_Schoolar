@@ -6,13 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ registerData }) => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ mode: 'onBlur' })
-
+const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue }) => {
 	const router = useRouter()
 
 	const sendData = async (data) => {
@@ -30,23 +24,24 @@ const FormRegPvd = ({ registerData }) => {
 	}
 
 	const onSubmit = async (data) => {
-		const allData = Object.assign(registerData, data)
-		sendData(JSON.stringify(allData))
+		sendData(data)
 	}
 
 	const formProps = { register, errors }
 	return (
-		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
-			<Stack spacing={3} direction="column">
-				<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
-				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-					SUBMIT
-				</Button>
-			</Stack>
+		<FormControl
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
+		>
+			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
+			<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
+				SUBMIT
+			</Button>
 		</FormControl>
 	)
 }

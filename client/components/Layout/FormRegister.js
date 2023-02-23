@@ -1,41 +1,28 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Button, FormControl, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
+import { Button, FormControl, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import InputPassword from './InputPassword'
 import { getErrMsg, getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegister = ({ setData, setPage }) => {
-	const [role, setRole] = useState('student')
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		getValues,
-	} = useForm({ mode: 'onBlur' })
-
-	const onSubmit = (data) => {
-		console.log(data)
-		setData({ ...data, role })
-		setPage(role)
+const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues }) => {
+	const handleSubmitStudent = () => {
+		handleSubmit((data) => {
+			setValue('role', 'student')
+			setPage('student')
+		})()
 	}
-
-	const handleRole = (event, newrole) => {
-		if (newrole !== null) {
-			setRole(newrole)
-		}
+	const handleSubmitProvider = () => {
+		handleSubmit((data) => {
+			setValue('role', 'provider')
+			setPage('provider')
+		})()
 	}
 
 	const formProps = { register, errors }
 	return (
-		<FormControl
-			component="form"
-			sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
-			onSubmit={handleSubmit(onSubmit)}
-		>
+		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}>
 			<TextFieldComponent name={'username'} required={true} {...formProps} />
 			<TextFieldComponent name={'email'} required={true} {...formProps} />
 			<InputPassword
@@ -61,15 +48,14 @@ const FormRegister = ({ setData, setPage }) => {
 						: 'Use 8 or more characters with a mix of letters, numbers & special character'
 				}
 			/>
-			<Box sx={{ width: '100%' }}>
-				<ToggleButtonGroup value={role} exclusive fullWidth onChange={handleRole}>
-					<ToggleButton value="student">Register as student</ToggleButton>
-					<ToggleButton value="provider">Register as provider</ToggleButton>
-				</ToggleButtonGroup>
+			<Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
+				<Button variant="contained" onClick={handleSubmitStudent} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+					Register as student
+				</Button>
+				<Button variant="contained" onClick={handleSubmitProvider} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+					Register as provider
+				</Button>
 			</Box>
-			<Button variant="contained" type="submit">
-				Register
-			</Button>
 			<Box sx={{ textAlign: 'center' }}>
 				<Typography>Already have an account ?</Typography>
 				<Typography color="primary" sx={{ fontWeight: 'bold' }}>

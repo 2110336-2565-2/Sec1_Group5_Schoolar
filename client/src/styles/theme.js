@@ -4,7 +4,6 @@ const theme = createTheme({
 	typography: {
 		fontFamily: 'Barlow',
 		h1: {
-			fontFamily: 'Barlow',
 			fontSize: '6rem',
 			'@media (max-width:900px)': {
 				fontSize: '3rem',
@@ -14,7 +13,6 @@ const theme = createTheme({
 			},
 		},
 		h2: {
-			fontFamily: 'Barlow',
 			fontSize: '3.75rem',
 			'@media (max-width:900px)': {
 				fontSize: '3rem',
@@ -24,7 +22,6 @@ const theme = createTheme({
 			},
 		},
 		h3: {
-			fontFamily: 'Barlow',
 			fontSize: '3rem',
 			'@media (max-width:900px)': {
 				fontSize: '2.5rem',
@@ -34,7 +31,6 @@ const theme = createTheme({
 			},
 		},
 		h4: {
-			fontFamily: 'Barlow',
 			fontSize: '2.125rem',
 			'@media (max-width:900px)': {
 				fontSize: '2rem',
@@ -43,10 +39,15 @@ const theme = createTheme({
 				fontSize: '1.5rem',
 			},
 		},
+		body1: {
+			fontSize: '1rem',
+		},
 		button: {
 			fontWeight: 'bold',
+			textTransform: 'none',
 		},
 	},
+
 	// change color theme here
 	palette: {
 		primary: {

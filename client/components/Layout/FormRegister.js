@@ -50,15 +50,15 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 			/>
 			<Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
 				<Button fullWidth variant="contained" onClick={handleSubmitStudent}>
-					Register as student
+					Register as Student
 				</Button>
 				<Button fullWidth variant="contained" onClick={handleSubmitProvider}>
-					Register as provider
+					Register as Provider
 				</Button>
 			</Box>
 			<Box sx={{ textAlign: 'center' }}>
 				<Typography>Already have an account ?</Typography>
-				<Typography color="primary">
+				<Typography color="primary" sx={{ fontWeight: 'bold' }}>
 					<Link href="/login">Login here!</Link>
 				</Typography>
 			</Box>

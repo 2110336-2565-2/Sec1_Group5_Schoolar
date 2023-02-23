@@ -9,6 +9,7 @@ import InputPassword from '@components/Layout/InputPassword'
 import { useState, useEffect } from 'react'
 import axios from '@/pages/api/axios'
 import Alert from '@mui/material/Alert'
+import { getValidation } from '@utils/formUtils'
 
 function NewPassword({ router }) {
 	const [success, setsuccess] = useState(false)

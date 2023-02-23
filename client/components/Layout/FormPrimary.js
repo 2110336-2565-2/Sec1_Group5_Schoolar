@@ -1,8 +1,8 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Image from 'next/image'
 
-const FormPrimary = ({ header, form }) => {
+const FormPrimary = ({ header, form, icon }) => {
 	return (
 		<Grid
 			container
@@ -12,7 +12,7 @@ const FormPrimary = ({ header, form }) => {
 				m: 0,
 			}}
 		>
-			<Grid xs={12} sm={4} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<Grid item xs={12} sm={4} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				<Image
 					src="/primary/slogan.png"
 					alt="overlay"
@@ -27,7 +27,7 @@ const FormPrimary = ({ header, form }) => {
 					}}
 				/>
 			</Grid>
-			<Grid xs={12} sm={8} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<Grid item xs={12} sm={8} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				<Box
 					sx={{
 						maxWidth: 500,
@@ -43,16 +43,25 @@ const FormPrimary = ({ header, form }) => {
 						mb: 3,
 					}}
 				>
-					<Typography
-						variant="h3"
-						sx={{
-							textAlign: { xs: 'center', sm: 'left' },
-							fontWeight: 'bold',
-							mb: { xs: 2, md: 3 },
-						}}
+					<Stack
+						direction="row"
+						width="100%"
+						justifyContent={{ xs: 'center', sm: 'start' }}
+						alignItems="center"
+						spacing={{ xs: 1, sm: 2 }}
+						sx={{ mb: { xs: 2, md: 3 } }}
 					>
-						{header}
-					</Typography>
+						<Typography
+							variant="h3"
+							sx={{
+								textAlign: { xs: 'center', sm: 'left' },
+								fontWeight: 'bold',
+							}}
+						>
+							{header}
+						</Typography>
+						{icon}
+					</Stack>
 					{form}
 				</Box>
 			</Grid>

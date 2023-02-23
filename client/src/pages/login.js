@@ -60,11 +60,13 @@ function Login() {
 					component="form"
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
+					noValidate
 				>
 					<TextFieldComponent
 						name={'usernameEmail'}
 						required={true}
 						label={'Username or Email'}
+						validation={{ required: getErrMsg('Username or Email', 'required') }}
 						{...formProps}
 					/>
 					<InputPassword

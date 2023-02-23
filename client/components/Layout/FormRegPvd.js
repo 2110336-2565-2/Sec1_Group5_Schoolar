@@ -11,11 +11,7 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 
 	const sendData = async (data) => {
 		try {
-			const response = await axios.post('/auth/register', data, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
+			const response = await axios.post('/auth/register', data)
 			alert(response.data)
 			router.push('/login')
 		} catch (error) {

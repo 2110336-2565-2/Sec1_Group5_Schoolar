@@ -91,19 +91,13 @@
                 "program": {
                   "example": "any"
                 },
-                "householdIncome": {
-                  "example": "any"
-                },
                 "targetNation": {
                   "example": "any"
                 },
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "employment": {
-                  "example": "any"
-                },
-                "field": {
+                "fieldOfInterest": {
                   "example": "any"
                 },
                 "providerName": {
@@ -326,13 +320,16 @@
                 "gender": {
                   "example": "any"
                 },
-                "education": {
+                "gpax": {
                   "example": "any"
                 },
-                "householdIncome": {
+                "degree": {
                   "example": "any"
                 },
-                "employment": {
+                "school": {
+                  "example": "any"
+                },
+                "program": {
                   "example": "any"
                 },
                 "targetNation": {
@@ -341,13 +338,7 @@
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phoneNumber": {
+                "fieldOfInterest": {
                   "example": "any"
                 }
               }
@@ -395,13 +386,16 @@
                 "gender": {
                   "example": "any"
                 },
-                "education": {
+                "gpax": {
                   "example": "any"
                 },
-                "householdIncome": {
+                "degree": {
                   "example": "any"
                 },
-                "employment": {
+                "school": {
+                  "example": "any"
+                },
+                "program": {
                   "example": "any"
                 },
                 "targetNation": {
@@ -410,13 +404,7 @@
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phoneNumber": {
+                "fieldOfInterest": {
                   "example": "any"
                 }
               }
@@ -441,14 +429,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
-                  "example": "any"
-                },
                 "password": {
                   "example": "any"
                 }
@@ -512,6 +502,30 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/scholarship/{id}": {
+      "get": {
+        "tags": [
+          "scholarship"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -595,9 +609,6 @@
                 "creditCardNumber": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
                 "phoneNumber": {
                   "example": "any"
                 }
@@ -644,9 +655,6 @@
                   "example": "any"
                 },
                 "creditCardNumber": {
-                  "example": "any"
-                },
-                "email": {
                   "example": "any"
                 },
                 "phoneNumber": {

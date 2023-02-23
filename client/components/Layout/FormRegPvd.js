@@ -29,17 +29,19 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 
 	const formProps = { register, errors }
 	return (
-		<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
-			<Stack spacing={3} direction="column">
-				<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
-				<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
-				<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-					SUBMIT
-				</Button>
-			</Stack>
+		<FormControl
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
+		>
+			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
+			<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
+				SUBMIT
+			</Button>
 		</FormControl>
 	)
 }

@@ -6,8 +6,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
-
-import theme from '../../src/styles/theme'
+import theme from '@/styles/theme'
 
 const WebLayout = ({ children }) => {
 	const { auth, setAuth } = useAuth()
@@ -24,9 +23,9 @@ const WebLayout = ({ children }) => {
 	}, [open])
 
 	const getBgImage = () => {
-		if (!auth) return 'classroom.png'
-		if (auth.role === 'student') return 'student.png'
-		return 'teacher.png'
+		if (!auth) return 'pencils.jpg'
+		if (auth.role === 'student') return 'cambridge.jpg'
+		return 'school.png'
 	}
 
 	return (
@@ -39,20 +38,21 @@ const WebLayout = ({ children }) => {
 			<Box
 				sx={{
 					minHeight: '100vh',
-					height: '100%',
-					display: 'flex',
-					flexFlow: 'column',
+					display: 'block',
+					overflow: 'auto',
 					backgroundImage: `url(/background/${getBgImage()})`,
 					backgroundSize: 'cover',
 					backgroundPosition: 'center center',
 				}}
 			>
-				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-				<Box sx={{ flex: '1 1 auto', position: 'relative' }}>
-					<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
-						{open && <Alert severity="success">Logout successfully</Alert>}
+				<Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+					<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
+					<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>
+						<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
+							{open && <Alert severity="success">Logout successfully</Alert>}
+						</Box>
+						{children}
 					</Box>
-					{children}
 				</Box>
 			</Box>
 		</ThemeProvider>

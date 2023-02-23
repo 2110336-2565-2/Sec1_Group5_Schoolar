@@ -19,13 +19,17 @@ const theme = createTheme({
 	// change color theme here
 	palette: {
 		primary: {
-			main: '#1172BC',
-			// light: '#DADEEA',
+			main: '#036EC5',
+			light: '#FFFFFF',
 		},
-		// secondary: {
-		// 	main: '#FDBA21',
-		// 	light: '#EEEDE3',
-		// },
+		secondary: {
+			main: '#FDBA21',
+			light: '#EEEDE3',
+		},
+		text: {
+			primary: '#404040',
+			secondary: '#0B3C6E'
+		}
 	},
 })
 

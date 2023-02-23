@@ -19,8 +19,7 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="address" required={true} shrink={true} multiline={true} rows={3} {...formProps} />
 			<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 				<Button fullWidth variant="contained" onClick={() => setPage('register')}>
 					Back

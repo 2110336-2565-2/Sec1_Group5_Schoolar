@@ -20,6 +20,8 @@ export const TextFieldComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
+	multiline,
+	rows,
 }) => {
 	return (
 		<TextField
@@ -32,6 +34,8 @@ export const TextFieldComponent = ({
 			helperText={errors?.[name] ? errors[name].message : null}
 			disabled={disabled}
 			InputLabelProps={{ shrink }}
+			multiline={multiline}
+			rows={rows}
 		/>
 	)
 }

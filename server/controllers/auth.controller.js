@@ -40,7 +40,6 @@ exports.register = async (req, res) => {
 		providerName,
 		address,
 		website,
-		creditCardNumber,
 		verifyStatus,
 	} = req.body
 
@@ -83,7 +82,6 @@ exports.register = async (req, res) => {
 						providerName,
 						address,
 						website,
-						creditCardNumber,
 						verifyStatus,
 					},
 				],

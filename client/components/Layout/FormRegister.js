@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Button, FormControl, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import Link from 'next/link'
-import InputPassword from './InputPassword'
-import { getErrMsg, getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getValidation } from '@utils/formUtils'
+import Link from 'next/link'
+
+import InputPassword from './InputPassword'
 
 const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues, gap }) => {
 	const handleSubmitStudent = () => {

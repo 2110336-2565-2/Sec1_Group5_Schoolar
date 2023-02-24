@@ -1,15 +1,16 @@
 import React from 'react'
+import { useEffect,useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Center, VStack } from '@components/common'
+import InputPassword from '@components/Layout/InputPassword'
 import { Button, Divider, FormControl, Typography } from '@mui/material'
+import Alert from '@mui/material/Alert'
 import { Box } from '@mui/system'
+import { getValidation } from '@utils/formUtils'
 import { PasswordIcon } from '@utils/images'
 import Image from 'next/image'
-import InputPassword from '@components/Layout/InputPassword'
-import { useState, useEffect } from 'react'
+
 import axios from '@/pages/api/axios'
-import Alert from '@mui/material/Alert'
-import { getValidation } from '@utils/formUtils'
 
 function NewPassword({ router }) {
 	const [success, setSuccess] = useState(false)

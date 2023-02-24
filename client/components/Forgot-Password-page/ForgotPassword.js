@@ -1,9 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, Stack, Typography } from '@mui/material'
-import axios from '@/pages/api/axios'
-import { getErrMsg, getRegEx, isDupe } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getRegEx, isDupe } from '@utils/formUtils'
+
+import axios from '@/pages/api/axios'
 
 function ForgotPassword({ router }) {
 	const {
@@ -32,7 +33,7 @@ function ForgotPassword({ router }) {
 			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 		>
 			<Stack spacing={2} sx={{ py: 2.5 }}>
-				<Typography>Enter your email address and we'll send a link to get back to your account.</Typography>
+				<Typography>Enter your email address and we&apos;ll send a link to get back to your account.</Typography>
 				<TextFieldComponent
 					name={'email'}
 					required={true}

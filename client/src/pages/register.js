@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Error from 'next/error'
 import FormPrimary from '@components/Layout/FormPrimary'
 import FormRegister from '@components/Layout/FormRegister'
-import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegPvd from '@components/Layout/FormRegPvd'
-import FormSecondary from '@components/Layout/FormSecondary'
+import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegStdAddl from '@components/Layout/FormRegStdaddl'
+import FormSecondary from '@components/Layout/FormSecondary'
 import axios from 'axios'
+import Error from 'next/error'
 import { useRouter } from 'next/router'
 
 export default function Register() {
@@ -28,7 +28,7 @@ export default function Register() {
 		typeOfScholarship: '',
 	})
 
-	const [page, setPage] = useState('register')
+	const [page, setPage] = useState('studentAddl')
 	const [error, setError] = useState(null)
 
 	const sendData = async (data) => {

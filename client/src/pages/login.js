@@ -1,17 +1,18 @@
 import * as React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
 import { Alert, Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg } from '@utils/formUtils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
-import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
-import { TextFieldComponent } from '@utils/formComponentUtils'
-import { useState } from 'react'
 
 function Login() {
 	const { auth, setAuth } = useAuth()
@@ -90,7 +91,7 @@ function Login() {
 							Login
 						</Button>
 						<Box sx={{ textAlign: 'center' }}>
-							<Typography>Don't have an account ?</Typography>
+							<Typography>Don&apos;t have an account ?</Typography>
 							<Typography color="primary" sx={{ fontWeight: 'bold' }}>
 								<Link href="/register">Register here!</Link>
 							</Typography>

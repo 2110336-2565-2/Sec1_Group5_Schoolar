@@ -27,7 +27,7 @@ const FormRegStdAddl = ({
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
-			<Alert severity="error">{error}</Alert>
+			{error && <Alert severity="error">{error}</Alert>}
 			<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
 			<SelectComponent name="degree" {...formProps} />
 			<TextFieldComponent name="school" label="School/University" {...formProps} />

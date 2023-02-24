@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { Center, VStack } from '@components/common'
 import WebLayout from '@components/Layout'
 import { Typography } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import LinearProgress from '@mui/material/LinearProgress'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
-import CircularProgress from '@mui/material/CircularProgress'
+
 import { AuthContextProvider } from '@/context/AuthContext'
-import LinearProgress from '@mui/material/LinearProgress'
+
 import axios from '../pages/api/axios'
 
 import '@/styles/globals.css'

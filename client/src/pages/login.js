@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
-import { Button, FormControl, TextField, Typography } from '@mui/material'
+import { Alert, Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,10 +11,12 @@ import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
 import { TextFieldComponent } from '@utils/formComponentUtils'
+import { useState } from 'react'
 
 function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
+	const [error, setError] = useState(null)
 
 	const {
 		register,
@@ -40,13 +42,13 @@ function Login() {
 			router.push('/')
 		} catch (err) {
 			if (!err?.response) {
-				console.log('No Server Response')
+				setError('No Server Response')
 			} else if (err.response?.status === 400) {
-				console.log('Missing Username or Password')
+				setError('Missing Username or Password')
 			} else if (err.response?.status === 401) {
-				console.log('Unauthorized')
+				setError('Incorrect Username, Email or Password')
 			} else {
-				console.log('Login Failed')
+				setError('Login Failed')
 			}
 		}
 	}
@@ -56,43 +58,45 @@ function Login() {
 		<FormPrimary
 			header="Login"
 			form={
-				<FormControl
-					component="form"
-					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
-					onSubmit={handleSubmit(onSubmit)}
-					noValidate
-				>
-					<TextFieldComponent
-						name={'usernameEmail'}
-						required={true}
-						label={'Username or Email'}
-						validation={{ required: getErrMsg('Username or Email', 'required') }}
-						{...formProps}
-					/>
-					<InputPassword
-						register={{
-							...register('password', {
-								required: getErrMsg('password', 'required'),
-							}),
-						}}
-						error={!!errors?.password}
-						helperText={errors?.password ? errors.password.message : null}
-					/>
-					<Box sx={{ textAlign: 'right' }}>
-						<Typography color="primary">
-							<Link href="/forgot-password">Forgot password?</Link>
-						</Typography>
-					</Box>
-					<Button variant="contained" type="submit">
-						Login
-					</Button>
-					<Box sx={{ textAlign: 'center' }}>
-						<Typography>Don't have an account ?</Typography>
-						<Typography color="primary" sx={{ fontWeight: 'bold' }}>
-							<Link href="/register">Register here!</Link>
-						</Typography>
-					</Box>
-				</FormControl>
+				<>
+					<FormControl
+						component="form"
+						sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
+						onSubmit={handleSubmit(onSubmit)}
+					>
+						{error && <Alert severity="error">{error}</Alert>}
+						<TextFieldComponent
+							name={'usernameEmail'}
+							required={true}
+							label={'Username or Email'}
+							validation={{ required: getErrMsg('Username or Email', 'required') }}
+							{...formProps}
+						/>
+						<InputPassword
+							register={{
+								...register('password', {
+									required: getErrMsg('password', 'required'),
+								}),
+							}}
+							error={!!errors?.password}
+							helperText={errors?.password ? errors.password.message : null}
+						/>
+						<Box sx={{ textAlign: 'right' }}>
+							<Typography color="primary">
+								<Link href="/forgot-password">Forgot password?</Link>
+							</Typography>
+						</Box>
+						<Button variant="contained" type="submit">
+							Login
+						</Button>
+						<Box sx={{ textAlign: 'center' }}>
+							<Typography>Don't have an account ?</Typography>
+							<Typography color="primary" sx={{ fontWeight: 'bold' }}>
+								<Link href="/register">Register here!</Link>
+							</Typography>
+						</Box>
+					</FormControl>
+				</>
 			}
 		/>
 	)

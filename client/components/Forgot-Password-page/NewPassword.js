@@ -12,8 +12,8 @@ import Alert from '@mui/material/Alert'
 import { getValidation } from '@utils/formUtils'
 
 function NewPassword({ router }) {
-	const [success, setsuccess] = useState(false)
-	const [error, seterror] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [error, setError] = useState(false)
 
 	const {
 		register,
@@ -37,17 +37,17 @@ function NewPassword({ router }) {
 				},
 			)
 			console.log(res.data)
-			setsuccess(true)
+			setSuccess(true)
 		} catch (err) {
 			console.log(err)
-			seterror(true)
+			setError(true)
 		}
 	}
 
 	useEffect(() => {
 		setTimeout(() => {
-			seterror(false)
-			setsuccess(false)
+			setError(false)
+			setSuccess(false)
 		}, 3000)
 	}, [error, success])
 

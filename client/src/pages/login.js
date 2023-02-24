@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
-import { Alert, Button, FormControl, TextField, Typography } from '@mui/material'
+import { Alert, Button, FormControl, Snackbar, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getErrMsg } from '@utils/formUtils'
@@ -13,11 +13,14 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 
 import axios from './api/axios'
+import { SnackbarContext } from '@/context/SnackbarContext'
+import { useContext } from 'react'
 
 function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
 	const [error, setError] = useState(null)
+	const { setOpen, setText } = useContext(SnackbarContext)
 
 	const {
 		register,
@@ -40,6 +43,8 @@ function Login() {
 			const username = response?.data?.username
 
 			setAuth({ username, accessToken, role })
+			setText("Login success!")
+			setOpen(true)
 			router.push('/')
 		} catch (err) {
 			if (!err?.response) {

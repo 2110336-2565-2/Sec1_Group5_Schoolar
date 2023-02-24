@@ -12,6 +12,7 @@ import { AuthContextProvider } from '@/context/AuthContext'
 import axios from '../pages/api/axios'
 
 import '@/styles/globals.css'
+import { SnackbarContextProvider } from '@/context/SnackbarContext'
 
 export default function App({ Component, pageProps }) {
 	const [auth, setAuth] = useState(null) //{username, role, accessToken}
@@ -64,9 +65,11 @@ export default function App({ Component, pageProps }) {
 
 	return (
 		<AuthContextProvider value={{ auth, setAuth }}>
-			<WebLayout>
-				<Component {...pageProps} />
-			</WebLayout>
+			<SnackbarContextProvider>
+				<WebLayout>
+					<Component {...pageProps} />
+				</WebLayout>
+			</SnackbarContextProvider>
 		</AuthContextProvider>
 	)
 }

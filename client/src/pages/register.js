@@ -28,7 +28,7 @@ export default function Register() {
 		typeOfScholarship: '',
 	})
 
-	const [page, setPage] = useState('studentAddl')
+	const [page, setPage] = useState('register')
 	const [error, setError] = useState(null)
 
 	const sendData = async (data) => {

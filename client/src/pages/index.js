@@ -29,8 +29,6 @@ function Homepage() {
 
 	// Filter Handler
 	const filterHandler = (scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters) => {
-		let matchedFilter = filterInput
-
 		console.log(scholars)
 		// filter scholarship
 		console.log(`matched Input : ${scholarshipFilters}`)
@@ -76,10 +74,6 @@ function Homepage() {
 		//const searchList = [scholar.name.toLowerCase().includes(inputName.toLowerCase()), scholar.typeOfScholarship.includes(filterInput.toLowerCase())]
 
 		// ||scholar.typeOfScholarship.includes(filterInput.toLowerCase())
-	})
-
-	const filteredTypes = scholars.filter((scholar) => {
-		return degreeFilters.includes(scholar.degree) && scholarshipFilters.includes(scholar.typeOfScholarship)
 	})
 
 	return (

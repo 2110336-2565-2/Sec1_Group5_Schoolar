@@ -33,7 +33,9 @@ function ForgotPassword({ router }) {
 			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 		>
 			<Stack spacing={2} sx={{ py: 2.5 }}>
-				<Typography>Enter your email address and we&apos;ll send a link to get back to your account.</Typography>
+				<Typography>
+					Enter your email address and we&apos;ll send a link to get back to your account.
+				</Typography>
 				<TextFieldComponent
 					name={'email'}
 					required={true}
@@ -52,18 +54,17 @@ function ForgotPassword({ router }) {
 				/>
 			</Stack>
 			<Stack spacing={2}>
-				<Button
-					fullWidth
-					variant="contained"
-					size="small"
-					type="submit"
-					onClick={() => {
-						console.log('SD')
-					}}
-				>
+				<Button fullWidth variant="contained" size="small" type="submit">
 					Send Link
 				</Button>
-				<Button fullWidth variant="outlined" size="small">
+				<Button
+					fullWidth
+					variant="outlined"
+					size="small"
+					onClick={() => {
+						router.push('/login')
+					}}
+				>
 					Back To Login
 				</Button>
 			</Stack>

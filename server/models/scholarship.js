@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const scholarshipSchema = new Schema({
-	// id: create automatically in mongoDB
 	name: {
 		required: true,
 		type: String,
@@ -51,13 +50,6 @@ const scholarshipSchema = new Schema({
 			'Faculty of Veterinary Science',
 		],
 	},
-	householdIncome: {
-		// backend tranform number to rank
-		required: true,
-		type: String,
-		enum: ['high', 'medium', 'low'], // changing later
-		index: true,
-	},
 	targetNation: {
 		required: true,
 		type: String,
@@ -72,23 +64,34 @@ const scholarshipSchema = new Schema({
 		enum: ['full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
-		required: true,
-		type: Boolean,
-		index: true,
-		trim: true,
-	},
-	field: {
-		// field of interest
+	fieldOfInterest: {
 		required: true,
 		type: String,
 		index: true,
 		trim: true,
 	},
-	due: {
+	applicationDeadline: {
 		required: true,
 		type: Date,
+	},
+	paymentDueDate: {
+		required: true,
+		type: Date,
+	},
+	paymentStatus: {
+		required: true,
+		type: Boolean,
+	},
+	quota: {
+		type: Number,
+	},
+	amount: {
+		required: true,
+		type: Number,
+	},
+	detail: {
+		required: true,
+		type: String,
 	},
 })
 

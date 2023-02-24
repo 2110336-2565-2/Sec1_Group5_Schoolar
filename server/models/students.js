@@ -14,9 +14,8 @@ const studentSchema = new Schema({
 		trim: true,
 	},
 	birthdate: {
-		//birthdate ,using Date type has some complicated change
 		required: true,
-		type: String, //possible to change
+		type: Date,
 		maxLength: 10,
 		trim: true,
 	},
@@ -32,8 +31,8 @@ const studentSchema = new Schema({
 		unique: true,
 		trim: true,
 	},
+	// below this is the criteria for matching
 	gpax: {
-		require: true,
 		type: Number,
 	},
 	degree: {
@@ -74,17 +73,11 @@ const studentSchema = new Schema({
 			'Faculty of Veterinary Science',
 		],
 	},
-	// below this is the criteria for matching
-	householdIncome: {
-		// backend tranform number to rank
-		type: Number,
-		index: true,
-	},
 	targetNation: {
 		type: String,
 		maxLength: 60,
 		index: true,
-		// lowercase: true,
+		lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {
@@ -92,17 +85,12 @@ const studentSchema = new Schema({
 		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
 		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
-		type: Boolean,
-		index: true,
+	fieldOfInterest: {
+		type: String,
 		trim: true,
 	},
-	field: {
-		// field of interest
-		type: String,
-		index: true,
-		trim: true,
+	pinScolarship: {
+		// type:
 	},
 })
 

@@ -3,7 +3,7 @@ const { Schema } = mongoose
 
 const providerSchema = new Schema({
 	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-	providerName: {
+	organizationName: {
 		required: true,
 		type: String,
 		maxLength: 40,
@@ -23,19 +23,22 @@ const providerSchema = new Schema({
 		lowercase: true,
 		trim: true,
 	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
-	},
 	creditCardNumber: {
-		required: true,
 		type: String,
 		maxLength: 16,
 		unique: true,
 		trim: true,
+	},
+	nameOnCard: {
+		type: String,
+		trim: true,
+	},
+	cardExpiredDate: {
+		type: Date,
+	},
+	cvv: {
+		type: Number,
+		// maxLength:10
 	},
 })
 

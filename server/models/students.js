@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const studentSchema = new Schema({
-	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	username: {
+		type: String,
+		ref: 'User',
+	},
 	firstName: {
 		required: true,
 		type: String,
@@ -16,7 +19,6 @@ const studentSchema = new Schema({
 	birthdate: {
 		required: true,
 		type: Date,
-		maxLength: 10,
 		trim: true,
 	},
 	gender: {
@@ -33,6 +35,7 @@ const studentSchema = new Schema({
 	},
 	// below this is the criteria for matching
 	gpax: {
+		required: true,
 		type: Number,
 	},
 	degree: {
@@ -48,7 +51,7 @@ const studentSchema = new Schema({
 		enum: [
 			'',
 			'Sci-Math',
-			'Art-Cal',
+			'Art-Math',
 			'Art-Language',
 			'Art-Society',
 			'Art-General',
@@ -89,9 +92,7 @@ const studentSchema = new Schema({
 		type: String,
 		trim: true,
 	},
-	pinScolarship: {
-		// type:
-	},
+	pinScholarships: [{ type: mongoose.Schema.Types.ObjectId, ref: 'scholarship' }],
 })
 
 module.exports = mongoose.model('Students', studentSchema)

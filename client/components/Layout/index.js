@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '@components/Layout/Navbar'
 import { Box, CssBaseline } from '@mui/material'
 import Alert from '@mui/material/Alert'
@@ -6,20 +6,12 @@ import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
-
-import theme from '../../src/styles/theme'
+import theme from '@/styles/theme'
 
 const WebLayout = ({ children }) => {
 	const { auth, setAuth } = useAuth()
-	const [open, setOpen] = React.useState(false)
-
+	const [open, setOpen] = useState(false)
 	const { route } = useRouter()
-	const yellowBgPages = ['/register', '/login']
-	if (yellowBgPages.includes(route)) {
-		theme.palette.background.default = theme.palette.secondary.light
-	} else {
-		theme.palette.background.default = theme.palette.primary.light
-	}
 
 	useEffect(() => {
 		if (open) {
@@ -30,6 +22,12 @@ const WebLayout = ({ children }) => {
 		}
 	}, [open])
 
+	const getBgImage = () => {
+		if (!auth) return 'pencils.svg'
+		if (auth.role === 'student') return 'cambridge.jpg'
+		return 'school.png'
+	}
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -39,17 +37,22 @@ const WebLayout = ({ children }) => {
 			<CssBaseline />
 			<Box
 				sx={{
-					height: '100vh',
-					display: 'flex',
-					flexFlow: 'column',
+					minHeight: '100vh',
+					display: 'block',
+					overflow: 'auto',
+					backgroundImage: `url(/background/${getBgImage()})`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center center',
 				}}
 			>
-				<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
-				<Box sx={{ flex: '1 1 auto', position: 'relative' }}>
-					<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
-						{open && <Alert severity="success">Logout successfully</Alert>}
+				<Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+					<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
+					<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>
+						<Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
+							{open && <Alert severity="success">Logout successfully</Alert>}
+						</Box>
+						{children}
 					</Box>
-					{children}
 				</Box>
 			</Box>
 		</ThemeProvider>

@@ -24,7 +24,7 @@ exports.getProvider = async (req, res) => {
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const provider = await Provider.findOne({ userID: user._id })
+		const provider = await Provider.findOne({ username })
 		if (!provider) throw new Error('Provider not found')
 
 		return res.status(200).json({ provider, user })
@@ -45,12 +45,12 @@ exports.updateProviderInfo = async (req, res) => {
 
 	try {
 		const username = req.params.username
-		const { providerName, address, website, creditCardNumber, email, phoneNumber } = req.body
-		console.log(req.body)
+		const { providerName, address, website, creditCardNumber, phoneNumber } = req.body
+
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
-		const provider = await Provider.findOne({ userID: user._id })
+		const provider = await Provider.findOne({ username })
 		if (!provider) throw new Error('Provider not found')
 
 		Object.assign(provider, {
@@ -60,7 +60,8 @@ exports.updateProviderInfo = async (req, res) => {
 			creditCardNumber,
 			phoneNumber,
 		})
-		Object.assign(user, { email })
+
+		Object.assign(user, { phoneNumber })
 
 		await user.save()
 		await provider.save()

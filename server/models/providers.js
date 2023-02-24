@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const providerSchema = new Schema({
-	userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+	username: {
+		type: String,
+		ref: 'User',
+	},
 	organizationName: {
 		required: true,
 		type: String,

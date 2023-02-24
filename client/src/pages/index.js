@@ -5,6 +5,7 @@ import { Box, Divider, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 
 import axios from './api/axios'
+import Footer from '@components/Home-page/footer'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
@@ -25,22 +26,25 @@ function Homepage() {
 	})
 
 	return (
-		<Container maxWidth="lg">
-			<SearchBar searchHandler={searchHandler} />
-			<Box sx={{ my: 3 }}>
-				{inputName.length > 0 ? (
-					<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-						{`Scholarships related to "${inputName}"`}
-					</Typography>
-				) : (
-					<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-						The Latest Scholarships
-					</Typography>
-				)}
-				<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-			</Box>
-			<Scholarship items={filteredScholars} />
-		</Container>
+		<>
+			<Container maxWidth="lg">
+				<SearchBar searchHandler={searchHandler} />
+				<Box sx={{ my: 3 }}>
+					{inputName.length > 0 ? (
+						<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+							{`Scholarships related to "${inputName}"`}
+						</Typography>
+					) : (
+						<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+							The Latest Scholarships
+						</Typography>
+					)}
+					<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
+				</Box>
+				<Scholarship items={filteredScholars} />
+			</Container>
+			<Footer />
+		</>
 	)
 }
 

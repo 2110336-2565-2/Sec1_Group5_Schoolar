@@ -6,14 +6,12 @@ import { Button, FormControl, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
+import { getErrMsg } from '@utils/formUtils'
 
 import axios from './api/axios'
+import { TextFieldComponent } from '@utils/formComponentUtils'
 
-// Just Mock Login -> pls re-implement this again
-// NOTE
-// username: Admin1234, password: Admin1234
 function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
@@ -25,21 +23,19 @@ function Login() {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
-		const username = data.username
+		const usernameEmail = data.usernameEmail
 		const password = data.password
-
-		console.log(username, password)
 
 		try {
 			const response = await axios.post('/auth/login', {
-				username: username,
+				usernameEmail: usernameEmail,
 				password: password,
 			})
 
 			const accessToken = response?.data?.accessToken
 			const role = response?.data?.role
-			console.log(accessToken)
-			console.log(role)
+			const username = response?.data?.username
+
 			setAuth({ username, accessToken, role })
 			router.push('/')
 		} catch (err) {
@@ -55,34 +51,28 @@ function Login() {
 		}
 	}
 
+	const formProps = { register, errors }
 	return (
 		<FormPrimary
-			header="Login to Schoolar"
+			header="Login"
 			form={
 				<FormControl
 					component="form"
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
+					noValidate
 				>
-					<TextField
-						required
-						fullWidth
-						id="username"
-						name="username"
-						autoFocus
-						label="Username"
-						variant="outlined"
-						autoComplete="username"
-						{...register('username', {
-							required: 'Username is required',
-						})}
-						error={!!errors?.username}
-						helperText={errors?.username ? errors.username.message : null}
+					<TextFieldComponent
+						name={'usernameEmail'}
+						required={true}
+						label={'Username or Email'}
+						validation={{ required: getErrMsg('Username or Email', 'required') }}
+						{...formProps}
 					/>
 					<InputPassword
 						register={{
 							...register('password', {
-								required: 'Password is required',
+								required: getErrMsg('password', 'required'),
 							}),
 						}}
 						error={!!errors?.password}
@@ -97,7 +87,7 @@ function Login() {
 						Login
 					</Button>
 					<Box sx={{ textAlign: 'center' }}>
-						<Typography>Dont have an account ?</Typography>
+						<Typography>Don't have an account ?</Typography>
 						<Typography color="primary" sx={{ fontWeight: 'bold' }}>
 							<Link href="/register">Register here!</Link>
 						</Typography>

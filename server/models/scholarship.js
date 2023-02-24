@@ -2,14 +2,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const scholarshipSchema = new Schema({
-	name: {
+	scholarshipName: {
 		required: true,
 		type: String,
 		lowercase: true,
 		trim: true,
 	},
 	provider_id: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Provider',
 	},
 	degree: {
 		required: true,
@@ -17,7 +18,7 @@ const scholarshipSchema = new Schema({
 		enum: ['high school', 'bachelor', 'master', 'doctoral'],
 	},
 	gpax: {
-		require: true,
+		required: true,
 		type: Number,
 	},
 	program: {
@@ -71,7 +72,6 @@ const scholarshipSchema = new Schema({
 		trim: true,
 	},
 	applicationDeadline: {
-		required: true,
 		type: Date,
 	},
 	paymentDueDate: {
@@ -86,11 +86,9 @@ const scholarshipSchema = new Schema({
 		type: Number,
 	},
 	amount: {
-		required: true,
 		type: Number,
 	},
 	detail: {
-		required: true,
 		type: String,
 	},
 })

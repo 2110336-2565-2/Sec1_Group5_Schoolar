@@ -23,21 +23,19 @@ function Login() {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
-		const username = data.username
+		const usernameEmail = data.usernameEmail
 		const password = data.password
-
-		// console.log(username, password)
 
 		try {
 			const response = await axios.post('/auth/login', {
-				username: username,
+				usernameEmail: usernameEmail,
 				password: password,
 			})
 
 			const accessToken = response?.data?.accessToken
 			const role = response?.data?.role
-			console.log(accessToken)
-			console.log(role)
+			const username = response?.data?.username
+
 			setAuth({ username, accessToken, role })
 			router.push('/')
 		} catch (err) {
@@ -56,19 +54,19 @@ function Login() {
 	const formProps = { register, errors }
 	return (
 		<FormPrimary
-			header="Login to Schoolar"
+			header="Login"
 			form={
 				<FormControl
 					component="form"
 					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 					onSubmit={handleSubmit(onSubmit)}
+					noValidate
 				>
 					<TextFieldComponent
-						name={'username'}
+						name={'usernameEmail'}
 						required={true}
-						validation={{
-							required: getErrMsg('username', 'required'),
-						}}
+						label={'Username or Email'}
+						validation={{ required: getErrMsg('Username or Email', 'required') }}
 						{...formProps}
 					/>
 					<InputPassword
@@ -89,7 +87,7 @@ function Login() {
 						Login
 					</Button>
 					<Box sx={{ textAlign: 'center' }}>
-						<Typography>Dont have an account ?</Typography>
+						<Typography>Don't have an account ?</Typography>
 						<Typography color="primary" sx={{ fontWeight: 'bold' }}>
 							<Link href="/register">Register here!</Link>
 						</Typography>

@@ -72,7 +72,7 @@ function Navbar({ setOpen }) {
 						</Center>
 
 						<MenuItem component={Link} href="#footer">
-							<Typography textAlign="center" color={'text.secondary'}>
+							<Typography textAlign="center" color={'text.main'}>
 								Contact Us
 							</Typography>
 						</MenuItem>

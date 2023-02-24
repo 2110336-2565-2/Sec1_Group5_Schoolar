@@ -6,7 +6,7 @@ import InputPassword from './InputPassword'
 import { getErrMsg, getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues }) => {
+const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues, gap }) => {
 	const handleSubmitStudent = () => {
 		handleSubmit((data) => {
 			setValue('role', 'student')
@@ -22,7 +22,7 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 
 	const formProps = { register, errors }
 	return (
-		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}>
+		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}>
 			<TextFieldComponent name={'username'} required={true} {...formProps} />
 			<TextFieldComponent name={'email'} required={true} {...formProps} />
 			<InputPassword
@@ -49,11 +49,11 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 				}
 			/>
 			<Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
-				<Button variant="contained" onClick={handleSubmitStudent} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-					Register as student
+				<Button fullWidth variant="contained" onClick={handleSubmitStudent}>
+					Register as Student
 				</Button>
-				<Button variant="contained" onClick={handleSubmitProvider} sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-					Register as provider
+				<Button fullWidth variant="contained" onClick={handleSubmitProvider}>
+					Register as Provider
 				</Button>
 			</Box>
 			<Box sx={{ textAlign: 'center' }}>

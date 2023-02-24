@@ -26,12 +26,11 @@ import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
-
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import MenuIcon from '@mui/icons-material/Menu'
 
-function Navbar() {
+function Navbar({ setOpen }) {
 	const { auth, setAuth } = useAuth()
 	const { openSnackbar } = useSnackbar()
 

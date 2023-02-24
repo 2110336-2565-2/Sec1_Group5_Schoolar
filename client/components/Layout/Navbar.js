@@ -22,9 +22,12 @@ import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useContext } from 'react'
+import { SnackbarContext } from '@/context/SnackbarContext'
 
-function Navbar({ setOpen }) {
+function Navbar() {
 	const { auth, setAuth } = useAuth()
+	const { setSnackbar } = useContext(SnackbarContext)
 
 	const router = useRouter()
 
@@ -50,7 +53,8 @@ function Navbar({ setOpen }) {
 	const handleLogout = async () => {
 		try {
 			await logoutUser()
-			setOpen(true)
+			setAuth(null)
+			setSnackbar((prev) => ({ ...prev, severity: 'success', text: 'Logout success!', open: true }))
 		} catch (error) {
 			console.error(error)
 		}

@@ -15,15 +15,14 @@ const WebLayout = ({ children }) => {
 	const { auth, setAuth } = useAuth()
 	// const [open, setOpen] = useState(false)
 	const { route } = useRouter()
-	const { open, setOpen, handleClose, text } = useContext(SnackbarContext)
-	useEffect(() => {
-		if (open) {
-			setTimeout(() => {
-				setAuth(null)
-				setOpen(false)
-			}, 1000)
-		}
-	}, [open])
+	const { snackbar, setSnackbar, handleClose } = useContext(SnackbarContext)
+	// useEffect(() => {
+	// 	if (open) {
+	// 		setTimeout(() => {
+	// 			setAuth(null)
+	// 		}, 1000)
+	// 	}
+	// }, [open])
 
 	const getBgImage = () => {
 		if (!auth) return 'pencils.svg'
@@ -31,7 +30,7 @@ const WebLayout = ({ children }) => {
 		return 'school.png'
 	}
 
-	console.log("RR")
+	console.log('RR')
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -39,7 +38,7 @@ const WebLayout = ({ children }) => {
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
 			<CssBaseline />
-			<Navbar sx={{ flex: '0 1 auto' }} setOpen={setOpen} />
+			<Navbar />
 			<Box
 				sx={{
 					minHeight: 'calc(100vh - 64px)',
@@ -51,20 +50,14 @@ const WebLayout = ({ children }) => {
 					flexDirection: 'column',
 				}}
 			>
-				<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>
-					{/* <Box sx={{ position: 'fixed', top: '64px', right: '16px' }}>
-						{open && <Alert severity="success">Logout successfully</Alert>}
-					</Box> */}
-					{children}
-				</Box>
+				<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>{children}</Box>
 			</Box>
-			<Snackbar open={open} autoHideDuration={16000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-					{text}
+			<Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleClose}>
+				<Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+					{snackbar.text}
 				</Alert>
 			</Snackbar>
 		</ThemeProvider>
 	)
 }
-//Logout successfully
 export default WebLayout

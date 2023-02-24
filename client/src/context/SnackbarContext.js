@@ -3,21 +3,20 @@ import { createContext, useState } from 'react'
 const SnackbarContext = createContext()
 
 function SnackbarContextProvider({ children }) {
-	const [open, setOpen] = useState(false)
-	const [text, setText] = useState('')
-
+	const [snackbar, setSnackbar] = useState({
+		open: false,
+		text: '',
+		severity: 'success',
+	})
+    
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return
 		}
 
-		setOpenS(false)
+		setSnackbar((prev) => ({ ...prev, open: false }))
 	}
-	return (
-		<SnackbarContext.Provider value={{ open, setOpen, handleClose, text, setText }}>
-			{children}
-		</SnackbarContext.Provider>
-	)
+	return <SnackbarContext.Provider value={{ snackbar, setSnackbar, handleClose }}>{children}</SnackbarContext.Provider>
 }
 
 export { SnackbarContextProvider, SnackbarContext }

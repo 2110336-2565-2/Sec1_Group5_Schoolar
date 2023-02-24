@@ -16,7 +16,7 @@ const FormRegStdAddl = ({
 	error,
 }) => {
 	const onSubmit = (data) => {
-		console.log('Submit', data)
+		// console.log('Submit', data)
 		sendData(data)
 	}
 
@@ -24,6 +24,7 @@ const FormRegStdAddl = ({
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>

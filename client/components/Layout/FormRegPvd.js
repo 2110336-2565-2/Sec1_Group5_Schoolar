@@ -16,7 +16,7 @@ const FormRegPvd = ({
 	error,
 }) => {
 	const onSubmit = async (data) => {
-		console.log('Submit', data)
+		// console.log('Submit', data)
 		sendData(data)
 	}
 
@@ -24,6 +24,7 @@ const FormRegPvd = ({
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>

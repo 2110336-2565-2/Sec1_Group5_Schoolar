@@ -66,6 +66,7 @@ function Login() {
 						component="form"
 						sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
 						onSubmit={handleSubmit(onSubmit)}
+						noValidate
 					>
 						{error && <Alert severity="error">{error}</Alert>}
 						<TextFieldComponent

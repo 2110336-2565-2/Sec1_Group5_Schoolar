@@ -18,7 +18,6 @@ function ForgotPassword({ router }) {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
-		console.log(data)
 		setSuccess(null)
 		setError(null)
 		setInfo('Sending...')
@@ -26,20 +25,19 @@ function ForgotPassword({ router }) {
 			const res = await axios.post('/resetPassword/email', { email: data.email })
 			setInfo(null)
 			setSuccess(res.data.message)
-			console.log(res.data.message)
 		} catch (err) {
 			setInfo(null)
 			console.log(err)
 			setError(err.response.data.error)
 		}
 	}
-	console.log(error)
 
 	const formProps = { register, errors }
 	return (
 		<FormControl
 			component="form"
 			onSubmit={handleSubmit(onSubmit)}
+			noValidate
 			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 		>
 			<Stack spacing={2} sx={{ pt: 1, pb: 2 }}>

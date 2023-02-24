@@ -55,6 +55,7 @@ function NewPassword({ router }) {
 			</Typography>
 			<FormControl
 				component="form"
+				noValidate
 				onSubmit={handleSubmit(onSubmit)}
 				sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 			>

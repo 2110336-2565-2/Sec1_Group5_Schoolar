@@ -23,7 +23,7 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 
 	const formProps = { register, errors }
 	return (
-		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}>
+		<FormControl component="form" noValidate sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}>
 			<TextFieldComponent name={'username'} required={true} {...formProps} />
 			<TextFieldComponent name={'email'} required={true} {...formProps} />
 			<InputPassword

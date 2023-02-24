@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Center, HStack } from '@components/common'
-import { AppRegistration, Edit, Login, Logout, Route } from '@mui/icons-material'
+import { AppRegistration, Edit, Login, Logout } from '@mui/icons-material'
 import {
 	Avatar,
 	Box,
@@ -9,10 +9,13 @@ import {
 	ListItemIcon,
 	Menu,
 	MenuItem,
+	MenuList,
+	Paper,
 	Stack,
 	Toolbar,
 	Tooltip,
 	Typography,
+	ListItemText,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Image from 'next/image'
@@ -37,8 +40,6 @@ function Navbar({ setOpen }) {
 	const theme = useTheme()
 	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
 
-	const [menuOpen, setMenuOpen] = useState(false)
-
 	const handleLogo = () => {
 		if (router.asPath == '/') {
 			router.reload()
@@ -53,6 +54,17 @@ function Navbar({ setOpen }) {
 
 	const handleMenuClose = () => {
 		setAnchorEl(null)
+	}
+
+	const [hiddenMenuAnchorEl, setHiddenMenuAnchorEl] = useState(null)
+	const menuOpen = Boolean(hiddenMenuAnchorEl)
+
+	const handleHiddenMenuClick = (event) => {
+		setHiddenMenuAnchorEl(event.currentTarget)
+	}
+
+	const handleHiddenMenuClose = () => {
+		setHiddenMenuAnchorEl(null)
 	}
 
 	const handleLogout = async () => {
@@ -70,26 +82,76 @@ function Navbar({ setOpen }) {
 		await axiosPrivate.put('/auth/logout')
 	}
 
+	const menus = ['Contact Us']
+
 	return (
 		<AppBar position="sticky" sx={{ bgcolor: 'primary.light' }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
 					<Stack direction="row" spacing={2}>
 						{!isSm && (
-							<MenuItem>
-								<MenuIcon style={{ color: '#000000' }} />
-							</MenuItem>
+							<>
+								<MenuItem component={Link} href="#footer">
+									<MenuIcon onClick={handleHiddenMenuClick} style={{ color: '#000000' }} />
+								</MenuItem>
+								<Menu
+									anchorEl={anchorEl}
+									id="hidden-menu"
+									open={menuOpen}
+									onClose={handleHiddenMenuClose}
+									onClick={handleHiddenMenuClose}
+									PaperProps={{
+										elevation: 0,
+										sx: {
+											overflow: 'visible',
+											filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+											mt: 4,
+											'& .MuiMenuIcon-root': {
+												width: 32,
+												height: 32,
+												ml: -0.5,
+												mr: 1,
+											},
+											'&:before': {
+												content: '""',
+												display: 'block',
+												position: 'absolute',
+												top: 0,
+												left: 24,
+												width: 10,
+												height: 10,
+												bgcolor: 'background.paper',
+												transform: 'translateY(-50%) rotate(45deg)',
+												zIndex: 0,
+											},
+										},
+									}}
+									transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+									anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+								>
+									{menus.map((a) => {
+										return (
+											<MenuItem key={a}>
+												<ListItemText>{a}</ListItemText>
+											</MenuItem>
+										)
+									})}
+								</Menu>
+							</>
 						)}
 						<Center onClick={handleLogo}>
 							<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
 						</Center>
-						{isSm && (
-							<MenuItem component={Link} href="#footer">
-								<Typography textAlign="center" color={'text.main'}>
-									Contact Us
-								</Typography>
-							</MenuItem>
-						)}
+						{isSm &&
+							menus.map((a) => {
+								return (
+									<MenuItem component={Link} href="#footer">
+										<Typography textAlign="center" color={'text.main'} key={a}>
+											{a}
+										</Typography>
+									</MenuItem>
+								)
+							})}
 					</Stack>
 					<Stack direction="row">
 						{auth && (

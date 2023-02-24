@@ -4,8 +4,9 @@ import WebLayout from '@components/Layout/WebLayout'
 import CircularProgress from '@mui/material/CircularProgress'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
-import axios from '@/pages/api/axios'
+
 import { useAuth } from '@/context/AuthContext'
+import axios from '@/pages/api/axios'
 
 export default function Loading({ Component, pageProps }) {
 	const [loading, setLoading] = useState(true)

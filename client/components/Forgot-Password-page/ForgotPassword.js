@@ -1,9 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, Button, FormControl, Stack, Typography } from '@mui/material'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getErrMsg, getRegEx, isDupe } from '@utils/formUtils'
-import { useState } from 'react'
+
 import axios from '@/pages/api/axios'
 
 function ForgotPassword({ router }) {

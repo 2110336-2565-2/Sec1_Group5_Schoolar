@@ -9,6 +9,7 @@ import FormSecondary from '@components/Layout/FormSecondary'
 import axios from 'axios'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
+
 import { useSnackbar } from '@/context/SnackbarContext'
 
 export default function Register() {

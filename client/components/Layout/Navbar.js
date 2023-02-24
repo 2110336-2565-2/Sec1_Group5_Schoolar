@@ -20,8 +20,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function Navbar() {
 	const { auth, setAuth } = useAuth()

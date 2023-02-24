@@ -6,8 +6,8 @@ import { Button, FormControl, Typography } from '@mui/material'
 import Alert from '@mui/material/Alert'
 import { getErrMsg, getValidation } from '@utils/formUtils'
 
-import axios from '@/pages/api/axios'
 import { useSnackbar } from '@/context/SnackbarContext'
+import axios from '@/pages/api/axios'
 
 function NewPassword({ router }) {
 	const [error, setError] = useState(false)
@@ -24,7 +24,7 @@ function NewPassword({ router }) {
 	const onSubmit = async (data) => {
 		setError(false)
 		const token = router.query.token
-		console.log(data)
+		// console.log(data)
 
 		try {
 			const res = await axios.put(
@@ -36,11 +36,9 @@ function NewPassword({ router }) {
 					},
 				},
 			)
-			console.log(res.data)
+			// console.log(res.data)
 			openSnackbar('Reset password success!', 'success')
-			setTimeout(() => {
-				router.push('/')
-			}, 1000)
+			router.push('/')
 		} catch (err) {
 			console.log(err)
 			setError(true)

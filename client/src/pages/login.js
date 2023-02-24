@@ -9,9 +9,11 @@ import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getErrMsg } from '@utils/formUtils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
-import axios from './api/axios'
 import { useSnackbar } from '@/context/SnackbarContext'
+
+import axios from './api/axios'
 
 function Login() {
 	const { setAuth } = useAuth()

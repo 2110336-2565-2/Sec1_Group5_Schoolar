@@ -1,8 +1,10 @@
-import '@/styles/globals.css'
-import { AuthContextProvider } from '@/context/AuthContext'
-import { SnackbarContextProvider } from '@/context/SnackbarContext'
 import Loading from '@components/Layout/Loading'
 import SnackbarComponent from '@components/Layout/SnackbarComponent'
+
+import { AuthContextProvider } from '@/context/AuthContext'
+import { SnackbarContextProvider } from '@/context/SnackbarContext'
+
+import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }) {
 	return (

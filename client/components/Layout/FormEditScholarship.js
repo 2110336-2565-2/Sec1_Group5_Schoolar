@@ -1,7 +1,7 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import { Button, FormControl, Grid, Stack } from '@mui/material'
 import { TextFieldComponent } from '@utils/formComponentUtils'
-import { useForm } from 'react-hook-form'
 
 const FormEditScholarship = () => {
 	const {

@@ -1,6 +1,7 @@
-import { Alert, Snackbar } from '@mui/material'
-import { useSnackbar } from '@/context/SnackbarContext'
 import { memo } from 'react'
+import { Alert, Snackbar } from '@mui/material'
+
+import { useSnackbar } from '@/context/SnackbarContext'
 
 function SnackbarComponent() {
 	const { snackbar, closeSnackbar } = useSnackbar()

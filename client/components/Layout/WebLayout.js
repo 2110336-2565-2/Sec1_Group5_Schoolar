@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react'
 import Navbar from '@components/Layout/Navbar'
-import { Box, CssBaseline, Snackbar } from '@mui/material'
-import Alert from '@mui/material/Alert'
+import { Box, CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
 import theme from '@/styles/theme'
-import { useContext } from 'react'
-import { SnackbarContext } from '@/context/SnackbarContext'
 
 const WebLayout = ({ children }) => {
 	const { auth, setAuth } = useAuth()
-	// const [open, setOpen] = useState(false)
+
 	const { route } = useRouter()
-	const { snackbar, setSnackbar, handleClose } = useContext(SnackbarContext)
-	// useEffect(() => {
-	// 	if (open) {
-	// 		setTimeout(() => {
-	// 			setAuth(null)
-	// 		}, 1000)
-	// 	}
-	// }, [open])
 
 	const getBgImage = () => {
 		if (!auth) return 'pencils.svg'
@@ -52,11 +39,6 @@ const WebLayout = ({ children }) => {
 			>
 				<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>{children}</Box>
 			</Box>
-			<Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
-					{snackbar.text}
-				</Alert>
-			</Snackbar>
 		</ThemeProvider>
 	)
 }

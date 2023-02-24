@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Center, VStack } from '@components/common'
-import WebLayout from '@components/Layout'
-import { Typography } from '@mui/material'
+import WebLayout from '@components/Layout/WebLayout'
+import { Alert, Snackbar, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
 import jwtDecode from 'jwt-decode'
@@ -12,15 +12,31 @@ import { AuthContextProvider } from '@/context/AuthContext'
 import axios from '../pages/api/axios'
 
 import '@/styles/globals.css'
-import { SnackbarContextProvider } from '@/context/SnackbarContext'
+import { SnackbarContext, SnackbarContextProvider } from '@/context/SnackbarContext'
+import { Box } from '@mui/system'
+import { useContext } from 'react'
 
 export default function App({ Component, pageProps }) {
 	const [auth, setAuth] = useState(null) //{username, role, accessToken}
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
-	const router = useRouter()
 
-	console.log('render app', auth)
+	const router = useRouter()
+	const [snackbar, setSnackbar] = useState({
+		open: false,
+		text: '',
+		severity: 'success',
+	})
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return
+		}
+
+		setSnackbar((prev) => ({ ...prev, open: false }))
+	}
+
+	// console.log('render app', auth)
 
 	useEffect(() => {
 		setLoading(true)
@@ -65,10 +81,15 @@ export default function App({ Component, pageProps }) {
 
 	return (
 		<AuthContextProvider value={{ auth, setAuth }}>
-			<SnackbarContextProvider>
+			<SnackbarContextProvider value={{ snackbar, setSnackbar, handleClose }}>
 				<WebLayout>
 					<Component {...pageProps} />
 				</WebLayout>
+				<Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleClose}>
+					<Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+						{snackbar.text}
+					</Alert>
+				</Snackbar>
 			</SnackbarContextProvider>
 		</AuthContextProvider>
 	)

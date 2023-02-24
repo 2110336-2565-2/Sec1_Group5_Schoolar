@@ -20,7 +20,7 @@ function Login() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
 	const [error, setError] = useState(null)
-	const { setOpen, setText } = useContext(SnackbarContext)
+	const { setSnackbar } = useContext(SnackbarContext)
 
 	const {
 		register,
@@ -43,8 +43,7 @@ function Login() {
 			const username = response?.data?.username
 
 			setAuth({ username, accessToken, role })
-			setText("Login success!")
-			setOpen(true)
+			setSnackbar((prev) => ({ ...prev, severity: 'success', text: 'Login success!', open: true }))
 			router.push('/')
 		} catch (err) {
 			if (!err?.response) {

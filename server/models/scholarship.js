@@ -8,7 +8,7 @@ const scholarshipSchema = new Schema({
 		lowercase: true,
 		trim: true,
 	},
-	provider_id: {
+	provider: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Provider',
 	},

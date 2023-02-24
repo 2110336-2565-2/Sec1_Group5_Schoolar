@@ -18,20 +18,13 @@ const studentSchema = new Schema({
 	},
 	birthdate: {
 		required: true,
-		type: Date,
+		type: String, // Date ?
 		trim: true,
 	},
 	gender: {
 		required: true,
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
-	},
-	phoneNumber: {
-		required: true,
-		type: String,
-		maxLength: 10,
-		unique: true,
-		trim: true,
 	},
 	// below this is the criteria for matching
 	gpax: {

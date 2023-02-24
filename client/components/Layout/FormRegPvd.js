@@ -1,11 +1,22 @@
 import React from 'react'
-import { Button, FormControl } from '@mui/material'
+import { Alert, Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap, sendData }) => {
+const FormRegPvd = ({
+	values,
+	setValues,
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	getValues,
+	gap,
+	sendData,
+	error,
+}) => {
 	const onSubmit = async (data) => {
-		console.log('Submit', data)
+		// console.log('Submit', data)
 		sendData(data)
 	}
 
@@ -13,10 +24,12 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
-			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+			{error && <Alert severity="error">{error}</Alert>}
+			<TextFieldComponent name="organizationName" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="address" required={true} shrink={true} multiline={true} rows={3} {...formProps} />

@@ -23,14 +23,17 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import MenuIcon from '@mui/icons-material/Menu'
 
-function Navbar({ setOpen }) {
+function Navbar() {
 	const { auth, setAuth } = useAuth()
+	const { openSnackbar } = useSnackbar()
 
 	const router = useRouter()
 
@@ -70,7 +73,8 @@ function Navbar({ setOpen }) {
 	const handleLogout = async () => {
 		try {
 			await logoutUser()
-			setOpen(true)
+			setAuth(null)
+			openSnackbar('Logout success!', 'success')
 		} catch (error) {
 			console.error(error)
 		}
@@ -85,7 +89,7 @@ function Navbar({ setOpen }) {
 	const menus = ['Contact Us']
 
 	return (
-		<AppBar position="sticky" sx={{ bgcolor: 'primary.light' }}>
+		<AppBar position="sticky" sx={{ bgcolor: 'primary.light', height: 64 }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
 					<Stack direction="row" spacing={2}>

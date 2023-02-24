@@ -1,11 +1,22 @@
 import React from 'react'
-import { Button, FormControl, Typography } from '@mui/material'
+import { Alert, Button, FormControl, Typography } from '@mui/material'
 import { Stack } from '@mui/system'
 import { SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegStdAddl = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap, sendData }) => {
+const FormRegStdAddl = ({
+	values,
+	setValues,
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	getValues,
+	gap,
+	sendData,
+	error,
+}) => {
 	const onSubmit = (data) => {
-		console.log('Submit', data)
+		// console.log('Submit', data)
 		sendData(data)
 	}
 
@@ -13,9 +24,11 @@ const FormRegStdAddl = ({ values, setValues, setPage, register, handleSubmit, er
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
+			{error && <Alert severity="error">{error}</Alert>}
 			<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
 			<SelectComponent name="degree" {...formProps} />
 			<TextFieldComponent name="school" label="School/University" {...formProps} />

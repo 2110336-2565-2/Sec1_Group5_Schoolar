@@ -1,10 +1,10 @@
 import * as React from 'react'
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import Link from 'next/link'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
 
 export default function Footer() {
 	return (

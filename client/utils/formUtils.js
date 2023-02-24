@@ -40,6 +40,8 @@ export const getRegEx = (type) => {
 			return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 		case 'gpax':
 			return /^[0-9]*\.[0-9][0-9]$/
+		case 'phoneNumber':
+			return /^0\d{8,9}$/
 		case 'hasUpper':
 			return /(?=.*[A-Z])/
 		case 'hasLower':
@@ -117,6 +119,28 @@ export const getValidation = (field, defaultValue) => {
 					space: (value) => getRegEx('noSpace').test(value) || getErrMsg('Password', 'space'),
 				},
 			}
+		case 'phoneNumber':
+			return {
+				required: getErrMsg('Phone Number', 'required'),
+				pattern: {
+					value: getRegEx('phoneNumber'),
+					message: getErrMsg('Phone Number', 'pattern'),
+				},
+				minLength: {
+					value: 9,
+					message: getErrMsg('Phone Number', 'minLength', 9, 'digits'),
+				},
+				maxLength: {
+					value: 10,
+					message: getErrMsg('Phone Number', 'maxLength', 10, 'digits'),
+				},
+				validate: {
+					duplicate: async (value) => {
+						if (value === defaultValue) return true //if value is not edited, don't check isDupe
+						return !(await isDupe('user', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
+					},
+				},
+			}
 		// Student
 		case 'firstName':
 			return {
@@ -158,28 +182,6 @@ export const getValidation = (field, defaultValue) => {
 			return {
 				required: getErrMsg('Gender', 'required'),
 			}
-		case 'phoneNumber':
-			return {
-				required: getErrMsg('Phone Number', 'required'),
-				pattern: {
-					value: getRegEx('onlyNumber'),
-					message: getErrMsg('Phone Number', 'pattern'),
-				},
-				minLength: {
-					value: 9,
-					message: getErrMsg('Phone Number', 'minLength', 9, 'digits'),
-				},
-				maxLength: {
-					value: 10,
-					message: getErrMsg('Phone Number', 'maxLength', 10, 'digits'),
-				},
-				validate: {
-					duplicate: async (value) => {
-						if (value === defaultValue) return true //if value is not edited, don't check isDupe
-						return !(await isDupe('user', 'phoneNumber', value)) || getErrMsg('Phone Number', 'taken')
-					},
-				},
-			}
 		case 'school':
 			return {
 				pattern: {
@@ -211,14 +213,14 @@ export const getValidation = (field, defaultValue) => {
 				},
 			}
 		// Provider
-		case 'providerName':
+		case 'organizationName':
 			return {
-				required: getErrMsg('Provider Name', 'required'),
-				minLength: { value: 2, message: getErrMsg('Provider Name', 'minLength', 2) },
-				maxLength: { value: 40, message: getErrMsg('Provider Name', 'maxLength', 40) },
+				required: getErrMsg('Organization Name', 'required'),
+				minLength: { value: 2, message: getErrMsg('Organization Name', 'minLength', 2) },
+				maxLength: { value: 40, message: getErrMsg('Organization Name', 'maxLength', 40) },
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
-					message: getErrMsg('Provider Name', 'pattern'),
+					message: getErrMsg('Organization Name', 'pattern'),
 				},
 			}
 		case 'website':

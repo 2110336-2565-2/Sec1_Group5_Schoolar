@@ -29,6 +29,7 @@ export default function Register() {
 	})
 
 	const [page, setPage] = useState('register')
+	const [error, setError] = useState(null)
 
 	const sendData = async (data) => {
 		try {
@@ -37,10 +38,11 @@ export default function Register() {
 			router.push('/login')
 		} catch (error) {
 			console.error(error)
+			setError(error)
 		}
 	}
 
-	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5, sendData }
+	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5, sendData, error }
 	switch (page) {
 		case 'register':
 			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />

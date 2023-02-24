@@ -63,7 +63,7 @@ function Navbar({ setOpen }) {
 	}
 
 	return (
-		<AppBar position="sticky" sx={{ bgcolor: 'primary.light' }}>
+		<AppBar position="sticky" sx={{ bgcolor: 'primary.light', height: 64 }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
 					<Stack direction="row" spacing={2}>

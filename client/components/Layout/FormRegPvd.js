@@ -1,9 +1,20 @@
 import React from 'react'
-import { Button, FormControl } from '@mui/material'
+import { Alert, Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap, sendData }) => {
+const FormRegPvd = ({
+	values,
+	setValues,
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	getValues,
+	gap,
+	sendData,
+	error,
+}) => {
 	const onSubmit = async (data) => {
 		console.log('Submit', data)
 		sendData(data)
@@ -16,6 +27,7 @@ const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
+			{error && <Alert severity="error">{error}</Alert>}
 			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />

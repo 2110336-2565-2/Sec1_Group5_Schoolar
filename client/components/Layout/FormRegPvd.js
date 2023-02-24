@@ -28,7 +28,7 @@ const FormRegPvd = ({
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
 			{error && <Alert severity="error">{error}</Alert>}
-			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+			<TextFieldComponent name="organizationName" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
 			<TextFieldComponent name="address" required={true} shrink={true} multiline={true} rows={3} {...formProps} />

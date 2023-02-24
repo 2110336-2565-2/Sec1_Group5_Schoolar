@@ -213,14 +213,14 @@ export const getValidation = (field, defaultValue) => {
 				},
 			}
 		// Provider
-		case 'providerName':
+		case 'organizationName':
 			return {
-				required: getErrMsg('Provider Name', 'required'),
-				minLength: { value: 2, message: getErrMsg('Provider Name', 'minLength', 2) },
-				maxLength: { value: 40, message: getErrMsg('Provider Name', 'maxLength', 40) },
+				required: getErrMsg('Organization Name', 'required'),
+				minLength: { value: 2, message: getErrMsg('Organization Name', 'minLength', 2) },
+				maxLength: { value: 40, message: getErrMsg('Organization Name', 'maxLength', 40) },
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
-					message: getErrMsg('Provider Name', 'pattern'),
+					message: getErrMsg('Organization Name', 'pattern'),
 				},
 			}
 		case 'website':

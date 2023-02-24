@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
 		targetNation,
 		typeOfScholarship,
 		fieldOfInterest,
-		providerName,
+		organizationName,
 		address,
 		website,
 		verifyStatus,
@@ -79,7 +79,7 @@ exports.register = async (req, res) => {
 				[
 					{
 						username,
-						providerName,
+						organizationName,
 						address,
 						website,
 						verifyStatus,

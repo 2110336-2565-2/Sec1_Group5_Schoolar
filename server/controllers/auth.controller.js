@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
-		return res.status(400).json({ errors: result.array() })
+		return res.status(400).json({ message: result.array() })
 	}
 
 	const {
@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
 		targetNation,
 		typeOfScholarship,
 		fieldOfInterest,
-		providerName,
+		organizationName,
 		address,
 		website,
 		verifyStatus,
@@ -73,13 +73,13 @@ exports.register = async (req, res) => {
 				],
 				{ session },
 			)
-			res.send(`Create student ${username} success`)
+			res.send(`Register ${username} as student success!`)
 		} else {
 			const provider = await Provider.create(
 				[
 					{
 						username,
-						providerName,
+						organizationName,
 						address,
 						website,
 						verifyStatus,
@@ -87,12 +87,12 @@ exports.register = async (req, res) => {
 				],
 				{ session },
 			)
-			res.send(`Create provider ${username} success`)
+			res.send(`Register ${username} as provider success!`)
 		}
 		await session.commitTransaction()
 	} catch (error) {
 		await session.abortTransaction()
-		res.status(400).send({ message: error.message })
+		res.status(400).send({ error: error.message })
 	} finally {
 		session.endSession()
 	}
@@ -107,7 +107,7 @@ exports.login = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
-		res.status(400).json({ errors: result.array() })
+		res.status(400).json({ message: result.array() })
 	} else {
 		const { usernameEmail, password } = req.body
 

@@ -28,7 +28,6 @@ const studentSchema = new Schema({
 	},
 	// below this is the criteria for matching
 	gpax: {
-		required: true,
 		type: Number,
 	},
 	degree: {

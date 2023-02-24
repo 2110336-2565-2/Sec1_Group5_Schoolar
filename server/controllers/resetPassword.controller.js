@@ -53,7 +53,7 @@ exports.sendEmailResetPassword = async (req, res) => {
 	}
 
 	const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
-	const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
+	const resetLink = `${process.env.FRONTEND_URL}/forgot-password?token=${token}`
 
 	const transporter = nodemailer.createTransport({
 		host: process.env.EMAIL_HOST,

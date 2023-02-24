@@ -100,7 +100,7 @@
                 "fieldOfInterest": {
                   "example": "any"
                 },
-                "providerName": {
+                "organizationName": {
                   "example": "any"
                 },
                 "address": {

@@ -42,30 +42,45 @@ function Homepage() {
 		setDegreeFilters(degreeFilters)
 		setFacultyFilters(facultyFilters)
 		setStudentProgramFilters(studentProgramFilters)
-		// console.log(filteredTypes)
-		// if (filtered == 'All Scholarship') {
-		// 	matchedFilter = ''
-		// } else {
-		// 	scholarshipTypes.forEach((val) => {
-		// 		if (val.label === filtered) {
-		// 			matchedFilter = val.value
-		// 		}
-		// 	})
-		// }
+	}
 
-		// setFilterInput(matchedFilter)
+	const isContainScholar = (arr, str) => {
+		return arr.length === 0 ? true : arr.includes(str)
 	}
 
 	const filteredScholars = scholars.filter((scholar) => {
-		// console.log(`matched Input : ${filterInput}`)
+		console.log(`Input : ${inputName}`)
+		if (
+			scholarshipFilters.length === 0 &&
+			degreeFilters.length === 0 &&
+			facultyFilters.length === 0 &&
+			studentProgramFilters.length === 0
+		) {
+			return scholar.name.toLowerCase().includes(inputName.toLowerCase())
+		} else if (inputName.length === 0) {
+			return (
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		} else {
+			return (
+				scholar.name.toLowerCase().includes(inputName.toLowerCase()) &&
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		}
 		//const searchList = [scholar.name.toLowerCase().includes(inputName.toLowerCase()), scholar.typeOfScholarship.includes(filterInput.toLowerCase())]
-		return scholar.name.toLowerCase().includes(inputName.toLowerCase())
+
 		// ||scholar.typeOfScholarship.includes(filterInput.toLowerCase())
 	})
 
-	// const filteredTypes = scholars.filter((scholar) => {
-	// 	return scholarshipFilters.includes(scholar.typeOfScholarShip)
-	// })
+	const filteredTypes = scholars.filter((scholar) => {
+		return degreeFilters.includes(scholar.degree) && scholarshipFilters.includes(scholar.typeOfScholarship)
+	})
 
 	return (
 		<>
@@ -83,7 +98,7 @@ function Homepage() {
 					)}
 					<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 				</Box>
-				<Scholarship items={filteredTypes} />
+				<Scholarship items={filteredScholars} />
 			</Container>
 			<Footer />
 		</>

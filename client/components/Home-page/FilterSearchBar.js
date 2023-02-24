@@ -37,9 +37,9 @@ function FilterSearchBar(props) {
 				MenuProps={MenuProps}
 			>
 				{props.item.map((val) => (
-					<MenuItem key={val.value} value={val.label}>
-						<Checkbox checked={props.filters.indexOf(val.label) > -1} />
-						<ListItemText primary={val.label} />
+					<MenuItem key={val.value} value={val.value}>
+						<Checkbox checked={props.filters.indexOf(val.value) > -1} />
+						<ListItemText primary={val.value} />
 					</MenuItem>
 				))}
 			</Select>

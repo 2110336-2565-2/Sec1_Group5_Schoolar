@@ -56,7 +56,6 @@ export default function Loading({ Component, pageProps }) {
 		)
 	}
 
-	console.log("RR Loading")
 	return (
 		<>
 			<WebLayout>

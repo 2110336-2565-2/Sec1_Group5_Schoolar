@@ -19,7 +19,7 @@ const FormPrimary = ({ header, form, icon }) => {
 					width={0}
 					height={0}
 					sizes="100vw"
-					priority="false"
+					priority={false}
 					style={{
 						width: '70%',
 						height: 'auto',

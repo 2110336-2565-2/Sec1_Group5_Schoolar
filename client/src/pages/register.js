@@ -41,7 +41,7 @@ export default function Register() {
 			router.push('/login')
 		} catch (error) {
 			console.error(error)
-			setError(error.response.data.message)
+			setError(error.response.data.error)
 		}
 	}
 

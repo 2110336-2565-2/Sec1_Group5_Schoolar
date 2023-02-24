@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Center } from '@components/common'
 import WebLayout from '@components/Layout/WebLayout'
-import { Alert, Snackbar } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
 import axios from '@/pages/api/axios'
-import { useSnackbar } from '@/context/SnackbarContext'
 import { useAuth } from '@/context/AuthContext'
 
 export default function Loading({ Component, pageProps }) {
@@ -15,7 +13,7 @@ export default function Loading({ Component, pageProps }) {
 	const router = useRouter()
 
 	const { auth, setAuth } = useAuth()
-	const { snackbar, closeSnackbar } = useSnackbar()
+
 
 	useEffect(() => {
 		setLoading(true)
@@ -58,14 +56,13 @@ export default function Loading({ Component, pageProps }) {
 		)
 	}
 
+	console.log("RR Loading")
 	return (
-		<WebLayout>
-			<Component {...pageProps} />
-			<Snackbar open={snackbar.open} autoHideDuration={snackbar.duration} onClose={closeSnackbar}>
-				<Alert onClose={closeSnackbar} severity={snackbar.severity} sx={{ width: '100%', fontWeight: 'bold' }}>
-					{snackbar.text}
-				</Alert>
-			</Snackbar>
-		</WebLayout>
+		<>
+			<WebLayout>
+				<Component {...pageProps} />
+			</WebLayout>
+			
+		</>
 	)
 }

@@ -41,6 +41,7 @@ function Login() {
 
 			setAuth({ username, accessToken, role })
 			openSnackbar('Login success!', 'success')
+
 			router.push('/')
 		} catch (err) {
 			if (!err?.response) {

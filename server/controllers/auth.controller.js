@@ -92,7 +92,7 @@ exports.register = async (req, res) => {
 		await session.commitTransaction()
 	} catch (error) {
 		await session.abortTransaction()
-		res.status(400).send({ message: error.message })
+		res.status(400).send({ error: error.message })
 	} finally {
 		session.endSession()
 	}

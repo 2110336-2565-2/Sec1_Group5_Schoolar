@@ -1,20 +1,18 @@
 import React from 'react'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Center, VStack } from '@components/common'
 import InputPassword from '@components/Layout/InputPassword'
-import { Button, Divider, FormControl, Typography } from '@mui/material'
+import { Button, FormControl, Typography } from '@mui/material'
 import Alert from '@mui/material/Alert'
-import { Box } from '@mui/system'
-import { getValidation } from '@utils/formUtils'
-import { PasswordIcon } from '@utils/images'
-import Image from 'next/image'
+import { getErrMsg, getValidation } from '@utils/formUtils'
 
 import axios from '@/pages/api/axios'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 function NewPassword({ router }) {
-	const [success, setSuccess] = useState(false)
 	const [error, setError] = useState(false)
+
+	const { openSnackbar } = useSnackbar()
 
 	const {
 		register,
@@ -24,6 +22,7 @@ function NewPassword({ router }) {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
+		setError(false)
 		const token = router.query.token
 		console.log(data)
 
@@ -38,24 +37,19 @@ function NewPassword({ router }) {
 				},
 			)
 			console.log(res.data)
-			setSuccess(true)
+			openSnackbar('Reset password success!', 'success')
+			setTimeout(() => {
+				router.push('/')
+			}, 1000)
 		} catch (err) {
 			console.log(err)
 			setError(true)
 		}
 	}
 
-	useEffect(() => {
-		setTimeout(() => {
-			setError(false)
-			setSuccess(false)
-		}, 3000)
-	}, [error, success])
-
 	return (
 		<>
 			{error && <Alert severity="error">Error occur</Alert>}
-			{success && <Alert severity="success">Reset password successfully</Alert>}
 			<Typography align="center" sx={{ mb: 1.5 }}>
 				Enter your new password
 			</Typography>

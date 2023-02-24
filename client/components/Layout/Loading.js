@@ -15,7 +15,7 @@ export default function Loading({ Component, pageProps }) {
 	const router = useRouter()
 
 	const { auth, setAuth } = useAuth()
-	const { snackbar, handleClose } = useSnackbar()
+	const { snackbar, closeSnackbar } = useSnackbar()
 
 	useEffect(() => {
 		setLoading(true)
@@ -61,8 +61,8 @@ export default function Loading({ Component, pageProps }) {
 	return (
 		<WebLayout>
 			<Component {...pageProps} />
-			<Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: '100%', fontWeight: 'bold' }}>
+			<Snackbar open={snackbar.open} autoHideDuration={snackbar.duration} onClose={closeSnackbar}>
+				<Alert onClose={closeSnackbar} severity={snackbar.severity} sx={{ width: '100%', fontWeight: 'bold' }}>
 					{snackbar.text}
 				</Alert>
 			</Snackbar>

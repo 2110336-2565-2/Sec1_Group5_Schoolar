@@ -25,7 +25,7 @@ import { useSnackbar } from '@/context/SnackbarContext'
 
 function Navbar() {
 	const { auth, setAuth } = useAuth()
-	const { setSnackbar } = useSnackbar()
+	const { openSnackbar } = useSnackbar()
 
 	const router = useRouter()
 
@@ -52,7 +52,7 @@ function Navbar() {
 		try {
 			await logoutUser()
 			setAuth(null)
-			setSnackbar((prev) => ({ ...prev, severity: 'success', text: 'Logout success!', open: true }))
+			openSnackbar('Logout success!', 'success')
 		} catch (error) {
 			console.error(error)
 		}

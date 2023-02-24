@@ -9,8 +9,10 @@ import FormSecondary from '@components/Layout/FormSecondary'
 import axios from 'axios'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 export default function Register() {
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -18,7 +20,6 @@ export default function Register() {
 		setValue,
 		getValues,
 	} = useForm({ mode: 'onBlur' })
-	const router = useRouter()
 
 	const [values, setValues] = useState({
 		birthDate: '',
@@ -31,14 +32,16 @@ export default function Register() {
 	const [page, setPage] = useState('register')
 	const [error, setError] = useState(null)
 
+	const { openSnackbar } = useSnackbar()
+
 	const sendData = async (data) => {
 		try {
 			const response = await axios.post('/auth/register', data)
-			alert(response.data)
+			openSnackbar(response.data, 'success')
 			router.push('/login')
 		} catch (error) {
 			console.error(error)
-			setError(error)
+			setError(error.response.data.message)
 		}
 	}
 

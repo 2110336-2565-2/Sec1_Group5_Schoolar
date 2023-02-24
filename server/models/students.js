@@ -29,7 +29,6 @@ const studentSchema = new Schema({
 		enum: ['male', 'female', 'non-binary'],
 	},
 	gpax: {
-		required: true,
 		type: Number,
 	},
 	degree: {

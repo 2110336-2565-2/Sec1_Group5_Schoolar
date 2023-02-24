@@ -8,9 +8,14 @@ function SnackbarContextProvider({ children }) {
 		open: false,
 		text: '',
 		severity: 'success',
+		duration: 4000,
 	})
 
-	const handleClose = (event, reason) => {
+	const openSnackbar = (text, severity = 'success', duration = 4000) => {
+		setSnackbar({ text, severity, open: true, duration })
+	}
+
+	const closeSnackbar = (event, reason) => {
 		if (reason === 'clickaway') {
 			return
 		}
@@ -19,7 +24,9 @@ function SnackbarContextProvider({ children }) {
 	}
 
 	return (
-		<SnackbarContext.Provider value={{ snackbar, setSnackbar, handleClose }}>{children}</SnackbarContext.Provider>
+		<SnackbarContext.Provider value={{ snackbar, openSnackbar, closeSnackbar }}>
+			{children}
+		</SnackbarContext.Provider>
 	)
 }
 

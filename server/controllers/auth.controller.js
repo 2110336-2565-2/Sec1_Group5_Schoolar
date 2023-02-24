@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
-		return res.status(400).json({ errors: result.array() })
+		return res.status(400).json({ message: result.array() })
 	}
 
 	const {
@@ -73,7 +73,7 @@ exports.register = async (req, res) => {
 				],
 				{ session },
 			)
-			res.send(`Create student ${username} success`)
+			res.send(`Register ${username} as student success!`)
 		} else {
 			const provider = await Provider.create(
 				[
@@ -87,7 +87,7 @@ exports.register = async (req, res) => {
 				],
 				{ session },
 			)
-			res.send(`Create provider ${username} success`)
+			res.send(`Register ${username} as provider success!`)
 		}
 		await session.commitTransaction()
 	} catch (error) {
@@ -107,7 +107,7 @@ exports.login = async (req, res) => {
 	// #swagger.tags = ['auth']
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
-		res.status(400).json({ errors: result.array() })
+		res.status(400).json({ message: result.array() })
 	} else {
 		const { usernameEmail, password } = req.body
 

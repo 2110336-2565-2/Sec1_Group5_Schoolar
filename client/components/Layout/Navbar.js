@@ -15,13 +15,16 @@ import {
 	Typography,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
-import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import MenuIcon from '@mui/icons-material/Menu'
 
 function Navbar({ setOpen }) {
 	const { auth, setAuth } = useAuth()
@@ -30,6 +33,11 @@ function Navbar({ setOpen }) {
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 	const open = Boolean(anchorEl)
+
+	const theme = useTheme()
+	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
+
+	const [menuOpen, setMenuOpen] = useState(false)
 
 	const handleLogo = () => {
 		if (router.asPath == '/') {
@@ -67,15 +75,21 @@ function Navbar({ setOpen }) {
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
 					<Stack direction="row" spacing={2}>
+						{!isSm && (
+							<MenuItem>
+								<MenuIcon style={{ color: '#000000' }} />
+							</MenuItem>
+						)}
 						<Center onClick={handleLogo}>
 							<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
 						</Center>
-
-						<MenuItem component={Link} href="#footer">
-							<Typography textAlign="center" color={'text.main'}>
-								Contact Us
-							</Typography>
-						</MenuItem>
+						{isSm && (
+							<MenuItem component={Link} href="#footer">
+								<Typography textAlign="center" color={'text.main'}>
+									Contact Us
+								</Typography>
+							</MenuItem>
+						)}
 					</Stack>
 					<Stack direction="row">
 						{auth && (

@@ -21,7 +21,7 @@ exports.resetPassword = async (req, res) => {
 	const token = req.headers.authorization.split(' ')[1]
 
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET)
+		const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		const user = await User.findOne({ email: decoded.email })
 
 		if (!user) {

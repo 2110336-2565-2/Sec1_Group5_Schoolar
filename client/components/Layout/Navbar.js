@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import { Center, HStack } from '@components/common'
 import { AppRegistration, Edit, Login, Logout } from '@mui/icons-material'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
 	Avatar,
 	Box,
 	Button,
 	IconButton,
 	ListItemIcon,
+	ListItemText,
 	Menu,
 	MenuItem,
-	MenuList,
-	Paper,
 	Stack,
 	Toolbar,
 	Tooltip,
 	Typography,
-	ListItemText,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -25,10 +26,6 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-
-import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import MenuIcon from '@mui/icons-material/Menu'
 
 function Navbar({ setOpen }) {
 	const { auth, setAuth } = useAuth()
@@ -148,8 +145,8 @@ function Navbar({ setOpen }) {
 						{isSm &&
 							menus.map((a) => {
 								return (
-									<MenuItem component={Link} href="#footer">
-										<Typography textAlign="center" color={'text.main'} key={a}>
+									<MenuItem component={Link} href="#footer" key={a}>
+										<Typography textAlign="center" color={'text.main'}>
 											{a}
 										</Typography>
 									</MenuItem>

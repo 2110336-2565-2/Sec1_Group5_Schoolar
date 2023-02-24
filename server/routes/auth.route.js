@@ -43,7 +43,7 @@ router.post(
 router.post(
 	'/login',
 	[
-		body('username').isLength({ min: 1 }).withMessage('Username must not empty'),
+		body('usernameEmail').isLength({ min: 1 }).withMessage('Username or Email must not empty'),
 		body('password').isLength({ min: 1 }).withMessage('Password must not empty'),
 	],
 	login,

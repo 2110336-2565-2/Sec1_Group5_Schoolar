@@ -21,7 +21,7 @@ exports.resetPassword = async (req, res) => {
 	const token = req.headers.authorization.split(' ')[1]
 
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET)
+		const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		const user = await User.findOne({ email: decoded.email })
 
 		if (!user) {
@@ -52,7 +52,7 @@ exports.sendEmailResetPassword = async (req, res) => {
 		return res.status(400).send({ error: 'Invalid email' })
 	}
 
-	const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' })
+	const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
 	const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
 
 	const transporter = nodemailer.createTransport({

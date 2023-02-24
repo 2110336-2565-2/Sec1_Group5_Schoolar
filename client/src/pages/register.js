@@ -6,7 +6,7 @@ import FormRegister from '@components/Layout/FormRegister'
 import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegPvd from '@components/Layout/FormRegPvd'
 import FormSecondary from '@components/Layout/FormSecondary'
-import FormRegStdAddl from '@components/Layout/FormRegStdaddl'
+import FormRegStdAddl from '@components/Layout/FormRegStdAddl'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 

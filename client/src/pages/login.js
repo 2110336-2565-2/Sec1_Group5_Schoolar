@@ -11,14 +11,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
 import axios from './api/axios'
-import { SnackbarContext } from '@/context/SnackbarContext'
-import { useContext } from 'react'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 function Login() {
-	const { auth, setAuth } = useAuth()
+	const { setAuth } = useAuth()
 	const router = useRouter()
 	const [error, setError] = useState(null)
-	const { setSnackbar } = useContext(SnackbarContext)
+	const { setSnackbar } = useSnackbar()
 
 	const {
 		register,

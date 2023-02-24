@@ -3,8 +3,9 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const AuthContext = createContext()
 AuthContext.displayName = 'AuthContext'
 
-function AuthContextProvider({ value, children }) {
-	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+function AuthContextProvider({ children }) {
+	const [auth, setAuth] = useState(null) //{username, role, accessToken}
+	return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>
 }
 
 function useAuth() {

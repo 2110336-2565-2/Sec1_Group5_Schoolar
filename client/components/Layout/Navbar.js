@@ -15,19 +15,17 @@ import {
 	Typography,
 } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
-import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { useContext } from 'react'
-import { SnackbarContext } from '@/context/SnackbarContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 function Navbar() {
 	const { auth, setAuth } = useAuth()
-	const { setSnackbar } = useContext(SnackbarContext)
+	const { setSnackbar } = useSnackbar()
 
 	const router = useRouter()
 

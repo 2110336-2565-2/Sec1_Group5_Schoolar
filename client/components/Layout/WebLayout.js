@@ -17,7 +17,6 @@ const WebLayout = ({ children }) => {
 		return 'school.png'
 	}
 
-	console.log('RR')
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>

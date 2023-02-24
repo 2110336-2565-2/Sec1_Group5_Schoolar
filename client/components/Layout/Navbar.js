@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { Center, HStack } from '@components/common'
 import { AppRegistration, Edit, Login, Logout, Route } from '@mui/icons-material'
 import {
@@ -31,7 +31,7 @@ function Navbar({ setOpen }) {
 
 	const router = useRouter()
 
-	const [anchorEl, setAnchorEl] = React.useState(null)
+	const [anchorEl, setAnchorEl] = useState(null)
 	const open = Boolean(anchorEl)
 
 	const theme = useTheme()

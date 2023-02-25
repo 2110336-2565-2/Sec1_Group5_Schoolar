@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import { Button, FormControl, Grid, Stack, TextField, MenuItem, ListSubheader, Icon, IconButton, ListItem } from '@mui/material'
-import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { Button, FormControl, Grid, Stack, TextField, MenuItem} from '@mui/material'
+
 //Dropdown Menu
 //Degree Dropdown
 const degree = [
@@ -45,15 +45,14 @@ const faculty = [
     {value:"Faculty of Sports Science",label:"Faculty of Sports Science"},
     {value:"Faculty of Veterinary Science",label:"Faculty of Veterinary Science"},
 ];
-const formProps = { values, setValues }
 
 function FormEditScholarship(){
     return(
         <Stack>
             <FormControl component="form" sx={{ width: '100%' }}>
                 <TextField required id="outlined-required" label="Scholarship Name" variant="outlined" sx={{ padding: '0px 0px 20px 0px'}}/>
-                <TextField required id="outlined-required" label="Provider Name" variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
-                <h3> Requirment </h3>
+                <TextField required id="outlined-required" label="Organization Name" variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
+                <h3> Requirement </h3>
                 <TextField id="outlined-basic" label="GPAX" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 <TextField required id="outlined-select-currency" select label="Degree" helperText="Please select your degree" sx={{ padding: '0px 0px 20px 0px' }}>
                     {degree.map((option) => (
@@ -63,10 +62,6 @@ function FormEditScholarship(){
                     ))}
                 </TextField>
                 <TextField required id="outlined-required" label="Target Nation" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-multiline-static" label="More Requirement" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
-                <h3> Detail of scholarship </h3>
-                <TextField required id="outlined-required" label="Amount (Baht)" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Scholarship Quota" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 
                 <TextField required id="outlined-select-currency" select label="Program/Faculty" helperText="Please select your program or faculty" sx={{ padding: '0px 0px 20px 0px' }}>
                     <optgroup label = "Program"></optgroup>
@@ -82,6 +77,11 @@ function FormEditScholarship(){
                         </MenuItem>
                     ))}
                 </TextField>
+                <TextField id="outlined-multiline-static" label="More Requirement" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
+                <h3> Detail of scholarship </h3>
+                <TextField required id="outlined-required" label="Amount (Baht)" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
+                <TextField id="outlined-basic" label="Scholarship Quota" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
+                <TextField id="outlined-basic" label="Field of Interest" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 <TextField required id="outlined-select-currency" select label="Type of Scholarship" helperText="Please select scholarship type" sx={{ padding: '0px 0px 20px 0px' }}>
                     {scholarshipType.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -89,10 +89,8 @@ function FormEditScholarship(){
                         </MenuItem>
                     ))}
                 </TextField>
-                <TextField id="outlined-multiline-static" label="Detail of Scholarship" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Application Deadline" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}>
-                </TextField>
-                <DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
+                <TextField id="outlined-multiline-static" label="More Details" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
+                <TextField id="outlined-basic" label="Application Deadline" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
             </FormControl>
             <Grid
                 container

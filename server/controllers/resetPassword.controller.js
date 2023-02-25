@@ -2,6 +2,7 @@ const User = require('../models/users')
 const { validationResult } = require('express-validator')
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {
@@ -28,8 +29,9 @@ exports.resetPassword = async (req, res) => {
 			return res.status(400).send({ error: 'Invalid email' })
 		}
 
-		user.password = password
-		user.resetPasswordToken = null
+		const salt = await bcrypt.genSalt(10)
+		user.password = await bcrypt.hash(password, salt)
+		user.resetPasswordExpires = null
 		await user.save()
 
 		return res.status(200).send({ message: 'Password has been updated' })

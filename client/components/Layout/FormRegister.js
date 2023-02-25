@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Button, FormControl, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import Link from 'next/link'
-import InputPassword from './InputPassword'
-import { getErrMsg, getValidation } from '@utils/formUtils'
 import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getValidation } from '@utils/formUtils'
+import Link from 'next/link'
+
+import InputPassword from './InputPassword'
 
 const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getValues, gap }) => {
 	const handleSubmitStudent = () => {
@@ -22,7 +23,7 @@ const FormRegister = ({ setPage, register, handleSubmit, errors, setValue, getVa
 
 	const formProps = { register, errors }
 	return (
-		<FormControl component="form" sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}>
+		<FormControl component="form" noValidate sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}>
 			<TextFieldComponent name={'username'} required={true} {...formProps} />
 			<TextFieldComponent name={'email'} required={true} {...formProps} />
 			<InputPassword

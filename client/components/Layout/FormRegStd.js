@@ -12,6 +12,7 @@ const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>

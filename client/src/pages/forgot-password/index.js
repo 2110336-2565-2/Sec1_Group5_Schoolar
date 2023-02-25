@@ -1,9 +1,9 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import ForgotPassword from '@components/Forgot-Password-page/ForgotPassword'
 import NewPassword from '@components/Forgot-Password-page/NewPassword'
 import FormPrimary from '@components/Layout/FormPrimary'
 import LockResetIcon from '@mui/icons-material/LockReset'
+import { useRouter } from 'next/router'
 
 function ResetPassword() {
 	const router = useRouter()

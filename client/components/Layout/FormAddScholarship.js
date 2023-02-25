@@ -1,6 +1,6 @@
-import React from 'react'
-import { Button, FormControl, Grid, Stack, TextField, MenuItem, ListSubheader, Icon, IconButton } from '@mui/material'
-import { red } from '@mui/material/colors';
+import React,{useState} from 'react'
+import { Button, FormControl, Grid, Stack, TextField, MenuItem, ListSubheader, Icon, IconButton, ListItem } from '@mui/material'
+import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 //Dropdown Menu
 //Degree Dropdown
 const degree = [
@@ -45,6 +45,7 @@ const faculty = [
     {value:"Faculty of Sports Science",label:"Faculty of Sports Science"},
     {value:"Faculty of Veterinary Science",label:"Faculty of Veterinary Science"},
 ];
+const formProps = { values, setValues }
 
 function FormEditScholarship(){
     return(
@@ -66,7 +67,7 @@ function FormEditScholarship(){
                 <h3> Detail of scholarship </h3>
                 <TextField required id="outlined-required" label="Amount (Baht)" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 <TextField id="outlined-basic" label="Scholarship Quota" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-multiline-static" label="Detail of Scholarship" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
+                
                 <TextField required id="outlined-select-currency" select label="Program/Faculty" helperText="Please select your program or faculty" sx={{ padding: '0px 0px 20px 0px' }}>
                     <optgroup label = "Program"></optgroup>
                     {program.map((option) => (
@@ -88,9 +89,10 @@ function FormEditScholarship(){
                         </MenuItem>
                     ))}
                 </TextField>
+                <TextField id="outlined-multiline-static" label="Detail of Scholarship" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 <TextField id="outlined-basic" label="Application Deadline" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}>
-
                 </TextField>
+                <DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
             </FormControl>
             <Grid
                 container

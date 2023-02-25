@@ -4,6 +4,7 @@ import SearchBar from '@components/Home-page/SearchBar'
 import { Box, Divider, Typography, FormControl, Container, Paper, Grid, Stack } from '@mui/material'
 import axios from './api/axios'
 import { Center, VStack } from '@components/common'
+import zIndex from '@mui/material/styles/zIndex'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
@@ -26,9 +27,12 @@ function Homepage() {
 	return (
 		<Center>
 			<VStack sx={{ p: 5 }}>
-				<SearchBar searchHandler={searchHandler} />
+				<SearchBar searchHandler={searchHandler}/>
 				<Paper
 					sx={{
+						position: 'relative',
+						top: -28,
+						zIndex: 1,
 						minWidth: { xs: 'auto', md: 1150 },
 						borderRadius: 10,
 						padding: 10,

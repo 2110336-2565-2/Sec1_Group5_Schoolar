@@ -26,6 +26,7 @@ function SearchBar(props) {
 					borderRadius: 10,
 					padding: 1,
 					paddingRight: 2,
+					zIndex: 2,
 				}}
 			>
 				<HStack sx={{ width: '100%' }}>

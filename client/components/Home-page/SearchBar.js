@@ -1,12 +1,13 @@
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
+import { useState } from 'react'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 
 function SearchBar(props) {
-	let inputName = ''
+	const [inputName, setInputName] = useState('')
 	const onChange = (e) => {
-		inputName = e.target.value
+		setInputName(e.target.value)
 	}
 	const onClick = (event) => {
 		event.preventDefault()
@@ -49,14 +50,7 @@ function SearchBar(props) {
 							<SearchIcon />
 						</IconButton>
 					</Paper>
-					<Typography
-						variant="h7"
-						align="left"
-						color="textPrimary"
-						gutterBottom
-						marginX={2}
-						sx={{ display: { xs: 'none', md: 'block' } }}
-					>
+					<Typography variant="h7" align="left" color="textPrimary" gutterBottom marginX={2}>
 						OR
 					</Typography>
 					<Button
@@ -66,10 +60,8 @@ function SearchBar(props) {
 							fontSize: 15,
 							width: 100,
 							height: 35,
-							display: { xs: 'none', md: 'inline-block' },
 							borderRadius: 5,
 						}}
-						style={{ textTransform: 'none' }}
 					>
 						match
 					</Button>

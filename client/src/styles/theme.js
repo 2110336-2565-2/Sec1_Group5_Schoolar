@@ -42,6 +42,9 @@ const theme = createTheme({
 		body1: {
 			fontSize: '1rem',
 		},
+		body2: {
+			fontSize: '0.75rem',
+		},
 		button: {
 			fontWeight: 'bold',
 			textTransform: 'none',

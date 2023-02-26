@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Center, VStack } from '@components/common'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
-import { Box, Divider, Typography, FormControl, Container, Paper, Grid, Stack } from '@mui/material'
+import { Box, Container, Divider, FormControl, Grid, Paper, Stack,Typography } from '@mui/material'
+
 import axios from './api/axios'
-import { Center, VStack } from '@components/common'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])

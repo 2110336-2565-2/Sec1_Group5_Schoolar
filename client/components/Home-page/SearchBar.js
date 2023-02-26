@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import { useState } from 'react'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 
 function SearchBar(props) {

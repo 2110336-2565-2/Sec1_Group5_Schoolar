@@ -30,11 +30,7 @@ function Scholarship(props) {
 								<PushPinIcon sx={{ color: grey[900] }} />
 							</Button>
 						</Grid>
-						<Divider
-							orientation="horizontal"
-							variant="middle"
-							style={{ borderBottomWidth: 2 }}
-						/>
+						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />
 						<Grid margin={1}>
 							{scholar.tag?.map((tag, idx) => {
 								return (

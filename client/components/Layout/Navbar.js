@@ -92,7 +92,7 @@ function Navbar({ setOpen }) {
 					<Stack direction="row" spacing={2}>
 						{!isSm && (
 							<>
-								<MenuItem component={Link} href="#footer">
+								<MenuItem>
 									<MenuIcon onClick={handleHiddenMenuClick} style={{ color: '#000000' }} />
 								</MenuItem>
 								<Menu
@@ -132,7 +132,7 @@ function Navbar({ setOpen }) {
 								>
 									{menus.map((a) => {
 										return (
-											<MenuItem key={a}>
+											<MenuItem key={a} component={Link} href="#footer">
 												<ListItemText>{a}</ListItemText>
 											</MenuItem>
 										)

@@ -47,9 +47,9 @@ exports.resetPassword = async (req, res) => {
 exports.sendEmailResetPassword = async (req, res) => {
 	// #swagger.tags = ['reset password']
 	const { email } = req.body
-
+	console.log(email)
 	const user = await User.findOne({ email })
-
+	console.log(user)
 	if (!user) {
 		return res.status(400).send({ error: 'Invalid email' })
 	}

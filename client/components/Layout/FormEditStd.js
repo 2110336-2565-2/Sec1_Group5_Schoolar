@@ -11,6 +11,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 const FormEditStd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
 	//TextFieldComponent only need register
+	//Update 26Feb no need this state, please remove
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',

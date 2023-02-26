@@ -22,6 +22,7 @@ export default function Register() {
 		setValue,
 		getValues,
 		control,
+		watch
 	} = useForm({ mode: 'onBlur' })
 
 	const [page, setPage] = useState('studentAddl')
@@ -50,6 +51,7 @@ export default function Register() {
 		sendData,
 		error,
 		control,
+		watch,
 		gap: 2.5,
 	}
 	switch (page) {

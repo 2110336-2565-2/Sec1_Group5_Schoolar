@@ -100,6 +100,7 @@ export const SelectComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
+	watch
 }) => {
 	let options = []
 	switch (name) {
@@ -136,7 +137,7 @@ export const SelectComponent = ({
 					{...register(name, validation)}
 					error={!!errors?.[name]}
 					helperText={errors?.[name] ? errors[name].message : null}
-					value={getValues(name) || ''}
+					value={watch(name) || ''}
 					onChange={(event) => {
 						onChange(event)
 						if (name === 'degree') {

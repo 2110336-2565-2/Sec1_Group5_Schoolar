@@ -1,5 +1,5 @@
 import { MenuItem, InputLabel, Select, OutlinedInput, Chip, Box, ListItemText } from '@mui/material'
-import { Checkbox, FormControl } from '@material-ui/core'
+import { Checkbox, FormControl } from '@mui/material'
 import { useState } from 'react'
 const MenuProps = {
 	PaperProps: {

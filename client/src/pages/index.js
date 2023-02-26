@@ -29,14 +29,14 @@ function Homepage() {
 
 	return (
 		<Center>
-			<VStack>
+			<VStack sx={{ width: '90%' }}>
 				<SearchBar searchHandler={searchHandler} />
 				<Paper
 					sx={{
 						position: 'relative',
 						top: -28,
 						zIndex: 1,
-						minWidth: { xs: 'auto', md: 1150 },
+						width: '100%',
 						borderRadius: 10,
 						padding: 10,
 						backgroundColor: '#F4F6F8',

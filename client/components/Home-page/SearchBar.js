@@ -1,8 +1,4 @@
 import { useState } from 'react'
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/develop
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'

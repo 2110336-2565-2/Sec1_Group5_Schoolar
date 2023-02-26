@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Paper from '@mui/material/Paper'
@@ -13,7 +14,7 @@ export default function Footer() {
 			component="footer"
 			square
 			variant="outlined"
-            id="footer"
+			id="footer"
 		>
 			<Container maxWidth="lg">
 				<Box
@@ -23,8 +24,7 @@ export default function Footer() {
 						display: 'flex',
 						my: 1,
 					}}
-				>
-				</Box>
+				></Box>
 				<Box
 					sx={{
 						flexGrow: 1,

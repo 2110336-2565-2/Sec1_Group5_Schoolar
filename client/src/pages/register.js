@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import FormPrimary from '@components/Layout/FormPrimary'
-import FormRegister from '@components/Layout/FormRegister'
 import FormRegPvd from '@components/Layout/FormRegPvd'
 import FormRegStd from '@components/Layout/FormRegStd'
 import FormRegStdAddl from '@components/Layout/FormRegStdAddl'
+import FormRegister from '@components/Layout/FormRegister'
 import FormSecondary from '@components/Layout/FormSecondary'
 import axios from 'axios'
 import Error from 'next/error'

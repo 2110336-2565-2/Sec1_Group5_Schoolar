@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Center } from '@components/common'
+
 import WebLayout from '@components/Layout/WebLayout'
+import { Center } from '@components/common'
 import CircularProgress from '@mui/material/CircularProgress'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
@@ -14,7 +15,6 @@ export default function Loading({ Component, pageProps }) {
 	const router = useRouter()
 
 	const { auth, setAuth } = useAuth()
-
 
 	useEffect(() => {
 		setLoading(true)
@@ -62,7 +62,6 @@ export default function Loading({ Component, pageProps }) {
 			<WebLayout>
 				<Component {...pageProps} />
 			</WebLayout>
-			
 		</>
 	)
 }

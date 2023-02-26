@@ -43,6 +43,7 @@ exports.register = async (req, res) => {
 		verifyStatus,
 	} = req.body
 
+	//birthdate can be 20/02/2023 or 2023-02-22T17:00:00.000Z format
 	const session = await mongoose.startSession()
 	session.startTransaction()
 

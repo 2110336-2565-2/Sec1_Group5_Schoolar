@@ -171,10 +171,16 @@ export const getValidation = (field, defaultValue) => {
 				required: getErrMsg('Birth date', 'required'),
 				validate: {
 					future: (value) => {
-						const [day, month, year] = value.split('/').map(Number)
-						const inputDate = new Date(year, month - 1, day)
-						const today = new Date()
-						return inputDate < today || getErrMsg('Birthdate', 'pattern')
+						if (typeof value === 'string') {
+							//if typing input (20/02/2023)
+							const [day, month, year] = value.split('/').map(Number)
+							const inputDate = new Date(year, month - 1, day)
+							const today = new Date()
+							return inputDate < today || getErrMsg('Birthdate', 'pattern')
+						} else {
+							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
+							return true
+						}
 					},
 				},
 			}

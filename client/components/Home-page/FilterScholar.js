@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { scholarshipTypes, uniPrograms, studentPrograms, degrees } from '@utils/formOptUtils'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormGroup } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormGroup, IconButton } from '@mui/material'
 import { FilterList as FilterListIcon } from '@mui/icons-material'
 import FilterSearchBar from './FilterSearchBar'
 
@@ -35,9 +35,9 @@ function FilterScholar(props) {
 	}
 	return (
 		<div>
-			<Button color="inherit" onClick={handleOpen}>
+			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<FilterListIcon />
-			</Button>
+			</IconButton>
 			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="md">
 				<DialogTitle>Filters</DialogTitle>
 				<DialogContent>

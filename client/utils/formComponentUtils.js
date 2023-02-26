@@ -2,6 +2,7 @@ import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { getValidation } from '@utils/formUtils'
+
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './formOptUtils'
 
 export const getTitleCase = (text) => {
@@ -20,6 +21,8 @@ export const TextFieldComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
+	multiline,
+	rows,
 }) => {
 	return (
 		<TextField
@@ -32,6 +35,8 @@ export const TextFieldComponent = ({
 			helperText={errors?.[name] ? errors[name].message : null}
 			disabled={disabled}
 			InputLabelProps={{ shrink }}
+			multiline={multiline}
+			rows={rows}
 		/>
 	)
 }
@@ -53,7 +58,7 @@ export const DatePickerComponent = ({
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<DatePicker
 				label={label}
-				value={values[name]}
+				value={values[name] || null}
 				inputFormat="DD/MM/YYYY"
 				renderInput={(params) => (
 					<TextField
@@ -85,7 +90,7 @@ export const SelectComponent = ({
 	disabled = false,
 	shrink,
 }) => {
-	let options = {}
+	let options = []
 	switch (name) {
 		case 'degree':
 			options = degrees
@@ -94,7 +99,9 @@ export const SelectComponent = ({
 			options = genders
 			break
 		case 'program':
-			if (values['degree'] === 'high school') {
+			if (values['degree'] === '') {
+				disabled = true
+			} else if (values['degree'] === 'high school') {
 				options = studentPrograms
 			} else {
 				options = uniPrograms

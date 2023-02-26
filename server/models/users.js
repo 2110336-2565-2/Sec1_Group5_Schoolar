@@ -32,8 +32,6 @@ const userSchema = new Schema({
 		enum: ['provider', 'student', 'admin'],
 	},
 	refreshToken: String,
-	resetPasswordToken: String,
-	resetPasswordExpires: Date,
 })
 
 module.exports = mongoose.model('Users', userSchema)

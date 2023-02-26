@@ -17,10 +17,8 @@ const studentSchema = new Schema({
 		trim: true,
 	},
 	birthdate: {
-		//birthdate ,using Date type has some complicated change
 		required: true,
-		type: String, //possible to change
-		maxLength: 10,
+		type: String, // Date ?
 		trim: true,
 	},
 	gender: {
@@ -28,8 +26,8 @@ const studentSchema = new Schema({
 		type: String,
 		enum: ['male', 'female', 'non-binary'],
 	},
+	// below this is the criteria for matching
 	gpax: {
-		required: true,
 		type: Number,
 	},
 	degree: {
@@ -70,23 +68,18 @@ const studentSchema = new Schema({
 			'Faculty of Veterinary Science',
 		],
 	},
-	// below this is the criteria for matching
 	targetNation: {
 		type: String,
 		maxLength: 60,
-		index: true,
-		// lowercase: true,
+		lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {
 		type: String,
 		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
-		index: true,
 	},
 	fieldOfInterest: {
-		// field of interest
 		type: String,
-		index: true,
 		trim: true,
 	},
 	pinScholarships: [{ type: mongoose.Schema.Types.ObjectId, ref: 'scholarship' }],

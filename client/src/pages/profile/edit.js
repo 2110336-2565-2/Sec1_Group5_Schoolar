@@ -1,10 +1,13 @@
 import { React, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useAuth } from '@/context/AuthContext'
-import { axiosPrivate } from '../api/axios'
-import FormPrimary from '@components/Layout/FormPrimary'
-import FormEditStd from '@components/Layout/FormEditStd'
+
 import FormEditPvd from '@components/Layout/FormEditPvd'
+import FormEditStd from '@components/Layout/FormEditStd'
+import FormPrimary from '@components/Layout/FormPrimary'
+import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
+
+import { axiosPrivate } from '../api/axios'
 
 export default function Edit() {
 	const { auth } = useAuth()

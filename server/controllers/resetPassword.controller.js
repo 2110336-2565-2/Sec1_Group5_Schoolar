@@ -2,6 +2,7 @@ const User = require('../models/users')
 const { validationResult } = require('express-validator')
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {
@@ -21,15 +22,16 @@ exports.resetPassword = async (req, res) => {
 	const token = req.headers.authorization.split(' ')[1]
 
 	try {
-		const decoded = jwt.verify(token, process.env.JWT_SECRET)
+		const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		const user = await User.findOne({ email: decoded.email })
 
 		if (!user) {
 			return res.status(400).send({ error: 'Invalid email' })
 		}
 
-		user.password = password
-		user.resetPasswordToken = null
+		const salt = await bcrypt.genSalt(10)
+		user.password = await bcrypt.hash(password, salt)
+		user.resetPasswordExpires = null
 		await user.save()
 
 		return res.status(200).send({ message: 'Password has been updated' })
@@ -45,15 +47,15 @@ exports.resetPassword = async (req, res) => {
 exports.sendEmailResetPassword = async (req, res) => {
 	// #swagger.tags = ['reset password']
 	const { email } = req.body
-
+	console.log(email)
 	const user = await User.findOne({ email })
-
+	console.log(user)
 	if (!user) {
 		return res.status(400).send({ error: 'Invalid email' })
 	}
 
-	const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' })
-	const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
+	const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
+	const resetLink = `${process.env.FRONTEND_URL}/forgot-password?token=${token}`
 
 	const transporter = nodemailer.createTransport({
 		host: process.env.EMAIL_HOST,

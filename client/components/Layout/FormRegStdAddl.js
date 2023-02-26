@@ -22,8 +22,6 @@ const FormRegStdAddl = ({
 		sendData(data)
 	}
 
-	console.log('rhf', getValues())
-
 	const formProps = { register, errors, getValues, setValue, control, watch }
 	return (
 		<FormControl

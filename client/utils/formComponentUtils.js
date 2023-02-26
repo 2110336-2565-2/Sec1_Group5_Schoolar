@@ -14,10 +14,12 @@ export const getTitleCase = (text) => {
 }
 
 export const TextFieldComponent = ({
+	//required props
 	name,
 	required,
 	register,
 	errors,
+	//not required props
 	label = getTitleCase(name),
 	autoComplete = name,
 	validation = getValidation(name),
@@ -44,18 +46,20 @@ export const TextFieldComponent = ({
 }
 
 export const DatePickerComponent = ({
+	//required props
 	name,
-	required,
 	register,
 	errors,
+	control,
+	setValue,
+	watch,
+	//not required props
+	shrink,
+	required = false,
 	label = getTitleCase(name),
 	validation = getValidation(name),
 	disabled = false,
-	shrink,
-	disableFuture,
-	control,
-	getValues,
-	watch,
+	disableFuture = false,
 }) => {
 	return (
 		<Controller
@@ -65,7 +69,7 @@ export const DatePickerComponent = ({
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<DatePicker
 						label={label}
-						value={watch(name) || null}
+						value={watch(name) || ''}
 						inputFormat="DD/MM/YYYY"
 						renderInput={(params) => (
 							<TextField
@@ -77,7 +81,9 @@ export const DatePickerComponent = ({
 							/>
 						)}
 						disableFuture={disableFuture}
-						onChange={(event) => onChange(event)}
+						onChange={(value) => {
+							setValue(name, value)
+						}}
 						disabled={disabled}
 						InputLabelProps={{ shrink }}
 					/>
@@ -88,18 +94,20 @@ export const DatePickerComponent = ({
 }
 
 export const SelectComponent = ({
+	//required props
 	name,
-	required = false,
 	register,
 	errors,
-	label = getTitleCase(name),
 	control,
+	watch,
 	getValues,
 	setValue,
+	//not required props
+	shrink,
+	required = false,
+	label = getTitleCase(name),
 	validation = getValidation(name),
 	disabled = false,
-	shrink,
-	watch,
 }) => {
 	let options = []
 	switch (name) {
@@ -136,7 +144,7 @@ export const SelectComponent = ({
 					helperText={errors?.[name] ? errors[name].message : null}
 					value={watch(name) || ''}
 					onChange={(event) => {
-						onChange(event)
+						setValue(name, event.target.value)
 						if (name === 'degree') {
 							setValue('program', '')
 						}

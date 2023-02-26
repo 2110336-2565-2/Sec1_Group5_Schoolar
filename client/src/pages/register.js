@@ -22,10 +22,11 @@ export default function Register() {
 		setValue,
 		getValues,
 		control,
-		watch
+		watch,
+		trigger,
 	} = useForm({ mode: 'onBlur' })
 
-	const [page, setPage] = useState('student')
+	const [page, setPage] = useState('register')
 	const [error, setError] = useState(null)
 
 	const { openSnackbar } = useSnackbar()
@@ -52,6 +53,7 @@ export default function Register() {
 		error,
 		control,
 		watch,
+		trigger,
 		gap: 2.5,
 	}
 	switch (page) {

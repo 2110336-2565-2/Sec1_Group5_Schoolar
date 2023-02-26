@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Divider as MuiDivider } from '@mui/material'
 
 const Divider = ({ orientation = 'horizontal', thickness, ...props }) => {
@@ -7,11 +8,7 @@ const Divider = ({ orientation = 'horizontal', thickness, ...props }) => {
 			orientation={orientation}
 			flexItem
 			{...props}
-			sx={
-				orientation === 'horizontal'
-					? { borderBottomWidth: thickness }
-					: { borderRightWidth: thickness }
-			}
+			sx={orientation === 'horizontal' ? { borderBottomWidth: thickness } : { borderRightWidth: thickness }}
 		/>
 	)
 }

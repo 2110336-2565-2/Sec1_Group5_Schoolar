@@ -1,4 +1,5 @@
 import React from 'react'
+
 import ForgotPassword from '@components/Forgot-Password-page/ForgotPassword'
 import NewPassword from '@components/Forgot-Password-page/NewPassword'
 import FormPrimary from '@components/Layout/FormPrimary'

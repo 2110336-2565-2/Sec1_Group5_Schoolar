@@ -140,7 +140,11 @@ function Navbar({ setOpen }) {
 						>
 							{auth
 								? [
-										<Link href="/profile/edit" key="edit">
+										<Link href="/profile/edit" key="edit" onClick={() => {
+											if (router.pathname === '/profile/edit') {
+											  window.location.reload()
+											}
+										  }}>
 											<MenuItem key="Edit Profile">
 												<ListItemIcon>
 													<Edit fontSize="small" />

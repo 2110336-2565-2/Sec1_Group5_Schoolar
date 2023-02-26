@@ -24,11 +24,12 @@ const FormEditStd = ({ oldValue }) => {
 		register,
 		handleSubmit,
 		formState: { errors, defaultValues },
-		reset,
 		setValue,
-	} = useForm({
-		mode: 'onBlur',
-	})
+		getValues,
+		control,
+		watch,
+		reset,
+	} = useForm({ mode: 'onBlur' })
 
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
@@ -77,7 +78,7 @@ const FormEditStd = ({ oldValue }) => {
 		alert(messages.join('\n'))
 	}
 
-	const formProps = { register, errors, values, setValues }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: true }
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>

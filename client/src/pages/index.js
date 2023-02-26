@@ -5,14 +5,16 @@ import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
 import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
 
-import axios from './api/axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
+	const axiosPrivate = useAxiosPrivate()
+
 	useEffect(() => {
-		axios.get('/scholarship').then((res) => {
+		axiosPrivate.get('/scholarship').then((res) => {
 			setScholars(res.data.data)
 		})
 	}, [])

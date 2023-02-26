@@ -4,12 +4,25 @@ import { Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors, getValues, gap }) => {
+const FormRegStd = ({
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	setValue,
+	getValues,
+	sendData,
+	error,
+	control,
+	gap,
+}) => {
 	const onSubmit = (data) => {
 		setPage('studentAddl')
 	}
 
-	const formProps = { register, errors, values, setValues }
+	console.log('rhf', getValues())
+
+	const formProps = { register, errors, getValues, setValue, control }
 	return (
 		<FormControl
 			component="form"

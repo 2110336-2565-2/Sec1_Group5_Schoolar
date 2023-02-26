@@ -1,3 +1,5 @@
+import { Controller } from 'react-hook-form'
+
 import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -53,28 +55,36 @@ export const DatePickerComponent = ({
 	disabled = false,
 	shrink,
 	disableFuture,
+	control,
+	getValues,
 }) => {
 	return (
-		<LocalizationProvider dateAdapter={AdapterDayjs}>
-			<DatePicker
-				label={label}
-				value={values[name] || null}
-				inputFormat="DD/MM/YYYY"
-				renderInput={(params) => (
-					<TextField
-						{...params}
-						required={required}
-						{...register(name, validation)}
-						error={!!errors?.[name]}
-						helperText={errors?.[name] ? errors[name].message : null}
+		<Controller
+			control={control}
+			name={name}
+			render={({ field: { onChange, onBlur, value, ref } }) => (
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<DatePicker
+						label={label}
+						value={getValues(name) || null}
+						inputFormat="DD/MM/YYYY"
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								required={required}
+								{...register(name, validation)}
+								error={!!errors?.[name]}
+								helperText={errors?.[name] ? errors[name].message : null}
+							/>
+						)}
+						disableFuture={disableFuture}
+						onChange={(event) => onChange(event)}
+						disabled={disabled}
+						InputLabelProps={{ shrink }}
 					/>
-				)}
-				disableFuture={disableFuture}
-				onChange={(value) => setValues({ ...values, [name]: value })}
-				disabled={disabled}
-				InputLabelProps={{ shrink }}
-			/>
-		</LocalizationProvider>
+				</LocalizationProvider>
+			)}
+		></Controller>
 	)
 }
 
@@ -84,8 +94,9 @@ export const SelectComponent = ({
 	register,
 	errors,
 	label = getTitleCase(name),
-	values,
-	setValues,
+	control,
+	getValues,
+	setValue,
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
@@ -99,9 +110,10 @@ export const SelectComponent = ({
 			options = genders
 			break
 		case 'program':
-			if (values['degree'] === '') {
+			console.log(getValues('degree'))
+			if (!getValues('degree')) {
 				disabled = true
-			} else if (values['degree'] === 'high school') {
+			} else if (getValues('degree') === 'high school') {
 				options = studentPrograms
 			} else {
 				options = uniPrograms
@@ -112,30 +124,36 @@ export const SelectComponent = ({
 			options = scholarshipTypes
 	}
 	return (
-		<TextField
-			select
-			required={required}
-			label={label}
-			{...register(name, validation)}
-			error={!!errors?.[name]}
-			helperText={errors?.[name] ? errors[name].message : null}
-			value={values[name]}
-			onChange={(event) => {
-				if (name === 'degree') {
-					setValues({ ...values, [name]: event.target.value, program: '' })
-				} else {
-					setValues({ ...values, [name]: event.target.value })
-				}
-			}}
-			disabled={disabled}
-			InputLabelProps={{ shrink }}
-		>
-			{options.map((option) => (
-				<MenuItem key={option.value} value={option.value}>
-					{option.label}
-				</MenuItem>
-			))}
-		</TextField>
+		<Controller
+			control={control}
+			name={name}
+			// disabled={disabled}
+			render={({ field: { onChange, onBlur, value, ref } }) => (
+				<TextField
+					select
+					required={required}
+					label={label}
+					{...register(name, validation)}
+					error={!!errors?.[name]}
+					helperText={errors?.[name] ? errors[name].message : null}
+					value={getValues(name) || ''}
+					onChange={(event) => {
+						onChange(event)
+						if (name === 'degree') {
+							setValue('program', '')
+						}
+					}}
+					disabled={disabled}
+					InputLabelProps={{ shrink }}
+				>
+					{options.map((option) => (
+						<MenuItem key={option.value} value={option.value}>
+							{option.label}
+						</MenuItem>
+					))}
+				</TextField>
+			)}
+		></Controller>
 	)
 }
 

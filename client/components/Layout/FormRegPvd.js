@@ -5,23 +5,23 @@ import { Stack } from '@mui/system'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegPvd = ({
-	values,
-	setValues,
 	setPage,
 	register,
 	handleSubmit,
 	errors,
+	setValue,
 	getValues,
-	gap,
 	sendData,
 	error,
+	control,
+	gap,
 }) => {
 	const onSubmit = async (data) => {
 		// console.log('Submit', data)
 		sendData(data)
 	}
 
-	const formProps = { register, errors }
+	const formProps = { register, errors, getValues, setValue, control }
 	return (
 		<FormControl
 			component="form"

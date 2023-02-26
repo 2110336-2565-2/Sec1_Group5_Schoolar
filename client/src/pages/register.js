@@ -21,17 +21,10 @@ export default function Register() {
 		formState: { errors },
 		setValue,
 		getValues,
+		control,
 	} = useForm({ mode: 'onBlur' })
 
-	const [values, setValues] = useState({
-		birthDate: '',
-		gender: '',
-		degree: '',
-		program: '',
-		typeOfScholarship: '',
-	})
-
-	const [page, setPage] = useState('register')
+	const [page, setPage] = useState('studentAddl')
 	const [error, setError] = useState(null)
 
 	const { openSnackbar } = useSnackbar()
@@ -47,31 +40,27 @@ export default function Register() {
 		}
 	}
 
-	const formProps = { register, handleSubmit, errors, setValue, getValues, gap: 2.5, sendData, error }
+	const formProps = {
+		setPage,
+		register,
+		handleSubmit,
+		errors,
+		setValue,
+		getValues,
+		sendData,
+		error,
+		control,
+		gap: 2.5,
+	}
 	switch (page) {
 		case 'register':
-			return <FormPrimary header="Register" form={<FormRegister setPage={setPage} {...formProps} />} />
+			return <FormPrimary header="Register" form={<FormRegister {...formProps} />} />
 		case 'student':
-			return (
-				<FormSecondary
-					header="Personal Information"
-					form={<FormRegStd values={values} setValues={setValues} setPage={setPage} {...formProps} />}
-				/>
-			)
+			return <FormSecondary header="Personal Information" form={<FormRegStd {...formProps} />} />
 		case 'studentAddl':
-			return (
-				<FormSecondary
-					header="Additional Information"
-					form={<FormRegStdAddl values={values} setValues={setValues} setPage={setPage} {...formProps} />}
-				/>
-			)
+			return <FormSecondary header="Additional Information" form={<FormRegStdAddl {...formProps} />} />
 		case 'provider':
-			return (
-				<FormSecondary
-					header="Personal Information"
-					form={<FormRegPvd values={values} setValues={setValues} setPage={setPage} {...formProps} />}
-				/>
-			)
+			return <FormSecondary header="Personal Information" form={<FormRegPvd {...formProps} />} />
 		default:
 			return <Error statusCode={404} />
 	}

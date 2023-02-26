@@ -2,6 +2,7 @@ import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { getValidation } from '@utils/formUtils'
+
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './formOptUtils'
 
 export const getTitleCase = (text) => {

@@ -15,17 +15,16 @@ const FormRegStdAddl = ({
 	error,
 	control,
 	gap,
-	watch
+	watch,
 }) => {
 	const onSubmit = (data) => {
 		// console.log('Submit', data)
 		sendData(data)
 	}
 
-	const watchShowAge = watch("school", false)
 	console.log('rhf', getValues())
 
-	const formProps = { register, errors, getValues, setValue, control,watch }
+	const formProps = { register, errors, getValues, setValue, control, watch }
 	return (
 		<FormControl
 			component="form"

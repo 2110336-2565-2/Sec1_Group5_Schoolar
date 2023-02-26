@@ -15,13 +15,14 @@ const FormRegPvd = ({
 	error,
 	control,
 	gap,
+	watch,
 }) => {
 	const onSubmit = async (data) => {
 		// console.log('Submit', data)
 		sendData(data)
 	}
 
-	const formProps = { register, errors, getValues, setValue, control }
+	const formProps = { register, errors, getValues, setValue, control, watch }
 	return (
 		<FormControl
 			component="form"

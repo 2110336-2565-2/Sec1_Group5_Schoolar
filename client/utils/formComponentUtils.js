@@ -49,14 +49,13 @@ export const DatePickerComponent = ({
 	register,
 	errors,
 	label = getTitleCase(name),
-	values,
-	setValues,
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
 	disableFuture,
 	control,
 	getValues,
+	watch,
 }) => {
 	return (
 		<Controller
@@ -66,7 +65,7 @@ export const DatePickerComponent = ({
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<DatePicker
 						label={label}
-						value={getValues(name) || null}
+						value={watch(name) || null}
 						inputFormat="DD/MM/YYYY"
 						renderInput={(params) => (
 							<TextField
@@ -100,7 +99,7 @@ export const SelectComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	shrink,
-	watch
+	watch,
 }) => {
 	let options = []
 	switch (name) {
@@ -111,7 +110,6 @@ export const SelectComponent = ({
 			options = genders
 			break
 		case 'program':
-			console.log(getValues('degree'))
 			if (!getValues('degree')) {
 				disabled = true
 			} else if (getValues('degree') === 'high school') {
@@ -128,7 +126,6 @@ export const SelectComponent = ({
 		<Controller
 			control={control}
 			name={name}
-			// disabled={disabled}
 			render={({ field: { onChange, onBlur, value, ref } }) => (
 				<TextField
 					select

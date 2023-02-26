@@ -15,12 +15,14 @@ const FormRegStd = ({
 	error,
 	control,
 	gap,
+	watch,
 }) => {
 	const onSubmit = (data) => {
 		setPage('studentAddl')
 	}
 
-	const formProps = { register, errors, getValues, setValue, control }
+	console.log('rhf', getValues())
+	const formProps = { register, errors, getValues, setValue, control, watch }
 	return (
 		<FormControl
 			component="form"

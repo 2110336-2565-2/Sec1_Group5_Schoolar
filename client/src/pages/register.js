@@ -25,7 +25,7 @@ export default function Register() {
 		watch
 	} = useForm({ mode: 'onBlur' })
 
-	const [page, setPage] = useState('studentAddl')
+	const [page, setPage] = useState('student')
 	const [error, setError] = useState(null)
 
 	const { openSnackbar } = useSnackbar()

@@ -3,7 +3,7 @@ import { Box, CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
+import Footer from './Footer'
 import { useAuth } from '@/context/AuthContext'
 import theme from '@/styles/theme'
 
@@ -39,6 +39,7 @@ const WebLayout = ({ children }) => {
 			>
 				<Box sx={{ display: 'flex', flex: '1 1 auto', position: 'relative' }}>{children}</Box>
 			</Box>
+			<Footer />
 		</ThemeProvider>
 	)
 }

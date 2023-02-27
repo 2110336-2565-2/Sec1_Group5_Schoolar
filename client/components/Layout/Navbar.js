@@ -89,18 +89,19 @@ function Navbar({ setOpen }) {
 		<AppBar position="sticky" sx={{ bgcolor: 'primary.light', height: 64 }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
-					<Stack direction="row" spacing={2}>
+					<Stack direction="row" spacing={2} >
 						{!isSm && (
 							<>
-								<MenuItem>
+								<MenuItem >
 									<MenuIcon onClick={handleHiddenMenuClick} style={{ color: '#000000' }} />
 								</MenuItem>
 								<Menu
-									anchorEl={anchorEl}
+									anchorEl={hiddenMenuAnchorEl}
 									id="hidden-menu"
 									open={menuOpen}
 									onClose={handleHiddenMenuClose}
 									onClick={handleHiddenMenuClose}
+									disableScrollLock={true}
 									PaperProps={{
 										elevation: 0,
 										sx: {
@@ -155,11 +156,6 @@ function Navbar({ setOpen }) {
 							})}
 					</Stack>
 					<Stack direction="row">
-						{auth && (
-							<Button>
-								<Image src="/primary/Noti.svg" alt="notification" width="30" height="31" />
-							</Button>
-						)}
 						<Box
 							sx={{
 								display: 'flex',
@@ -186,6 +182,7 @@ function Navbar({ setOpen }) {
 							open={open}
 							onClose={handleMenuClose}
 							onClick={handleMenuClose}
+							disableScrollLock={true}
 							PaperProps={{
 								elevation: 0,
 								sx: {
@@ -217,39 +214,39 @@ function Navbar({ setOpen }) {
 						>
 							{auth
 								? [
-										<Link href="/profile/edit" key="edit">
-											<MenuItem key="Edit Profile">
-												<ListItemIcon>
-													<Edit fontSize="small" />
-												</ListItemIcon>
-												Edit Profile
-											</MenuItem>
-										</Link>,
-										<MenuItem onClick={handleLogout} key="logout">
+									<Link href="/profile/edit" key="edit">
+										<MenuItem key="Edit Profile">
 											<ListItemIcon>
-												<Logout fontSize="small" />
+												<Edit fontSize="small" />
 											</ListItemIcon>
-											Logout
-										</MenuItem>,
-								  ]
+											Edit Profile
+										</MenuItem>
+									</Link>,
+									<MenuItem onClick={handleLogout} key="logout">
+										<ListItemIcon>
+											<Logout fontSize="small" />
+										</ListItemIcon>
+										Logout
+									</MenuItem>,
+								]
 								: [
-										<Link href="/login" key="login">
-											<MenuItem>
-												<ListItemIcon>
-													<Login fontSize="small" />
-												</ListItemIcon>
-												Login
-											</MenuItem>
-										</Link>,
-										<Link href="/register" key="register">
-											<MenuItem>
-												<ListItemIcon>
-													<AppRegistration fontSize="small" />
-												</ListItemIcon>
-												Register
-											</MenuItem>
-										</Link>,
-								  ]}
+									<Link href="/login" key="login">
+										<MenuItem>
+											<ListItemIcon>
+												<Login fontSize="small" />
+											</ListItemIcon>
+											Login
+										</MenuItem>
+									</Link>,
+									<Link href="/register" key="register">
+										<MenuItem>
+											<ListItemIcon>
+												<AppRegistration fontSize="small" />
+											</ListItemIcon>
+											Register
+										</MenuItem>
+									</Link>,
+								]}
 						</Menu>
 					</Stack>
 				</HStack>

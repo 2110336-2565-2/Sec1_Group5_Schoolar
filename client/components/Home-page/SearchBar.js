@@ -23,7 +23,8 @@ function SearchBar(props) {
 				sx={{
 					display: 'flex',
 					flex: '1 1 auto',
-					minWidth: { xs: 'auto', md: 700 },
+					width: '60%',
+					minWidth: 340,
 					borderRadius: 10,
 					padding: 1,
 					paddingRight: 2,

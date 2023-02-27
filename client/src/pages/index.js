@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
-import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
@@ -11,6 +11,11 @@ function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 
+	// set filters list
+	const [scholarshipFilters, setScholarshipFilters] = useState([])
+	const [degreeFilters, setDegreeFilters] = useState([])
+	const [facultyFilters, setFacultyFilters] = useState([])
+	const [studentProgramFilters, setStudentProgramFilters] = useState([])
 	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
@@ -23,14 +28,56 @@ function Homepage() {
 		setInputName(value.trim())
 	}
 
+	// Filter Handler
+	const filterHandler = (scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters) => {
+		console.log(scholars)
+		// filter scholarship
+		console.log(`matched Input : ${scholarshipFilters}`)
+		console.log(`matched Input : ${degreeFilters}`)
+		console.log(`matched Input : ${facultyFilters}`)
+		console.log(`matched Input : ${studentProgramFilters}`)
+
+		setScholarshipFilters(scholarshipFilters)
+		setDegreeFilters(degreeFilters)
+		setFacultyFilters(facultyFilters)
+		setStudentProgramFilters(studentProgramFilters)
+	}
+
+	const isContainScholar = (arr, str) => {
+		return arr.length === 0 ? true : arr.includes(str)
+	}
+
 	const filteredScholars = scholars.filter((scholar) => {
-		return scholar.name.toLowerCase().includes(inputName.toLowerCase())
+		console.log(`Input : ${inputName}`)
+		if (
+			scholarshipFilters.length === 0 &&
+			degreeFilters.length === 0 &&
+			facultyFilters.length === 0 &&
+			studentProgramFilters.length === 0
+		) {
+			return scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase())
+		} else if (inputName.length === 0) {
+			return (
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		} else {
+			return (
+				scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase()) &&
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		}
 	})
 
 	return (
 		<Center>
 			<VStack sx={{ width: '90%' }}>
-				<SearchBar searchHandler={searchHandler} />
+				<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
 				<Paper
 					sx={{
 						position: 'relative',

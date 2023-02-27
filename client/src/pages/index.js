@@ -4,8 +4,9 @@ import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
 import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
-
 import axios from './api/axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
@@ -15,9 +16,11 @@ function Homepage() {
 	const [degreeFilters, setDegreeFilters] = useState([])
 	const [facultyFilters, setFacultyFilters] = useState([])
 	const [studentProgramFilters, setStudentProgramFilters] = useState([])
+	const axiosPrivate = useAxiosPrivate()
+
 
 	useEffect(() => {
-		axios.get('/scholarship').then((res) => {
+		axiosPrivate.get('/scholarship').then((res) => {
 			setScholars(res.data.data)
 		})
 	}, [])
@@ -77,14 +80,14 @@ function Homepage() {
 
 	return (
 		<Center>
-			<VStack>
-				<SearchBar searchHandler={searchHandler} filterHandler = {filterHandler} />
+			<VStack sx={{ width: '90%' }}>
+				<SearchBar searchHandler={searchHandler} />
 				<Paper
 					sx={{
 						position: 'relative',
 						top: -28,
 						zIndex: 1,
-						minWidth: { xs: 'auto', md: 1150 },
+						width: '100%',
 						borderRadius: 10,
 						padding: 10,
 						backgroundColor: '#F4F6F8',

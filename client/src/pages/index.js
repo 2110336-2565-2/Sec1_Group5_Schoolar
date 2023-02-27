@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
-import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-
-import axios from './api/axios'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])

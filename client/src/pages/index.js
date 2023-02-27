@@ -4,8 +4,10 @@ import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
 import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
-import axios from './api/axios'
+
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
+import axios from './api/axios'
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
@@ -17,7 +19,6 @@ function Homepage() {
 	const [facultyFilters, setFacultyFilters] = useState([])
 	const [studentProgramFilters, setStudentProgramFilters] = useState([])
 	const axiosPrivate = useAxiosPrivate()
-
 
 	useEffect(() => {
 		axiosPrivate.get('/scholarship').then((res) => {
@@ -81,7 +82,7 @@ function Homepage() {
 	return (
 		<Center>
 			<VStack sx={{ width: '90%' }}>
-				<SearchBar searchHandler={searchHandler} />
+				<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
 				<Paper
 					sx={{
 						position: 'relative',
@@ -105,7 +106,7 @@ function Homepage() {
 						)}
 						<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 					</Box>
-					<Scholarship items={filteredScholars}/>
+					<Scholarship items={filteredScholars} />
 				</Paper>
 			</VStack>
 		</Center>

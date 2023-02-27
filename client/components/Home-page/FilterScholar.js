@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { scholarshipTypes, uniPrograms, studentPrograms, degrees } from '@utils/formOptUtils'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormGroup, IconButton } from '@mui/material'
+
 import { FilterList as FilterListIcon } from '@mui/icons-material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
+import { degrees, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/formOptUtils'
+
 import FilterSearchBar from './FilterSearchBar'
 
 function getStyles(name, ssTypes, theme) {
@@ -34,7 +36,7 @@ function FilterScholar(props) {
 		handleClose()
 	}
 	return (
-		<div>
+		<Box sx={{ p: '10px' }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<FilterListIcon />
 			</IconButton>
@@ -78,7 +80,7 @@ function FilterScholar(props) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</Box>
 	)
 }
 

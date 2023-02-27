@@ -4,6 +4,7 @@ import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
+
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
 
@@ -35,9 +36,7 @@ function SearchBar(props) {
 				}}
 			>
 				<HStack sx={{ width: '100%' }}>
-					<IconButton type="button" sx={{ p: '10px' }}>
-						<FilterScholar filterHandler={props.filterHandler} />
-					</IconButton>
+					<FilterScholar filterHandler={props.filterHandler} />
 					<Paper
 						onSubmit={onClick}
 						component="form"

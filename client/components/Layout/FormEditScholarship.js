@@ -41,7 +41,7 @@ const FormEditScholarship = ({ id }) => {
 				fieldOfInterest: data.fieldOfInterest,
 				typeOfScholarship: data.typeOfScholarship,
 				detail: data.detail,
-				applicationDeadline: data.applicationDeadline,
+				applicationDeadline: Date(data.applicationDeadline),
 			})
 		})
 	}, [])

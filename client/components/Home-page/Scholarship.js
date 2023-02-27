@@ -4,7 +4,7 @@ import { grey } from '@mui/material/colors'
 
 function Scholarship(props) {
 	return (
-		<Grid container marginTop={2} marginBottom={4} gap="30px 50px" justifyContent="center">
+		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
 				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
@@ -30,11 +30,7 @@ function Scholarship(props) {
 								<PushPinIcon sx={{ color: grey[900] }} />
 							</Button>
 						</Grid>
-						<Divider
-							orientation="horizontal"
-							variant="middle"
-							style={{ borderBottomWidth: 2 }}
-						/>
+						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />
 						<Grid margin={1}>
 							{scholar.tag?.map((tag, idx) => {
 								return (

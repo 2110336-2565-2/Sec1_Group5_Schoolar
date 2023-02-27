@@ -1,43 +1,64 @@
 import React from 'react'
-import { Button, FormControl, Grid, Stack, TextField} from '@mui/material'
+import { useForm } from 'react-hook-form'
 
-function FormEditScholarship(){
-    return(
-        <Stack>
-            <FormControl component="form" sx={{ width: '100%' }}>
-                <TextField id="outlined-basic" label="Scholarship Name" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Provider Name" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Scholarship Quota" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Amount (Baht)" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Detail of Scholarship" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="GPAX" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Degree" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Program/Faculty" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Target Nation" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Field of interest" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Type of Scholarship" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField id="outlined-basic" label="Application Deadline" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-            </FormControl>
-            <Grid
-                container
-                rowSpacing={2}
-                alignItems="stretch"
-                justifyContent="space-evenly"
-                sx={{ padding: '20px 0px 20px 20px' }}
-            >
-                <Grid item>
-                    <Button variant="contained" type="submit">
-                        Cancel
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button variant="contained" type="submit">
-                        Update
-                    </Button>
-                </Grid>
-            </Grid>
-        </Stack>
-    )
+import { Button, FormControl, Grid, Stack } from '@mui/material'
+import { TextFieldComponent } from '@utils/formComponentUtils'
+
+const FormEditScholarship = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, defaultValues },
+		reset,
+		setValue,
+	} = useForm({
+		mode: 'onBlur',
+	})
+
+	const onSubmit = (e) => {
+		console.log(e)
+		alert(JSON.stringify(e))
+	}
+
+	const formProps = { register, errors }
+	return (
+		<Stack>
+			<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
+				<Stack spacing={3} direction="column">
+					<TextFieldComponent name="Scholarship Name" {...formProps} />
+					<TextFieldComponent name="Provider Name" {...formProps} />
+					<TextFieldComponent name="Scholarship Quota" {...formProps} />
+					<TextFieldComponent name="Amount (Baht)" {...formProps} />
+					<TextFieldComponent name="Detail of Scholarship" {...formProps} />
+					<TextFieldComponent name="GPAX" {...formProps} />
+					<TextFieldComponent name="Degree" {...formProps} />
+					<TextFieldComponent name="Program/Faculty" {...formProps} />
+					<TextFieldComponent name="Target Nation" {...formProps} />
+					<TextFieldComponent name="Field of interest" {...formProps} />
+					<TextFieldComponent name="Type of Scholarship" {...formProps} />
+					<TextFieldComponent name="Application Deadline" {...formProps} />
+				</Stack>
+				<Grid
+					container
+					rowSpacing={2}
+					alignItems="stretch"
+					justifyContent="space-evenly"
+					sx={{ padding: '20px 0px 20px 20px' }}
+				>
+					<Grid item>
+						<Button variant="contained" type="submit">
+							Cancel
+						</Button>
+					</Grid>
+					<Grid item>
+						<Button variant="contained" type="submit">
+							Update
+						</Button>
+					</Grid>
+				</Grid>
+			</FormControl>
+		</Stack>
+	)
 }
 
 export default FormEditScholarship

@@ -6,24 +6,29 @@ const FormPrimary = ({ header, form, icon }) => {
 	return (
 		<Grid
 			container
-			spacing={2}
 			sx={{
 				p: 0,
 				m: 0,
 			}}
 		>
-			<Grid item xs={12} sm={4} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<Grid
+				item
+				xs={12}
+				sm={4}
+				md={6}
+				sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 0, m: 0 }}
+			>
 				<Image
 					src="/primary/slogan.png"
 					alt="overlay"
 					width={0}
 					height={0}
 					sizes="100vw"
-					priority="false"
+					priority={false}
 					style={{
 						width: '70%',
 						height: 'auto',
-						margin: '20px 0',
+						margin: '20px 0 0',
 					}}
 				/>
 			</Grid>

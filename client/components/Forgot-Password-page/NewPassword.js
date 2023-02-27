@@ -1,19 +1,18 @@
 import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Center, VStack } from '@components/common'
-import { Button, Divider, FormControl, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import { PasswordIcon } from '@utils/images'
-import Image from 'next/image'
 import InputPassword from '@components/Layout/InputPassword'
-import { useState, useEffect } from 'react'
-import axios from '@/pages/api/axios'
+import { Button, FormControl, Typography } from '@mui/material'
 import Alert from '@mui/material/Alert'
-import { getValidation } from '@utils/formUtils'
+import { getErrMsg, getValidation } from '@utils/formUtils'
+
+import { useSnackbar } from '@/context/SnackbarContext'
+import axios from '@/pages/api/axios'
 
 function NewPassword({ router }) {
-	const [success, setsuccess] = useState(false)
-	const [error, seterror] = useState(false)
+	const [error, setError] = useState(false)
+
+	const { openSnackbar } = useSnackbar()
 
 	const {
 		register,
@@ -23,8 +22,8 @@ function NewPassword({ router }) {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
+		setError(false)
 		const token = router.query.token
-		console.log(data)
 
 		try {
 			const res = await axios.put(
@@ -36,30 +35,23 @@ function NewPassword({ router }) {
 					},
 				},
 			)
-			console.log(res.data)
-			setsuccess(true)
+			openSnackbar('Reset password success!', 'success', 7000)
+			router.push('/login')
 		} catch (err) {
 			console.log(err)
-			seterror(true)
+			setError(true)
 		}
 	}
-
-	useEffect(() => {
-		setTimeout(() => {
-			seterror(false)
-			setsuccess(false)
-		}, 3000)
-	}, [error, success])
 
 	return (
 		<>
 			{error && <Alert severity="error">Error occur</Alert>}
-			{success && <Alert severity="success">Reset password successfully</Alert>}
 			<Typography align="center" sx={{ mb: 1.5 }}>
 				Enter your new password
 			</Typography>
 			<FormControl
 				component="form"
+				noValidate
 				onSubmit={handleSubmit(onSubmit)}
 				sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 			>

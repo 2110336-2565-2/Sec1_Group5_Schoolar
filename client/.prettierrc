@@ -7,5 +7,20 @@
 	"semi": false,
 	"tabWidth": 4,
 	"bracketSpacing": true,
-	"endOfLine": "auto"
+	"endOfLine": "auto",
+
+	"importOrder": [
+		"^react",
+		"^@?\\w",
+		"^(@|components)(/.*|$)",
+		"^\\u0000",
+		"^\\.\\.(?!/?$)",
+		"^\\.\\./?$",
+		"^\\./(?=.*/)(?!/?$)",
+		"^\\.(?!/?$)",
+		"^\\./?$",
+		"^.+\\.?(css)$"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }

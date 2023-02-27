@@ -100,7 +100,7 @@
                 "fieldOfInterest": {
                   "example": "any"
                 },
-                "providerName": {
+                "organizationName": {
                   "example": "any"
                 },
                 "address": {
@@ -633,6 +633,33 @@
           },
           "400": {
             "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/scholarship/scholarship": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipData": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

@@ -1,7 +1,10 @@
+import { Controller } from 'react-hook-form'
+
 import { MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { getValidation } from '@utils/formUtils'
+
 import { degrees, genders, scholarshipTypes, studentPrograms, uniPrograms } from './formOptUtils'
 
 export const getTitleCase = (text) => {
@@ -11,10 +14,12 @@ export const getTitleCase = (text) => {
 }
 
 export const TextFieldComponent = ({
+	//required props
 	name,
 	required,
 	register,
 	errors,
+	//not required props
 	label = getTitleCase(name),
 	autoComplete = name,
 	validation = getValidation(name),
@@ -41,53 +46,68 @@ export const TextFieldComponent = ({
 }
 
 export const DatePickerComponent = ({
+	//required props
 	name,
-	required,
 	register,
 	errors,
+	control,
+	setValue,
+	watch,
+	//not required props
+	shrink,
+	required = false,
 	label = getTitleCase(name),
-	values,
-	setValues,
 	validation = getValidation(name),
 	disabled = false,
-	shrink,
-	disableFuture,
+	disableFuture = false,
 }) => {
 	return (
-		<LocalizationProvider dateAdapter={AdapterDayjs}>
-			<DatePicker
-				label={label}
-				value={values[name] || null}
-				inputFormat="DD/MM/YYYY"
-				renderInput={(params) => (
-					<TextField
-						{...params}
-						required={required}
-						{...register(name, validation)}
-						error={!!errors?.[name]}
-						helperText={errors?.[name] ? errors[name].message : null}
+		<Controller
+			control={control}
+			name={name}
+			render={({ field: { onChange, onBlur, value, ref } }) => (
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<DatePicker
+						label={label}
+						value={watch(name) || ''}
+						inputFormat="DD/MM/YYYY"
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								required={required}
+								{...register(name, validation)}
+								error={!!errors?.[name]}
+								helperText={errors?.[name] ? errors[name].message : null}
+							/>
+						)}
+						disableFuture={disableFuture}
+						onChange={(value) => {
+							setValue(name, value)
+						}}
+						disabled={disabled}
+						InputLabelProps={{ shrink }}
 					/>
-				)}
-				disableFuture={disableFuture}
-				onChange={(value) => setValues({ ...values, [name]: value })}
-				disabled={disabled}
-				InputLabelProps={{ shrink }}
-			/>
-		</LocalizationProvider>
+				</LocalizationProvider>
+			)}
+		></Controller>
 	)
 }
 
 export const SelectComponent = ({
+	//required props
 	name,
-	required = false,
 	register,
 	errors,
+	control,
+	watch,
+	getValues,
+	setValue,
+	//not required props
+	shrink,
+	required = false,
 	label = getTitleCase(name),
-	values,
-	setValues,
 	validation = getValidation(name),
 	disabled = false,
-	shrink,
 }) => {
 	let options = []
 	switch (name) {
@@ -98,9 +118,9 @@ export const SelectComponent = ({
 			options = genders
 			break
 		case 'program':
-			if (values['degree'] === '') {
+			if (!getValues('degree')) {
 				disabled = true
-			} else if (values['degree'] === 'high school') {
+			} else if (getValues('degree') === 'high school') {
 				options = studentPrograms
 			} else {
 				options = uniPrograms
@@ -111,30 +131,35 @@ export const SelectComponent = ({
 			options = scholarshipTypes
 	}
 	return (
-		<TextField
-			select
-			required={required}
-			label={label}
-			{...register(name, validation)}
-			error={!!errors?.[name]}
-			helperText={errors?.[name] ? errors[name].message : null}
-			value={values[name]}
-			onChange={(event) => {
-				if (name === 'degree') {
-					setValues({ ...values, [name]: event.target.value, program: '' })
-				} else {
-					setValues({ ...values, [name]: event.target.value })
-				}
-			}}
-			disabled={disabled}
-			InputLabelProps={{ shrink }}
-		>
-			{options.map((option) => (
-				<MenuItem key={option.value} value={option.value}>
-					{option.label}
-				</MenuItem>
-			))}
-		</TextField>
+		<Controller
+			control={control}
+			name={name}
+			render={({ field: { onChange, onBlur, value, ref } }) => (
+				<TextField
+					select
+					required={required}
+					label={label}
+					{...register(name, validation)}
+					error={!!errors?.[name]}
+					helperText={errors?.[name] ? errors[name].message : null}
+					value={watch(name) || ''}
+					onChange={(event) => {
+						setValue(name, event.target.value)
+						if (name === 'degree') {
+							setValue('program', '')
+						}
+					}}
+					disabled={disabled}
+					InputLabelProps={{ shrink }}
+				>
+					{options.map((option) => (
+						<MenuItem key={option.value} value={option.value}>
+							{option.label}
+						</MenuItem>
+					))}
+				</TextField>
+			)}
+		></Controller>
 	)
 }
 

@@ -1,14 +1,9 @@
 import React,{useState} from 'react'
+import { useForm } from 'react-hook-form'
 import { Button, FormControl, Grid, Stack, TextField, MenuItem} from '@mui/material'
+import { SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
 //Dropdown Menu
-//Degree Dropdown
-const degree = [
-    {value:"High School",label:"High School"},
-    {value:"Bachelor",label:"Bachelor",},
-    {value:"Master",label:"Master",},
-    {value:"Doctoral",label:"Doctoral",},
-];
 //Scholarship Type Dropdown
 const scholarshipType = [
     {value:"Full Scholarship",label:"Full Scholarship",},
@@ -47,23 +42,33 @@ const faculty = [
 ];
 
 function FormEditScholarship(){
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        getValues,
+        control,
+        watch,
+        trigger,
+    } = useForm({ mode: 'onBlur' })
+    const formProps = { register, errors, getValues, setValue, control, watch }
     return(
         <Stack>
-            <FormControl component="form" sx={{ width: '100%' }}>
-                <TextField required id="outlined-required" label="Scholarship Name" variant="outlined" sx={{ padding: '0px 0px 20px 0px'}}/>
-                <TextField required id="outlined-required" label="Organization Name" variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
+            <FormControl
+                component="form"
+                //onSubmit={handleSubmit(onSubmit)}
+                sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+            >
+               
+                <TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
+                <TextFieldComponent name="provider" label="Organization Name" required={true} {...formProps} />
                 <h3> Requirement </h3>
-                <TextField id="outlined-basic" label="GPAX" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                <TextField required id="outlined-select-currency" select label="Degree" helperText="Please select your degree" sx={{ padding: '0px 0px 20px 0px' }}>
-                    {degree.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField required id="outlined-required" label="Target Nation" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
-                
-                <TextField required id="outlined-select-currency" select label="Program/Faculty" helperText="Please select your program or faculty" sx={{ padding: '0px 0px 20px 0px' }}>
+                <TextFieldComponent name="gpax" label="GPAX" {...formProps} />
+                <SelectComponent name="degree" {...formProps} />
+                <TextFieldComponent name="targetNation" label="Scholarship Nation" required={true} {...formProps} />
+                <SelectComponent name="program" {...formProps} />
+                <TextField required id="outlined-select-currency" select label="Program/Faculty" helperText="Please select your program or faculty" sx={{ padding: '0px 0px 00px 0px' }}>
                     <optgroup label = "Program"></optgroup>
                     {program.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -77,7 +82,6 @@ function FormEditScholarship(){
                         </MenuItem>
                     ))}
                 </TextField>
-                <TextField id="outlined-multiline-static" label="More Requirement" multiline row={4} variant="outlined" sx={{ padding: '0px 0px 0px 0px' }}/>
                 <h3> Detail of scholarship </h3>
                 <TextField required id="outlined-required" label="Amount (Baht)" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>
                 <TextField id="outlined-basic" label="Scholarship Quota" variant="outlined" sx={{ padding: '0px 0px 20px 0px' }}/>

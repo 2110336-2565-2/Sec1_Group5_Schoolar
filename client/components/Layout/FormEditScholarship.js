@@ -1,27 +1,33 @@
-import React from 'react'
+import React , {useEffect}from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button, FormControl, Grid, Stack, MenuItem, Select, InputLabel} from '@mui/material'
-import { SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormEditScholarship = () => {
+
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, defaultValues },
+		formState: { errors },
 		reset,
 		setValue,
-		setPage,
 		getValues,
-		sendData,
-		error,
 		control,
-		gap,
 		watch,
-	} = useForm({
-		mode: 'onBlur',
-	})
+		trigger,
+	} = useForm({ mode: 'onBlur' })
+
+	const { auth } = useAuth()
+	//*axios private to get data from route that need token
+	const axiosPrivate = useAxiosPrivate()
+
+	useEffect(() => {
+
+	}, [])
 
 	const onSubmit = (e) => {
 		console.log(e)
@@ -46,7 +52,7 @@ const FormEditScholarship = () => {
 					<TextFieldComponent name="fieldOfInterest" {...formProps} />
 					<SelectComponent name="typeOfScholarship" {...formProps} />
 					<TextFieldComponent name="detail" label="More Details" {...formProps} />
-					<TextFieldComponent name="applicationDeadline" {...formProps} />
+					<DatePickerComponent name="applicationDeadline" {...formProps} />
 				</Stack>
 				<Grid
 					container

@@ -33,21 +33,20 @@ const FormEditScholarship = () => {
 		<Stack>
 			<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 				<Stack spacing={3} direction="column">
-					<TextFieldComponent name="Scholarship Name" {...formProps} />
-					<TextFieldComponent name="Provider Name" {...formProps} />
+					<TextFieldComponent name="scholarshipName" {...formProps} />
+					<TextFieldComponent name="provider" {...formProps} />
 					<h3>Requirement</h3>
-					<TextFieldComponent name="GPAX" {...formProps} />
+					<TextFieldComponent name="gpax" {...formProps} />
 					<SelectComponent name="degree" {...formProps}/>
-					<TextFieldComponent name="Target Nation" {...formProps} />
+					<TextFieldComponent name="targetNation" {...formProps} />
 					<SelectComponent name="program" {...formProps} />
-					<TextFieldComponent name="More Requirements" {...formProps} />
 					<h3>Detail of scholarship</h3>
-					<TextFieldComponent name="Amount (Baht)" {...formProps} />
-					<TextFieldComponent name="Scholarship Quota" {...formProps} />
-					<TextFieldComponent name="Field of interest" {...formProps} />
+					<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
+					<TextFieldComponent name="quota" label="Scholarship Quota" {...formProps} />
+					<TextFieldComponent name="fieldOfInterest" {...formProps} />
 					<SelectComponent name="typeOfScholarship" {...formProps} />
-					<TextFieldComponent name="More Details" {...formProps} />
-					<TextFieldComponent name="Application Deadline" {...formProps} />
+					<TextFieldComponent name="detail" label="More Details" {...formProps} />
+					<TextFieldComponent name="applicationDeadline" {...formProps} />
 				</Stack>
 				<Grid
 					container

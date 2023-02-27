@@ -45,5 +45,5 @@ export const scholarshipTypes = [
 	{ value: 'full', label: 'Full Scholarship' },
 	{ value: 'partial', label: 'Partial Scholarship' },
 	{ value: 'renewable', label: 'Renewable Scholarship' },
-	{ value: 'fellow', label: 'Followship' },
+	{ value: 'fellow', label: 'Fellowship' },
 ]

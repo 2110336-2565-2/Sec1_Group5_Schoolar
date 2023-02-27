@@ -25,8 +25,8 @@ function Scholarship(props) {
 							height: 180,
 							flexDirection: 'column',
 						}}
-						LinkComponent={Link}
-						href={auth.role == 'provider' ? `/scholarship/update-scholarship/${scholar._id}` : ``}
+						linkcomponent={Link}
+						href={auth && auth.role === 'provider' ? `/scholarship/update-scholarship/${scholar._id}` : ``}
 					>
 						<Grid container direction="row" justifyContent="space-between">
 							<Typography margin={2} marginLeft={2}>

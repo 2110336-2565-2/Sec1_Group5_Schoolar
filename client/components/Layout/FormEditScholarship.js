@@ -6,9 +6,12 @@ import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormEditScholarship = ({ id }) => {
+	const { openSnackbar } = useSnackbar()
+
 	const router = useRouter()
 	const {
 		register,
@@ -30,7 +33,7 @@ const FormEditScholarship = ({ id }) => {
 		axiosPrivate.get(`/scholarship/${id}`).then((res) => {
 			const data = res.data.data
 			reset({
-				provider: auth.username,
+				provider: '',
 				scholarshipName: data.scholarshipName,
 				gpax: data.gpax,
 				degree: data.degree,
@@ -45,6 +48,11 @@ const FormEditScholarship = ({ id }) => {
 			})
 		})
 	}, [])
+	useEffect(() => {
+		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+			setValue('provider', res.data.provider.organizationName)
+		})
+	}, [])
 
 	const onSubmit = (e) => {
 		axiosPrivate
@@ -54,7 +62,7 @@ const FormEditScholarship = ({ id }) => {
 				detail: e.detail,
 			})
 			.then(() => {
-				alert('Update successfully')
+				openSnackbar('Update scholarship successfully!', 'success')
 				router.push('/')
 			})
 	}
@@ -65,13 +73,19 @@ const FormEditScholarship = ({ id }) => {
 			<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 				<Stack spacing={3} direction="column">
 					<TextFieldComponent name="scholarshipName" disabled={true} shrink={true} {...formProps} />
-					<TextFieldComponent name="provider" disabled={true} shrink={true} {...formProps} />
-					<h3>Requirement</h3>
+					<TextFieldComponent
+						name="provider"
+						label="Organization Name"
+						disabled={true}
+						shrink={true}
+						{...formProps}
+					/>
+					<h3>Requirements</h3>
 					<TextFieldComponent name="gpax" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="degree" disabled={true} shrink={true} {...formProps} />
 					<TextFieldComponent name="targetNation" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="program" disabled={true} shrink={true} {...formProps} />
-					<h3>Detail of scholarship</h3>
+					<h3>Details of scholarship</h3>
 					<TextFieldComponent name="amount" label="Amount (Baht)" shrink={true} {...formProps} />
 					<TextFieldComponent name="quota" label="Scholarship Quota" shrink={true} {...formProps} />
 					<TextFieldComponent name="fieldOfInterest" disabled={true} shrink={true} {...formProps} />

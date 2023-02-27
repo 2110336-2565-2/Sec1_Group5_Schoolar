@@ -112,7 +112,7 @@ export const SelectComponent = ({
 			{...register(name, validation)}
 			error={!!errors?.[name]}
 			helperText={errors?.[name] ? errors[name].message : null}
-			value={values[name]}
+			value={values[name] || ""}
 			onChange={(event) => {
 				if (name === 'degree') {
 					setValues({ ...values, [name]: event.target.value, program: '' })

@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import { axiosPrivate } from '../api/axios'
 import FormEditStd from '@components/Layout/FormEditStd'
 import FormEditPvd from '@components/Layout/FormEditPvd'
-import FormEdit from '@components/Layout/FormEdit'
+import FormSecondary from '@components/Layout/FormSecondary'
 
 export default function Edit() {
 	const { auth } = useAuth()
@@ -38,9 +38,9 @@ export default function Edit() {
 	}, [])
 
 	if (auth?.role === 'student') {
-		return <FormEdit header="Update Information" form={<FormEditStd oldValue={data} />} />
+		return <FormSecondary header="Update Information" form={<FormEditStd oldValue={data} />} />
 	} else {
-		return <FormEdit header="Update Information" form={<FormEditPvd oldValue={data} />} />
+		return <FormSecondary header="Update Information" form={<FormEditPvd oldValue={data} />} />
 	}
 }
 

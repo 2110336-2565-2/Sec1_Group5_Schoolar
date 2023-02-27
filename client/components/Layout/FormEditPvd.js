@@ -60,8 +60,6 @@ const FormEditPvd = ({ oldValue }) => {
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
 							<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
 							<TextFieldComponent
 								name="phoneNumber"
 								required={true}
@@ -69,7 +67,8 @@ const FormEditPvd = ({ oldValue }) => {
 								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
 								{...formProps}
 							/>
-							<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="address" required={true} shrink={true} multiline={true} row={3} {...formProps} />							
 							<Stack spacing={3} direction="row" justifyContent="space-evenly">
 								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
 								<Button sx={{width: "100%"}} variant="contained" type="submit">

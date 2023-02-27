@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, Typography } from '@mui/material'
+import { Button, FormControl, Grid, Stack, TextField, Typography, MenuItem } from '@mui/material'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 import { getValidation } from '@utils/formUtils'
@@ -11,12 +11,14 @@ const FormEditStd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
 	//TextFieldComponent only need register
 	const [values, setValues] = useState({
-		birthDate: '',
+	
 		gender: '',
 		degree: '',
 		program: '',
 		typeOfScholarship: '',
 	})
+	//Prevent when choose SelectComponent the birthdate must not change to Today Date
+	const [birthdate, setBirthdate] = useState({birthDate:''})
 	// Form hook
 	const {
 		register,
@@ -48,16 +50,17 @@ const FormEditStd = ({ oldValue }) => {
 				gpax: oldValue.gpax,
 				targetNation: oldValue.targetNation,
 				fieldOfInterest: oldValue.fieldOfInterest,
-			})
+				typeOfScholarship: oldValue.typeOfScholarship,
+			});
 			setValues({
-				birthDate: oldValue.birthdate,
 				gender: oldValue.gender,
 				degree: oldValue.degree,
 				program: oldValue.program,
 				typeOfScholarship: oldValue.typeOfScholarship,
-			})
+			});
+			setBirthdate({birthdate: oldValue.birthdate});
 		}
-	}, [oldValue, setValue])
+	}, [reset, oldValue, setValues, setBirthdate])
 
 	const formOnSubmit = (data) => {
 		// Update data using patch request
@@ -76,8 +79,9 @@ const FormEditStd = ({ oldValue }) => {
 		})
 		alert(messages.join('\n'))
 	}
-
+	
 	const formProps = { register, errors, values, setValues }
+	const formPropsBirthdate = {register, errors, values:birthdate, setValues:setBirthdate};
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'auto', m: 0.5 }}>
@@ -92,12 +96,13 @@ const FormEditStd = ({ oldValue }) => {
 							<TextFieldComponent name={'lastName'} required={true} shrink={true} {...formProps} />
 							<DatePickerComponent
 								name="birthdate"
+								values={birthdate}
 								required={true}
 								disableFuture={true}
 								shrink={true}
-								{...formProps}
+								{...formPropsBirthdate}
 							/>
-							<SelectComponent name="gender" required={true} shrink={true} {...formProps} />
+							<SelectComponent name="gender" required={true} shrink={true}  {...formProps} />
 							<TextFieldComponent
 								name={'phoneNumber'}
 								required={true}
@@ -105,6 +110,8 @@ const FormEditStd = ({ oldValue }) => {
 								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
 								{...formProps}
 							/>
+							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
+							<SelectComponent name="degree" shrink={true} {...formProps} />
 							<TextFieldComponent
 								name="school"
 								required={true}
@@ -112,21 +119,19 @@ const FormEditStd = ({ oldValue }) => {
 								label="School/University"
 								{...formProps}
 							/>
-							<SelectComponent name="degree" shrink={true} {...formProps} />
 							<SelectComponent name="program" shrink={true} {...formProps} />
-							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
 							<Typography variant="h5">Target Scholarship</Typography>
 							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
-							<SelectComponent
-								name="typeOfScholarship"
-								shrink={true}
-								label="Type of Scholarship"
-								{...formProps}
-							/>
 							<TextFieldComponent
 								name="fieldOfInterest"
 								label="Field of Interest"
 								shrink={true}
+								{...formProps}
+							/>
+							<SelectComponent
+								name="typeOfScholarship"
+								shrink={true}
+								label="Type of Scholarship"
 								{...formProps}
 							/>
 							<Stack spacing={3} direction="row" justifyContent="space-evenly">

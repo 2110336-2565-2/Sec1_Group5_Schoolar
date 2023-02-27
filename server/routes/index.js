@@ -1,6 +1,20 @@
 const express = require('express')
-const router = express.Router()
+const authRoute = require('./auth.route')
+const studentRoute = require('./student.route')
+const resetPasswordRoute = require('./resetPassword.route')
+const scholarshipRoute = require('./scholarship.route')
+const providerRoute = require('./provider.route')
+const userRoute = require('./user.route')
 
-router.get('/', (req, res) => res.send('Hello Schoolar'))
+const router = express.Router()
+router.get('/', (req, res) => {
+	res.json({ message: 'Welcome to Scholarship App' })
+})
+router.use('/auth', authRoute)
+router.use('/student', studentRoute)
+router.use('/resetPassword', resetPasswordRoute)
+router.use('/scholarship', scholarshipRoute)
+router.use('/provider', providerRoute)
+router.use('/user', userRoute)
 
 module.exports = router

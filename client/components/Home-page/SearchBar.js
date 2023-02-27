@@ -4,6 +4,9 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 
+// import Image from 'next/image'
+import FilterScholar from './FilterScholar'
+
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
 	const onChange = (e) => {
@@ -23,7 +26,8 @@ function SearchBar(props) {
 				sx={{
 					display: 'flex',
 					flex: '1 1 auto',
-					minWidth: { xs: 'auto', md: 700 },
+					width: '60%',
+					minWidth: 340,
 					borderRadius: 10,
 					padding: 1,
 					paddingRight: 2,
@@ -31,9 +35,7 @@ function SearchBar(props) {
 				}}
 			>
 				<HStack sx={{ width: '100%' }}>
-					<IconButton type="button" sx={{ p: '10px' }}>
-						<FilterListIcon />
-					</IconButton>
+					<FilterScholar filterHandler={props.filterHandler} />
 					<Paper
 						onSubmit={onClick}
 						component="form"

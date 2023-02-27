@@ -1,26 +1,28 @@
 import React from 'react'
+
 import { Alert, Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
 const FormRegPvd = ({
-	values,
-	setValues,
 	setPage,
 	register,
 	handleSubmit,
 	errors,
+	setValue,
 	getValues,
-	gap,
 	sendData,
 	error,
+	control,
+	gap,
+	watch,
 }) => {
 	const onSubmit = async (data) => {
 		// console.log('Submit', data)
 		sendData(data)
 	}
 
-	const formProps = { register, errors }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: true }
 	return (
 		<FormControl
 			component="form"
@@ -29,10 +31,10 @@ const FormRegPvd = ({
 			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
 			{error && <Alert severity="error">{error}</Alert>}
-			<TextFieldComponent name="organizationName" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="address" required={true} shrink={true} multiline={true} rows={3} {...formProps} />
+			<TextFieldComponent name="organizationName" {...formProps} />
+			<TextFieldComponent name="website" {...formProps} />
+			<TextFieldComponent name="phoneNumber" {...formProps} />
+			<TextFieldComponent name="address" multiline={true} rows={3} {...formProps} />
 			<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
 				<Button fullWidth variant="contained" onClick={() => setPage('register')}>
 					Back

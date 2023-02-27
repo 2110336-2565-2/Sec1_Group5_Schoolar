@@ -55,7 +55,6 @@ const scholarshipSchema = new Schema({
 		required: true,
 		type: String,
 		maxLength: 60,
-		index: true,
 		lowercase: true,
 		trim: true,
 	},
@@ -63,23 +62,19 @@ const scholarshipSchema = new Schema({
 		required: true,
 		type: String,
 		enum: ['full', 'partial', 'renewable', 'fellow'],
-		index: true,
 	},
 	fieldOfInterest: {
 		required: true,
 		type: String,
-		index: true,
 		trim: true,
 	},
 	applicationDeadline: {
 		type: Date,
 	},
 	paymentDueDate: {
-		required: true,
 		type: Date,
 	},
 	paymentStatus: {
-		required: true,
 		type: Boolean,
 	},
 	quota: {

@@ -1,13 +1,7 @@
 import { useState } from 'react'
+
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-	FormControl,
-	FormHelperText,
-	IconButton,
-	InputAdornment,
-	InputLabel,
-	OutlinedInput,
-} from '@mui/material'
+import { FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material'
 
 const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 	const [showPassword, setShowPassword] = useState(false)

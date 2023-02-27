@@ -1,5 +1,6 @@
-import { React, useEffect,useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Button, FormControl, Grid, Stack } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
@@ -10,6 +11,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 const FormEditStd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
 	//TextFieldComponent only need register
+	//Update 26Feb no need this state, please remove
 	const [values, setValues] = useState({
 		birthDate: '',
 		gender: '',
@@ -22,11 +24,12 @@ const FormEditStd = ({ oldValue }) => {
 		register,
 		handleSubmit,
 		formState: { errors, defaultValues },
-		reset,
 		setValue,
-	} = useForm({
-		mode: 'onBlur',
-	})
+		getValues,
+		control,
+		watch,
+		reset,
+	} = useForm({ mode: 'onBlur' })
 
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
@@ -75,7 +78,7 @@ const FormEditStd = ({ oldValue }) => {
 		alert(messages.join('\n'))
 	}
 
-	const formProps = { register, errors, values, setValues }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: true }
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>

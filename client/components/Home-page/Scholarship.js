@@ -4,10 +4,6 @@ import { grey,blue } from '@mui/material/colors'
 import { useState } from 'react'
 
 function Scholarship(props) {
-	const [active,setActive] = useState(false);
-	const handleClick = () => {
-		setActive(!active);
-	};
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -32,7 +28,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon onClick={handleClick} sx={active? {color:blue[800]}:{color:grey[700]}}/>
+								<PushPinIcon sx={{ color: grey[900] }}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

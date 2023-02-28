@@ -2,11 +2,15 @@ import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import Link from 'next/link'
-
+import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
 
 function Scholarship(props) {
 	const { auth } = useAuth()
+	const [active,setActive] = useState(false);
+	const handleClick = () => {
+		setActive(!active);
+	};
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -33,7 +37,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon sx={{ color: grey[900] }} />
+								<PushPinIcon onClick={handleClick} sx={active? {color:blue[800]}:{color:grey[700]}}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

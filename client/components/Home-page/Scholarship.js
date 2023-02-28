@@ -13,7 +13,7 @@ function Scholarship(props) {
 			{props.items.map((scholar, idx) => {
 				return (
 					<Paper
-						key={scholar.name + idx}
+						key={scholar.scholarshipName + idx}
 						component="form"
 						sx={{
 							display: 'flex',
@@ -24,7 +24,7 @@ function Scholarship(props) {
 					>
 						<Grid container direction="row" justifyContent="space-between">
 							<Typography margin={2} marginLeft={2}>
-								{scholar.name}
+								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
 								<PushPinIcon sx={{ color: grey[900] }} />
@@ -32,9 +32,10 @@ function Scholarship(props) {
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />
 						<Grid margin={1}>
+							{/*//TODO Fix tag pls */}
 							{scholar.tag?.map((tag, idx) => {
 								return (
-									<div key={scholar.name + scholar.tag + idx}>
+									<div key={scholar.scholarshipName + scholar.tag + idx}>
 										<Box
 											sx={{
 												display: 'flex',

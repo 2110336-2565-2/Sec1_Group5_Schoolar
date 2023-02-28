@@ -31,6 +31,7 @@ const providerSchema = new Schema({
 		maxLength: 16,
 		unique: true,
 		trim: true,
+		sparse: true,
 	},
 	nameOnCard: {
 		type: String,

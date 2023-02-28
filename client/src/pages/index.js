@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
-import { Box, Container, Divider, FormControl, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Divider, Paper, Typography } from '@mui/material'
 
-import axios from './api/axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
@@ -15,9 +16,10 @@ function Homepage() {
 	const [degreeFilters, setDegreeFilters] = useState([])
 	const [facultyFilters, setFacultyFilters] = useState([])
 	const [studentProgramFilters, setStudentProgramFilters] = useState([])
+	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
-		axios.get('/scholarship').then((res) => {
+		axiosPrivate.get('/scholarship').then((res) => {
 			setScholars(res.data.data)
 		})
 	}, [])
@@ -53,7 +55,7 @@ function Homepage() {
 			facultyFilters.length === 0 &&
 			studentProgramFilters.length === 0
 		) {
-			return scholar.name.toLowerCase().includes(inputName.toLowerCase())
+			return scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase())
 		} else if (inputName.length === 0) {
 			return (
 				isContainScholar(degreeFilters, scholar.degree) &&
@@ -63,28 +65,25 @@ function Homepage() {
 			)
 		} else {
 			return (
-				scholar.name.toLowerCase().includes(inputName.toLowerCase()) &&
+				scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase()) &&
 				isContainScholar(degreeFilters, scholar.degree) &&
 				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
 				isContainScholar(facultyFilters, scholar.program) &&
 				isContainScholar(studentProgramFilters, scholar.program)
 			)
 		}
-		//const searchList = [scholar.name.toLowerCase().includes(inputName.toLowerCase()), scholar.typeOfScholarship.includes(filterInput.toLowerCase())]
-
-		// ||scholar.typeOfScholarship.includes(filterInput.toLowerCase())
 	})
 
 	return (
 		<Center>
-			<VStack>
-				<SearchBar searchHandler={searchHandler} filterHandler = {filterHandler} />
+			<VStack sx={{ width: '90%' }}>
+				<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
 				<Paper
 					sx={{
 						position: 'relative',
 						top: -28,
 						zIndex: 1,
-						minWidth: { xs: 'auto', md: 1150 },
+						width: '100%',
 						borderRadius: 10,
 						padding: 10,
 						backgroundColor: '#F4F6F8',
@@ -102,7 +101,7 @@ function Homepage() {
 						)}
 						<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 					</Box>
-					<Scholarship items={filteredScholars}/>
+					<Scholarship items={filteredScholars} />
 				</Paper>
 			</VStack>
 		</Center>

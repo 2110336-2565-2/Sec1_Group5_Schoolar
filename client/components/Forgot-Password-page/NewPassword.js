@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import InputPassword from '@components/Layout/InputPassword'
 import { Button, FormControl, Typography } from '@mui/material'
@@ -24,7 +24,6 @@ function NewPassword({ router }) {
 	const onSubmit = async (data) => {
 		setError(false)
 		const token = router.query.token
-		// console.log(data)
 
 		try {
 			const res = await axios.put(
@@ -36,9 +35,8 @@ function NewPassword({ router }) {
 					},
 				},
 			)
-			// console.log(res.data)
-			openSnackbar('Reset password success!', 'success')
-			router.push('/')
+			openSnackbar('Reset password success!', 'success', 7000)
+			router.push('/login')
 		} catch (err) {
 			console.log(err)
 			setError(true)

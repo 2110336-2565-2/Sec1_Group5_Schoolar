@@ -254,6 +254,18 @@ export const getValidation = (field, defaultValue) => {
 					message: getErrMsg('Address', 'maxLength', 255),
 				},
 			}
+		case 'degree':
+			return{
+				required: getErrMsg('Degree', 'required')
+			}
+		case 'program':
+			return{
+				required: getErrMsg('Program', 'required')
+			}
+		case 'faculty':
+			return{
+				required: getErrMsg('Faculty', 'required')
+			}
 		default:
 			return {}
 	}

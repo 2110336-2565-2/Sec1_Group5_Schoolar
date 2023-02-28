@@ -48,7 +48,7 @@ function FormAddScholarship(){
                 <h3> Requirements </h3>
                 <TextFieldComponent name="gpax" label="GPAX" {...formProps} />
                 <SelectComponent name="degree" required={true} {...formProps} />
-                <TextFieldComponent name="targetNation" label="Scholarship Nation" required={true} {...formProps} />
+                <TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
                 <SelectComponent name="program" required={true} {...formProps} />
                 <h3> Details of scholarship </h3>
                 <TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />

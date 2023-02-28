@@ -281,7 +281,6 @@ export const getValidation = (field, defaultValue) => {
 			}
     	case 'amount':
 			return {
-				required: getErrMsg('Amount', 'required'),
 				minLength: {
 					value: 3,
 					message: getErrMsg('Amount', 'minLength', 3, 'digits'),
@@ -297,7 +296,6 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'quota':
 			return {
-				required: getErrMsg('Quota', 'required'),
 				pattern: {
 					value: getRegEx('onlyNumber'),
 					message: 'Quota Number contains invalid character',
@@ -305,7 +303,6 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'applicationDeadline':
 			return{
-				required: getErrMsg('Application Deadline', 'required'),
 				validate: {
 					past: (value) => {
 						if (typeof value === 'string') {

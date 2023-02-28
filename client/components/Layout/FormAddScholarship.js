@@ -25,6 +25,7 @@ function FormAddScholarship() {
     const sendData = async (data) => {
         try {
             const response = await axiosPrivate.post('/scholarship/', data)
+            alert(response.data)
             alert('Data has been added successfully')
             openSnackbar('Add scholarship successfully!', 'success')
             router.push('/')
@@ -64,8 +65,8 @@ function FormAddScholarship() {
                 <TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
                 <SelectComponent name="program" required={true} {...formProps} />
                 <h3> Details of scholarship </h3>
-                <TextFieldComponent name="amount" label="Amount (Baht)" required={true} {...formProps} />
-                <TextFieldComponent name="quota" required={true} {...formProps} />
+                <TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
+                <TextFieldComponent name="quota" {...formProps} />
                 <TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
                 <SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
                 <TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />

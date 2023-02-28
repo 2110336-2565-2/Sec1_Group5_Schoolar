@@ -68,7 +68,7 @@ function FormAddScholarship() {
                 <SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
                 <TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />
                 <DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
-                <Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 4 }}>
+                <Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>
                     <Button fullWidth variant="contained" onClick={() => router.push("/")} >
                         Back
                     </Button>

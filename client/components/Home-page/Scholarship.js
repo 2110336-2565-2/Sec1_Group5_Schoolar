@@ -2,11 +2,13 @@ import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 
 function Scholarship(props) {
 	const { auth } = useAuth()
+	const router = useRouter()
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -27,9 +29,11 @@ function Scholarship(props) {
 						}}
 						onClick={() => {
 							if (auth && auth.role === 'provider') {
+								router.push(`/scholarship/update-scholarship/${scholar._id}`)
+							} else {
+								//TODO Scholarship Detail
 							}
 						}}
-						href={auth && auth.role === 'provider' ? `/scholarship/update-scholarship/${scholar._id}` : ``}
 					>
 						<Grid container direction="row" justifyContent="space-between">
 							<Typography margin={2} marginLeft={2}>

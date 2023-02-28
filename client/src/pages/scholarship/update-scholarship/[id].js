@@ -12,17 +12,17 @@ export default function UpdateScholarship() {
 	return <FormSecondary header="Update Scholarship" form={<FormEditScholarship id={id} />} />
 }
 
-export async function getStaticPaths() {
-	return {
-		paths: [],
-		fallback: 'blocking',
-	}
-}
+// export async function getStaticPaths() {
+// 	return {
+// 		paths: [],
+// 		fallback: 'blocking',
+// 	}
+// }
 
-export async function getStaticProps(context) {
-	return {
-		props: {
-			authRequired: true,
-		},
-	}
-}
+// export async function getStaticProps(context) {
+// 	return {
+// 		props: {
+// 			authRequired: true,
+// 		},
+// 	}
+// }

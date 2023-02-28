@@ -306,6 +306,7 @@ export const getValidation = (field, defaultValue) => {
 				validate: {
 					past: (value) => {
 						if (value == ""){
+							value = new Date(null)
 							return true
 						}
 						else if (typeof value === 'string') {

@@ -1,12 +1,12 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, Box} from '@mui/material'
+import { Button, FormControl, Grid, Stack, Box } from '@mui/material'
 import { SelectComponent, TextFieldComponent, DatePickerComponent } from '@utils/formComponentUtils'
 import { useRouter } from 'next/router'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
 
-function FormAddScholarship(){
+function FormAddScholarship() {
     const axiosPrivate = useAxiosPrivate()
     const {
         register,
@@ -21,34 +21,39 @@ function FormAddScholarship(){
     const formProps = { register, errors, getValues, setValue, control, watch }
     const router = useRouter()
     const sendData = async (data) => {
-		try {
-			const response = await axiosPrivate.post('/scholarship/', data)
-			alert(response.data)
+        try {
+            const response = await axiosPrivate.post('/scholarship/', data)
+            alert(response.data)
             alert('Data has been added successfully')
-			router.push('/')
-		} catch (error) {
+            router.push('/')
+        } catch (error) {
             alert('NOT SUCCESS')
-			console.error(error)
-		}
-	}
+            console.error(error)
+        }
+    }
     const onSubmit = (data) => {
         console.log(data)
-		sendData(data)
-	}
-    const {auth} = useAuth()
+        sendData(data)
+    }
+    const { auth } = useAuth()
     useEffect(() => {
-        axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-            setValue('provider', res.data.provider.organizationName)
-        })
+        if (auth) {
+            axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+                setValue('provider', res.data.provider.organizationName)
+            })
+        }
+        else {
+            router.push('/login')
+        }
     }, [])
-    return(
+    return (
         <Stack>
             <FormControl
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
                 sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
             >
-               
+
                 <TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
                 <TextFieldComponent name="provider" label="Organization Name" disabled={true} shrink={true}{...formProps} />
                 <h3> Requirements </h3>
@@ -61,16 +66,16 @@ function FormAddScholarship(){
                 <TextFieldComponent name="quota" {...formProps} />
                 <TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
                 <SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
-                <TextFieldComponent name="detail" Label="More Details" multiline={true} rows={4} {...formProps} />
+                <TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />
                 <DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
                 <Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 4 }}>
-				    <Button fullWidth variant="contained" onClick ={() => router.push("/")} >
-					    Back
-				    </Button>
-				    <Button fullWidth variant="contained" type="submit">
-					    Submit
-				    </Button>
-			    </Box>
+                    <Button fullWidth variant="contained" onClick={() => router.push("/")} >
+                        Back
+                    </Button>
+                    <Button fullWidth variant="contained" type="submit">
+                        Submit
+                    </Button>
+                </Box>
             </FormControl>
         </Stack>
     )

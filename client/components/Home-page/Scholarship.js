@@ -18,14 +18,17 @@ function Scholarship(props) {
 				return (
 					<Paper
 						key={scholar._id}
-						component="a"
 						sx={{
 							display: 'flex',
 							width: 300,
 							height: 180,
 							flexDirection: 'column',
+							cursor: 'pointer',
 						}}
-						linkcomponent={Link}
+						onClick={() => {
+							if (auth && auth.role === 'provider') {
+							}
+						}}
 						href={auth && auth.role === 'provider' ? `/scholarship/update-scholarship/${scholar._id}` : ``}
 					>
 						<Grid container direction="row" justifyContent="space-between">

@@ -265,7 +265,8 @@ export const getValidation = (field, defaultValue) => {
 		case 'faculty':
 			return{
 				required: getErrMsg('Faculty', 'required')
-    case 'amount':
+			}
+    	case 'amount':
 			return {
 				required: getErrMsg('Amount', 'required'),
 				minLength: {

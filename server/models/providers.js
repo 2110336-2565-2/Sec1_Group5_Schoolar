@@ -6,7 +6,7 @@ const providerSchema = new Schema({
 		type: String,
 		ref: 'User',
 	},
-	providerName: {
+	organizationName: {
 		required: true,
 		type: String,
 		maxLength: 40,
@@ -27,10 +27,22 @@ const providerSchema = new Schema({
 		trim: true,
 	},
 	creditCardNumber: {
-		required: true,
 		type: String,
 		maxLength: 16,
+		unique: true,
 		trim: true,
+		sparse: true,
+	},
+	nameOnCard: {
+		type: String,
+		trim: true,
+	},
+	cardExpiredDate: {
+		type: Date,
+	},
+	cvv: {
+		type: Number,
+		// maxLength:10
 	},
 })
 

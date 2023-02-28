@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { getAllScholarships } = require('../controllers/scholarship.controller')
+const { getAllScholarships, getScholarship, addScholarship, updateScholarship } = require('../controllers/scholarship.controller')
+const verifyJWT = require('../middleware/verifyJWT')
 
-router.get('/', getAllScholarships)
+router.get('/', verifyJWT, getAllScholarships)
+router.get('/:id', verifyJWT, getScholarship);
+router.post('/', verifyJWT, addScholarship);
+router.put('/:id', verifyJWT, updateScholarship);
 
 module.exports = router

@@ -14,27 +14,10 @@
     "/": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
@@ -91,31 +74,22 @@
                 "program": {
                   "example": "any"
                 },
-                "householdIncome": {
-                  "example": "any"
-                },
                 "targetNation": {
                   "example": "any"
                 },
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "employment": {
+                "fieldOfInterest": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "providerName": {
+                "organizationName": {
                   "example": "any"
                 },
                 "address": {
                   "example": "any"
                 },
                 "website": {
-                  "example": "any"
-                },
-                "creditCardNumber": {
                   "example": "any"
                 },
                 "verifyStatus": {
@@ -148,7 +122,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "usernameEmail": {
                   "example": "any"
                 },
                 "password": {
@@ -326,13 +300,16 @@
                 "gender": {
                   "example": "any"
                 },
-                "education": {
+                "gpax": {
                   "example": "any"
                 },
-                "householdIncome": {
+                "degree": {
                   "example": "any"
                 },
-                "employment": {
+                "school": {
+                  "example": "any"
+                },
+                "program": {
                   "example": "any"
                 },
                 "targetNation": {
@@ -341,13 +318,7 @@
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phoneNumber": {
+                "fieldOfInterest": {
                   "example": "any"
                 }
               }
@@ -395,13 +366,16 @@
                 "gender": {
                   "example": "any"
                 },
-                "education": {
+                "gpax": {
                   "example": "any"
                 },
-                "householdIncome": {
+                "degree": {
                   "example": "any"
                 },
-                "employment": {
+                "school": {
+                  "example": "any"
+                },
+                "program": {
                   "example": "any"
                 },
                 "targetNation": {
@@ -410,13 +384,7 @@
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phoneNumber": {
+                "fieldOfInterest": {
                   "example": "any"
                 }
               }
@@ -433,6 +401,116 @@
         }
       }
     },
+    "/student/pin-scholarship/{username}": {
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/student/unpin-scholarship/{username}": {
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/resetPassword/password": {
       "put": {
         "tags": [
@@ -441,14 +519,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
-                  "example": "any"
-                },
                 "password": {
                   "example": "any"
                 }
@@ -505,10 +585,197 @@
           "scholarship"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipName": {
+                  "example": "any"
+                },
+                "degree": {
+                  "example": "any"
+                },
+                "gpax": {
+                  "example": "any"
+                },
+                "program": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "fieldOfInterest": {
+                  "example": "any"
+                },
+                "applicationDeadline": {
+                  "example": "any"
+                },
+                "quota": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/scholarship/{id}": {
+      "get": {
+        "tags": [
+          "scholarship"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quota": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -595,9 +862,6 @@
                 "creditCardNumber": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
                 "phoneNumber": {
                   "example": "any"
                 }
@@ -644,9 +908,6 @@
                   "example": "any"
                 },
                 "creditCardNumber": {
-                  "example": "any"
-                },
-                "email": {
                   "example": "any"
                 },
                 "phoneNumber": {

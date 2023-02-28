@@ -1,23 +1,16 @@
 import React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Center, VStack } from '@components/common'
-import { Button, Divider, FormControl, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import TextField from '@mui/material/TextField'
-import { Box } from '@mui/system'
-import { PasswordIcon } from '@utils/images'
-import Image from 'next/image'
+import { Alert, Button, FormControl, Stack, Typography } from '@mui/material'
+import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getRegEx, isDupe } from '@utils/formUtils'
+
 import axios from '@/pages/api/axios'
-import { getErrMsg, getRegEx } from '@utils/formUtils'
 
 function ForgotPassword({ router }) {
-	const Root = styled('div')(({ theme }) => ({
-		width: '100%',
-		...theme.typography.body2,
-		'& > :not(style) + :not(style)': {
-			marginTop: theme.spacing(2),
-		},
-	}))
+	const [error, setError] = useState(null)
+	const [success, setSuccess] = useState(null)
+	const [info, setInfo] = useState(null)
 
 	const {
 		register,
@@ -25,170 +18,69 @@ function ForgotPassword({ router }) {
 		formState: { errors },
 	} = useForm({ mode: 'onBlur' })
 
-	const onSubmit = (data) => {
-		console.log(data)
+	const onSubmit = async (data) => {
+		setSuccess(null)
+		setError(null)
+		setInfo('Sending...')
 		try {
-			axios.post('/resetPassword/email', { email: data.email }).then((res) => {
-				console.log(res.data)
-			})
+			const res = await axios.post('/resetPassword/email', { email: data.email })
+			setInfo(null)
+			setSuccess(res.data.message)
 		} catch (err) {
+			setInfo(null)
 			console.log(err)
-			router.push('/login')
+			setError(err.response.data.error)
 		}
 	}
-	const isDupe = async (field, value) => {
-		try {
-			const response = await axios.get(`/auth/isDupe/${field}/${value}`)
-			return response.data
-		} catch (err) {
-			console.log(err)
-		}
-	}
+
+	const formProps = { register, errors }
 	return (
-		<Center>
-			<FormControl
-				component="form"
-				display={'flex'}
-				justifycontent={'center'}
-				alignitems={'center'}
-				height={'100%'}
-				width={'100%'}
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<Center
-					sx={{
-						border: '0.2rem solid #2C429B',
-						borderRadius: '1.5rem',
-						width: {
-							xs: '90vw',
-							sm: '500px',
-							xl: '650px',
+		<FormControl
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+			noValidate
+			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
+		>
+			<Stack spacing={2} sx={{ pt: 1, pb: 2 }}>
+				{error && <Alert severity="error">{error}</Alert>}
+				{success && <Alert severity="success">{success}</Alert>}
+				{info && <Alert severity="info">{info}</Alert>}
+				<Typography>
+					Enter your email address and we&apos;ll send a link to get back to your account.
+				</Typography>
+				<TextFieldComponent
+					name={'email'}
+					required={true}
+					validation={{
+						required: getErrMsg('email', 'required'),
+						pattern: {
+							value: getRegEx('email'),
+							message: getErrMsg('email', 'pattern'),
 						},
-						height: {
-							xs: '60vh',
-							sm: '500px',
-							xl: '650px',
+						validate: {
+							duplicate: async (value) =>
+								(await isDupe('user', 'email', value)) || 'Email is not registered yet',
 						},
-						backgroundColor: 'white',
+					}}
+					{...formProps}
+				/>
+			</Stack>
+			<Stack spacing={2}>
+				<Button fullWidth variant="contained" size="small" type="submit">
+					Send Link
+				</Button>
+				<Button
+					fullWidth
+					variant="outlined"
+					size="small"
+					onClick={() => {
+						router.push('/login')
 					}}
 				>
-					<Center
-						sx={{
-							border: '0.2rem solid #FDBA21',
-							borderRadius: '1rem',
-							width: {
-								xs: '80vw',
-								sm: '450px',
-								xl: '600px',
-							},
-							height: {
-								xs: '55vh',
-								sm: '450px',
-								xl: '600px',
-							},
-						}}
-					>
-						<VStack
-							sx={{
-								p: {
-									xs: 2,
-									sm: 3,
-									xl: 5,
-								},
-							}}
-							gap={[2, 2, 3]}
-						>
-							<Box
-								sx={{
-									position: 'relative',
-									width: {
-										xs: '50px',
-										sm: '75px',
-										xl: '100px',
-									},
-									height: {
-										xs: '50px',
-										sm: '75px',
-										xl: '100px',
-									},
-								}}
-							>
-								<Image src={PasswordIcon} alt="Password Icon" layout="fill" objectFit="contain"></Image>
-							</Box>
-							<Typography
-								fontSize={{
-									xs: '12px',
-									sm: '14px',
-									md: '16px',
-								}}
-								fontWeight={'light'}
-								align="center"
-							>
-								Enter your email address and we'll send a link to get back to your account.
-							</Typography>
-							<TextField
-								required
-								id="reset-email"
-								label="Email address"
-								variant="outlined"
-								fullWidth
-								autoComplete="email"
-								size="small"
-								inputProps={{ style: { fontSize: 12 } }} // font size of input text
-								InputLabelProps={{ style: { fontSize: 12 } }}
-								{...register('email', {
-									required: getErrMsg('email', 'required'),
-									pattern: {
-										value: getRegEx('email'),
-										message: getErrMsg('email', 'pattern'),
-									},
-									validate: {
-										duplicate: async (value) =>
-											(await isDupe('email', value)) || 'Email is not registered yet',
-									},
-								})}
-								error={!!errors?.email}
-								helperText={errors?.email ? errors.email.message : null}
-							/>
-							<Button
-								fullWidth
-								variant="contained"
-								size="small"
-								style={{ textTransform: 'none' }}
-								type="submit"
-							>
-								Send login link
-							</Button>
-							<Root>
-								<Divider
-									sx={{
-										fontWeight: 'light',
-										fontSize: {
-											xs: '12px',
-											sm: '14px',
-											md: '16px',
-										},
-									}}
-								>
-									or
-								</Divider>
-							</Root>
-							<Button
-								fullWidth
-								variant="outlined"
-								size="small"
-								style={{ textTransform: 'none' }}
-								onClick={() => {
-									router.push('/login')
-								}}
-							>
-								Back to login
-							</Button>
-						</VStack>
-					</Center>
-				</Center>
-			</FormControl>
-		</Center>
+					Back To Login
+				</Button>
+			</Stack>
+		</FormControl>
 	)
 }
 

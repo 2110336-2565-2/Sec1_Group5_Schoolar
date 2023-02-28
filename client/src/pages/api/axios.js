@@ -1,16 +1,9 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:8080'
 
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_BACKEND_URL}:${process.env.NEXT_PUBLIC_PORT}`
 axios.defaults.withCredentials = true
+axios.defaults.headers = { 'Content-Type': 'application/json' }
 
-export default axios.create({
-	baseURL: BASE_URL,
-	withCredentials: true,
-})
+export default axios.create()
 
-export const axiosPrivate = axios.create({
-	baseURL: BASE_URL,
-	headers: { 'Content-Type': 'application/json' },
-	withCredentials: true,
-})
+export const axiosPrivate = axios.create()

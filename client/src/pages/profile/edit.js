@@ -1,15 +1,16 @@
 import { React, useEffect, useState } from 'react'
+import FormEditPvd from '@components/Layout/FormEditPvd'
+import FormEditStd from '@components/Layout/FormEditStd'
+import FormSecondary from '@components/Layout/FormSecondary'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
-import { axiosPrivate } from '../api/axios'
-import FormEditStd from '@components/Layout/FormEditStd'
-import FormEditPvd from '@components/Layout/FormEditPvd'
-import FormSecondary from '@components/Layout/FormSecondary'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 export default function Edit() {
-	const { auth } = useAuth()
-	const router = useRouter()
-	const [data, setData] = useState({})
+	const { auth } = useAuth();
+	const router = useRouter();
+	const axiosPrivate = useAxiosPrivate();
+	const [data, setData] = useState({});
 
 	useEffect(() => {
 		// Fetch database values from server using Axios

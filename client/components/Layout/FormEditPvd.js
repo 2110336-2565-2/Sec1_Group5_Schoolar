@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Button, FormControl, Grid, Stack } from '@mui/material'
-import { useAuth } from '@/context/AuthContext'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
+import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 const FormEditPvd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
@@ -14,6 +17,7 @@ const FormEditPvd = ({ oldValue }) => {
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
+	const { openSnackbar } = useSnackbar();
 	const {
 		register,
 		handleSubmit,
@@ -28,7 +32,7 @@ const FormEditPvd = ({ oldValue }) => {
 		if (oldValue) {
 			// set default value, use in isDupe validate
 			reset({
-				providerName: oldValue.providerName,
+				organizationName: oldValue.organizationName,
 				website: oldValue.website,
 				address: oldValue.address,
 				phoneNumber: oldValue.phoneNumber,
@@ -40,9 +44,7 @@ const FormEditPvd = ({ oldValue }) => {
 	const onSubmit = (data) => {
 		try {
 			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-				console.log(`submitted`)
-				alert('Data has been updated successfully')
-				console.log(`Success update at ${res.status}`)
+				openSnackbar("Update Success!", 'success');
 			})
 			router.push('/')
 		} catch (err) {
@@ -59,7 +61,7 @@ const FormEditPvd = ({ oldValue }) => {
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
-							<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="organizationName" required={true} shrink={true} {...formProps} />
 							<TextFieldComponent
 								name="phoneNumber"
 								required={true}

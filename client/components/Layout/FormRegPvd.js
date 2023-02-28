@@ -1,47 +1,48 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
-import { Button, FormControl } from '@mui/material'
+
+import { Alert, Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 import { TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegPvd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue }) => {
-	const router = useRouter()
-
-	const sendData = async (data) => {
-		try {
-			const response = await axios.post('/auth/register', data, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-			alert(response.data)
-			router.push('/login')
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
+const FormRegPvd = ({
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	setValue,
+	getValues,
+	sendData,
+	error,
+	control,
+	gap,
+	watch,
+}) => {
 	const onSubmit = async (data) => {
+		// console.log('Submit', data)
 		sendData(data)
 	}
 
-	const formProps = { register, errors }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: true }
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
-			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
+			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
-			<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="phoneNumber" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
-			<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
-			<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-				SUBMIT
-			</Button>
+			{error && <Alert severity="error">{error}</Alert>}
+			<TextFieldComponent name="organizationName" {...formProps} />
+			<TextFieldComponent name="website" {...formProps} />
+			<TextFieldComponent name="phoneNumber" {...formProps} />
+			<TextFieldComponent name="address" multiline={true} rows={3} {...formProps} />
+			<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+				<Button fullWidth variant="contained" onClick={() => setPage('register')}>
+					Back
+				</Button>
+				<Button fullWidth variant="contained" type="submit">
+					Submit
+				</Button>
+			</Stack>
 		</FormControl>
 	)
 }

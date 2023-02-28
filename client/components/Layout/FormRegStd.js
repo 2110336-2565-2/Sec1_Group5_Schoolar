@@ -1,80 +1,47 @@
 import React from 'react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
+
+import { Button, FormControl } from '@mui/material'
 import { Stack } from '@mui/system'
-import { useRouter } from 'next/router'
-import axios from '@/pages/api/axios'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 
-const FormRegStd = ({ values, setValues, setPage, register, handleSubmit, errors, setValue }) => {
-	const router = useRouter()
-	const [form, setForm] = useState(false)
-
-	const sendData = async (data) => {
-		try {
-			const response = await axios.post('/auth/register', data, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-			alert(response.data)
-			router.push('/login')
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
+const FormRegStd = ({
+	setPage,
+	register,
+	handleSubmit,
+	errors,
+	setValue,
+	getValues,
+	sendData,
+	error,
+	control,
+	gap,
+	watch,
+}) => {
 	const onSubmit = (data) => {
-		console.log('DATA', data)
-		if (!form) setForm(!form)
-		else {
-			sendData(data)
-		}
+		setPage('studentAddl')
 	}
 
-	const formProps = { register, errors, values, setValues }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: true }
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
-			sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
+			sx={{ display: 'flex', flexDirection: 'column', gap, width: '100%' }}
 		>
-			{!form && (
-				<>
-					<TextFieldComponent name="firstName" required={true} {...formProps} />
-					<TextFieldComponent name="lastName" required={true} {...formProps} />
-					<DatePickerComponent name="birthdate" required={true} disableFuture={true} {...formProps} />
-					<SelectComponent name="gender" required={true} {...formProps} />
-					<TextFieldComponent name="phoneNumber" required={true} {...formProps} />
-					<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9' }}>
-						NEXT
-					</Button>
-				</>
-			)}
-			{form && (
-				<>
-					<TextFieldComponent name="school" label="School/University" {...formProps} />
-					<SelectComponent name="degree" {...formProps} />
-					<SelectComponent name="program" {...formProps} />
-					<TextFieldComponent name="gpax" label="GPAX" {...formProps} />
-					<TextFieldComponent name="targetNation" {...formProps} />
-					<SelectComponent name="typeOfScholarship" label="Type of Scholarship" {...formProps} />
-					<TextFieldComponent name="fieldOfInterest" label="Field of Interest" {...formProps} />
-					<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
-						<Button
-							variant="contained"
-							onClick={() => setForm(!form)}
-							sx={{ backgroundColor: '#3F51A9', width: '100%' }}
-						>
-							BEFORE
-						</Button>
-						<Button variant="contained" type="submit" sx={{ backgroundColor: '#3F51A9', width: '100%' }}>
-							SUBMIT
-						</Button>
-					</Stack>
-				</>
-			)}
+			<TextFieldComponent name="firstName" {...formProps} />
+			<TextFieldComponent name="lastName" {...formProps} />
+			<DatePickerComponent name="birthdate" disableFuture={true} {...formProps} />
+			<SelectComponent name="gender" {...formProps} />
+			<TextFieldComponent name="phoneNumber" {...formProps} />
+			<Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+				<Button fullWidth variant="contained" onClick={() => setPage('register')}>
+					Back
+				</Button>
+				<Button fullWidth variant="contained" type="submit">
+					Next
+				</Button>
+			</Stack>
 		</FormControl>
 	)
 }

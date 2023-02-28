@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { Button, FormControl, Grid, Stack } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -16,7 +17,7 @@ const FormEditScholarship = ({ id }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, defaultValues },
 		reset,
 		setValue,
 		getValues,
@@ -86,11 +87,33 @@ const FormEditScholarship = ({ id }) => {
 					<TextFieldComponent name="targetNation" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="program" disabled={true} shrink={true} {...formProps} />
 					<h3>Details of scholarship</h3>
-					<TextFieldComponent name="amount" label="Amount (Baht)" shrink={true} {...formProps} />
-					<TextFieldComponent name="quota" label="Scholarship Quota" shrink={true} {...formProps} />
+					<TextFieldComponent
+						required={true}
+						name="amount"
+						label="Amount (Baht)"
+						shrink={true}
+						{...formProps}
+						validation={getValidation('amount', defaultValues?.amount)}
+					/>
+					<TextFieldComponent
+						required={true}
+						name="quota"
+						label="Scholarship Quota"
+						shrink={true}
+						{...formProps}
+						validation={getValidation('quota', defaultValues?.quota)}
+					/>
 					<TextFieldComponent name="fieldOfInterest" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="typeOfScholarship" disabled={true} shrink={true} {...formProps} />
-					<TextFieldComponent name="detail" label="More Details" shrink={true} {...formProps} />
+					<TextFieldComponent
+						required={false}
+						name="detail"
+						label="More Details"
+						multiline={true}
+						rows={4}
+						shrink={true}
+						{...formProps}
+					/>
 					<DatePickerComponent name="applicationDeadline" disabled={true} shrink={true} {...formProps} />
 				</Stack>
 				<Grid

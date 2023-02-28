@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, Stack, Box } from '@mui/material'
 import { SelectComponent, TextFieldComponent, DatePickerComponent } from '@utils/formComponentUtils'
@@ -25,12 +25,9 @@ function FormAddScholarship() {
     const sendData = async (data) => {
         try {
             const response = await axiosPrivate.post('/scholarship/', data)
-            //alert(response.data)
-            //alert('Data has been added successfully')
             openSnackbar('Add scholarship successfully!', 'success')
             router.push('/')
         } catch (error) {
-            //alert('NOT SUCCESS')
             console.error(error)
         }
     }

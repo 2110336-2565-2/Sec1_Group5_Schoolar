@@ -1,6 +1,6 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { grey,blue } from '@mui/material/colors'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
@@ -8,8 +8,10 @@ import { useAuth } from '@/context/AuthContext'
 function Scholarship(props) {
 	const { auth } = useAuth()
 	const [active,setActive] = useState(false);
-	const handleClick = () => {
+	const handleClick = (e) => {
+		e.preventDefault()
 		setActive(!active);
+		console.log(active)
 	};
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">

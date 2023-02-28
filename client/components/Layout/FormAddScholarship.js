@@ -4,7 +4,10 @@ import { Button, FormControl, Grid, Stack, Box} from '@mui/material'
 import { SelectComponent, TextFieldComponent, DatePickerComponent } from '@utils/formComponentUtils'
 import { useRouter } from 'next/router'
 
-function FormEditScholarship(){
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
+function FormAddScholarship(){
+    const axiosPrivate = useAxiosPrivate()
     const {
         register,
         handleSubmit,
@@ -19,10 +22,12 @@ function FormEditScholarship(){
     const router = useRouter()
     const sendData = async (data) => {
 		try {
-			const response = await axios.post('/scholarship', data)
+			const response = await axiosPrivate.post('/scholarship/', data)
 			alert(response.data)
+            alert('Data has been added successfully')
 			router.push('/')
 		} catch (error) {
+            alert('NOT SUCCESS')
 			console.error(error)
 		}
 	}
@@ -39,20 +44,19 @@ function FormEditScholarship(){
             >
                
                 <TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
-                <TextFieldComponent name="provider" label="Organization Name" required={true} {...formProps} />
-                <h3> Requirement </h3>
+                <TextFieldComponent name="provider" label="Organization Name" disabled={true} {...formProps} />
+                <h3> Requirements </h3>
                 <TextFieldComponent name="gpax" label="GPAX" {...formProps} />
-                <SelectComponent name="degree" {...formProps} />
+                <SelectComponent name="degree" required={true} {...formProps} />
                 <TextFieldComponent name="targetNation" label="Scholarship Nation" required={true} {...formProps} />
-                <SelectComponent name="program" {...formProps} />
-                <h3> Detail of scholarship </h3>
+                <SelectComponent name="program" required={true} {...formProps} />
+                <h3> Details of scholarship </h3>
                 <TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
                 <TextFieldComponent name="quota" {...formProps} />
-                <TextFieldComponent name="fieldOfInterest" {...formProps} />
-                <SelectComponent name="typeOfScholarship" {...formProps} />
-                <TextFieldComponent name="detail" Label="More Detail" multiline={true} rows={4} {...formProps} />
-                <DatePickerComponent name="applicationDeadline" {...formProps} />
-            
+                <TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
+                <SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
+                <TextFieldComponent name="detail" Label="More Details" multiline={true} rows={4} {...formProps} />
+                <DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
                 <Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 4 }}>
 				    <Button fullWidth variant="contained" onClick ={() => router.push("/")} >
 					    Back
@@ -66,4 +70,4 @@ function FormEditScholarship(){
     )
 }
 
-export default FormEditScholarship
+export default FormAddScholarship

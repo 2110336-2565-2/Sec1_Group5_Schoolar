@@ -1,18 +1,16 @@
 import { React, useEffect, useState } from 'react'
-
 import FormEditPvd from '@components/Layout/FormEditPvd'
 import FormEditStd from '@components/Layout/FormEditStd'
-import FormPrimary from '@components/Layout/FormPrimary'
+import FormSecondary from '@components/Layout/FormSecondary'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
-
-import { axiosPrivate } from '../api/axios'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 export default function Edit() {
-	const { auth } = useAuth()
-	const router = useRouter()
-	const [data, setData] = useState({})
+	const { auth } = useAuth();
+	const router = useRouter();
+	const axiosPrivate = useAxiosPrivate();
+	const [data, setData] = useState({});
 
 	useEffect(() => {
 		// Fetch database values from server using Axios
@@ -41,9 +39,9 @@ export default function Edit() {
 	}, [])
 
 	if (auth?.role === 'student') {
-		return <FormPrimary header="Edit Profile" form={<FormEditStd oldValue={data} />} />
+		return <FormSecondary header="Update Information" form={<FormEditStd oldValue={data} />} />
 	} else {
-		return <FormPrimary header="Edit Profile" form={<FormEditPvd oldValue={data} />} />
+		return <FormSecondary header="Update Information" form={<FormEditPvd oldValue={data} />} />
 	}
 }
 

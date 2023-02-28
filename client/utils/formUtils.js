@@ -254,6 +254,30 @@ export const getValidation = (field, defaultValue) => {
 					message: getErrMsg('Address', 'maxLength', 255),
 				},
 			}
+		case 'amount':
+			return {
+				required: getErrMsg('Amount', 'required'),
+				minLength: {
+					value: 3,
+					message: getErrMsg('Amount', 'minLength', 3, 'digits'),
+				},
+				maxLength: {
+					value: 10,
+					message: getErrMsg('Amount', 'maxLength', 10, 'digits'),
+				},
+				pattern: {
+					value: getRegEx('onlyNumber'),
+					message: 'Amout Number contains invalid character',
+				},
+			}
+		case 'quota':
+			return {
+				required: getErrMsg('Quota', 'required'),
+				pattern: {
+					value: getRegEx('onlyNumber'),
+					message: 'Quota Number contains invalid character',
+				},
+			}
 		default:
 			return {}
 	}

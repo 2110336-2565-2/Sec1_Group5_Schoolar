@@ -31,28 +31,35 @@ const FormEditScholarship = ({ id }) => {
 	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
-		axiosPrivate.get(`/scholarship/${id}`).then((res) => {
-			const data = res.data.data
-			reset({
-				provider: '',
-				scholarshipName: data.scholarshipName,
-				gpax: data.gpax,
-				degree: data.degree,
-				targetNation: data.targetNation,
-				program: data.program,
-				amount: data.amount,
-				quota: data.quota,
-				fieldOfInterest: data.fieldOfInterest,
-				typeOfScholarship: data.typeOfScholarship,
-				detail: data.detail,
-				applicationDeadline: Date(data.applicationDeadline),
+		if (auth) {
+			axiosPrivate.get(`/scholarship/${id}`).then((res) => {
+				const data = res.data.data
+				reset({
+					provider: '',
+					scholarshipName: data.scholarshipName,
+					gpax: data.gpax,
+					degree: data.degree,
+					targetNation: data.targetNation,
+					program: data.program,
+					amount: data.amount,
+					quota: data.quota,
+					fieldOfInterest: data.fieldOfInterest,
+					typeOfScholarship: data.typeOfScholarship,
+					detail: data.detail,
+					applicationDeadline: Date(data.applicationDeadline),
+				})
 			})
-		})
+		}
+		else {
+			router.push('/login')
+		}
 	}, [])
 	useEffect(() => {
-		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-			setValue('provider', res.data.provider.organizationName)
-		})
+		if (auth) {
+			axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+				setValue('provider', res.data.provider.organizationName)
+			})
+		}
 	}, [])
 
 	const onSubmit = (e) => {

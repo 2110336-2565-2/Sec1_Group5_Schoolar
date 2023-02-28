@@ -305,7 +305,10 @@ export const getValidation = (field, defaultValue) => {
 			return{
 				validate: {
 					past: (value) => {
-						if (typeof value === 'string') {
+						if (value == ""){
+							return true
+						}
+						else if (typeof value === 'string') {
 							//if typing input (20/02/2023)
 							const [day, month, year] = value.split('/').map(Number)
 							const inputDate = new Date(year, month - 1, day)

@@ -57,7 +57,7 @@ function FormAddScholarship() {
                 <TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
                 <TextFieldComponent name="provider" label="Organization Name" disabled={true} shrink={true}{...formProps} />
                 <h3> Requirements </h3>
-                <TextFieldComponent name="gpax" label="GPAX" {...formProps} />
+                <TextFieldComponent name="gpax" label="GPAX" required={true} {...formProps} />
                 <SelectComponent name="degree" required={true} {...formProps} />
                 <TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
                 <SelectComponent name="program" required={true} {...formProps} />

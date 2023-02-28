@@ -197,6 +197,7 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'gpax':
 			return {
+				required: getErrMsg('GPAX', 'required'),
 				pattern: {
 					value: getRegEx('gpax'),
 					message: 'GPAX must be float number with 2 digits',
@@ -206,6 +207,7 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'targetNation':
 			return {
+				required: getErrMsg('Target Nation', 'required'),
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Target Nation', 'pattern'),
@@ -213,12 +215,23 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'fieldOfInterest':
 			return {
+				required: getErrMsg('Field of Interest', 'required'),
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Field of Interest', 'pattern'),
 				},
 			}
 		// Provider
+		case 'scholarshipName':
+			return{
+				required: getErrMsg('Scholarship Name', 'required'),
+				minLength: { value: 2, message: getErrMsg('Scholarship Name', 'minLength', 2) },
+				maxLength: { value: 40, message: getErrMsg('Scholarship Name', 'maxLength', 40) },
+				pattern: {
+					value: getRegEx('onlyAlphabetNumberSpace'),
+					message: getErrMsg('Scholarship Name', 'pattern'),
+				},
+			}
 		case 'organizationName':
 			return {
 				required: getErrMsg('Organization Name', 'required'),
@@ -289,6 +302,28 @@ export const getValidation = (field, defaultValue) => {
 					value: getRegEx('onlyNumber'),
 					message: 'Quota Number contains invalid character',
 				},
+			}
+		case 'applicationDeadline':
+			return{
+				required: getErrMsg('Application Deadline', 'required'),
+				validate: {
+					past: (value) => {
+						if (typeof value === 'string') {
+							//if typing input (20/02/2023)
+							const [day, month, year] = value.split('/').map(Number)
+							const inputDate = new Date(year, month - 1, day)
+							const today = new Date()
+							return inputDate > today || getErrMsg('Application Deadline', 'pattern')
+						} else {
+							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
+							return true
+						}
+					},
+				}
+			}
+		case 'typeOfScholarship':
+			return{
+				required: getErrMsg('Type of Scholarship', 'required')
 			}
 		default:
 			return {}

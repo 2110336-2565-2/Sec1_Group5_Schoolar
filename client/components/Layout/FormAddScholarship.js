@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect} from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, FormControl, Grid, Stack, Box } from '@mui/material'
+import { Button, FormControl, Stack, Box } from '@mui/material'
 import { SelectComponent, TextFieldComponent, DatePickerComponent } from '@utils/formComponentUtils'
 import { useRouter } from 'next/router'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 function FormAddScholarship() {
     const axiosPrivate = useAxiosPrivate()
+    const { openSnackbar } = useSnackbar()
     const {
         register,
         handleSubmit,
@@ -23,8 +25,8 @@ function FormAddScholarship() {
     const sendData = async (data) => {
         try {
             const response = await axiosPrivate.post('/scholarship/', data)
-            alert(response.data)
             alert('Data has been added successfully')
+            openSnackbar('Add scholarship successfully!', 'success')
             router.push('/')
         } catch (error) {
             alert('NOT SUCCESS')
@@ -62,8 +64,8 @@ function FormAddScholarship() {
                 <TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
                 <SelectComponent name="program" required={true} {...formProps} />
                 <h3> Details of scholarship </h3>
-                <TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
-                <TextFieldComponent name="quota" {...formProps} />
+                <TextFieldComponent name="amount" label="Amount (Baht)" required={true} {...formProps} />
+                <TextFieldComponent name="quota" required={true} {...formProps} />
                 <TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
                 <SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
                 <TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />

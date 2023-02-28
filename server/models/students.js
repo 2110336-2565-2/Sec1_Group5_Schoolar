@@ -18,7 +18,7 @@ const studentSchema = new Schema({
 	},
 	birthdate: {
 		required: true,
-		type: String, // Date ?
+		type: Date,
 		trim: true,
 	},
 	gender: {

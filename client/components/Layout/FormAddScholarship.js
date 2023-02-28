@@ -1,10 +1,10 @@
-import React,{useState} from 'react'
+import React,{useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, FormControl, Grid, Stack, Box} from '@mui/material'
 import { SelectComponent, TextFieldComponent, DatePickerComponent } from '@utils/formComponentUtils'
 import { useRouter } from 'next/router'
-
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useAuth } from '@/context/AuthContext'
 
 function FormAddScholarship(){
     const axiosPrivate = useAxiosPrivate()
@@ -35,6 +35,12 @@ function FormAddScholarship(){
         console.log(data)
 		sendData(data)
 	}
+    const {auth} = useAuth()
+    useEffect(() => {
+        axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+            setValue('provider', res.data.provider.organizationName)
+        })
+    }, [])
     return(
         <Stack>
             <FormControl
@@ -44,7 +50,7 @@ function FormAddScholarship(){
             >
                
                 <TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
-                <TextFieldComponent name="provider" label="Organization Name" disabled={true} {...formProps} />
+                <TextFieldComponent name="provider" label="Organization Name" disabled={true} shrink={true}{...formProps} />
                 <h3> Requirements </h3>
                 <TextFieldComponent name="gpax" label="GPAX" {...formProps} />
                 <SelectComponent name="degree" required={true} {...formProps} />

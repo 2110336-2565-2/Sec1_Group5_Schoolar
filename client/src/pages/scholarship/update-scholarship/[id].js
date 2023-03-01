@@ -12,6 +12,7 @@ export default function UpdateScholarship() {
 	const { auth } = useAuth()
 	if (!auth) {
 		router.push('/login')
+		return <></>
 	}
 
 	return <FormSecondary header="Update Scholarship" form={<FormEditScholarship id={id} />} />

@@ -1,10 +1,18 @@
 import { React } from 'react'
-import FormSecondary from '@components/Layout/FormSecondary'
+
 import FormAddScholarship from '@components/Layout/FormAddScholarship'
+import FormSecondary from '@components/Layout/FormSecondary'
+import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
 
 export default function addScholarship() {
-    return (
-        <FormSecondary header="Add Scholarship" form={<FormAddScholarship />} />
-    )
-}
+	const router = useRouter()
+	const { auth } = useAuth()
+	if (!auth) {
+		router.push('/login')
+		return <></>
+	}
 
+	return <FormSecondary header="Add Scholarship" form={<FormAddScholarship />} />
+}

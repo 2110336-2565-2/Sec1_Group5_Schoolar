@@ -11,6 +11,8 @@ import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormEditScholarship = ({ id }) => {
+	const axiosPrivate = useAxiosPrivate()
+
 	const { openSnackbar } = useSnackbar()
 
 	const router = useRouter()
@@ -27,8 +29,6 @@ const FormEditScholarship = ({ id }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const { auth } = useAuth()
-	//*axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
 		axiosPrivate.get(`/scholarship/${id}`).then((res) => {

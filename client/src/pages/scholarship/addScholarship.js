@@ -11,7 +11,11 @@ export default function addScholarship() {
 	const { auth } = useAuth()
 	if (!auth) {
 		router.push('/login')
-		return <></>
+		return (
+			<Center height={'100vh'}>
+				<CircularProgress />
+			</Center>
+		)
 	}
 
 	return <FormSecondary header="Add Scholarship" form={<FormAddScholarship />} />

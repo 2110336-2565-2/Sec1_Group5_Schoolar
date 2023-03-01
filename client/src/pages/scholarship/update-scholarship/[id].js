@@ -12,7 +12,11 @@ export default function UpdateScholarship() {
 	const { auth } = useAuth()
 	if (!auth) {
 		router.push('/login')
-		return <></>
+		return (
+			<Center height={'100vh'}>
+				<CircularProgress />
+			</Center>
+		)
 	}
 
 	return <FormSecondary header="Update Scholarship" form={<FormEditScholarship id={id} />} />

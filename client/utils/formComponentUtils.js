@@ -60,6 +60,7 @@ export const DatePickerComponent = ({
 	validation = getValidation(name),
 	disabled = false,
 	disableFuture = false,
+	disablePast = false,
 }) => {
 	return (
 		<Controller
@@ -81,6 +82,7 @@ export const DatePickerComponent = ({
 							/>
 						)}
 						disableFuture={disableFuture}
+						disablePast={disablePast}
 						onChange={(value) => {
 							setValue(name, value)
 						}}

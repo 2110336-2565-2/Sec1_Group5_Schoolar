@@ -1,10 +1,11 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { grey,blue } from '@mui/material/colors'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
+
 
 function Scholarship(props) {
 	const { auth } = useAuth()
@@ -40,7 +41,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon sx={{ color: grey[900] }} />
+								<PushPinIcon sx={{ color: grey[900] }}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

@@ -1,18 +1,21 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey,blue,blue } from '@mui/material/colors'
+import { grey,blue} from '@mui/material/colors'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
+import { axiosPrivate } from '@/pages/api/axios'
 
 
 function Scholarship(props) {
 	const { auth } = useAuth()
-	const [active,setActive] = useState(false);
-	const handleClick = (e) => {
+	const [active,setActive] = useState();
+	const handlePin = (e) => {
 		e.preventDefault()
+		const stdId = axiosPrivate.get(`/student/${props.id}`)
+		const pinScholarship = stdId.pinScholarship 
+		console.log(pinScholarship)
 		setActive(!active);
 		console.log(active)
 	};
@@ -48,7 +51,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon onClick={handleClick} sx={active? {color:blue[800]}:{color:grey[700]}}/>
+								<PushPinIcon onClick={handlePin} sx={active? {color:blue[800]}:{color:grey[700]}}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

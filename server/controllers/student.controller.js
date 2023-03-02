@@ -49,6 +49,7 @@ exports.updateStudentInfo = async (req, res) => {
 			firstName,
 			lastName,
 			birthdate,
+			phoneNumber,
 			gender,
 			gpax,
 			degree,
@@ -64,6 +65,8 @@ exports.updateStudentInfo = async (req, res) => {
 
 		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
+
+		Object.assign(user, {phoneNumber});
 
 		Object.assign(student, {
 			firstName,

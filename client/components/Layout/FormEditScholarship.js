@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Button, FormControl, Grid, Stack } from '@mui/material'
+import { Box, Button, FormControl, Grid, Stack } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
@@ -11,6 +11,8 @@ import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormEditScholarship = ({ id }) => {
+	const axiosPrivate = useAxiosPrivate()
+
 	const { openSnackbar } = useSnackbar()
 
 	const router = useRouter()
@@ -27,39 +29,31 @@ const FormEditScholarship = ({ id }) => {
 	} = useForm({ mode: 'onBlur' })
 
 	const { auth } = useAuth()
-	//*axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
-		if (auth) {
-			axiosPrivate.get(`/scholarship/${id}`).then((res) => {
-				const data = res.data.data
-				reset({
-					provider: '',
-					scholarshipName: data.scholarshipName,
-					gpax: data.gpax,
-					degree: data.degree,
-					targetNation: data.targetNation,
-					program: data.program,
-					amount: data.amount,
-					quota: data.quota,
-					fieldOfInterest: data.fieldOfInterest,
-					typeOfScholarship: data.typeOfScholarship,
-					detail: data.detail,
-					applicationDeadline: Date(data.applicationDeadline),
-				})
+		axiosPrivate.get(`/scholarship/${id}`).then((res) => {
+			const data = res.data.data
+			reset({
+				provider: '',
+				scholarshipName: data.scholarshipName,
+				gpax: data.gpax,
+				degree: data.degree,
+				targetNation: data.targetNation,
+				program: data.program,
+				amount: data.amount,
+				quota: data.quota,
+				fieldOfInterest: data.fieldOfInterest,
+				typeOfScholarship: data.typeOfScholarship,
+				detail: data.detail,
+				applicationDeadline: data.applicationDeadline ? new Date(data.applicationDeadline) : '',
 			})
-		}
-		else {
-			router.push('/login')
-		}
+		})
 	}, [])
+
 	useEffect(() => {
-		if (auth) {
-			axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-				setValue('provider', res.data.provider.organizationName)
-			})
-		}
+		axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
+			setValue('provider', res.data.provider.organizationName)
+		})
 	}, [])
 
 	const onSubmit = (e) => {
@@ -95,7 +89,6 @@ const FormEditScholarship = ({ id }) => {
 					<SelectComponent name="program" disabled={true} shrink={true} {...formProps} />
 					<h3>Details of scholarship</h3>
 					<TextFieldComponent
-						required={true}
 						name="amount"
 						label="Amount (Baht)"
 						shrink={true}
@@ -103,7 +96,6 @@ const FormEditScholarship = ({ id }) => {
 						validation={getValidation('amount', defaultValues?.amount)}
 					/>
 					<TextFieldComponent
-						required={true}
 						name="quota"
 						label="Scholarship Quota"
 						shrink={true}
@@ -113,7 +105,6 @@ const FormEditScholarship = ({ id }) => {
 					<TextFieldComponent name="fieldOfInterest" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="typeOfScholarship" disabled={true} shrink={true} {...formProps} />
 					<TextFieldComponent
-						required={false}
 						name="detail"
 						label="More Details"
 						multiline={true}
@@ -121,31 +112,36 @@ const FormEditScholarship = ({ id }) => {
 						shrink={true}
 						{...formProps}
 					/>
-					<DatePickerComponent name="applicationDeadline" disabled={true} shrink={true} {...formProps} />
+					<DatePickerComponent
+						name="applicationDeadline"
+						defaultValues={null}
+						disabled={true}
+						shrink={true}
+						{...formProps}
+					/>
 				</Stack>
-				<Grid
+				{/* <Grid
 					container
 					rowSpacing={2}
 					alignItems="stretch"
+					fullWidth
 					justifyContent="space-evenly"
 					sx={{ padding: '20px 0px 20px 20px' }}
-				>
-					<Grid item>
-						<Button
-							variant="contained"
-							onClick={() => {
-								router.push('/')
-							}}
-						>
-							Cancel
-						</Button>
-					</Grid>
-					<Grid item>
-						<Button variant="contained" type="submit">
-							Update
-						</Button>
-					</Grid>
-				</Grid>
+				> */}
+				<Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>
+					<Button
+						fullWidth
+						variant="contained"
+						onClick={() => {
+							router.push('/')
+						}}
+					>
+						Cancel
+					</Button>
+					<Button fullWidth variant="contained" type="submit">
+						Update
+					</Button>
+				</Box>
 			</FormControl>
 		</Stack>
 	)

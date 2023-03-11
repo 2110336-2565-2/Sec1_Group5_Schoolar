@@ -42,7 +42,7 @@ function Homepage() {
 		setFacultyFilters(facultyFilters)
 		setStudentProgramFilters(studentProgramFilters)
 	}
-
+	// query scholarship
 	const isContainScholar = (arr, str) => {
 		return arr.length === 0 ? true : arr.includes(str)
 	}

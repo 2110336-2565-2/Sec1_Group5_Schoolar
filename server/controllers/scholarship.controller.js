@@ -3,16 +3,17 @@ const Provider = require('../models/providers')
 
 /*
  * @desc     Get all scholarships
- * @route    GET scholarship/
+ * @route    GET scholarship
  * @access   Private
  */
 exports.getAllScholarships = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
 		let scholarships
-		if (req.role === 'provider') {
-			const user = Provider.find({ username: req.user })
-			scholarships = await Scholarship.find({ provider: user._id })
+		if (req.roles === 'provider') {
+			const username = req.user
+			const provider = await Provider.findOne({ username })
+			scholarships = await Scholarship.find({ provider })
 		} else {
 			scholarships = await Scholarship.find()
 		}

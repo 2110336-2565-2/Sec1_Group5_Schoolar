@@ -48,7 +48,30 @@ function Homepage() {
 	}
 
 	const filteredScholars = scholars.filter((scholar) => {
-		return scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase())
+		console.log(`Input : ${inputName}`)
+		if (
+			scholarshipFilters.length === 0 &&
+			degreeFilters.length === 0 &&
+			facultyFilters.length === 0 &&
+			studentProgramFilters.length === 0
+		) {
+			return scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase())
+		} else if (inputName.length === 0) {
+			return (
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		} else {
+			return (
+				scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase()) &&
+				isContainScholar(degreeFilters, scholar.degree) &&
+				isContainScholar(scholarshipFilters, scholar.typeOfScholarship) &&
+				isContainScholar(facultyFilters, scholar.program) &&
+				isContainScholar(studentProgramFilters, scholar.program)
+			)
+		}
 	})
 
 	return (

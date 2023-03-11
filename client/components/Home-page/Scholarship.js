@@ -1,8 +1,15 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { grey,blue } from '@mui/material/colors'
+import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useAuth } from '@/context/AuthContext'
+
 
 function Scholarship(props) {
+	const { auth } = useAuth()
+	const router = useRouter()
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -10,16 +17,23 @@ function Scholarship(props) {
 					There is no matching scholarship
 				</Typography>
 			) : null}
-			{props.items.map((scholar, idx) => {
+			{props.items.map((scholar) => {
 				return (
 					<Paper
-						key={scholar.scholarshipName + idx}
-						component="form"
+						key={scholar._id}
 						sx={{
 							display: 'flex',
 							width: 300,
 							height: 180,
 							flexDirection: 'column',
+							cursor: 'pointer',
+						}}
+						onClick={() => {
+							if (auth && auth.role === 'provider') {
+								router.push(`/scholarship/update-scholarship/${scholar._id}`)
+							} else {
+								//TODO Scholarship Detail
+							}
 						}}
 					>
 						<Grid container direction="row" justifyContent="space-between">
@@ -27,7 +41,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon sx={{ color: grey[900] }} />
+								<PushPinIcon sx={{ color: grey[900] }}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

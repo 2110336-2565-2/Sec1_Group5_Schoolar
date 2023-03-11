@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 const FormEditPvd = ({ oldValue }) => {
 	//state for storing data that is not TextFieldComponent
@@ -16,6 +17,7 @@ const FormEditPvd = ({ oldValue }) => {
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
+	const { openSnackbar } = useSnackbar();
 	const {
 		register,
 		handleSubmit,
@@ -30,7 +32,7 @@ const FormEditPvd = ({ oldValue }) => {
 		if (oldValue) {
 			// set default value, use in isDupe validate
 			reset({
-				providerName: oldValue.providerName,
+				organizationName: oldValue.organizationName,
 				website: oldValue.website,
 				address: oldValue.address,
 				phoneNumber: oldValue.phoneNumber,
@@ -42,9 +44,7 @@ const FormEditPvd = ({ oldValue }) => {
 	const onSubmit = (data) => {
 		try {
 			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-				console.log(`submitted`)
-				alert('Data has been updated successfully')
-				console.log(`Success update at ${res.status}`)
+				openSnackbar("Update Success!", 'success');
 			})
 			router.push('/')
 		} catch (err) {
@@ -57,13 +57,11 @@ const FormEditPvd = ({ oldValue }) => {
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			{/* {alertOpen && renderAlert()} */}
-			<Grid container sx={{ overflow: 'auto', maxHeight: '500px', m: 0.5 }}>
+			<Grid container sx={{ overflow: 'auto', m: 0.5 }}>
 				<Grid container sx={{ m: 2 }}>
 					<FormControl component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }}>
 						<Stack spacing={3} direction="column">
-							<TextFieldComponent name="providerName" required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name="address" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="organizationName" required={true} shrink={true} {...formProps} />
 							<TextFieldComponent
 								name="phoneNumber"
 								required={true}
@@ -71,27 +69,16 @@ const FormEditPvd = ({ oldValue }) => {
 								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
 								{...formProps}
 							/>
-							<TextFieldComponent name="creditCardNumber" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="address" required={true} shrink={true} multiline={true} row={3} {...formProps} />							
+							<Stack spacing={3} direction="row" justifyContent="space-evenly">
+								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
+								<Button sx={{width: "100%"}} variant="contained" type="submit">
+									Update
+								</Button>
+							</Stack>
 						</Stack>
-						<Grid
-							container
-							spacing={1}
-							alignItems="stretch"
-							justifyContent="space-evenly"
-							sx={{ padding: '20px 0px 20px 0px' }}
-						>
-							<Grid item>
-								<Button variant="contained" onClick={() => router.push('/')}>
-									BACK
-								</Button>
-							</Grid>
-
-							<Grid item>
-								<Button variant="contained" type="submit">
-									SUBMIT
-								</Button>
-							</Grid>
-						</Grid>
+						
 					</FormControl>
 				</Grid>
 			</Grid>

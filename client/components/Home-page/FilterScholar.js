@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import { FilterList as FilterListIcon } from '@mui/icons-material'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
 import { degrees, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/formOptUtils'
@@ -40,10 +39,19 @@ function FilterScholar(props) {
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<FilterListIcon />
 			</IconButton>
-			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="md">
+			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="xs">
 				<DialogTitle>Filters</DialogTitle>
-				<DialogContent>
-					<FormGroup>
+				<Box
+            component="form"
+
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              m: 'auto',
+              width: 'fit-content',
+            }}
+          >
+					<FormGroup >
 						<FilterSearchBar
 							item={scholarshipTypes}
 							label={'Scholarship Type'}
@@ -69,7 +77,6 @@ function FilterScholar(props) {
 							setFilters={setStudentProgramFilters}
 						/>
 					</FormGroup>
-				</DialogContent>
 
 				<DialogActions>
 					<Button onClick={handleClose} color="primary">
@@ -79,6 +86,7 @@ function FilterScholar(props) {
 						Apply
 					</Button>
 				</DialogActions>
+				</Box>
 			</Dialog>
 		</Box>
 	)

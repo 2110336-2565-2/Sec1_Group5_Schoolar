@@ -9,7 +9,13 @@ const Provider = require('../models/providers')
 exports.getAllScholarships = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
-		const scholarships = await Scholarship.find()
+		let scholarships
+		if (req.role === 'provider') {
+			const user = Provider.find({ username: req.user })
+			scholarships = await Scholarship.find({ provider: user._id })
+		} else {
+			scholarships = await Scholarship.find()
+		}
 		return res.status(200).json({
 			success: true,
 			count: scholarships.length,
@@ -31,34 +37,54 @@ exports.getAllScholarships = async (req, res) => {
 exports.getScholarship = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
-		const scholarship = await Scholarship.findById(req.params.id);
-		if (!scholarship) return res.status(200).json({ success: false });
-		res.status(200).json({ success: true, data: scholarship });
+		const scholarship = await Scholarship.findById(req.params.id)
+		if (!scholarship) return res.status(200).json({ success: false })
+		res.status(200).json({ success: true, data: scholarship })
 	} catch (err) {
-		res.status(400).json({ success: false });
+		res.status(400).json({ success: false })
 	}
 }
 
 /*
-* @desc     Add scholarship
-* @route    POST scholarship
-* @access   Private
-*/
+ * @desc     Add scholarship
+ * @route    POST scholarship
+ * @access   Private
+ */
 exports.addScholarship = async (req, res) => {
 	try {
 		const organizationName = req.params.organizationName
-		const { scholarshipName, degree, gpax, program, targetNation, typeOfScholarship, fieldOfInterest, applicationDeadline, quota, amount, detail } = req.body
+		const {
+			scholarshipName,
+			degree,
+			gpax,
+			program,
+			targetNation,
+			typeOfScholarship,
+			fieldOfInterest,
+			applicationDeadline,
+			quota,
+			amount,
+			detail,
+		} = req.body
 
 		// Find the provider by organizationName
 		const provider = await Provider.findOne({ organizationName })
 		if (!provider) throw new Error('Provider not found')
 
 		// Validate input data
-		if (!scholarshipName || !degree || !gpax || !program || !targetNation || !typeOfScholarship || !fieldOfInterest) {
-			return res.status(400).json({ error: 'Missing scholarship information' });
+		if (
+			!scholarshipName ||
+			!degree ||
+			!gpax ||
+			!program ||
+			!targetNation ||
+			!typeOfScholarship ||
+			!fieldOfInterest
+		) {
+			return res.status(400).json({ error: 'Missing scholarship information' })
 		}
 
-		const isValidDegree = ['high school', 'bachelor', 'master', 'doctoral'].includes(degree);
+		const isValidDegree = ['high school', 'bachelor', 'master', 'doctoral'].includes(degree)
 		const isValidProgram = [
 			'Sci-Math',
 			'Art-Cal',
@@ -84,50 +110,62 @@ exports.addScholarship = async (req, res) => {
 			'Faculty of Science',
 			'Faculty of Sports Science',
 			'Faculty of Veterinary Science',
-		].includes(program);
-		const isValidTypeOfScholarship = ['full', 'partial', 'renewable', 'fellow'].includes(typeOfScholarship);
+		].includes(program)
+		const isValidTypeOfScholarship = ['full', 'partial', 'renewable', 'fellow'].includes(
+			typeOfScholarship,
+		)
 
 		if (!isValidDegree || !isValidProgram || !isValidTypeOfScholarship) {
-			return res.status(400).json({ error: 'Invalid scholarship information' });
+			return res.status(400).json({ error: 'Invalid scholarship information' })
 		}
 
 		// Create new scholarship object
 		const scholarship = new Scholarship({
-			scholarshipName: scholarshipName.toLowerCase().trim(), provider, degree, gpax, program, targetNation: targetNation.toLowerCase().trim(), typeOfScholarship, fieldOfInterest: fieldOfInterest.trim(), applicationDeadline, quota, amount, detail
-		});
-		await scholarship.save();
-		res.status(200).json({ message: 'Scholarship added successfully' });
+			scholarshipName: scholarshipName.toLowerCase().trim(),
+			provider,
+			degree,
+			gpax,
+			program,
+			targetNation: targetNation.toLowerCase().trim(),
+			typeOfScholarship,
+			fieldOfInterest: fieldOfInterest.trim(),
+			applicationDeadline,
+			quota,
+			amount,
+			detail,
+		})
+		await scholarship.save()
+		res.status(200).json({ message: 'Scholarship added successfully' })
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ message: 'Error adding scholarship' });
+		console.error(error)
+		return res.status(500).json({ message: 'Error adding scholarship' })
 	}
-};
+}
 
 /*
-* @desc     Update scholarship
-* @route    PUT scholarship/:id
-* @access   Private
-*/
+ * @desc     Update scholarship
+ * @route    PUT scholarship/:id
+ * @access   Private
+ */
 exports.updateScholarship = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { quota, amount, detail } = req.body;
+		const { id } = req.params
+		const { quota, amount, detail } = req.body
 
 		// find and update the scholarship in the database
 		const scholarship = await Scholarship.findByIdAndUpdate(
 			id,
 			{ $set: { quota, amount, detail } },
-			{ new: true }
+			{ new: true },
 		)
 
 		// check if the scholarship was found
 		if (!scholarship) {
-			return res.status(404).json({ message: 'Scholarship not found' });
+			return res.status(404).json({ message: 'Scholarship not found' })
 		}
-		res.status(200).json({ message: 'Scholarship updated successfully' });
+		res.status(200).json({ message: 'Scholarship updated successfully' })
+	} catch (error) {
+		console.error(error)
+		res.status(500).json({ message: 'Error updating scholarship' })
 	}
-	catch (error) {
-		console.error(error);
-		res.status(500).json({ message: 'Error updating scholarship' });
-	}
-};
+}

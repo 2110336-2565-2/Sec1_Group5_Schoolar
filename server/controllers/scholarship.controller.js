@@ -33,9 +33,9 @@ exports.getScholarship = async (req, res) => {
 	try {
 		const scholarship = await Scholarship.findById(req.params.id);
 		if (!scholarship) return res.status(200).json({ success: false });
-		res.status(200).json({ success: true, data: scholarship });
+		return res.status(200).json({ scholarship });
 	} catch (err) {
-		res.status(400).json({ success: false });
+		return res.status(400).json({ success: false });
 	}
 }
 

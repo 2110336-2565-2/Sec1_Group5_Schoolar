@@ -45,7 +45,7 @@ exports.updateProviderInfo = async (req, res) => {
 
 	try {
 		const username = req.params.username
-		const { providerName, address, website, creditCardNumber, phoneNumber } = req.body
+		const { organizationName, address, website, creditCardNumber, phoneNumber } = req.body
 
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
@@ -54,7 +54,7 @@ exports.updateProviderInfo = async (req, res) => {
 		if (!provider) throw new Error('Provider not found')
 
 		Object.assign(provider, {
-			providerName,
+			organizationName,
 			address,
 			website,
 			creditCardNumber,

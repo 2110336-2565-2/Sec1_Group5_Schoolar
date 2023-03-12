@@ -67,6 +67,18 @@ function SearchBar(props) {
 					>
 						match
 					</Button>
+					<Button
+						variant="contained"
+						size="small"
+						sx={{
+							fontSize: 15,
+							width: 100,
+							height: 35,
+							borderRadius: 5,
+						}}
+					>
+						add scholarship
+					</Button>
 				</HStack>
 			</Paper>
 		</>

@@ -45,7 +45,7 @@ exports.updateProviderInfo = async (req, res) => {
 
 	try {
 		const username = req.params.username
-		const { providerName, address, website, creditCardNumber, phoneNumber } = req.body
+		const { organizationName, address, website, creditCardNumber, phoneNumber } = req.body
 
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
@@ -54,7 +54,7 @@ exports.updateProviderInfo = async (req, res) => {
 		if (!provider) throw new Error('Provider not found')
 
 		Object.assign(provider, {
-			providerName,
+			organizationName,
 			address,
 			website,
 			creditCardNumber,
@@ -70,6 +70,24 @@ exports.updateProviderInfo = async (req, res) => {
 			message: 'Provider information updated successfully',
 			provider,
 		})
+	} catch (error) {
+		return res.status(400).json({ message: error.message })
+	}
+}
+
+exports.getOrganizationName = async (req, res) => {
+	// #swagger.tags = ['provider']
+	try {
+		const id = req.params.id
+		const provider = await Provider.findById(id)
+		Provider.findById(id, function (err, docs) {
+			if (err){
+				return res.status(404).json({message: 'Provider not found'});
+			}
+			else{
+				return res.status(200).json({ organizationName: provider.organizationName });
+			}
+		});
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}

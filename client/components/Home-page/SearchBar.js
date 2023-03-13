@@ -4,8 +4,10 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 
+
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
+import { useRouter } from 'next/router'
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
@@ -17,6 +19,11 @@ function SearchBar(props) {
 		console.log(inputName)
 		props.searchHandler(inputName)
 	}
+	var buttonName = "match"
+	const handleClick = (auth) => {
+		
+	}
+	const router = useRouter();
 	return (
 		<>
 			<Typography variant="h3" align="center" color="#FFFFFF" gutterBottom margin={5} sx={{ fontWeight: 'bold' }}>
@@ -60,24 +67,13 @@ function SearchBar(props) {
 						size="small"
 						sx={{
 							fontSize: 15,
-							width: 100,
+							width: 175,
 							height: 35,
 							borderRadius: 5,
 						}}
+						onClick ={() => router.push('/scholarship/addScholarship')}
 					>
-						match
-					</Button>
-					<Button
-						variant="contained"
-						size="small"
-						sx={{
-							fontSize: 15,
-							width: 100,
-							height: 35,
-							borderRadius: 5,
-						}}
-					>
-						add scholarship
+						+ Add Scholarship
 					</Button>
 				</HStack>
 			</Paper>

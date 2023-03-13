@@ -3,7 +3,7 @@ import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
-
+import { useAuth } from '@/context/AuthContext'
 
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
+	const { auth } = useAuth()
 	const onChange = (e) => {
 		setInputName(e.target.value)
 	}
@@ -19,10 +20,7 @@ function SearchBar(props) {
 		console.log(inputName)
 		props.searchHandler(inputName)
 	}
-	var buttonName = "match"
-	const handleClick = (auth) => {
-		
-	}
+
 	const router = useRouter();
 	return (
 		<>
@@ -62,19 +60,25 @@ function SearchBar(props) {
 					<Typography variant="h7" align="left" color="textPrimary" gutterBottom marginX={2}>
 						OR
 					</Typography>
-					<Button
-						variant="contained"
-						size="small"
-						sx={{
-							fontSize: 15,
-							width: 175,
-							height: 35,
-							borderRadius: 5,
-						}}
-						onClick ={() => router.push('/scholarship/addScholarship')}
-					>
-						+ Add Scholarship
-					</Button>
+					{(auth && auth.role === 'provider') ? (<Button
+				variant="contained"
+				size="small"
+				sx={{
+					fontSize: 15,
+					width: 175,
+					height: 35,
+					borderRadius: 5,
+				}}
+				onClick ={() => router.push('/scholarship/addScholarship')}
+			>
+				+ Add Scholarship
+			</Button>):(<Button variant="contained"
+				size="small"
+				sx={{
+					fontSize: 15,
+					width: 175,
+					height: 35,
+					borderRadius: 5}}>Match</Button>)}
 				</HStack>
 			</Paper>
 		</>

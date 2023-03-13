@@ -3,7 +3,6 @@ import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
-import { useAuth } from '@/context/AuthContext'
 
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
@@ -24,10 +23,10 @@ function SearchBar(props) {
 	}
 	var buttonName = "match"
 	console.log(auth)
-	if(auth.role == "provider"){
+	if(auth && auth.role == "provider"){
 		buttonName = "+ Add Scholarship"
 	}
-	else if (auth.role == "student"){
+	else {
 		buttonName = "match"
 	}
 	const handleClick = (auth) => {

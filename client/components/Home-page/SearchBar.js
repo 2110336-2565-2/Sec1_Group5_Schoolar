@@ -23,10 +23,10 @@ function SearchBar(props) {
 	}
 	var buttonName = "match"
 	console.log(auth)
-	if(auth.role == "provider"){
+	if(auth && auth.role == "provider"){
 		buttonName = "+ Add Scholarship"
 	}
-	else if (auth.role == "student"){
+	else {
 		buttonName = "match"
 	}
 	const handleClick = (auth) => {

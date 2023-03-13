@@ -3,7 +3,7 @@ import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
-
+import { useAuth } from '@/context/AuthContext'
 
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
@@ -13,6 +13,7 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
+	const { auth } = useAuth()
 	const onChange = (e) => {
 		setInputName(e.target.value)
 	}
@@ -22,7 +23,6 @@ function SearchBar(props) {
 		props.searchHandler(inputName)
 	}
 	var buttonName = "match"
-	const {auth} = useAuth()
 	console.log(auth)
 	if(auth.role == "provider"){
 		buttonName = "+ Add Scholarship"

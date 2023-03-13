@@ -8,6 +8,8 @@ import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
@@ -20,8 +22,18 @@ function SearchBar(props) {
 		props.searchHandler(inputName)
 	}
 	var buttonName = "match"
+	const {auth} = useAuth()
+	console.log(auth)
+	if(auth.role == "provider"){
+		buttonName = "+ Add Scholarship"
+	}
+	else if (auth.role == "student"){
+		buttonName = "match"
+	}
 	const handleClick = (auth) => {
-		
+		if (buttonName == "+ Add Scholarship"){
+			router.push('/scholarship/addScholarship')
+		}
 	}
 	const router = useRouter();
 	return (
@@ -71,9 +83,9 @@ function SearchBar(props) {
 							height: 35,
 							borderRadius: 5,
 						}}
-						onClick ={() => router.push('/scholarship/addScholarship')}
+						onClick ={handleClick}
 					>
-						+ Add Scholarship
+						{buttonName}
 					</Button>
 				</HStack>
 			</Paper>

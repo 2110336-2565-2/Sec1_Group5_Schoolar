@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
+import { Box, Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
 import { useAuth } from '@/context/AuthContext'
 
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
 import { useRouter } from 'next/router'
-import { useAuth } from '@/context/AuthContext'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
@@ -74,19 +73,19 @@ function SearchBar(props) {
 					<Typography variant="h7" align="left" color="textPrimary" gutterBottom marginX={2}>
 						OR
 					</Typography>
-					<Button
-						variant="contained"
-						size="small"
-						sx={{
-							fontSize: 15,
-							width: 175,
-							height: 35,
-							borderRadius: 5,
-						}}
-						onClick ={handleClick}
-					>
-						{buttonName}
-					</Button>
+						<Button
+							variant="contained"
+							size="small"
+							sx={{
+								fontSize: 15,
+								width: 175,
+								height: 35,
+								borderRadius: 5,
+							}}
+							onClick ={handleClick}
+						>
+							{buttonName}
+						</Button>
 				</HStack>
 			</Paper>
 		</>

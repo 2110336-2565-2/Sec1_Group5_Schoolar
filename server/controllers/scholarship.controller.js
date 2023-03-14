@@ -10,7 +10,7 @@ exports.getAllScholarships = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
 		let scholarships
-		if (req.roles === 'provider') {
+		if (req.role === 'provider') {
 			const username = req.user
 			const provider = await Provider.findOne({ username })
 			scholarships = await Scholarship.find({ provider })

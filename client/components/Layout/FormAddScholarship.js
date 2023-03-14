@@ -30,7 +30,7 @@ function FormAddScholarship() {
 	useEffect(() => {
 		try {
 			axiosPrivate.get(`/provider/${auth.username}`).then((res) => {
-				setValue('organizationName', res.data.provider.organizationName)
+				setValue('provider', res.data.provider.organizationName)
 			})
 		} catch (error) {
 			console.log(error)
@@ -60,7 +60,7 @@ function FormAddScholarship() {
 			>
 				<TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
 				<TextFieldComponent
-					name="organizationName"
+					name="provider"
 					label="Organization Name"
 					disabled={true}
 					shrink={true}

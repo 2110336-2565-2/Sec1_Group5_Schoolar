@@ -53,8 +53,8 @@ exports.getScholarship = async (req, res) => {
  */
 exports.addScholarship = async (req, res) => {
 	try {
+		const organizationName = req.params.organizationName
 		const {
-			organizationName,
 			scholarshipName,
 			degree,
 			gpax,

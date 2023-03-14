@@ -106,7 +106,7 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Field of Interest" details={detail.fieldOfInterest} />
 							<DetailComponent topic="Program/Faculty" details={detail.program} />
 							<DetailComponent topic="Taget Nation" details={detail.targetNation} />
-							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarahip} />
+							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="GPAX" details={detail.gpax} />
 							<DetailComponent topic="Amount" details={detail.amount} />
 							<DetailComponent topic="Quota" details={detail.quota} />

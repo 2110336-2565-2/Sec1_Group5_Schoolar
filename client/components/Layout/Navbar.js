@@ -120,43 +120,47 @@ function AccoutMenu() {
 			>
 				{auth
 					? [
-						<Link href="/profile/edit" key="edit" onClick={() => {
-							if (router.pathname === '/profile/edit') {
-								window.location.reload()
-							}
-						}}>
-							<MenuItem key="Edit Profile">
+							<Link
+								href="/profile/edit"
+								key="edit"
+								onClick={() => {
+									if (router.pathname === '/profile/edit') {
+										window.location.reload()
+									}
+								}}
+							>
+								<MenuItem key="Edit Profile">
+									<ListItemIcon>
+										<Edit fontSize="small" />
+									</ListItemIcon>
+									Edit Profile
+								</MenuItem>
+							</Link>,
+							<MenuItem onClick={handleLogout} key="logout">
 								<ListItemIcon>
-									<Edit fontSize="small" />
+									<Logout fontSize="small" />
 								</ListItemIcon>
-								Edit Profile
-							</MenuItem>
-						</Link>,
-						<MenuItem onClick={handleLogout} key="logout">
-							<ListItemIcon>
-								<Logout fontSize="small" />
-							</ListItemIcon>
-							Logout
-						</MenuItem>,
-					]
+								Logout
+							</MenuItem>,
+					  ]
 					: [
-						<Link href="/login" key="login">
-							<MenuItem>
-								<ListItemIcon>
-									<Login fontSize="small" />
-								</ListItemIcon>
-								Login
-							</MenuItem>
-						</Link>,
-						<Link href="/register" key="register">
-							<MenuItem>
-								<ListItemIcon>
-									<AppRegistration fontSize="small" />
-								</ListItemIcon>
-								Register
-							</MenuItem>
-						</Link>,
-					]}
+							<Link href="/login" key="login">
+								<MenuItem>
+									<ListItemIcon>
+										<Login fontSize="small" />
+									</ListItemIcon>
+									Login
+								</MenuItem>
+							</Link>,
+							<Link href="/register" key="register">
+								<MenuItem>
+									<ListItemIcon>
+										<AppRegistration fontSize="small" />
+									</ListItemIcon>
+									Register
+								</MenuItem>
+							</Link>,
+					  ]}
 			</Menu>
 		</Stack>
 	)

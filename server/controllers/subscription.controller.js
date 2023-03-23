@@ -1,6 +1,33 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-//TODO: create subscription
+/*
+ * @desc     create check out session
+ * @route    POST
+ * @access   Private
+ */
+exports.createCheckOutSession = async (req, res, next) => {
+	const { priceId } = req.body
+	// Replace "your_price_id" with the actual price ID you set up in your Stripe Dashboard
+	const DEFAULT_PRICE_ID = 'your_price_id'
+	try {
+		const session = await stripe.checkout.sessions.create({
+			payment_method_types: ['card'],
+			line_items: [
+				{
+					price: priceId || DEFAULT_PRICE_ID,
+					quantity: 1,
+				},
+			],
+			mode: 'subscription',
+			success_url: `https://your-website.com/success?session_id={CHECKOUT_SESSION_ID}`,
+			cancel_url: 'https://your-website.com/canceled',
+		})
+
+		res.json({ id: session.id })
+	} catch (error) {
+		res.status(500).json({ error: 'An error occurred, please try again.' })
+	}
+}
 
 /*
  * @desc     Get a list of subscriptions that have not been canceled
@@ -39,7 +66,7 @@ exports.getSubscription = async (req, res) => {
  * @access   Public //TODO: might change later
  */
 exports.getNextPaymentDateByEmail = async (req, res) => {
-    //Not done yet, it depends on US6-1
+	//Not done yet, it depends on US6-1
 	try {
 		const email = req.params.email
 		console.log(email)

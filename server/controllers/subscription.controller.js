@@ -40,7 +40,7 @@ exports.getSubscription = async (req, res) => {
  */
 exports.getNextPaymentDate = async (req, res) => {
 	try {
-		const id = req.params.id //subscription id from scholarship model
+		const id = req.params.id // Subscription id from scholarship model
 		const subscription = await stripe.subscriptions.retrieve(id)
 		return res.status(400).json(new Date(subscription.current_period_end * 1000)) // Convert a Unix timestamp to date
 	} catch (error) {

@@ -39,7 +39,7 @@ exports.getSubscription = async (req, res) => {
  * @access   Public //TODO: might change later
  */
 exports.getNextPaymentDateByEmail = async (req, res) => {
-    //Not done yet, it depends on US6-1
+	//Not done yet, it depends on US6-1
 	try {
 		const email = req.params.email
 		console.log(email)

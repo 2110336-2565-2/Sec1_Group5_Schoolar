@@ -11,7 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 exports.getSubscriptions = async (req, res) => {
 	try {
 		const subscriptions = await stripe.subscriptions.list()
-		return res.status(400).json(subscriptions)
+		return res.status(200).json(subscriptions)
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}
@@ -27,7 +27,7 @@ exports.getSubscription = async (req, res) => {
 	try {
 		const id = req.params.id
 		const subscription = await stripe.subscriptions.retrieve(id)
-		return res.status(400).json(subscription)
+		return res.status(200).json(subscription)
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}
@@ -42,7 +42,7 @@ exports.getNextPaymentDate = async (req, res) => {
 	try {
 		const id = req.params.id // Subscription id from scholarship model
 		const subscription = await stripe.subscriptions.retrieve(id)
-		return res.status(400).json(new Date(subscription.current_period_end * 1000)) // Convert a Unix timestamp to date
+		return res.status(200).json(new Date(subscription.current_period_end * 1000)) // Convert a Unix timestamp to date
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}

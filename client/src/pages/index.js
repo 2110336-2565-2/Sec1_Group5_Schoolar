@@ -6,21 +6,52 @@ import { Center, VStack } from '@components/common'
 import { Box, Divider, Paper, Typography } from '@mui/material'
 
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-
+import { useAuth } from '@/context/AuthContext'
+const scoreMap = {
+	'degree' : 5,
+	'program' : 5,
+	'gpax' : 4,
+	'targetNation':3,
+	'typeOfScholarship':3
+}
+function calculateScore(stdInfo, scholarInfo) {
+	let score = 0;
+  
+	for (const key in stdInfo) {
+	  if (key == '_id') continue
+	  if (stdInfo.hasOwnProperty(key) && scholarInfo.hasOwnProperty(key)) {
+		
+		const field1 = stdInfo[key].toString();
+		const field2 = scholarInfo[key].toString();
+		const fieldScore = field1 === field2 ? scoreMap[key] : 0;
+		score += fieldScore;
+	  }
+	} 
+	return score;
+  }
+  
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
+	const { auth } = useAuth()
 
 	// set filters list
 	const [scholarshipFilters, setScholarshipFilters] = useState([])
 	const [degreeFilters, setDegreeFilters] = useState([])
 	const [facultyFilters, setFacultyFilters] = useState([])
-	const [studentProgramFilters, setStudentProgramFilters] = useState([])
+	const [studentProgramFilters, setStudentProgramFilters] = useState([])	
+	// student-info for get recommended scholarships
+	const [studentInfo, setStudentInfo] = useState({})
 	const axiosPrivate = useAxiosPrivate()
 
 	useEffect(() => {
 		axiosPrivate.get('/scholarship').then((res) => {
 			setScholars(res.data.data)
+			console.log(res.data.data)
+		})
+
+		axiosPrivate.get(`/student/student-info/${auth.username}`).then((res) =>{
+			setStudentInfo(res.data.data[0])
 		})
 	}, [])
 
@@ -32,11 +63,6 @@ function Homepage() {
 	const filterHandler = (scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters) => {
 		console.log(scholars)
 		// filter scholarship
-		console.log(`matched Input : ${scholarshipFilters}`)
-		console.log(`matched Input : ${degreeFilters}`)
-		console.log(`matched Input : ${facultyFilters}`)
-		console.log(`matched Input : ${studentProgramFilters}`)
-
 		setScholarshipFilters(scholarshipFilters)
 		setDegreeFilters(degreeFilters)
 		setFacultyFilters(facultyFilters)
@@ -74,6 +100,23 @@ function Homepage() {
 		}
 	})
 
+	// calculate top 3 scholarship recommended
+	const scores = new Map();
+	scholars.forEach(obj => {
+		const score = calculateScore(studentInfo, obj);
+		scores.set(obj._id, score);
+	  });
+	const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]));
+	const sortedScoresIter = sortedScores.keys()
+	const top_three = [sortedScoresIter.next(), sortedScoresIter.next(), sortedScoresIter.next()]
+	console.log(sortedScores)
+	console.log(top_three)
+	const recommendedScholars = scholars.filter((scholar =>{
+
+		return (scholar._id === top_three[0].value) || (scholar._id === top_three[1].value) || (scholar._id === top_three[2].value)
+	}))
+
+
 	return (
 		<Center>
 			<VStack sx={{ width: '90%' }}>
@@ -89,6 +132,12 @@ function Homepage() {
 						backgroundColor: '#F4F6F8',
 					}}
 				>
+					<Box><Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+								Recommended Scholarships
+							</Typography>
+							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
+							</Box>
+							<Scholarship items={recommendedScholars} />
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

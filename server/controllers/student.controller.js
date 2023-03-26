@@ -66,7 +66,7 @@ exports.updateStudentInfo = async (req, res) => {
 		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
 
-		Object.assign(user, {phoneNumber});
+		Object.assign(user, { phoneNumber })
 
 		Object.assign(student, {
 			firstName,
@@ -99,10 +99,10 @@ exports.updateStudentInfo = async (req, res) => {
  * @route    PATCH /student
  * @access   Private
  */
-exports.addPinScholarship = async (req, res) =>{
+exports.addPinScholarship = async (req, res) => {
 	// #swagger.tags = ['student']
-	const result = validationResult(req);
-	handleValidationResult(result, res);
+	const result = validationResult(req)
+	handleValidationResult(result, res)
 
 	try {
 		const username = req.params.username
@@ -113,20 +113,20 @@ exports.addPinScholarship = async (req, res) =>{
 		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
 
-		const scholarshipID = req.body.scholarshipID;
+		const scholarshipID = req.body.scholarshipID
 		const updateResult = await Student.updateOne(
 			{ username: username },
-			{ $addToSet: { pinScholarships: scholarshipID } }
-		  );
-	  
-		  if (updateResult.nModified === 0) {
-			return res.status(404).json({ message: 'Student not found'});
-		  }
-		  await student.save()
-		  return res.status(200).json({ message: 'Scholarship pinned successfully', data: student });
+			{ $addToSet: { pinScholarships: scholarshipID } },
+		)
+
+		if (updateResult.nModified === 0) {
+			return res.status(404).json({ message: 'Student not found' })
+		}
+		await student.save()
+		return res.status(200).json({ message: 'Scholarship pinned successfully', data: student })
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
-	}	
+	}
 }
 
 /*
@@ -136,8 +136,8 @@ exports.addPinScholarship = async (req, res) =>{
  */
 exports.deletePinScholarship = async (req, res) => {
 	// #swagger.tags = ['student']
-	const result = validationResult(req);
-	handleValidationResult(result, res);
+	const result = validationResult(req)
+	handleValidationResult(result, res)
 
 	try {
 		const username = req.params.username
@@ -148,19 +148,56 @@ exports.deletePinScholarship = async (req, res) => {
 		const student = await Student.findOne({ username })
 		if (!student) throw new Error('Student not found')
 
-		const scholarshipID = req.body.scholarshipID;
-		
+		const scholarshipID = req.body.scholarshipID
+
 		const updateResult = await Student.updateOne(
-		  { username: username },
-		  { $pull: { pinScholarships: scholarshipID } }
-		);
-	
+			{ username: username },
+			{ $pull: { pinScholarships: scholarshipID } },
+		)
+
 		if (updateResult.nModified === 0) {
-		  return res.status(404).json({ message: 'Student or scholarship not found' });
+			return res.status(404).json({ message: 'Student or scholarship not found' })
 		}
 		await student.save()
-		return res.status(200).json({ message: 'Scholarship unpinned successfully'});
+		return res.status(200).json({ message: 'Scholarship unpinned successfully' })
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
-	}	
+	}
+}
+
+/*
+ * @desc     Get student info for recommended scholarships
+ * @route    GET /student
+ * @access   Private
+ */
+
+exports.getStudentInfo = async (req, res) => {
+	// #swagger.tags = ['student']
+	const result = validationResult(req)
+	handleValidationResult(result, res)
+
+	try {
+		let studentInfo
+		const username = req.params.username
+		const user = await User.findOne({ username })
+		if (!user) throw new Error('User not found')
+
+		const student = await Student.findOne({ username })
+		if (!student) throw new Error('Student not found')
+
+		studentInfo = await Student.find({ username: username }).select({
+			username: 1,
+			degree: 1,
+			targetNation: 1,
+			typeOfScholarship: 1,
+			gpax: 1,
+			program: 1,
+		})
+		return res.status(200).json({
+			message: 'get student information successful',
+			data: studentInfo,
+		})
+	} catch (error) {
+		return res.status(400).json({ message: error.message })
+	}
 }

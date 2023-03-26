@@ -3,7 +3,7 @@ const Provider = require('../models/providers')
 
 /*
  * @desc     Get all scholarships
- * @route    GET scholarship
+ * @route    GET /scholarship
  * @access   Private
  */
 exports.getAllScholarships = async (req, res) => {
@@ -32,7 +32,7 @@ exports.getAllScholarships = async (req, res) => {
 
 /*
  * @desc     Get single scholarship
- * @route    GET scholarship/:id
+ * @route    GET /scholarship/:id
  * @access   Private
  */
 exports.getScholarship = async (req, res) => {
@@ -48,7 +48,7 @@ exports.getScholarship = async (req, res) => {
 
 /*
  * @desc     Add scholarship
- * @route    POST scholarship
+ * @route    POST /scholarship
  * @access   Private
  */
 exports.addScholarship = async (req, res) => {
@@ -145,7 +145,7 @@ exports.addScholarship = async (req, res) => {
 
 /*
  * @desc     Update scholarship
- * @route    PUT scholarship/:id
+ * @route    PUT /scholarship/:id
  * @access   Private
  */
 exports.updateScholarship = async (req, res) => {

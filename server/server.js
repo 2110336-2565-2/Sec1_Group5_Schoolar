@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -6,7 +7,6 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./configs/swagger/swagger.json')
 const routes = require('./routes')
 const { connect } = require('./configs/databases/db')
-require('dotenv').config()
 
 const app = express()
 

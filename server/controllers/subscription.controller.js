@@ -19,15 +19,7 @@ exports.createCheckOutSession = async (req, res, next) => {
 			success_url: `http://localhost:8080/home.html`,
 			cancel_url: `http://localhost:8080/home.html`,
 		})
-
-		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
-			$set: { subscription: session.id },
-		})
-		// check if the scholarship was found
-		if (!scholarship) {
-			return res.status(404).json({ message: 'Scholarship not found' })
-		}
-		return res.json({ id: session.id, url: session.url })
+		return res.json({ url: session.url })
 	} catch (error) {
 		return res
 			.status(500)
@@ -35,6 +27,30 @@ exports.createCheckOutSession = async (req, res, next) => {
 	}
 }
 
+/*
+ * @desc     create check out session
+ * @route    POST /subscription/webhook
+ * @access   Private
+ */
+exports.setSubscriptionID = async (req, res) => {
+	let subscriptionID
+	let type
+	// Parse the webhook payload
+	try {
+		subscriptionID = req.body.data.object.subscription
+		type = req.body.type
+	} catch (err) {
+		return res.status(400).send('Webhook Error: ' + err.message)
+	}
+
+	if (type === 'checkout.session.completed') {
+		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
+			$set: { subscription: subscriptionID },
+		})
+	}
+	console.log(subscriptionID)
+	return res.status(200).json({ subscription: subscriptionID })
+}
 /*
  * @desc     Get a list of subscriptions that have not been canceled
  *           https://stripe.com/docs/api/subscriptions/list

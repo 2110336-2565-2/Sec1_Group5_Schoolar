@@ -4,12 +4,12 @@ const { body } = require('express-validator')
 const {
 	getSubscription,
 	getSubscriptions,
-	getNextPaymentDateByEmail,
+	getNextPaymentDate,
 } = require('../controllers/subscription.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
-router.get('/', getSubscriptions)
-router.get('/:id', getSubscription)
-router.get('/next-payment-date/:email', getNextPaymentDateByEmail)
+router.get('/', verifyJWT, getSubscriptions)
+router.get('/:id', verifyJWT, getSubscription)
+router.get('/next-payment-date/:id', verifyJWT, getNextPaymentDate)
 
 module.exports = router

@@ -86,6 +86,10 @@ const scholarshipSchema = new Schema({
 	detail: {
 		type: String,
 	},
+	subscription: {
+		//subscription id from stripe (prefix 'sub_')
+		type: String,
+	},
 })
 
 module.exports = mongoose.model('Scholarships', scholarshipSchema)

@@ -49,10 +49,12 @@ function Homepage() {
 			setScholars(res.data.data)
 			console.log(res.data.data)
 		})
-
-		axiosPrivate.get(`/student/student-info/${auth.username}`).then((res) =>{
+		if (auth && auth.role === 'student'){
+			axiosPrivate.get(`/student/student-info/${auth.username}`).then((res) =>{
 			setStudentInfo(res.data.data[0])
 		})
+		}
+		
 	}, [])
 
 	const searchHandler = (value) => {
@@ -101,6 +103,8 @@ function Homepage() {
 	})
 
 	// calculate top 3 scholarship recommended
+	let recommendedScholars;
+	if (auth && auth.role === 'student') {
 	const scores = new Map();
 	scholars.forEach(obj => {
 		const score = calculateScore(studentInfo, obj);
@@ -111,10 +115,10 @@ function Homepage() {
 	const top_three = [sortedScoresIter.next(), sortedScoresIter.next(), sortedScoresIter.next()]
 	console.log(sortedScores)
 	console.log(top_three)
-	const recommendedScholars = scholars.filter((scholar =>{
-
+	recommendedScholars = scholars.filter((scholar =>{
 		return (scholar._id === top_three[0].value) || (scholar._id === top_three[1].value) || (scholar._id === top_three[2].value)
 	}))
+}
 
 
 	return (
@@ -132,12 +136,14 @@ function Homepage() {
 						backgroundColor: '#F4F6F8',
 					}}
 				>
-					<Box><Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+					{(auth && auth.role === 'student') ? 
+					(<Box><Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-							</Box>
-							<Scholarship items={recommendedScholars} />
+							</Box>) : <></>}
+							{(auth && auth.role === 'student') ? 
+							(<Scholarship items={recommendedScholars} />):<></>}
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

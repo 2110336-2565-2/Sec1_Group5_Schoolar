@@ -1,31 +1,37 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-
+const Scholarship = require('../models/scholarship')
 /*
  * @desc     create check out session
- * @route    POST
+ * @route    POST /subscription/checkout/:scholarshipId
  * @access   Private
  */
 exports.createCheckOutSession = async (req, res, next) => {
-	const { priceId } = req.body
-	// Replace "your_price_id" with the actual price ID you set up in your Stripe Dashboard
-	const DEFAULT_PRICE_ID = 'your_price_id'
 	try {
 		const session = await stripe.checkout.sessions.create({
-			payment_method_types: ['card'],
 			line_items: [
 				{
-					price: priceId || DEFAULT_PRICE_ID,
+					price: process.env.PRICE_ID,
 					quantity: 1,
 				},
 			],
 			mode: 'subscription',
-			success_url: `https://your-website.com/success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: 'https://your-website.com/canceled',
+			// redirect to home?
+			success_url: `http://localhost:8080/home.html`,
+			cancel_url: `http://localhost:8080/home.html`,
 		})
 
-		res.json({ id: session.id })
+		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
+			$set: { subscription: session.id },
+		})
+		// check if the scholarship was found
+		if (!scholarship) {
+			return res.status(404).json({ message: 'Scholarship not found' })
+		}
+		return res.json({ id: session.id, url: session.url })
 	} catch (error) {
-		res.status(500).json({ error: 'An error occurred, please try again.' })
+		return res
+			.status(500)
+			.json({ error: 'An error occur, cannot create check out session for subscription' })
 	}
 }
 

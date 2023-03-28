@@ -9,6 +9,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
  * @access   Private
  */
 exports.getSubscriptions = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const subscriptions = await stripe.subscriptions.list()
 		return res.status(200).json(subscriptions)
@@ -24,6 +25,7 @@ exports.getSubscriptions = async (req, res) => {
  * @access   Private
  */
 exports.getSubscription = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const id = req.params.id
 		const subscription = await stripe.subscriptions.retrieve(id)
@@ -39,6 +41,7 @@ exports.getSubscription = async (req, res) => {
  * @access   Private
  */
 exports.getNextPaymentDate = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const id = req.params.id // Subscription id from scholarship model
 		const subscription = await stripe.subscriptions.retrieve(id)

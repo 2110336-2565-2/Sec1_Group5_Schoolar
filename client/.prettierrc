@@ -2,10 +2,25 @@
 	"singleQuote": true,
 	"jsxBracketSameLine": false,
 	"trailingComma": "all",
-	"printWidth": 100,
+	"printWidth": 120,
 	"useTabs": true,
 	"semi": false,
 	"tabWidth": 4,
 	"bracketSpacing": true,
-	"endOfLine": "auto"
+	"endOfLine": "auto",
+
+	"importOrder": [
+		"^react",
+		"^@?\\w",
+		"^(@|components)(/.*|$)",
+		"^\\u0000",
+		"^\\.\\.(?!/?$)",
+		"^\\.\\./?$",
+		"^\\./(?=.*/)(?!/?$)",
+		"^\\.(?!/?$)",
+		"^\\./?$",
+		"^.+\\.?(css)$"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }

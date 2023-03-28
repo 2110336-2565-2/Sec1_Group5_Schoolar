@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const scholarshipSchema = new Schema({
-	// id: create automatically in mongoDB
-	name: {
+	scholarshipName: {
 		required: true,
 		type: String,
 		lowercase: true,
 		trim: true,
 	},
-	provider_id: {
-		type: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+	provider: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Provider',
 	},
 	degree: {
 		required: true,
@@ -18,7 +18,7 @@ const scholarshipSchema = new Schema({
 		enum: ['high school', 'bachelor', 'master', 'doctoral'],
 	},
 	gpax: {
-		require: true,
+		required: true,
 		type: Number,
 	},
 	program: {
@@ -51,18 +51,10 @@ const scholarshipSchema = new Schema({
 			'Faculty of Veterinary Science',
 		],
 	},
-	householdIncome: {
-		// backend tranform number to rank
-		required: true,
-		type: String,
-		enum: ['high', 'medium', 'low'], // changing later
-		index: true,
-	},
 	targetNation: {
 		required: true,
 		type: String,
 		maxLength: 60,
-		index: true,
 		lowercase: true,
 		trim: true,
 	},
@@ -70,25 +62,33 @@ const scholarshipSchema = new Schema({
 		required: true,
 		type: String,
 		enum: ['full', 'partial', 'renewable', 'fellow'],
-		index: true,
 	},
-	employment: {
-		//currently employed or unemployed
-		required: true,
-		type: Boolean,
-		index: true,
-		trim: true,
-	},
-	field: {
-		// field of interest
+	fieldOfInterest: {
 		required: true,
 		type: String,
-		index: true,
 		trim: true,
 	},
-	due: {
-		required: true,
+	applicationDeadline: {
 		type: Date,
+	},
+	paymentDueDate: {
+		type: Date,
+	},
+	paymentStatus: {
+		type: Boolean,
+	},
+	quota: {
+		type: Number,
+	},
+	amount: {
+		type: Number,
+	},
+	detail: {
+		type: String,
+	},
+	subscription: {
+		//subscription id from stripe (prefix 'sub_')
+		type: String,
 	},
 })
 

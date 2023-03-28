@@ -19,14 +19,19 @@ const userSchema = new Schema({
 		unique: true,
 		trim: true,
 	},
+	phoneNumber: {
+		required: true,
+		type: String,
+		maxLength: 10,
+		unique: true,
+		trim: true,
+	},
 	role: {
 		required: true,
 		type: String,
 		enum: ['provider', 'student', 'admin'],
 	},
 	refreshToken: String,
-	resetPasswordToken: String,
-	resetPasswordExpires: Date,
 })
 
 module.exports = mongoose.model('Users', userSchema)

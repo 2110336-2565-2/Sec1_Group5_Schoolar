@@ -14,27 +14,10 @@
     "/": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
@@ -62,6 +45,54 @@
                   "example": "any"
                 },
                 "role": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "gpax": {
+                  "example": "any"
+                },
+                "degree": {
+                  "example": "any"
+                },
+                "school": {
+                  "example": "any"
+                },
+                "program": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "fieldOfInterest": {
+                  "example": "any"
+                },
+                "organizationName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "verifyStatus": {
                   "example": "any"
                 }
               }
@@ -91,7 +122,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "usernameEmail": {
                   "example": "any"
                 },
                 "password": {
@@ -134,13 +165,19 @@
         }
       }
     },
-    "/auth/isDupe/{field}/{value}": {
+    "/auth/isDupe/{role}/{field}/{value}": {
       "get": {
         "tags": [
           "auth"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "field",
             "in": "path",
@@ -165,7 +202,7 @@
       }
     },
     "/auth/logout": {
-      "delete": {
+      "put": {
         "tags": [
           "auth"
         ],
@@ -184,13 +221,19 @@
         }
       }
     },
-    "/student/": {
+    "/student/{username}": {
       "get": {
         "tags": [
           "student"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -216,9 +259,92 @@
             "description": "Forbidden"
           }
         }
+      },
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "birthdate": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                },
+                "gpax": {
+                  "example": "any"
+                },
+                "degree": {
+                  "example": "any"
+                },
+                "school": {
+                  "example": "any"
+                },
+                "program": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "fieldOfInterest": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
       }
     },
-    "/student/student-update": {
+    "/student/": {
       "patch": {
         "tags": [
           "student"
@@ -240,16 +366,22 @@
                 "birthdate": {
                   "example": "any"
                 },
+                "phoneNumber": {
+                  "example": "any"
+                },
                 "gender": {
                   "example": "any"
                 },
-                "education": {
+                "gpax": {
                   "example": "any"
                 },
-                "householdIncome": {
+                "degree": {
                   "example": "any"
                 },
-                "employment": {
+                "school": {
+                  "example": "any"
+                },
+                "program": {
                   "example": "any"
                 },
                 "targetNation": {
@@ -258,16 +390,7 @@
                 "typeOfScholarship": {
                   "example": "any"
                 },
-                "field": {
-                  "example": "any"
-                },
-                "username": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phoneNumber": {
+                "fieldOfInterest": {
                   "example": "any"
                 }
               }
@@ -284,6 +407,116 @@
         }
       }
     },
+    "/student/pin-scholarship/{username}": {
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/student/unpin-scholarship/{username}": {
+      "patch": {
+        "tags": [
+          "student"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scholarshipID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/resetPassword/password": {
       "put": {
         "tags": [
@@ -292,14 +525,16 @@
         "description": "",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
-                  "example": "any"
-                },
                 "password": {
                   "example": "any"
                 }
@@ -356,10 +591,200 @@
           "scholarship"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "organizationName": {
+                  "example": "any"
+                },
+                "scholarshipName": {
+                  "example": "any"
+                },
+                "degree": {
+                  "example": "any"
+                },
+                "gpax": {
+                  "example": "any"
+                },
+                "program": {
+                  "example": "any"
+                },
+                "targetNation": {
+                  "example": "any"
+                },
+                "typeOfScholarship": {
+                  "example": "any"
+                },
+                "fieldOfInterest": {
+                  "example": "any"
+                },
+                "applicationDeadline": {
+                  "example": "any"
+                },
+                "quota": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/scholarship/{id}": {
+      "get": {
+        "tags": [
+          "scholarship"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quota": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -405,9 +830,7 @@
             "description": "Forbidden"
           }
         }
-      }
-    },
-    "/provider/provider-update": {
+      },
       "patch": {
         "tags": [
           "provider"
@@ -415,12 +838,28 @@
         "description": "",
         "parameters": [
           {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "providerName": {
+                "organizationName": {
                   "example": "any"
                 },
                 "address": {
@@ -432,7 +871,7 @@
                 "creditCardNumber": {
                   "example": "any"
                 },
-                "verifyStatus": {
+                "phoneNumber": {
                   "example": "any"
                 }
               }
@@ -445,6 +884,210 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/provider/": {
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "organizationName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "creditCardNumber": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/provider/name/{id}": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/subscription/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/subscription/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/subscription/next-payment-date/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }

@@ -1,22 +1,26 @@
 import * as React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import FormPrimary from '@components/Layout/FormPrimary'
 import InputPassword from '@components/Layout/InputPassword'
-import { Button, FormControl, TextField, Typography } from '@mui/material'
+import { Alert, Button, FormControl, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg } from '@utils/formUtils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 import axios from './api/axios'
 
-// Just Mock Login -> pls re-implement this again
-// NOTE
-// username: Admin1234, password: Admin1234
 function Login() {
-	const { auth, setAuth } = useAuth()
+	const { setAuth } = useAuth()
 	const router = useRouter()
+	const [error, setError] = useState(null)
+	const { openSnackbar } = useSnackbar()
 
 	const {
 		register,
@@ -25,84 +29,81 @@ function Login() {
 	} = useForm({ mode: 'onBlur' })
 
 	const onSubmit = async (data) => {
-		const username = data.username
+		const usernameEmail = data.usernameEmail
 		const password = data.password
-
-		console.log(username, password)
 
 		try {
 			const response = await axios.post('/auth/login', {
-				username: username,
+				usernameEmail: usernameEmail,
 				password: password,
 			})
 
 			const accessToken = response?.data?.accessToken
 			const role = response?.data?.role
-			console.log(accessToken)
-			console.log(role)
+			const username = response?.data?.username
+
 			setAuth({ username, accessToken, role })
-			window.location = '/'
+			openSnackbar('Login success!', 'success')
+
+			router.push('/')
 		} catch (err) {
 			if (!err?.response) {
-				console.log('No Server Response')
+				setError('No Server Response')
 			} else if (err.response?.status === 400) {
-				console.log('Missing Username or Password')
+				setError('Missing Username or Password')
 			} else if (err.response?.status === 401) {
-				console.log('Unauthorized')
+				setError('Incorrect Username, Email or Password')
 			} else {
-				console.log('Login Failed')
+				setError('Login Failed')
 			}
 		}
 	}
 
+	const formProps = { register, errors }
 	return (
 		<FormPrimary
-			header="Login to Schoolar"
+			header="Login"
 			form={
-				<FormControl
-					component="form"
-					sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
-					onSubmit={handleSubmit(onSubmit)}
-				>
-					<TextField
-						required
-						fullWidth
-						id="username"
-						name="username"
-						autoFocus
-						label="Username"
-						variant="outlined"
-						autoComplete="username"
-						{...register('username', {
-							required: 'Username is required',
-						})}
-						error={!!errors?.username}
-						helperText={errors?.username ? errors.username.message : null}
-					/>
-					<InputPassword
-						register={{
-							...register('password', {
-								required: 'Password is required',
-							}),
-						}}
-						error={!!errors?.password}
-						helperText={errors?.password ? errors.password.message : null}
-					/>
-					<Box sx={{ textAlign: 'right' }}>
-						<Typography color="primary">
-							<Link href="/forgot-password">Forgot password?</Link>
-						</Typography>
-					</Box>
-					<Button variant="contained" type="submit">
-						Login
-					</Button>
-					<Box sx={{ textAlign: 'center' }}>
-						<Typography>Dont have an account ?</Typography>
-						<Typography color="primary" sx={{ fontWeight: 'bold' }}>
-							<Link href="/register">Register here!</Link>
-						</Typography>
-					</Box>
-				</FormControl>
+				<>
+					<FormControl
+						component="form"
+						sx={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}
+						onSubmit={handleSubmit(onSubmit)}
+						noValidate
+					>
+						{error && <Alert severity="error">{error}</Alert>}
+						<TextFieldComponent
+							name={'usernameEmail'}
+							required={true}
+							label={'Username or Email'}
+							validation={{ required: getErrMsg('Username or Email', 'required') }}
+							{...formProps}
+						/>
+						<InputPassword
+							register={{
+								...register('password', {
+									required: getErrMsg('password', 'required'),
+								}),
+							}}
+							error={!!errors?.password}
+							helperText={errors?.password ? errors.password.message : null}
+						/>
+						<Box sx={{ textAlign: 'right' }}>
+							<Typography color="primary">
+								<Link href="/forgot-password">Forgot password?</Link>
+							</Typography>
+						</Box>
+						<Button variant="contained" type="submit">
+							Login
+						</Button>
+						<Box sx={{ textAlign: 'center' }}>
+							<Typography>Don&apos;t have an account ?</Typography>
+							<Typography color="primary" sx={{ fontWeight: 'bold' }}>
+								<Link href="/register">Register here!</Link>
+							</Typography>
+						</Box>
+					</FormControl>
+				</>
 			}
 		/>
 	)

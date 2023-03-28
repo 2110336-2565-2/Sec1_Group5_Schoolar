@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 import { Center, VStack } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
@@ -7,6 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 // date problem
@@ -19,6 +21,17 @@ const theme = createTheme({
 	},
 })
 const DetailScholarship = () => {
+	const { openSnackbar } = useSnackbar()
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setValue,
+		getValues,
+		control,
+		watch,
+		trigger,
+	} = useForm({ mode: 'onBlur' })
 	const { auth } = useAuth()
 	const router = useRouter()
 	const detail = JSON.parse(router.query.data)
@@ -145,7 +158,7 @@ const DetailScholarship = () => {
 								Scholarship Detail
 							</Typography>
 							<Divider />
-							<Typography varianr="body1" sx={{ mt: 1 }}>
+							<Typography variant="body1" sx={{ mt: 1 }}>
 								{detail.detail ? detail.detail : 'Not Specified'}
 							</Typography>
 						</Box>
@@ -163,7 +176,17 @@ const DetailScholarship = () => {
 						</Button>
 						{isProvider && (
 							<ThemeProvider theme={theme}>
-								<Button sx={{ width: '100%' }} variant="contained" color="primary">
+								<Button
+									sx={{ width: '100%' }}
+									variant="contained"
+									color="primary"
+									onClick={() => {
+										axiosPrivate.delete(`/scholarship/${detail._id}`).then(() => {
+											openSnackbar('Delete scholarship successfully!', 'success')
+											router.push('/')
+										})
+									}}
+								>
 									Delete
 								</Button>
 							</ThemeProvider>

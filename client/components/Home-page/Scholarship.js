@@ -1,25 +1,24 @@
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey,blue} from '@mui/material/colors'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/AuthContext'
+import PinScholar from './PinScholar'
 import { axiosPrivate } from '@/pages/api/axios'
 
 
 function Scholarship(props) {
 	const { auth } = useAuth()
-	const [active,setActive] = useState();
-	const handlePin = (e) => {
-		e.preventDefault()
-		const stdId = axiosPrivate.get(`/student/${props.id}`)
-		const pinScholarship = stdId.pinScholarship 
-		console.log(pinScholarship)
-		setActive(!active);
-		console.log(active)
-	};
 	const router = useRouter()
+	//total scholarship and pin sholarship
+	const std = axiosPrivate.get(`/student/${auth.username}`)
+	const pinStd = std.pinScholarships
+	const scholarship = props.items.scholar
+	//sort scholarship
+	scholarship.sort()
+	pinStd.sort()
+
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -28,6 +27,8 @@ function Scholarship(props) {
 				</Typography>
 			) : null}
 			{props.items.map((scholar) => {
+				// check if scholarship is in pin scholarship
+				const active = false 
 				return (
 					<Paper
 						key={scholar._id}
@@ -51,7 +52,7 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon onClick={handlePin} sx={active? {color:blue[800]}:{color:grey[700]}}/>
+								<PinScholar pin = {active} id = {scholar._id} std = {auth.username}/>
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

@@ -13,11 +13,11 @@ function Scholarship(props) {
 	const router = useRouter()
 	//total scholarship and pin sholarship
 	const std = axiosPrivate.get(`/student/${auth.username}`)
-	const pinStd = std.pinScholarships
-	const scholarship = props.items.scholar
+	var pinStd = std.pinScholarships
+	var scholarship = props.items.scholar
 	//sort scholarship
-	scholarship.sort()
-	pinStd.sort()
+	//scholarship.sort();
+	//pinStd.sort();
 
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">

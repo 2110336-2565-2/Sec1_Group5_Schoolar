@@ -344,46 +344,6 @@
         }
       }
     },
-    "/student/student-info/{username}": {
-      "get": {
-        "tags": [
-          "student"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
     "/student/": {
       "patch": {
         "tags": [
@@ -1027,42 +987,8 @@
         }
       }
     },
-    "/subscription/payment-history": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/subscription/": {
       "get": {
-        "tags": [
-          "subscription"
-        ],
         "description": "",
         "parameters": [
           {
@@ -1094,9 +1020,6 @@
     },
     "/subscription/{id}": {
       "get": {
-        "tags": [
-          "subscription"
-        ],
         "description": "",
         "parameters": [
           {
@@ -1134,9 +1057,6 @@
     },
     "/subscription/next-payment-date/{id}": {
       "get": {
-        "tags": [
-          "subscription"
-        ],
         "description": "",
         "parameters": [
           {
@@ -1168,43 +1088,6 @@
           },
           "403": {
             "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/subscription/payment-history/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }

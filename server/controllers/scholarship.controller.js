@@ -54,7 +54,7 @@ exports.getScholarship = async (req, res) => {
 exports.addScholarship = async (req, res) => {
 	try {
 		const {
-			organizationName,
+			provider,
 			scholarshipName,
 			degree,
 			gpax,
@@ -68,9 +68,9 @@ exports.addScholarship = async (req, res) => {
 			detail,
 		} = req.body
 
-		// Find the provider by organizationName
-		const provider = await Provider.findOne({ organizationName })
-		if (!provider) throw new Error('Provider not found')
+		// Find the provider
+		const isProvider = await Provider.findOne({ provider })
+		if (!isProvider) throw new Error('Provider not found')
 
 		// Validate input data
 		if (

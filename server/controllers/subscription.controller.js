@@ -1,7 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const Scholarship = require('../models/scholarship')
 /*
- * @desc     create check out session
+ * @desc     Create check out session and return url for payment page.
+ *			 If payment success, redirect to a succes URL. If cancel payment, redirect to cancel URL
  * @route    POST /subscription/checkout/:scholarshipId
  * @access   Private
  */
@@ -15,10 +16,13 @@ exports.createCheckOutSession = async (req, res, next) => {
 				},
 			],
 			mode: 'subscription',
-			// redirect to home?
+			// need front end adjustment to redirect it to page after success or page after cancel payment
 			success_url: `http://localhost:8080/home.html`,
 			cancel_url: `http://localhost:8080/home.html`,
+			// --------------------------------------------
+			client_reference_id: req.params.scholarshipId,
 		})
+		// return url for payment prebuild page of stripe, needed front end to redirect to this url
 		return res.json({ url: session.url })
 	} catch (error) {
 		return res
@@ -28,28 +32,28 @@ exports.createCheckOutSession = async (req, res, next) => {
 }
 
 /*
- * @desc     create check out session
+ * @desc     Get event from stripe to check if the payment session ids completed then update subscription ID in scholarship.
  * @route    POST /subscription/webhook
  * @access   Private
  */
 exports.setSubscriptionID = async (req, res) => {
 	let subscriptionID
 	let type
-	// Parse the webhook payload
+	let scholarshipId
 	try {
 		subscriptionID = req.body.data.object.subscription
 		type = req.body.type
+		scholarshipId = req.body.data.object.client_reference_id
 	} catch (err) {
 		return res.status(400).send('Webhook Error: ' + err.message)
 	}
 
 	if (type === 'checkout.session.completed') {
-		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
+		const scholarship = await Scholarship.findByIdAndUpdate(scholarshipId, {
 			$set: { subscription: subscriptionID },
 		})
 	}
-	console.log(subscriptionID)
-	return res.status(200).json({ subscription: subscriptionID })
+	return res.status(200).json({ subscription: subscriptionID, scholarship: scholarshipId })
 }
 /*
  * @desc     Get a list of subscriptions that have not been canceled

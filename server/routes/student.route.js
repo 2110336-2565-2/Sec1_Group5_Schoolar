@@ -1,11 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { getStudent, updateStudentInfo, addPinScholarship, deletePinScholarship } = require('../controllers/student.controller')
+const {
+	getStudent,
+	updateStudentInfo,
+	addPinScholarship,
+	deletePinScholarship,
+	getStudentInfo,
+} = require('../controllers/student.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
 router.get('/:username', verifyJWT, getStudent)
-
+router.get('/student-info/:username', verifyJWT, getStudentInfo)
 router.patch('/:username', verifyJWT, updateStudentInfo)
 router.patch(
 	'/',
@@ -45,7 +51,7 @@ router.patch(
 	updateStudentInfo,
 )
 
-router.patch('/pin-scholarship/:username', verifyJWT, addPinScholarship);
-router.patch('/unpin-scholarship/:username', verifyJWT, deletePinScholarship);
+router.patch('/pin-scholarship/:username', verifyJWT, addPinScholarship)
+router.patch('/unpin-scholarship/:username', verifyJWT, deletePinScholarship)
 
 module.exports = router

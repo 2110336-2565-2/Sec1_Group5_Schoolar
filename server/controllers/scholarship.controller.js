@@ -170,3 +170,33 @@ exports.updateScholarship = async (req, res) => {
 		res.status(500).json({ message: 'Error updating scholarship' })
 	}
 }
+
+/*
+ * @desc     Delete scholarship
+ * @route    DELETE /scholarship/:id
+ * @access   Private
+ */
+exports.deleteScolarship = async (req, res, next) => {
+	try {
+		let scolarship = await Scholarship.findById(req.params.id)
+		if (!scolarship) {
+			return res.status(404).json({
+				success: false,
+				message: `No scolarship with the id of ${req.params.id}`,
+			})
+		}
+		const username = req.user
+		const provider = await Provider.findOne({ username })
+		if (scolarship.provider.toString() !== provider.id) {
+			return res.status(401).json({
+				success: false,
+				message: `User ${req.user.id} is not authorized to delete this scolarship`,
+			})
+		}
+		await scolarship.remove()
+		return res.status(200).json({ success: true, data: {} })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ success: false, message: 'Cannot delete scolarship' })
+	}
+}

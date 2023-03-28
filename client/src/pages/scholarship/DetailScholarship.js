@@ -19,6 +19,11 @@ const theme = createTheme({
 			darker: '#ff0000',
 		},
 	},
+	typography: {
+		button: {
+			textTransform: 'none',
+		},
+	},
 })
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
@@ -146,7 +151,7 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Degree" details={detail.degree} />
 							<DetailComponent topic="Field of Interest" details={detail.fieldOfInterest} />
 							<DetailComponent topic="Program/Faculty" details={detail.program} />
-							<DetailComponent topic="Taget Nation" details={detail.targetNation} />
+							<DetailComponent topic="Target Nation" details={detail.targetNation} />
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="GPAX" details={detail.gpax} />
 							<DetailComponent topic="Amount" details={detail.amount} />

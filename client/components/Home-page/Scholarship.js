@@ -15,9 +15,11 @@ function Scholarship(props) {
 	const std = axiosPrivate.get(`/student/${auth.username}`)
 	var pinStd = std.pinScholarships
 	var scholarship = props.items.scholar
+	console.log("pinStd:",pinStd)
+	console.log("scholarship",scholarship)
 	//sort scholarship
-	//scholarship.sort();
-	//pinStd.sort();
+	//scholarship = scholarship.sort();
+	//pinStd = pinStd.sort();
 
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">

@@ -1,19 +1,31 @@
 import { useState } from 'react'
 
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PushPinIcon from '@mui/icons-material/PushPin'
-import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
+import { Box, Button, Chip, Divider, Grid, Paper, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
+
 import ScholarshipTags from './ScholarshipTag'
 
+const changeDateToString = (date) => {
+	if (!date) return null
+	const dateObj = new Date(date)
+	const day = dateObj.getDate()
+	const monthIndex = dateObj.getMonth()
+	const year = dateObj.getFullYear()
+	const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	const monthName = monthNames[monthIndex]
+	return `${day} ${monthName} ${year}`
+}
 function Scholarship(props) {
 	const { auth } = useAuth()
 	const router = useRouter()
 	return (
-		<Grid container marginTop={2} marginBottom={4} gap="60px 60px" justifyContent="center">
+		<Grid container marginTop={2} marginBottom={4} gap="30px 60px" justifyContent="center">
 			{props.items.length === 0 ? (
 				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
@@ -26,7 +38,7 @@ function Scholarship(props) {
 						sx={{
 							display: 'flex',
 							width: 340,
-							height: 170,
+							minHeight: 240,
 							flexDirection: 'column',
 							cursor: 'pointer',
 						}}
@@ -46,50 +58,32 @@ function Scholarship(props) {
 						}}
 					>
 						<Grid container direction="row" justifyContent="space-between">
-							<Typography margin={2} marginLeft={2}>
-								{scholar.scholarshipName}
-							</Typography>
-							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon sx={{ color: grey[900] }} />
-							</Button>
+							<Grid item xs={10} md={10}>
+								<Typography
+									sx={{ display: 'flex' }}
+									variant="h5"
+									margin={2}
+									marginLeft={2}
+									fontWeight={'bold'}
+								>
+									{scholar.scholarshipName}
+								</Typography>
+							</Grid>
+							<Grid item xs={2} md={2}>
+								<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
+									<PushPinIcon sx={{ color: grey[900] }} />
+								</Button>
+							</Grid>
 						</Grid>
-						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />
+						<Chip
+							sx={{ borderRadius: 0, backgroundColor: '#AFB4C3' }}
+							icon={<CalendarTodayIcon />}
+							color="info"
+							label={
+								scholar.applicationDeadline ? changeDateToString(scholar.applicationDeadline) : 'TBD'
+							}
+						/>
 						<ScholarshipTags scholar={scholar} />
-						{/* <Grid margin={1}>
-							<Typography
-								align="center"
-								sx={{
-									color: 'white',
-									backgroundColor: '#83A3FF',
-									borderRadius: 5,
-								}}
-								marginLeft={1}
-							>
-								{scholar.typeOfScholarship}
-							</Typography>
-							<Typography
-								align="center"
-								sx={{
-									color: 'white',
-									backgroundColor: '#FFAC5F',
-									borderRadius: 5,
-								}}
-								marginLeft={1}
-							>
-								{scholar.degree}
-							</Typography>
-							<Typography
-								align="center"
-								sx={{
-									color: 'white',
-									backgroundColor: '#F88196',
-									borderRadius: 5,
-								}}
-								marginLeft={1}
-							>
-								{scholar.program}
-							</Typography>
-						</Grid> */}
 					</Paper>
 				)
 			})}

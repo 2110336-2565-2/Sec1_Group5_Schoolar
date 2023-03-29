@@ -5,31 +5,31 @@ import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
 import { Box, Divider, Paper, Typography } from '@mui/material'
 
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
 const scoreMap = {
-	'degree' : 5,
-	'program' : 5,
-	'gpax' : 4,
-	'targetNation':3,
-	'typeOfScholarship':3
+	degree: 5,
+	program: 5,
+	gpax: 4,
+	targetNation: 3,
+	typeOfScholarship: 3,
 }
 function calculateScore(stdInfo, scholarInfo) {
-	let score = 0;
-  
+	let score = 0
+
 	for (const key in stdInfo) {
-	  if (key == '_id') continue
-	  if (stdInfo.hasOwnProperty(key) && scholarInfo.hasOwnProperty(key)) {
-		
-		const field1 = stdInfo[key].toString();
-		const field2 = scholarInfo[key].toString();
-		const fieldScore = field1 === field2 ? scoreMap[key] : 0;
-		score += fieldScore;
-	  }
-	} 
-	return score;
-  }
-  
+		if (key == '_id') continue
+		if (stdInfo.hasOwnProperty(key) && scholarInfo.hasOwnProperty(key)) {
+			const field1 = stdInfo[key].toString()
+			const field2 = scholarInfo[key].toString()
+			const fieldScore = field1 === field2 ? scoreMap[key] : 0
+			score += fieldScore
+		}
+	}
+	return score
+}
+
 function Homepage() {
 	const [scholars, setScholars] = useState([])
 	const [inputName, setInputName] = useState('')
@@ -39,7 +39,7 @@ function Homepage() {
 	const [scholarshipFilters, setScholarshipFilters] = useState([])
 	const [degreeFilters, setDegreeFilters] = useState([])
 	const [facultyFilters, setFacultyFilters] = useState([])
-	const [studentProgramFilters, setStudentProgramFilters] = useState([])	
+	const [studentProgramFilters, setStudentProgramFilters] = useState([])
 	// student-info for get recommended scholarships
 	const [studentInfo, setStudentInfo] = useState({})
 	const axiosPrivate = useAxiosPrivate()
@@ -49,12 +49,11 @@ function Homepage() {
 			setScholars(res.data.data)
 			console.log(res.data.data)
 		})
-		if (auth && auth.role === 'student'){
-			axiosPrivate.get(`/student/student-info/${auth.username}`).then((res) =>{
-			setStudentInfo(res.data.data[0])
-		})
+		if (auth && auth.role === 'student') {
+			axiosPrivate.get(`/student/student-info/${auth.username}`).then((res) => {
+				setStudentInfo(res.data.data[0])
+			})
 		}
-		
 	}, [])
 
 	const searchHandler = (value) => {
@@ -103,23 +102,26 @@ function Homepage() {
 	})
 
 	// calculate top 3 scholarship recommended
-	let recommendedScholars;
+	let recommendedScholars
 	if (auth && auth.role === 'student') {
-	const scores = new Map();
-	scholars.forEach(obj => {
-		const score = calculateScore(studentInfo, obj);
-		scores.set(obj._id, score);
-	  });
-	const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]));
-	const sortedScoresIter = sortedScores.keys()
-	const top_three = [sortedScoresIter.next(), sortedScoresIter.next(), sortedScoresIter.next()]
-	console.log(sortedScores)
-	console.log(top_three)
-	recommendedScholars = scholars.filter((scholar =>{
-		return (scholar._id === top_three[0].value) || (scholar._id === top_three[1].value) || (scholar._id === top_three[2].value)
-	}))
-}
-
+		const scores = new Map()
+		scholars.forEach((obj) => {
+			const score = calculateScore(studentInfo, obj)
+			scores.set(obj._id, score)
+		})
+		const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]))
+		const sortedScoresIter = sortedScores.keys()
+		const top_three = [sortedScoresIter.next(), sortedScoresIter.next(), sortedScoresIter.next()]
+		console.log(sortedScores)
+		console.log(top_three)
+		recommendedScholars = scholars.filter((scholar) => {
+			return (
+				scholar._id === top_three[0].value ||
+				scholar._id === top_three[1].value ||
+				scholar._id === top_three[2].value
+			)
+		})
+	}
 
 	return (
 		<Center>
@@ -132,18 +134,22 @@ function Homepage() {
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
-						padding: 10,
+						paddingY: { xs: 7, sm: 7, md: 10 },
+						paddingX: { xs: 2, sm: 5, md: 10 },
 						backgroundColor: '#F4F6F8',
 					}}
 				>
-					{(auth && auth.role === 'student') ? 
-					(<Box><Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+					{auth && auth.role === 'student' ? (
+						<Box>
+							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-							</Box>) : <></>}
-							{(auth && auth.role === 'student') ? 
-							(<Scholarship items={recommendedScholars} />):<></>}
+						</Box>
+					) : (
+						<></>
+					)}
+					{auth && auth.role === 'student' ? <Scholarship items={recommendedScholars} /> : <></>}
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

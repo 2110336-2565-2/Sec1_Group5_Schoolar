@@ -5,7 +5,6 @@ const tagColors = {
 	'Art-Cal': '#55286f',
 	'Art-Language': '#bc96e6',
 	'Art-Society': '#ae759f',
-
 	'Art-General': '#D3D7E0',
 	'Faculty of Allied Health Sciences': '#E49DA9',
 	'Faculty of Architecture': '#E7A6B2',
@@ -17,7 +16,7 @@ const tagColors = {
 	'Faculty of Education': '#FDECEC',
 	'Faculty of Engineering': '#a0c4ff',
 	'Faculty of Fine and Applied Arts': '#f4aaa7',
-	'Faculty of Law': '#a69cac',
+	'Faculty of Law': '#7161ef',
 	'Faculty of Medicine': '#ffb3c1',
 	'Faculty of Nursing': '#E8D9D4',
 	'Faculty of Pharmaceutical Sciences': '#ff9770',
@@ -53,7 +52,7 @@ const Tag = ({ text, color }) => (
 )
 
 const ScholarshipTags = ({ scholar }) => (
-	<Grid container paddingX={2} paddingY={1} direction="row" alignItems="center">
+	<Grid container paddingX={2} paddingY={2} direction="row" alignItems="center">
 		<Tag text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
 		<Tag text={scholar.degree} color={tagColors[scholar.degree]} />
 		<Tag text={scholar.program} color={tagColors[scholar.program]} />

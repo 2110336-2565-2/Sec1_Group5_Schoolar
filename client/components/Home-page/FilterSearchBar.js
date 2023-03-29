@@ -1,7 +1,5 @@
-import { MenuItem, InputLabel, Select, OutlinedInput, Chip, Box, ListItemText, IconButton, Button, Fab} from '@mui/material'
+import { MenuItem, InputLabel, Select, OutlinedInput, Chip, Box, ListItemText, Button,  Grid, } from '@mui/material'
 import { Checkbox, FormControl } from '@mui/material'
-import CancelIcon from '@mui/icons-material/Cancel';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoneIcon from '@mui/icons-material/Done';
 import { useState } from 'react'
 
@@ -48,22 +46,27 @@ function FilterSearchBar(props) {
 				)}
 				MenuProps={MenuProps}
 			>
-	
-				{props.item.map((val) => (
+				
+					{props.item.map((val) => (
 					<MenuItem key={val.value} value={val.value}>
 						<Checkbox checked={props.filters.indexOf(val.value) > -1} />
 						<ListItemText primary={val.value} />
 					</MenuItem>
 					
 				))}
-				<Fab size = "small"  sx ={{position: 'absolute', right :4, m:1,}}
-					color="primary" 
-					variant = "extended"
-					onClick={() => {
-					setShowSelect(false);}}>
-						<DoneIcon/>
-						OK
-				</Fab> 
+				<Grid container 
+				justifyContent="center"
+  				alignItems="center"
+				>
+					<Grid item>
+						<Button fullWidth size="small" variant = "contained" color = "secondary" startIcon = {<DoneIcon/>} onClick={() => {
+							setShowSelect(false);}}>					
+							OK
+						</Button>
+					</Grid>
+				</Grid>
+				
+				
 			</Select>
 			
 		</FormControl>

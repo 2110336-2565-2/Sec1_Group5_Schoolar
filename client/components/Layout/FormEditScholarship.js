@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Box, Button, FormControl, Grid, Stack } from '@mui/material'
+import { Box, Button, FormControl, Grid, Stack, Typography } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 import { getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
@@ -82,12 +82,16 @@ const FormEditScholarship = ({ id }) => {
 						shrink={true}
 						{...formProps}
 					/>
-					<h3>Requirements</h3>
-					<TextFieldComponent name="gpax" disabled={true} shrink={true} {...formProps} />
+					<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+						Requirements
+					</Typography>
+					<TextFieldComponent name="gpax" label="Minimum GPAX" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="degree" disabled={true} shrink={true} {...formProps} />
 					<TextFieldComponent name="targetNation" disabled={true} shrink={true} {...formProps} />
 					<SelectComponent name="program" disabled={true} shrink={true} {...formProps} />
-					<h3>Details of scholarship</h3>
+					<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+						Details of scholarship
+					</Typography>
 					<TextFieldComponent
 						name="amount"
 						label="Amount (Baht)"
@@ -97,7 +101,7 @@ const FormEditScholarship = ({ id }) => {
 					/>
 					<TextFieldComponent
 						name="quota"
-						label="Scholarship Quota"
+						label="Quota (person)"
 						shrink={true}
 						{...formProps}
 						validation={getValidation('quota', defaultValues?.quota)}
@@ -106,7 +110,7 @@ const FormEditScholarship = ({ id }) => {
 					<SelectComponent name="typeOfScholarship" disabled={true} shrink={true} {...formProps} />
 					<TextFieldComponent
 						name="detail"
-						label="More Details"
+						label="Other Details"
 						multiline={true}
 						rows={4}
 						shrink={true}

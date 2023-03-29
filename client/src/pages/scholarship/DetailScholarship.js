@@ -196,7 +196,7 @@ const DetailScholarship = () => {
 								router.push(`/scholarship/update-scholarship/${detail._id}`)
 							}}
 						>
-							Update
+							Edit
 						</Button>
 					)}
 				</Stack>

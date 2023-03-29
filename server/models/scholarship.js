@@ -5,7 +5,6 @@ const scholarshipSchema = new Schema({
 	scholarshipName: {
 		required: true,
 		type: String,
-		lowercase: true,
 		trim: true,
 	},
 	provider: {

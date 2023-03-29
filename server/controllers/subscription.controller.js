@@ -1,4 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const Scholarship = require('../models/scholarship')
 
 //TODO: create subscription
 
@@ -58,6 +59,7 @@ exports.getNextPaymentDate = async (req, res) => {
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
 	const subscriptionId = req.params.subscriptionId
+	const scholarship = await Scholarship.findOne({ subscription: subscriptionId })
 	try {
 		// Get the invoice list for the given subscription
 		const invoices = await stripe.invoices.list({
@@ -67,9 +69,15 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		const history = { paid: [], uncollectible: [] }
 		// Iterate through the invoices and print the payment details
 		for (let invoice of invoices.data) {
-			history[invoice.status].push(new Date(invoice.created * 1000).toLocaleString())
+			const paymentDetails = {
+				date: new Date(invoice.created * 1000).toLocaleString(),
+				amount: invoice.amount_paid / 100,
+				currency: invoice.currency.toUpperCase(),
+				scholarshipName: scholarship ? scholarship.scholarshipName : null,
+			}
+			history[invoice.status].push(paymentDetails)
 		}
-		return res.status(200).json({ history: history })
+		return res.status(200).json({ history })
 	} catch (error) {
 		console.error(`Error fetching payment history: ${error.message}`)
 	}

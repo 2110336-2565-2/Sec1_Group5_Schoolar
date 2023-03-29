@@ -68,7 +68,7 @@ function FormAddScholarship() {
 			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
 				Requirements
 			</Typography>
-			<TextFieldComponent name="gpax" label="GPAX" required={true} {...formProps} />
+			<TextFieldComponent name="gpax" label="Minimum GPAX" required={true} {...formProps} />
 			<SelectComponent name="degree" required={true} {...formProps} />
 			<TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
 			<SelectComponent name="program" required={true} {...formProps} />

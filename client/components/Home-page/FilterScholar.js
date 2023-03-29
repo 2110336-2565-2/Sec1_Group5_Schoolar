@@ -36,7 +36,7 @@ function FilterScholar(props) {
 		handleClose()
 	}
 	return (
-		<Box sx={{ p: '10px' }}>
+		<Box sx={{ p: 0.25 }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<FilterListIcon />
 			</IconButton>

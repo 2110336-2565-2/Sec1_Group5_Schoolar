@@ -60,17 +60,17 @@ function SearchBar(props) {
 						sx={{
 							display: 'flex',
 							flex: '1 1 auto',
-							height: 30,
+							height: 35,
 							backgroundColor: '#F4F6F8',
 							borderRadius: 5,
 						}}
 					>
-						<InputBase onChange={onChange} sx={{ ml: 1, flex: 1 }} placeholder="search scholarships" />
+						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
 						<IconButton onClick={onClick} type="button" sx={{ p: '10px' }}>
 							<SearchIcon />
 						</IconButton>
 					</Paper>
-					<Typography variant="h7" sx={{ mx: 2 }}>
+					<Typography variant="h7" sx={{ mx: { xs: 1, sm: 2 } }}>
 						OR
 					</Typography>
 					<Button
@@ -84,7 +84,7 @@ function SearchBar(props) {
 						}}
 						onClick={handleClick}
 					>
-						{buttonName}
+						<Typography variant="h7">{buttonName}</Typography>
 					</Button>
 				</HStack>
 			</Paper>

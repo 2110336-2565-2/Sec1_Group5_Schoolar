@@ -134,7 +134,8 @@ function Homepage() {
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
-						padding: 10,
+						px: { xs: 3, sm: 5, md: 8 },
+						py: { xs: 5, md: 8 },
 						backgroundColor: '#F4F6F8',
 					}}
 				>

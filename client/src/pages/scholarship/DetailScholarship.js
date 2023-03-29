@@ -11,20 +11,6 @@ import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
-// date problem
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: '#ff0000',
-			darker: '#ff0000',
-		},
-	},
-	typography: {
-		button: {
-			textTransform: 'none',
-		},
-	},
-})
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
 	const {
@@ -123,12 +109,19 @@ const DetailScholarship = () => {
 							sx={{
 								textAlign: { xs: 'center', sm: 'left' },
 								fontWeight: 'bold',
-								color: '#0C3969',
+								color: 'text.main',
 							}}
 						>
 							{detail.scholarshipName}
 						</Typography>
-						{appDate && <Chip icon={<CalendarTodayIcon />} color="info" label={appDate} />}
+						{appDate && (
+							<Chip
+								icon={<CalendarTodayIcon />}
+								sx={{ px: 0.5, py: 2.25 }}
+								color="info"
+								label={appDate}
+							/>
+						)}
 					</Stack>
 					<Stack width="100%" spacing={2}>
 						{isProvider && (
@@ -153,9 +146,9 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Program/Faculty" details={detail.program} />
 							<DetailComponent topic="Target Nation" details={detail.targetNation} />
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
-							<DetailComponent topic="GPAX" details={detail.gpax} />
-							<DetailComponent topic="Amount" details={detail.amount} />
-							<DetailComponent topic="Quota" details={detail.quota} />
+							<DetailComponent topic="Minimum GPAX" details={detail.gpax} />
+							<DetailComponent topic="Amount (Baht)" details={detail.amount} />
+							<DetailComponent topic="Quota (person)" details={detail.quota} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
 						<Box sx={{ pl: 2, pb: 1 }}>
@@ -180,21 +173,19 @@ const DetailScholarship = () => {
 							Back
 						</Button>
 						{isProvider && (
-							<ThemeProvider theme={theme}>
-								<Button
-									sx={{ width: '100%' }}
-									variant="contained"
-									color="primary"
-									onClick={() => {
-										axiosPrivate.delete(`/scholarship/${detail._id}`).then(() => {
-											openSnackbar('Delete scholarship successfully!', 'success')
-											router.push('/')
-										})
-									}}
-								>
-									Delete
-								</Button>
-							</ThemeProvider>
+							<Button
+								sx={{ width: '100%', color: '#FFF' }}
+								variant="contained"
+								color="danger"
+								onClick={() => {
+									axiosPrivate.delete(`/scholarship/${detail._id}`).then(() => {
+										openSnackbar('Delete scholarship successfully!', 'success')
+										router.push('/')
+									})
+								}}
+							>
+								Delete
+							</Button>
 						)}
 					</Stack>
 					{isProvider && (

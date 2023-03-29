@@ -201,7 +201,7 @@ function Navbar() {
 								<Center onClick={handleLogo}>
 									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
 								</Center>
-								<MenuItem component={Link} href="#footer">
+								<MenuItem component={Link} href="#footer" scroll={false}>
 									<Typography textAlign="center" color={'text.main'}>
 										Contact Us
 									</Typography>

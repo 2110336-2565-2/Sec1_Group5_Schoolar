@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
 		role,
 		firstName,
 		lastName,
-		birthdate,
+		birthdate:birthdateString,
 		gender,
 		phoneNumber,
 		gpax,
@@ -44,6 +44,7 @@ exports.register = async (req, res) => {
 	} = req.body
 
 	//birthdate can be 20/02/2023 or 2023-02-22T17:00:00.000Z format
+	const birthdate = new Date(birthdateString)
 	const session = await mongoose.startSession()
 	session.startTransaction()
 

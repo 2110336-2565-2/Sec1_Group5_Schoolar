@@ -57,7 +57,6 @@ function FilterSearchBar(props) {
 							fullWidth
 							size="small"
 							variant="contained"
-							color="secondary"
 							startIcon={<DoneIcon />}
 							onClick={() => {
 								setShowSelect(false)

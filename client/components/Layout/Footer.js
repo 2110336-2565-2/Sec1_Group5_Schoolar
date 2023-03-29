@@ -35,7 +35,7 @@ export default function Footer() {
 					<Grid item xs={5} md={4.5} container justifyContent="center">
 						<Image src="/primary/logo.svg" alt="logo" width={100} height={100} />
 					</Grid>
-					<Grid item xs={8} md={7.5} container direction="column" justifyContent="center" alignItems="center">
+					<Grid item xs={12} md={7.5} container direction="column" justifyContent="center" alignItems="center">
 						<Stack direction="column" spacing={1}>
 							<Stack direction="row" spacing={2}>
 								<LocationOnIcon color="primary" />

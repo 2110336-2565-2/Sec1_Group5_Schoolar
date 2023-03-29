@@ -1,17 +1,19 @@
+import { useState } from 'react'
+
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Divider, Grid, Paper, Typography } from '@mui/material'
-import { grey,blue } from '@mui/material/colors'
-import { useState } from 'react'
+import { blue, grey } from '@mui/material/colors'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useAuth } from '@/context/AuthContext'
 
+import { useAuth } from '@/context/AuthContext'
+import ScholarshipTags from './ScholarshipTag'
 
 function Scholarship(props) {
 	const { auth } = useAuth()
 	const router = useRouter()
 	return (
-		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
+		<Grid container marginTop={2} marginBottom={4} gap="60px 60px" justifyContent="center">
 			{props.items.length === 0 ? (
 				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
@@ -23,8 +25,8 @@ function Scholarship(props) {
 						key={scholar._id}
 						sx={{
 							display: 'flex',
-							width: 300,
-							height: 180,
+							width: 340,
+							height: 170,
 							flexDirection: 'column',
 							cursor: 'pointer',
 						}}
@@ -33,13 +35,13 @@ function Scholarship(props) {
 								router.push({
 									pathname: 'scholarship/DetailScholarship',
 									query: { data: JSON.stringify(scholar) },
-								  });
+								})
 								//router.push(`/scholarship/update-scholarship/${scholar._id}`)
 							} else {
 								router.push({
 									pathname: 'scholarship/DetailScholarship',
 									query: { data: JSON.stringify(scholar) },
-								  });
+								})
 							}
 						}}
 					>
@@ -48,32 +50,46 @@ function Scholarship(props) {
 								{scholar.scholarshipName}
 							</Typography>
 							<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-								<PushPinIcon sx={{ color: grey[900] }}/>
+								<PushPinIcon sx={{ color: grey[900] }} />
 							</Button>
 						</Grid>
 						<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />
-						<Grid margin={1}>
-							{/*//TODO Fix tag pls */}
-							{scholar.tag?.map((tag, idx) => {
-								return (
-									<div key={scholar.scholarshipName + scholar.tag + idx}>
-										<Box
-											sx={{
-												display: 'flex',
-												width: 60,
-												height: 25,
-												backgroundColor: '#e6edec',
-												borderRadius: 1,
-												margin: 1,
-												marginLeft: 2,
-											}}
-										>
-											<Typography marginLeft={1}>{tag}</Typography>
-										</Box>
-									</div>
-								)
-							})}
-						</Grid>
+						<ScholarshipTags scholar={scholar} />
+						{/* <Grid margin={1}>
+							<Typography
+								align="center"
+								sx={{
+									color: 'white',
+									backgroundColor: '#83A3FF',
+									borderRadius: 5,
+								}}
+								marginLeft={1}
+							>
+								{scholar.typeOfScholarship}
+							</Typography>
+							<Typography
+								align="center"
+								sx={{
+									color: 'white',
+									backgroundColor: '#FFAC5F',
+									borderRadius: 5,
+								}}
+								marginLeft={1}
+							>
+								{scholar.degree}
+							</Typography>
+							<Typography
+								align="center"
+								sx={{
+									color: 'white',
+									backgroundColor: '#F88196',
+									borderRadius: 5,
+								}}
+								marginLeft={1}
+							>
+								{scholar.program}
+							</Typography>
+						</Grid> */}
 					</Paper>
 				)
 			})}

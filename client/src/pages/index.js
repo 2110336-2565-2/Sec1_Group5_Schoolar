@@ -139,17 +139,15 @@ function Homepage() {
 						backgroundColor: '#F4F6F8',
 					}}
 				>
-					{auth && auth.role === 'student' ? (
+					{auth && auth.role === 'student' && (
 						<Box>
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 						</Box>
-					) : (
-						<></>
 					)}
-					{auth && auth.role === 'student' ? <Scholarship items={recommendedScholars} /> : <></>}
+					{auth && auth.role === 'student' && <Scholarship items={recommendedScholars} />}
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

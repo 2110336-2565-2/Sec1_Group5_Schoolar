@@ -110,7 +110,7 @@ exports.getNextPaymentDate = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
-	const subscriptionId = req.params.subscriptionId
+	const subscriptionId = req.params.id
 	const scholarship = await Scholarship.findOne({ subscription: subscriptionId })
 	try {
 		// Get the invoice list for the given subscription

@@ -17,5 +17,5 @@ router.post('/checkout/:scholarshipId', verifyJWT, createCheckOutSession)
 router.post('/webhook', setSubscriptionID)
 router.get('/:id', verifyJWT, getSubscription)
 router.get('/next-payment-date/:id', verifyJWT, getNextPaymentDate)
-router.get('/paymentHistory/:subscriptionId', verifyJWT, getSubscriptionPaymentHistory)
+router.get('/payment-history/:id', verifyJWT, getSubscriptionPaymentHistory)
 module.exports = router

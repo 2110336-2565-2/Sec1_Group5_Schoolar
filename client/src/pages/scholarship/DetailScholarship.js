@@ -119,7 +119,7 @@ const DetailScholarship = () => {
 								icon={<CalendarTodayIcon />}
 								sx={{ px: 0.5, py: 2.25 }}
 								color="info"
-								label={appDate}
+								label={`Due Date: ${appDate}`}
 							/>
 						)}
 					</Stack>
@@ -151,7 +151,7 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Quota (person)" details={detail.quota} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
-						<Box sx={{ pl: 2, pb: 1 }}>
+						<Box sx={{ pb: 1 }}>
 							<Typography variant="subtitle1" sx={{ fontWeight: 'bold', mt: { xs: 2, sx: 0 } }}>
 								Scholarship Detail
 							</Typography>

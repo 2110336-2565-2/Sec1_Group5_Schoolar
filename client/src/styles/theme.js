@@ -39,6 +39,33 @@ const theme = createTheme({
 				fontSize: '1.5rem',
 			},
 		},
+		h5: {
+			fontSize: '1.5rem',
+			'@media (max-width:900px)': {
+				fontSize: '1.25rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '1rem',
+			},
+		},
+		h6: {
+			fontSize: '1.25rem',
+			'@media (max-width:900px)': {
+				fontSize: '1rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '0.875rem',
+			},
+		},
+		h7: {
+			fontSize: '1rem',
+			'@media (max-width:900px)': {
+				fontSize: '0.875rem',
+			},
+			'@media (max-width:600px)': {
+				fontSize: '0.75rem',
+			},
+		},
 		body1: {
 			fontSize: '1rem',
 		},

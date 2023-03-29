@@ -54,7 +54,6 @@ exports.getScholarship = async (req, res) => {
 exports.addScholarship = async (req, res) => {
 	try {
 		const {
-			organizationName,
 			scholarshipName,
 			degree,
 			gpax,
@@ -68,8 +67,9 @@ exports.addScholarship = async (req, res) => {
 			detail,
 		} = req.body
 
-		// Find the provider by organizationName
-		const provider = await Provider.findOne({ organizationName })
+		// Find the provider
+		const username = req.user
+		const provider = await Provider.findOne({ username })
 		if (!provider) throw new Error('Provider not found')
 
 		// Validate input data
@@ -168,5 +168,35 @@ exports.updateScholarship = async (req, res) => {
 	} catch (error) {
 		console.error(error)
 		res.status(500).json({ message: 'Error updating scholarship' })
+	}
+}
+
+/*
+ * @desc     Delete scholarship
+ * @route    DELETE /scholarship/:id
+ * @access   Private
+ */
+exports.deleteScolarship = async (req, res, next) => {
+	try {
+		let scolarship = await Scholarship.findById(req.params.id)
+		if (!scolarship) {
+			return res.status(404).json({
+				success: false,
+				message: `No scolarship with the id of ${req.params.id}`,
+			})
+		}
+		const username = req.user
+		const provider = await Provider.findOne({ username })
+		if (scolarship.provider.toString() !== provider.id) {
+			return res.status(401).json({
+				success: false,
+				message: `User ${req.user.id} is not authorized to delete this scolarship`,
+			})
+		}
+		await scolarship.remove()
+		return res.status(200).json({ success: true, data: {} })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ success: false, message: 'Cannot delete scolarship' })
 	}
 }

@@ -76,10 +76,10 @@ function FormAddScholarship() {
 				Details of scholarship
 			</Typography>
 			<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
-			<TextFieldComponent name="quota" {...formProps} />
+			<TextFieldComponent name="quota" label="Quota (person)" {...formProps} />
 			<TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
 			<SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
-			<TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />
+			<TextFieldComponent name="detail" label="Other Details" multiline={true} rows={4} {...formProps} />
 			<DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
 			<Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>
 				<Button fullWidth variant="contained" onClick={() => router.push('/')}>

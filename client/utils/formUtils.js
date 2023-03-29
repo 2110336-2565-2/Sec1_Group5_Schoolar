@@ -11,6 +11,8 @@ export const getErrMsg = (field, type, amount, unit = 'characters') => {
 			return `${field} must be at most ${amount} ${unit}`
 		case 'pattern':
 			return `${field} is invalid`
+		case 'number':
+			return `${field} must be number`
 		case 'taken':
 			return `${field} has been taken`
 		case 'positive':
@@ -252,7 +254,7 @@ export const getValidation = (field, defaultValue) => {
 				maxLength: { value: 16, message: 'Credit Card Number must be 16 digits' },
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Credit Card Number contains invalid character',
+					message: getErrMsg('Credit Card Number', 'number'),
 				},
 			}
 		case 'address':
@@ -276,14 +278,14 @@ export const getValidation = (field, defaultValue) => {
 				},
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Amout Number contains invalid character',
+					message: getErrMsg('Amount', 'number'),
 				},
 			}
 		case 'quota':
 			return {
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Quota Number contains invalid character',
+					message: getErrMsg('Quota', 'number'),
 				},
 			}
 		case 'applicationDeadline':

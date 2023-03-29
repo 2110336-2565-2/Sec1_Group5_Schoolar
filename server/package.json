@@ -23,6 +23,7 @@
 		"mongoose": "^6.8.4",
 		"morgan": "^1.10.0",
 		"nodemailer": "^6.9.1",
+		"stripe": "^11.16.0",
 		"swagger-autogen": "^2.23.0",
 		"swagger-ui-express": "^4.6.0"
 	},

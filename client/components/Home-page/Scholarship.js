@@ -41,9 +41,16 @@ function Scholarship(props) {
 						}}
 						onClick={() => {
 							if (auth && auth.role === 'provider') {
-								router.push(`/scholarship/update-scholarship/${scholar._id}`)
+								router.push({
+									pathname: 'scholarship/DetailScholarship',
+									query: { data: JSON.stringify(scholar) },
+								  });
+								//router.push(`/scholarship/update-scholarship/${scholar._id}`)
 							} else {
-								//TODO Scholarship Detail
+								router.push({
+									pathname: 'scholarship/DetailScholarship',
+									query: { data: JSON.stringify(scholar) },
+								  });
 							}
 						}}
 					>

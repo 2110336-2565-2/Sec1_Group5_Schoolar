@@ -5,7 +5,6 @@ const scholarshipSchema = new Schema({
 	scholarshipName: {
 		required: true,
 		type: String,
-		lowercase: true,
 		trim: true,
 	},
 	provider: {
@@ -84,6 +83,10 @@ const scholarshipSchema = new Schema({
 		type: Number,
 	},
 	detail: {
+		type: String,
+	},
+	subscription: {
+		//subscription id from stripe (prefix 'sub_')
 		type: String,
 	},
 })

@@ -3,13 +3,20 @@ const Provider = require('../models/providers')
 
 /*
  * @desc     Get all scholarships
- * @route    GET scholarship/
+ * @route    GET /scholarship
  * @access   Private
  */
 exports.getAllScholarships = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
-		const scholarships = await Scholarship.find()
+		let scholarships
+		if (req.role === 'provider') {
+			const username = req.user
+			const provider = await Provider.findOne({ username })
+			scholarships = await Scholarship.find({ provider })
+		} else {
+			scholarships = await Scholarship.find()
+		}
 		return res.status(200).json({
 			success: true,
 			count: scholarships.length,
@@ -25,40 +32,60 @@ exports.getAllScholarships = async (req, res) => {
 
 /*
  * @desc     Get single scholarship
- * @route    GET scholarship/:id
+ * @route    GET /scholarship/:id
  * @access   Private
  */
 exports.getScholarship = async (req, res) => {
 	// #swagger.tags = ['scholarship']
 	try {
-		const scholarship = await Scholarship.findById(req.params.id);
-		if (!scholarship) return res.status(200).json({ success: false });
-		res.status(200).json({ success: true, data: scholarship });
+		const scholarship = await Scholarship.findById(req.params.id)
+		if (!scholarship) return res.status(200).json({ success: false })
+		res.status(200).json({ success: true, data: scholarship })
 	} catch (err) {
-		res.status(400).json({ success: false });
+		res.status(400).json({ success: false })
 	}
 }
 
 /*
-* @desc     Add scholarship
-* @route    POST scholarship
-* @access   Private
-*/
+ * @desc     Add scholarship
+ * @route    POST /scholarship
+ * @access   Private
+ */
 exports.addScholarship = async (req, res) => {
 	try {
-		const organizationName = req.params.organizationName
-		const { scholarshipName, degree, gpax, program, targetNation, typeOfScholarship, fieldOfInterest, applicationDeadline, quota, amount, detail } = req.body
+		const {
+			scholarshipName,
+			degree,
+			gpax,
+			program,
+			targetNation,
+			typeOfScholarship,
+			fieldOfInterest,
+			applicationDeadline,
+			quota,
+			amount,
+			detail,
+		} = req.body
 
-		// Find the provider by organizationName
-		const provider = await Provider.findOne({ organizationName })
+		// Find the provider
+		const username = req.user
+		const provider = await Provider.findOne({ username })
 		if (!provider) throw new Error('Provider not found')
 
 		// Validate input data
-		if (!scholarshipName || !degree || !gpax || !program || !targetNation || !typeOfScholarship || !fieldOfInterest) {
-			return res.status(400).json({ error: 'Missing scholarship information' });
+		if (
+			!scholarshipName ||
+			!degree ||
+			!gpax ||
+			!program ||
+			!targetNation ||
+			!typeOfScholarship ||
+			!fieldOfInterest
+		) {
+			return res.status(400).json({ error: 'Missing scholarship information' })
 		}
 
-		const isValidDegree = ['high school', 'bachelor', 'master', 'doctoral'].includes(degree);
+		const isValidDegree = ['high school', 'bachelor', 'master', 'doctoral'].includes(degree)
 		const isValidProgram = [
 			'Sci-Math',
 			'Art-Cal',
@@ -84,50 +111,92 @@ exports.addScholarship = async (req, res) => {
 			'Faculty of Science',
 			'Faculty of Sports Science',
 			'Faculty of Veterinary Science',
-		].includes(program);
-		const isValidTypeOfScholarship = ['full', 'partial', 'renewable', 'fellow'].includes(typeOfScholarship);
+		].includes(program)
+		const isValidTypeOfScholarship = ['full', 'partial', 'renewable', 'fellow'].includes(
+			typeOfScholarship,
+		)
 
 		if (!isValidDegree || !isValidProgram || !isValidTypeOfScholarship) {
-			return res.status(400).json({ error: 'Invalid scholarship information' });
+			return res.status(400).json({ error: 'Invalid scholarship information' })
 		}
 
 		// Create new scholarship object
 		const scholarship = new Scholarship({
-			scholarshipName: scholarshipName.toLowerCase().trim(), provider, degree, gpax, program, targetNation: targetNation.toLowerCase().trim(), typeOfScholarship, fieldOfInterest: fieldOfInterest.trim(), applicationDeadline, quota, amount, detail
-		});
-		await scholarship.save();
-		res.status(200).json({ message: 'Scholarship added successfully' });
+			scholarshipName: scholarshipName.toLowerCase().trim(),
+			provider,
+			degree,
+			gpax,
+			program,
+			targetNation: targetNation.toLowerCase().trim(),
+			typeOfScholarship,
+			fieldOfInterest: fieldOfInterest.trim(),
+			applicationDeadline,
+			quota,
+			amount,
+			detail,
+		})
+		await scholarship.save()
+		res.status(200).json({ message: 'Scholarship added successfully' })
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ message: 'Error adding scholarship' });
+		console.error(error)
+		return res.status(500).json({ message: 'Error adding scholarship' })
 	}
-};
+}
 
 /*
-* @desc     Update scholarship
-* @route    PUT scholarship/:id
-* @access   Private
-*/
+ * @desc     Update scholarship
+ * @route    PUT /scholarship/:id
+ * @access   Private
+ */
 exports.updateScholarship = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { quota, amount, detail } = req.body;
+		const { id } = req.params
+		const { quota, amount, detail } = req.body
 
 		// find and update the scholarship in the database
 		const scholarship = await Scholarship.findByIdAndUpdate(
 			id,
 			{ $set: { quota, amount, detail } },
-			{ new: true }
+			{ new: true },
 		)
 
 		// check if the scholarship was found
 		if (!scholarship) {
-			return res.status(404).json({ message: 'Scholarship not found' });
+			return res.status(404).json({ message: 'Scholarship not found' })
 		}
-		res.status(200).json({ message: 'Scholarship updated successfully' });
+		res.status(200).json({ message: 'Scholarship updated successfully' })
+	} catch (error) {
+		console.error(error)
+		res.status(500).json({ message: 'Error updating scholarship' })
 	}
-	catch (error) {
-		console.error(error);
-		res.status(500).json({ message: 'Error updating scholarship' });
+}
+
+/*
+ * @desc     Delete scholarship
+ * @route    DELETE /scholarship/:id
+ * @access   Private
+ */
+exports.deleteScolarship = async (req, res, next) => {
+	try {
+		let scolarship = await Scholarship.findById(req.params.id)
+		if (!scolarship) {
+			return res.status(404).json({
+				success: false,
+				message: `No scolarship with the id of ${req.params.id}`,
+			})
+		}
+		const username = req.user
+		const provider = await Provider.findOne({ username })
+		if (scolarship.provider.toString() !== provider.id) {
+			return res.status(401).json({
+				success: false,
+				message: `User ${req.user.id} is not authorized to delete this scolarship`,
+			})
+		}
+		await scolarship.remove()
+		return res.status(200).json({ success: true, data: {} })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ success: false, message: 'Cannot delete scolarship' })
 	}
-};
+}

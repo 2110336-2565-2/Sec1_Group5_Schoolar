@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Box, Button, FormControl, Stack } from '@mui/material'
+import { Box, Button, FormControl, Stack, Typography } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
 import { useRouter } from 'next/router'
 
@@ -52,42 +52,44 @@ function FormAddScholarship() {
 	}
 
 	return (
-		<Stack>
-			<FormControl
-				component="form"
-				onSubmit={handleSubmit(onSubmit)}
-				sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
-			>
-				<TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
-				<TextFieldComponent
-					name="organizationName"
-					label="Organization Name"
-					disabled={true}
-					shrink={true}
-					{...formProps}
-				/>
-				<h3> Requirements </h3>
-				<TextFieldComponent name="gpax" label="GPAX" required={true} {...formProps} />
-				<SelectComponent name="degree" required={true} {...formProps} />
-				<TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
-				<SelectComponent name="program" required={true} {...formProps} />
-				<h3> Details of scholarship </h3>
-				<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
-				<TextFieldComponent name="quota" {...formProps} />
-				<TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
-				<SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
-				<TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />
-				<DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
-				<Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>
-					<Button fullWidth variant="contained" onClick={() => router.push('/')}>
-						Back
-					</Button>
-					<Button fullWidth variant="contained" type="submit">
-						Submit
-					</Button>
-				</Box>
-			</FormControl>
-		</Stack>
+		<FormControl
+			component="form"
+			onSubmit={handleSubmit(onSubmit)}
+			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
+		>
+			<TextFieldComponent name="scholarshipName" label="Scholarship Name" required={true} {...formProps} />
+			<TextFieldComponent
+				name="organizationName"
+				label="Organization Name"
+				disabled={true}
+				shrink={true}
+				{...formProps}
+			/>
+			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+				Requirements
+			</Typography>
+			<TextFieldComponent name="gpax" label="GPAX" required={true} {...formProps} />
+			<SelectComponent name="degree" required={true} {...formProps} />
+			<TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
+			<SelectComponent name="program" required={true} {...formProps} />
+			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+				Details of scholarship
+			</Typography>
+			<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
+			<TextFieldComponent name="quota" {...formProps} />
+			<TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
+			<SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
+			<TextFieldComponent name="detail" label="More Details" multiline={true} rows={4} {...formProps} />
+			<DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
+			<Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>
+				<Button fullWidth variant="contained" onClick={() => router.push('/')}>
+					Back
+				</Button>
+				<Button fullWidth variant="contained" type="submit">
+					Submit
+				</Button>
+			</Box>
+		</FormControl>
 	)
 }
 

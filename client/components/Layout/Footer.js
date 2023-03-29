@@ -1,18 +1,19 @@
 import * as React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Grid, Divider, Paper, Stack, Typography } from '@mui/material'
+
 import { VStack } from '@components/common'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
 import CallIcon from '@mui/icons-material/Call'
-import PrintIcon from '@mui/icons-material/Print'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import TwitterIcon from '@mui/icons-material/Twitter'
+import GitHubIcon from '@mui/icons-material/GitHub'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import YouTubeIcon from '@mui/icons-material/YouTube'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PinterestIcon from '@mui/icons-material/Pinterest'
-import GitHubIcon from '@mui/icons-material/GitHub'
+import PrintIcon from '@mui/icons-material/Print'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import YouTubeIcon from '@mui/icons-material/YouTube'
+import { Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
+import Link from 'next/link'
 
 function Copyright() {
 	return (
@@ -37,13 +38,13 @@ export default function Footer() {
 					</Grid>
 					<Grid item xs={12} md={7.5} container direction="column" justifyContent="center" alignItems="center">
 						<Stack direction="column" spacing={1}>
-							<Stack direction="row" spacing={2}>
+							<Stack direction="row" alignItems="center" spacing={2}>
 								<LocationOnIcon color="primary" />
 								<Typography variant="body2">
 									345 Faulconer Drive, Suite 4 • Charlottesville, CA, 12345
 								</Typography>
 							</Stack>
-							<Stack direction="row">
+							<Stack direction="row" alignItems="center">
 								<CallIcon color="primary" sx={{ marginRight: 2 }} />
 								<Typography variant="body2" sx={{ marginRight: 10 }}>
 									(123) 456-7890
@@ -51,7 +52,7 @@ export default function Footer() {
 								<PrintIcon color="primary" sx={{ marginRight: 2 }} />
 								<Typography variant="body2">(123) 456-7890</Typography>
 							</Stack>
-							<Stack direction="row" spacing={2}>
+							<Stack direction="row" spacing={2} alignItems="center">
 								<Typography variant="body2">Social Media</Typography>
 								<InstagramIcon color="primary" />
 								<FacebookIcon color="primary" />

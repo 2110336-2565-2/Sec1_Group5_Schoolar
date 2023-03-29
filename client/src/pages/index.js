@@ -20,7 +20,7 @@ function calculateScore(stdInfo, scholarInfo) {
 
 	for (const key in stdInfo) {
 		if (key == '_id') continue
-		if (stdInfo.hasOwnProperty(key) && scholarInfo.hasOwnProperty(key)) {
+		if (stdInfo[key] && scholarInfo[key]) {
 			const field1 = stdInfo[key].toString()
 			const field2 = scholarInfo[key].toString()
 			const fieldScore = field1 === field2 ? scoreMap[key] : 0

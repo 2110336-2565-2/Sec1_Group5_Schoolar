@@ -106,7 +106,7 @@ exports.getNextPaymentDate = async (req, res) => {
 
 /*
  * @desc     Get Subscription Payment History by subscription id
- * @route    GET /paymentHistory/:subscriptionId
+ * @route    GET /subscription/payment-history/:id
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
@@ -137,7 +137,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 
 /*
  * @desc     Cancel Subscription by subscription id
- * @route    DELETE /unsubscripe/:subscriptionId
+ * @route    DELETE /subscription/unsubscripe/:subscriptionId
  * @access   Private
  */
 exports.cancelSubscription = async (req, res, next) => {

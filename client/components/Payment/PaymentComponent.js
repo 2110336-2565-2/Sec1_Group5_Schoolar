@@ -85,7 +85,7 @@ function PaymentComponent({ scholarship }) {
 			setIsSubscribed(true)
 			const calculateAndSetNextPaymentDate = async () => {
 				const nextDate = await axiosPrivate.get(`/subscription/next-payment-date/${scholarship.subscription}`)
-				const result = calculateNextPaymentDate(nextDate)
+				const result = calculateNextPaymentDate(nextDate.data)
 				setNextPaymentDate(result)
 			}
 			calculateAndSetNextPaymentDate()

@@ -6,15 +6,19 @@ import { axiosPrivate } from '@/pages/api/axios'
 
 const PinScholar = (props) => {
     const [active,setActive] = useState(props.pin);
+    console.log("Props.pin in Pinscholar:",props.pin)
+    console.log("Active in Pinscholar:",active)
     const handlePin = (e) => {
-        console.log(props.id)
+        e.preventDefault()
         if(!active){
             axiosPrivate.patch(`/student/pin-scholarship/${props.std}`,{scholarshipID:props.id})
             setActive(true)
+            console.log("In not active")
         }
         else{
             axiosPrivate.patch(`/student/unpin-scholarship/${props.std}`,{scholarshipID:props.id})
             setActive(false)
+            console.log("In active")
         }
 	};
 	return (

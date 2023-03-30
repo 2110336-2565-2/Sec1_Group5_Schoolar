@@ -24,8 +24,8 @@ function Scholarship(props) {
 	useEffect(() => {
 		fetchData()
 	}, [])
+
 	console.log('pinStd:', pinScholarships)
-	var active
 
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
@@ -49,14 +49,7 @@ function Scholarship(props) {
 				})
 				.map((scholar) => {
 					// check if scholarship is in pin scholarship
-					if (pinScholarships.includes(scholar._id)){
-						active = true
-						
-					}else{
-						active = false
-					}
 					console.log("scholarship: ",scholar._id)
-					console.log("Active in scholarship page:",active)
 					return (
 						<Paper
 							key={scholar._id}
@@ -85,7 +78,7 @@ function Scholarship(props) {
 									{scholar.scholarshipName}
 								</Typography>
 								<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-									<PinScholar pin={active} id={scholar._id} std={auth.username} />
+									<PinScholar pin={pinScholarships.includes(scholar._id)} id={scholar._id} std={auth.username} />
 								</Button> 
 							</Grid>
 							<Divider orientation="horizontal" variant="middle" style={{ borderBottomWidth: 2 }} />

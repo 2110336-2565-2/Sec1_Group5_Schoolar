@@ -6,7 +6,8 @@ import { axiosPrivate } from '@/pages/api/axios'
 
 const PinScholar = (props) => {
     const [active,setActive] = useState(props.pin);
-    console.log("Props.pin in Pinscholar:",props.pin)
+    console.log("why")
+    console.log("scholarID:",props.id,"Props.pin in Pinscholar:",props.pin)
     console.log("Active in Pinscholar:",active)
     const handlePin = (e) => {
         e.preventDefault()

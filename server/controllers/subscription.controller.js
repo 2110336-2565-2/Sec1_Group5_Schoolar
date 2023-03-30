@@ -134,3 +134,16 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		console.error(`Error fetching payment history: ${error.message}`)
 	}
 }
+
+/*
+ * @desc     Cancel Subscription by subscription id
+ * @route    DELETE /unsubscripe/:subscriptionId
+ * @access   Private
+ */
+exports.cancelSubscription = async (req, res, next) => {
+	try {
+		const deleted = await stripe.subscriptions.del(req.params.subscriptionId)
+	} catch (error) {
+		res.status(200).json(`Error cancel scubscription`)
+	}
+}

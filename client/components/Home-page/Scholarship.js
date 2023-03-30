@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PushPinIcon from '@mui/icons-material/PushPin'
-import { Box, Button, Chip, Divider, Grid, Paper, Typography } from '@mui/material'
+import { Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -21,6 +21,19 @@ const changeDateToString = (date) => {
 	const monthName = monthNames[monthIndex]
 	return `${day} ${monthName} ${year}`
 }
+const DetailComponent = ({ topic, value }) => {
+	return (
+		<Stack direction="row" spacing={1} marginLeft={2.5}>
+			<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+				{topic}
+			</Typography>
+			<Typography variant="subtitle1" color="#036EC5" sx={{ wordWrap: 'break-word', fontWeight: 550 }}>
+				{value ? value : 'Not specified'}
+			</Typography>
+		</Stack>
+	)
+}
+
 function Scholarship(props) {
 	const { auth } = useAuth()
 	const router = useRouter()
@@ -41,6 +54,7 @@ function Scholarship(props) {
 							minHeight: 240,
 							flexDirection: 'column',
 							cursor: 'pointer',
+							paddingY: 1,
 						}}
 						onClick={() => {
 							if (auth && auth.role === 'provider') {
@@ -76,7 +90,14 @@ function Scholarship(props) {
 							</Grid>
 						</Grid>
 						<Chip
-							sx={{ borderRadius: 0, backgroundColor: '#AFB4C3' }}
+							sx={{
+								borderRadius: 0,
+								backgroundColor: 'white',
+								color: '#797979',
+								borderTop: '2px solid',
+								borderBottom: '2px solid',
+								fontWeight: 'bold',
+							}}
 							icon={<CalendarTodayIcon />}
 							color="info"
 							label={
@@ -84,6 +105,8 @@ function Scholarship(props) {
 							}
 						/>
 						<ScholarshipTags scholar={scholar} />
+						<DetailComponent topic="Amount:" value={scholar.amount} />
+						<DetailComponent topic="Quota:" value={scholar.quota} />
 					</Paper>
 				)
 			})}

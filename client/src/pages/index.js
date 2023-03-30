@@ -20,7 +20,7 @@ function calculateScore(stdInfo, scholarInfo) {
 
 	for (const key in stdInfo) {
 		if (key == '_id') continue
-		if (stdInfo.hasOwnProperty(key) && scholarInfo.hasOwnProperty(key)) {
+		if (stdInfo[key] && scholarInfo[key]) {
 			const field1 = stdInfo[key].toString()
 			const field2 = scholarInfo[key].toString()
 			const fieldScore = field1 === field2 ? scoreMap[key] : 0
@@ -134,22 +134,20 @@ function Homepage() {
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
-						paddingY: { xs: 7, sm: 7, md: 10 },
-						paddingX: { xs: 2, sm: 5, md: 10 },
+						px: { xs: 7, sm: 7, md: 10 },
+						py: { xs: 2, sm: 5, md: 10 },
 						backgroundColor: '#F4F6F8',
 					}}
 				>
-					{auth && auth.role === 'student' ? (
+					{auth && auth.role === 'student' && (
 						<Box>
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 						</Box>
-					) : (
-						<></>
 					)}
-					{auth && auth.role === 'student' ? <Scholarship items={recommendedScholars} /> : <></>}
+					{auth && auth.role === 'student' && <Scholarship items={recommendedScholars} />}
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

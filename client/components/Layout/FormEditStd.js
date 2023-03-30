@@ -1,15 +1,17 @@
 import { React, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Button, FormControl, Grid, Stack, Typography } from '@mui/material'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
-import { useAuth } from '@/context/AuthContext'
-import { getValidation } from '@utils/formUtils'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const FormEditStd = ({ oldValue }) => {
-	const { openSnackbar } = useSnackbar();
+	const { openSnackbar } = useSnackbar()
 	// Form hook
 	const {
 		register,
@@ -20,12 +22,12 @@ const FormEditStd = ({ oldValue }) => {
 		control,
 		watch,
 		reset,
-	} = useForm({ mode: 'onBlur' });
+	} = useForm({ mode: 'onBlur' })
 
 	const { auth } = useAuth()
 	//*axios private to get data from route that need token
-	const axiosPrivate = useAxiosPrivate();
-	const router = useRouter();
+	const axiosPrivate = useAxiosPrivate()
+	const router = useRouter()
 
 	useEffect(() => {
 		if (oldValue) {
@@ -43,7 +45,7 @@ const FormEditStd = ({ oldValue }) => {
 				targetNation: oldValue.targetNation,
 				fieldOfInterest: oldValue.fieldOfInterest,
 				typeOfScholarship: oldValue.typeOfScholarship,
-			});
+			})
 		}
 	}, [oldValue])
 
@@ -51,9 +53,9 @@ const FormEditStd = ({ oldValue }) => {
 		// Update data using patch request
 		console.log('submitting', data)
 		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
-			openSnackbar("Update Success!", 'success');
+			openSnackbar('Update Success!', 'success')
 		})
-		router.push('/');
+		router.push('/')
 	}
 	const formOnError = (err) => {
 		// Alert the users of incorrect pattern
@@ -63,9 +65,9 @@ const FormEditStd = ({ oldValue }) => {
 		})
 		alert(messages.join('\n'))
 	}
-	
+
 	const formProps = { register, errors, getValues, setValue, control, watch }
-	
+
 	return (
 		<Stack direction="column" alignItems="center" justifyContent="center">
 			<Grid container sx={{ overflow: 'auto', m: 0.5 }}>
@@ -76,8 +78,8 @@ const FormEditStd = ({ oldValue }) => {
 						sx={{ width: '100%' }}
 					>
 						<Stack spacing={3} direction="column">
-							<TextFieldComponent name='firstName' required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name='lastName' required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="firstName" required={true} shrink={true} {...formProps} />
+							<TextFieldComponent name="lastName" required={true} shrink={true} {...formProps} />
 							<DatePickerComponent
 								name="birthdate"
 								required={true}
@@ -85,9 +87,9 @@ const FormEditStd = ({ oldValue }) => {
 								shrink={true}
 								{...formProps}
 							/>
-							<SelectComponent name="gender" required={true} shrink={true}  {...formProps} />
+							<SelectComponent name="gender" required={true} shrink={true} {...formProps} />
 							<TextFieldComponent
-								name='phoneNumber'
+								name="phoneNumber"
 								required={true}
 								shrink={true}
 								validation={getValidation('phoneNumber', defaultValues?.phoneNumber)}
@@ -95,15 +97,29 @@ const FormEditStd = ({ oldValue }) => {
 							/>
 							<TextFieldComponent name="gpax" shrink={true} label="GPAX" {...formProps} />
 							<SelectComponent name="degree" shrink={true} {...formProps} />
-							<TextFieldComponent	name="school" shrink={true}	label="School/University" {...formProps}/>
+							<TextFieldComponent name="school" shrink={true} label="School/University" {...formProps} />
 							<SelectComponent name="program" shrink={true} {...formProps} />
-							<Typography variant="h5">Target Scholarship</Typography>
+							<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+								Target Scholarship
+							</Typography>
 							<TextFieldComponent name="targetNation" shrink={true} {...formProps} />
-							<TextFieldComponent	name="fieldOfInterest" label="Field of Interest" shrink={true} {...formProps}/>
-							<SelectComponent name="typeOfScholarship" shrink={true}	label="Type of Scholarship"	{...formProps}/>
+							<TextFieldComponent
+								name="fieldOfInterest"
+								label="Field of Interest"
+								shrink={true}
+								{...formProps}
+							/>
+							<SelectComponent
+								name="typeOfScholarship"
+								shrink={true}
+								label="Type of Scholarship"
+								{...formProps}
+							/>
 							<Stack spacing={3} direction="row" justifyContent="space-evenly">
-								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
-								<Button sx={{width: "100%"}} variant="contained" type="submit">
+								<Button sx={{ width: '100%' }} variant="contained" onClick={() => router.push('/')}>
+									Back
+								</Button>
+								<Button sx={{ width: '100%' }} variant="contained" type="submit">
 									Update
 								</Button>
 							</Stack>

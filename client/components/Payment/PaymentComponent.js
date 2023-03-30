@@ -37,24 +37,44 @@ function PaymentComponent({ scholarship }) {
 		}
 	}
 
-	const calculateNextPaymentDate = async () => {
+	const calculateNextPaymentDate = (date) => {
 		try {
-			const nextDate = await getNextPaymentDate()
-			const year = parseInt(nextDate.slice(0, 4))
-			const month = parseInt(nextDate.slice(5, 7)) - 1
-			const day = parseInt(nextDate.slice(8, 10))
-			const hour = parseInt(nextDate.slice(11, 13))
-			const minute = parseInt(nextDate.slice(14, 16))
-			const second = parseInt(nextDate.slice(17, 19))
-			const millisecond = parseInt(nextDate.slice(20, 23))
+			const year = parseInt(date.slice(0, 4))
+			const month = parseInt(date.slice(5, 7)) - 1
+			const day = parseInt(date.slice(8, 10))
+			const hour = parseInt(date.slice(11, 13))
+			const minute = parseInt(date.slice(14, 16))
+			const second = parseInt(date.slice(17, 19))
+			const millisecond = parseInt(date.slice(20, 23))
 
-			const date = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond))
-			const timeDiff = date.getTime() - Date.now()
+			const utcDate = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond))
+			const timeDiff = utcDate.getTime() - Date.now()
 			const daysTillNextPayment = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
 			return daysTillNextPayment
 		} catch (err) {
 			console.log(err)
 		}
+	}
+
+	function addDays(date, days) {
+		var result = new Date(date)
+		result.setDate(result.getDate() + days)
+		return result
+	}
+
+	const formatUTCDate = (date) => {
+		const year = date.getUTCFullYear()
+		const month = date.getUTCMonth() + 1
+		const day = date.getUTCDate()
+		const hour = date.getUTCHours()
+		const minute = date.getUTCMinutes()
+		const second = date.getUTCSeconds()
+
+		const pad = (num) => {
+			return num < 10 ? '0' + num : num
+		}
+
+		return `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:${pad(second)}.000Z`
 	}
 
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
@@ -64,10 +84,15 @@ function PaymentComponent({ scholarship }) {
 		if (scholarship.subscription !== undefined) {
 			setIsSubscribed(true)
 			const calculateAndSetNextPaymentDate = async () => {
-				const result = await calculateNextPaymentDate()
+				const nextDate = await axiosPrivate.get(`/subscription/next-payment-date/${scholarship.subscription}`)
+				const result = calculateNextPaymentDate(nextDate)
 				setNextPaymentDate(result)
 			}
 			calculateAndSetNextPaymentDate()
+		} else {
+			const date = addDays(scholarship.createdAt, 30)
+			const result = calculateNextPaymentDate(formatUTCDate(date))
+			setNextPaymentDate(result)
 		}
 	}, [])
 
@@ -101,8 +126,11 @@ function PaymentComponent({ scholarship }) {
 						padding: 2.5,
 					}}
 				>
-					{/* //? จัดการกับเดดไลน์การ subscribe ยังไงเพราะไม่มีการเก็บวันที่สร้าง scholarship ใน db */}
-					{isSubscribed && (
+					{nextPaymentDate < 0 ? (
+						<Typography variant="body1" align="center">
+							<span style={{ color: '#FF0000' }}>Overdue</span>
+						</Typography>
+					) : (
 						<Typography variant="body1" align="center">
 							Next payment: <span style={{ color: '#FF0000' }}>{nextPaymentDate} days</span>
 						</Typography>

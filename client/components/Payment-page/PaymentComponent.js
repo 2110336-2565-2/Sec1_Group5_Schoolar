@@ -101,66 +101,62 @@ function PaymentComponent({ scholarship }) {
 		<Box
 			sx={{
 				width: '100%',
-				height: '25%',
-				margin: 2,
-				backgroundColor: '#e6edec',
+				height: 130,
+				backgroundColor: 'white',
 				borderRadius: 5,
 			}}
 		>
 			<Grid container direction="row" justifyContent="space-between">
-				<Grid
-					sx={{
-						width: '60%',
-					}}
-				>
-					<Typography variant="h6" padding={2.5} marginLeft={2}>
+				<Grid item xs={4} sm={5}>
+					<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
 						{scholarship.scholarshipName}
 					</Typography>
 				</Grid>
-				<Grid
-					container
+				
+				<Grid item xs={8} sm={7}>
+				<Stack
 					direction="column"
-					justifyContent="space-between"
-					sx={{
-						width: '30%',
-						padding: 2.5,
-					}}
+					spacing={1}
+					sx={{p:2}}
 				>
 					{nextPaymentDate < 0 ? (
-						<Typography variant="body1" align="center">
+						<Typography variant="subtitle1" align="center">
 							<span style={{ color: '#FF0000' }}>Overdue</span>
 						</Typography>
 					) : (
-						<Typography variant="body1" align="center">
+						<Typography variant="subtitle1" align="center">
 							Next payment: <span style={{ color: '#FF0000' }}>{nextPaymentDate} days</span>
 						</Typography>
 					)}
 
-					<Grid sx={{ pl: '25%', pr: '25%', pt: '2%' }}>
-						{isSubscribed ? (
-							<Button
-								variant="contained"
-								sx={{ borderRadius: 5, width: '100%', backgroundColor: '#C1C1C1' }}
-								onClick={handleUnSubscribe}
-							>
-								Subscribed
-							</Button>
-						) : (
-							<Button
-								variant="contained"
-								sx={{ borderRadius: 5, width: '100%' }}
-								onClick={handleSubscribe}
-							>
-								Subscribe
-							</Button>
-						)}
-					</Grid>
+					{isSubscribed ? (
+						<Button
+							variant="contained"
+							size="small"
+							sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
+							onClick={handleUnSubscribe}
+						>
+							Unsubscribed
+						</Button>
+					) : (
+						<Button
+							variant="contained"
+							size="small"
+							sx={{ borderRadius: 5 }}
+							onClick={handleSubscribe}
+						>
+							Subscribe
+						</Button>
+					)}
+
 					{!isSubscribed && (
 						<Typography variant="body1" align="center" color="#9B9B9B">
 							99฿ / month
 						</Typography>
 					)}
+				</Stack>
 				</Grid>
+				
 			</Grid>
 		</Box>
 	)

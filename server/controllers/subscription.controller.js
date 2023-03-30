@@ -122,7 +122,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		// Iterate through the invoices and print the payment details
 		for (let invoice of invoices.data) {
 			const paymentDetails = {
-				date: new Date(invoice.created * 1000).toLocaleString(),
+				date: new Date(invoice.created * 1000),//.toLocaleString(),
 				amount: invoice.amount_paid / 100,
 				currency: invoice.currency.toUpperCase(),
 				scholarshipName: scholarship ? scholarship.scholarshipName : null,

@@ -5,7 +5,7 @@ import { grey,blue} from '@mui/material/colors'
 import { axiosPrivate } from '@/pages/api/axios'
 
 const PinScholar = (props) => {
-    const [active,setActive] = useState(false);
+    const [active,setActive] = useState(props.pin);
     const handlePin = (e) => {
         console.log(props.id)
         if(!active){

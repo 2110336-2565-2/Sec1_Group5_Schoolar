@@ -29,21 +29,7 @@ function Scholarship(props) {
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="20px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
-				<Typography variant="h6" color="textSecondary" gutterBottom 
-				onClick={() => {
-					if (auth && auth.role === 'provider') {
-						router.push({
-							pathname: 'scholarship/DetailScholarship',
-							query: { data: JSON.stringify(scholar) },
-						})
-						//router.push(`/scholarship/update-scholarship/${scholar._id}`)
-					} else {
-						router.push({
-							pathname: 'scholarship/DetailScholarship',
-							query: { data: JSON.stringify(scholar) },
-						})
-					}
-				}}>
+				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
 				</Typography>
 			) : null}
@@ -71,10 +57,23 @@ function Scholarship(props) {
 								width: 300,
 								height: 180,
 								flexDirection: 'column',
-								cursor: 'pointer',
 							}}>
 							<Grid container direction="row" justifyContent="space-between">
-								<Typography margin={2} marginLeft={2}>
+								<Typography margin={2} marginLeft={2} sx={{cursor: 'pointer'}}
+								onClick={() => {
+									if (auth && auth.role === 'provider') {
+										router.push({
+										pathname: 'scholarship/DetailScholarship',
+										query: { data: JSON.stringify(scholar) },
+									})
+								//router.push(`/scholarship/update-scholarship/${scholar._id}`)
+									} else {
+										router.push({
+										pathname: 'scholarship/DetailScholarship',
+										query: { data: JSON.stringify(scholar) },
+									})
+								}
+								}}>
 									{scholar.scholarshipName}
 								</Typography>
 								<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>

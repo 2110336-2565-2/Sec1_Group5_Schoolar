@@ -17,8 +17,8 @@ exports.createCheckOutSession = async (req, res, next) => {
 			],
 			mode: 'subscription',
 			// need front end adjustment to redirect it to page after success or page after cancel payment
-			success_url: `http://localhost:8080/home.html`,
-			cancel_url: `http://localhost:8080/home.html`,
+			success_url: `http://localhost:3000/payment/success`,
+			cancel_url: `http://localhost:3000/payment/failed`,
 			// --------------------------------------------
 			client_reference_id: req.params.scholarshipId,
 		})
@@ -106,7 +106,7 @@ exports.getNextPaymentDate = async (req, res) => {
 
 /*
  * @desc     Get Subscription Payment History by subscription id
- * @route    GET /paymentHistory/:subscriptionId
+ * @route    GET /subscription/payment-history/:id
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
@@ -122,7 +122,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		// Iterate through the invoices and print the payment details
 		for (let invoice of invoices.data) {
 			const paymentDetails = {
-				date: new Date(invoice.created * 1000).toLocaleString(),
+				date: new Date(invoice.created * 1000),//.toLocaleString(),
 				amount: invoice.amount_paid / 100,
 				currency: invoice.currency.toUpperCase(),
 				scholarshipName: scholarship ? scholarship.scholarshipName : null,
@@ -133,5 +133,18 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		return res.status(200).json({ history })
 	} catch (error) {
 		console.error(`Error fetching payment history: ${error.message}`)
+	}
+}
+
+/*
+ * @desc     Cancel Subscription by subscription id
+ * @route    DELETE /subscription/unsubscripe/:subscriptionId
+ * @access   Private
+ */
+exports.cancelSubscription = async (req, res, next) => {
+	try {
+		const deleted = await stripe.subscriptions.del(req.params.subscriptionId)
+	} catch (error) {
+		res.status(200).json(`Error cancel scubscription`)
 	}
 }

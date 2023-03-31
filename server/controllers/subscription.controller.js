@@ -126,6 +126,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 				amount: invoice.amount_paid / 100,
 				currency: invoice.currency.toUpperCase(),
 				scholarshipName: scholarship ? scholarship.scholarshipName : null,
+				provider: scholarship ? scholarship.provider : null,
 			}
 			history[invoice.status].push(paymentDetails)
 		}

@@ -19,6 +19,7 @@ const InputPassword = ({ label = 'Password', helperText, register, error }) => {
 			</InputLabel>
 			<OutlinedInput
 				type={showPassword ? 'text' : 'password'}
+				autoComplete={'new-password'}
 				endAdornment={
 					<InputAdornment position="end">
 						<IconButton

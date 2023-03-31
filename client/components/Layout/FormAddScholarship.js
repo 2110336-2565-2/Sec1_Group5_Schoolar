@@ -22,7 +22,7 @@ function FormAddScholarship() {
 		watch,
 		trigger,
 	} = useForm({ mode: 'onBlur' })
-	const formProps = { register, errors, getValues, setValue, control, watch }
+	const formProps = { register, errors, getValues, setValue, control, watch, required: false }
 	const router = useRouter()
 
 	const { auth } = useAuth()

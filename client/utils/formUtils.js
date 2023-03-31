@@ -205,6 +205,7 @@ export const getValidation = (field, defaultValue) => {
 				},
 				min: { value: 0, message: getErrMsg('GPAX', 'positive') },
 				max: { value: 4, message: 'GPAX must be at most 4' },
+				required: getErrMsg('gpax', 'required'),
 			}
 		case 'targetNation':
 			return {
@@ -212,6 +213,7 @@ export const getValidation = (field, defaultValue) => {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Target Nation', 'pattern'),
 				},
+				required: getErrMsg('targetNation', 'required'),
 			}
 		case 'fieldOfInterest':
 			return {
@@ -219,6 +221,7 @@ export const getValidation = (field, defaultValue) => {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Field of Interest', 'pattern'),
 				},
+				required: getErrMsg('fieldOfInterest', 'required'),
 			}
 		// Provider
 		case 'scholarshipName':
@@ -307,6 +310,18 @@ export const getValidation = (field, defaultValue) => {
 						}
 					},
 				},
+			}
+		case 'program':
+			return {
+				required: getErrMsg('program/faculty', 'required'),
+			}
+		case 'degree':
+			return {
+				required: getErrMsg('degree', 'required'),
+			}
+		case 'typeOfScholarship':
+			return {
+				required: getErrMsg('typeOfScholarship', 'required'),
 			}
 		default:
 			return {}

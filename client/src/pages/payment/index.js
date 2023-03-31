@@ -18,10 +18,11 @@ function Payment(){
         router.push("/login");
     }
 
-    useEffect(() => {
-        if (auth && auth.role !== 'provider') {
-            router.push("/");
-        }
+    if (auth && auth.role !== 'provider') {
+        router.push("/");
+    }
+
+    useEffect(() => {        
         //get provider's scholarship
         axiosPrivate.get(`/scholarship`).then((res) => {
             setScholarships(res.data.data);

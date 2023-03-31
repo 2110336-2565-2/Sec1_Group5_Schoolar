@@ -18,7 +18,7 @@ function PaymentSection ({scholarships}){
             <Grid container spacing={2}>
                 {scholarships.map((item, index)=>{
                 return (
-                <Grid item xs={12} sm={6}> 
+                <Grid item xs={12} sm={6} key={index}> 
                     <PaymentComponent scholarship={item} key={index}/>
                 </Grid>
                 )

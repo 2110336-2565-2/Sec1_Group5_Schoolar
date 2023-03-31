@@ -31,35 +31,34 @@ const HistorySection = ({ scholarships }) => {
     useEffect(() => {
         scholarships.map((item) => {
             if (item.subscription) {
-                axiosPrivate.get(`/subscription/payment-history/${item.subscription}`).then((res) => {
-                    setSubscription([...subscription, { scholarship: (res.data.history.paid[0]).scholarshipName, paid: res.data.history.paid }]);
+                axiosPrivate.get(`/subscription/payment-history/${item.subscription}`)
+                .then((res) => {
+                    //console.log(res.data.history.paid[0].scholarshipName, ' ', res.data);
+                    setSubscription(subscription => [...subscription, { scholarship: (res.data.history.paid[0]).scholarshipName, paid: res.data.history.paid }]);
                 })
             }
         })
-        console.log(subscription);
     }, [scholarships])
 
-
-    //Test
-    // const data = [{
-    //     scholarship: "test1"
-    //     , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 },{ date: "21 July 2023  2:30pm", amountPaid: 0 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 },{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 }]
-    // },
-    // {
-    //     scholarship: "test2"
-    //     , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 }]
-    // },
-    // {
-    //     scholarship: "test3"
-    //     , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 },
-    //     { date: "21 July 2023  2:30pm", amountPaid: 0 }]
-    // }];
+    const data = [{
+        scholarship: "test1"
+        , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 },{ date: "21 July 2023  2:30pm", amountPaid: 0 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 },{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 }]
+    },
+    {
+        scholarship: "test2"
+        , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 }]
+    },
+    {
+        scholarship: "test3"
+        , paid: [{ date: "21 July 2023  2:30pm", amountPaid: 0 }, { date: "21 July 2023  2:30pm", amountPaid: 10 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 },
+        { date: "21 July 2023  2:30pm", amountPaid: 0 }]
+    }];
 
 
     const ComponentDatePaid = ({ data }) => {
@@ -120,7 +119,6 @@ const HistorySection = ({ scholarships }) => {
     }
 
     return (
-        //<Center>
             <Box sx={{
                 width: "90%",
                 height: {xs: "60vh", sm: "75vh"},
@@ -142,7 +140,6 @@ const HistorySection = ({ scholarships }) => {
                 </Stack>
 
             </Box>
-        //</Center>
     )
 
 }

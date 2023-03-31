@@ -14,6 +14,7 @@ import FilterScholar from './FilterScholar'
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
+	const [matchOnClick, setMatchOnClick] = useState(true)
 	const onChange = (e) => {
 		setInputName(e.target.value)
 	}
@@ -32,6 +33,10 @@ function SearchBar(props) {
 	const handleClick = (auth) => {
 		if (buttonName == '+ Add Scholarship') {
 			router.push('/scholarship/addScholarship')
+		}else{
+			// setMatchOnClick(!matchOnClick)
+			console.log(matchOnClick)
+			props.matchHandler(matchOnClick)
 		}
 	}
 	const router = useRouter()

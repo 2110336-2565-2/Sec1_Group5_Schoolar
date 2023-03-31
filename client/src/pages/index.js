@@ -43,6 +43,7 @@ function Homepage() {
 	// student-info for get recommended scholarships
 	const [studentInfo, setStudentInfo] = useState({})
 	const axiosPrivate = useAxiosPrivate()
+	const [showRecScholar, setShowRecScholar] = useState(false)
 
 	useEffect(() => {
 		axiosPrivate.get('/scholarship').then((res) => {
@@ -58,6 +59,10 @@ function Homepage() {
 
 	const searchHandler = (value) => {
 		setInputName(value.trim())
+	}
+
+	const matchHandler = (value) =>{
+		setShowRecScholar(value)
 	}
 
 	// Filter Handler
@@ -126,7 +131,7 @@ function Homepage() {
 	return (
 		<Center>
 			<VStack sx={{ width: '90%' }}>
-				<SearchBar searchHandler={searchHandler} filterHandler={filterHandler} />
+				<SearchBar searchHandler={searchHandler} matchHandler = {matchHandler} filterHandler={filterHandler} />
 				<Paper
 					sx={{
 						position: 'relative',
@@ -139,7 +144,7 @@ function Homepage() {
 						backgroundColor: '#F4F6F8',
 					}}
 				>
-					{auth && auth.role === 'student' && (
+					{auth && auth.role === 'student' && showRecScholar && (
 						<Box>
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
 								Recommended Scholarships
@@ -147,7 +152,7 @@ function Homepage() {
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
 						</Box>
 					)}
-					{auth && auth.role === 'student' && <Scholarship items={recommendedScholars} />}
+					{auth && auth.role === 'student' && showRecScholar && <Scholarship items={recommendedScholars} />}
 					<Box>
 						{inputName.length > 0 ? (
 							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>

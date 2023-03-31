@@ -79,6 +79,7 @@ export const DatePickerComponent = ({
 								{...register(name, validation)}
 								error={!!errors?.[name]}
 								helperText={errors?.[name] ? errors[name].message : null}
+								onPaste={(e)=>{e.preventDefault()}}
 							/>
 						)}
 						disableFuture={disableFuture}

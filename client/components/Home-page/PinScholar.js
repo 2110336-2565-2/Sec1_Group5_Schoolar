@@ -5,25 +5,25 @@ import { grey,blue} from '@mui/material/colors'
 import { axiosPrivate } from '@/pages/api/axios'
 
 const PinScholar = (props) => {
-    const [active,setActive] = useState(props.pin);
+    const [pin,setPin] = useState(props.pin)
     console.log("why")
     console.log("scholarID:",props.id,"Props.pin in Pinscholar:",props.pin)
-    console.log("Active in Pinscholar:",active)
+    console.log("Active in Pinscholar:",pin)
     const handlePin = (e) => {
         e.preventDefault()
-        if(!active){
+        if(!pin){
             axiosPrivate.patch(`/student/pin-scholarship/${props.std}`,{scholarshipID:props.id})
-            setActive(true)
+            setPin(true)
             console.log("In not active")
         }
         else{
             axiosPrivate.patch(`/student/unpin-scholarship/${props.std}`,{scholarshipID:props.id})
-            setActive(false)
+            setPin(false)
             console.log("In active")
         }
 	};
 	return (
-        <PushPinIcon onClick={handlePin} sx={active? {color:blue[800]}:{color:grey[700]}}/>
+        <PushPinIcon onClick={handlePin} sx={pin? {color:blue[800]}:{color:grey[700]}}/>
 	)
 }
 

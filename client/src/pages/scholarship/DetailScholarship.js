@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Center} from '@components/common'
+import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
@@ -50,18 +50,17 @@ const DetailScholarship = () => {
 			setIsProvider(true)
 		}
 		setAppDate(changeDateToString(detail.applicationDeadline))
-		if(detail.provider){
+		if (detail.provider) {
 			axiosPrivate.get(`/provider/name/${detail.provider}`)
-			.then((res) => {
-				setOrganizationName(res.data.organizationName)
-				//console.log('Organization ', res.data.organizationName)
-			}).catch((err)=>{
-			console.log("Error get provider name: ", detail.provider);
-			})
-		}else{
+				.then((res) => {
+					setOrganizationName(res.data.organizationName)
+					//console.log('Organization ', res.data.organizationName)
+				}).catch((err) => {
+					console.log("Error get provider name: ", detail.provider);
+				})
+		} else {
 			console.log("Provider ID is null");
 		}
-		
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {
@@ -129,22 +128,6 @@ const DetailScholarship = () => {
 						)}
 					</Stack>
 					<Stack width="100%" spacing={2}>
-						{isProvider && (
-							<Stack
-								direction={{ xs: 'column', sm: 'row' }}
-								sx={{ pl: 2 }}
-								justifyContent="space-between"
-							>
-								<Typography item xs={12} sx={6} variant="subtitle1">
-									Payment due date: {detail.paymentDueDate}
-								</Typography>
-								{/* Fix state of status later */}
-								<Typography item xs={12} sx={6} variant="subtitle1">
-									Status: {detail.paymentStatus ? 'Success' : 'Pending'}
-								</Typography>
-								<Divider />
-							</Stack>
-						)}
 						<Grid container width="100%" spacing={2}>
 							<DetailComponent topic="Degree" details={detail.degree} />
 							<DetailComponent topic="Field of Interest" details={detail.fieldOfInterest} />

@@ -176,8 +176,8 @@ function Homepage() {
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
-						px: { xs: 7, sm: 7, md: 10 },
-						py: { xs: 2, sm: 5, md: 10 },
+						px: { xs: 4, sm: 5, md: 10 },
+						py: { xs: 7, sm: 7, md: 10 },
 						backgroundColor: '#F4F6F8',
 					}}
 				>

@@ -106,7 +106,7 @@ exports.getNextPaymentDate = async (req, res) => {
 
 /*
  * @desc     Get Subscription Payment History by subscription id
- * @route    GET /paymentHistory/:subscriptionId
+ * @route    GET /subscription/payment-history/:id
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
@@ -133,5 +133,18 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		return res.status(200).json({ history })
 	} catch (error) {
 		console.error(`Error fetching payment history: ${error.message}`)
+	}
+}
+
+/*
+ * @desc     Cancel Subscription by subscription id
+ * @route    DELETE /subscription/unsubscripe/:subscriptionId
+ * @access   Private
+ */
+exports.cancelSubscription = async (req, res, next) => {
+	try {
+		const deleted = await stripe.subscriptions.del(req.params.subscriptionId)
+	} catch (error) {
+		res.status(200).json(`Error cancel scubscription`)
 	}
 }

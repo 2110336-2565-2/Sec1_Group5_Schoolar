@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Scholarship from '@components/Home-page/Scholarship'
 import SearchBar from '@components/Home-page/SearchBar'
 import { Center, VStack } from '@components/common'
-import { Box, Divider, Paper, Typography } from '@mui/material'
+import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
@@ -14,6 +14,7 @@ const SCORE_MAP = {
 	gpax: 4,
 	targetNation: 3,
 	typeOfScholarship: 3,
+	pinScholarships: 0,
 }
 
 function calculateScore(stdInfo, scholarInfo) {
@@ -33,7 +34,8 @@ function calculateScore(stdInfo, scholarInfo) {
 }
 
 function Homepage() {
-	const [scholars, setScholars] = useState([])
+	const [unpinScholars, setUnpinScholars] = useState([])
+	const [pinScholars, setPinScholars] = useState([])
 	const [recommendedScholars, setRecommendedScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
@@ -54,17 +56,40 @@ function Homepage() {
 		async function fetchData() {
 			try {
 				const res = await axiosPrivate.get('/scholarship')
-				setScholars(res.data.data)
-				console.log(res.data.data)
 
 				if (auth && auth.role === 'student') {
 					const studentRes = await axiosPrivate.get(`/student/student-info/${auth.username}`)
+					const studentInfo = studentRes.data.data[0]
+
+					let pinScholars = []
+					let unpinScholars = res.data.data
+
+					pinScholars = res.data.data
+						.filter((scholar) => studentInfo.pinScholarships.includes(scholar._id))
+						.map((scholar) => {
+							return {
+								...scholar,
+								isPin: 1,
+							}
+						})
+					unpinScholars = res.data.data
+						.filter((scholar) => !studentInfo.pinScholarships.includes(scholar._id))
+						.map((scholar) => {
+							return {
+								...scholar,
+								isPin: 0,
+							}
+						})
+
+					setUnpinScholars(unpinScholars)
+					setPinScholars(pinScholars)
 					setStudentInfo(studentRes.data.data[0])
 				}
 			} catch (err) {
 				console.log(err)
 			}
 		}
+
 		fetchData()
 	}, [auth, axiosPrivate])
 
@@ -72,20 +97,37 @@ function Homepage() {
 		setInputName(value.trim())
 	}
 
+	const handlePin = async (scholar) => {
+		console.log('click')
+		try {
+			if (scholar.isPin) {
+				// unpin
+				await axiosPrivate.patch(`/student/unpin-scholarship/${auth.username}`, { scholarshipID: scholar._id })
+				setPinScholars(pinScholars.filter((s) => s._id !== scholar._id))
+				setUnpinScholars([...unpinScholars, { ...scholar, isPin: 0 }])
+			} else {
+				// pin
+				await axiosPrivate.patch(`/student/pin-scholarship/${auth.username}`, { scholarshipID: scholar._id })
+				setUnpinScholars(unpinScholars.filter((s) => s._id !== scholar._id))
+				setPinScholars([...pinScholars, { ...scholar, isPin: 1 }])
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	const matchHandler = () => {
 		// calculate top 3 scholarship recommended
 		let recommended
 		if (auth && auth.role === 'student') {
 			const scores = new Map()
-			scholars.forEach((obj) => {
+			unpinScholars.forEach((obj) => {
 				const score = calculateScore(studentInfo, obj)
 				scores.set(obj._id, score)
 			})
 			const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]))
 			const topThree = Array.from(sortedScores.keys()).slice(0, 3)
-			console.log(sortedScores)
-			console.log(topThree)
-			recommended = scholars.filter((scholar) => {
+			recommended = unpinScholars.filter((scholar) => {
 				return topThree.includes(scholar._id)
 			})
 		}
@@ -95,7 +137,6 @@ function Homepage() {
 
 	// Filter Handler
 	const filterHandler = (newFilters) => {
-		console.log(scholars)
 		setFilters((prevFilters) => ({
 			...prevFilters,
 			...newFilters,
@@ -110,9 +151,7 @@ function Homepage() {
 		return arr.length === 0 ? true : arr.includes(str)
 	}
 
-	const filteredScholars = scholars.filter((scholar) => {
-		console.log(`Input : ${inputName}`)
-		console.log(filters)
+	const filteredScholars = [...pinScholars, ...unpinScholars].filter((scholar) => {
 		const isMatchName = scholar.scholarshipName.toLowerCase().includes(inputName.toLowerCase())
 		const isMatchDegree = isContainScholar(filters.degree, scholar.degree)
 		const isMatchScholarship = isContainScholar(filters.scholarship, scholar.typeOfScholarship)
@@ -148,22 +187,38 @@ function Homepage() {
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
+							<Scholarship items={recommendedScholars} isRecommended={true} />
+							<Center>
+								<Button variant="contained" onClick={() => setShowRecScholar(false)}>
+									Back to all Scholarships
+								</Button>
+							</Center>
 						</Box>
 					)}
-					{auth && auth.role === 'student' && showRecScholar && <Scholarship items={recommendedScholars} />}
-					<Box>
-						{inputName.length > 0 ? (
-							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-								{`Scholarships related to "${inputName}"`}
-							</Typography>
-						) : (
-							<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-								The Latest Scholarships
-							</Typography>
-						)}
-						<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-					</Box>
-					<Scholarship items={filteredScholars} />
+					{!showRecScholar && (
+						<Box>
+							{filteredScholars.length > 0 && (
+								<Box>
+									{inputName.length > 0 ? (
+										<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+											{`Scholarships related to "${inputName}"`}
+										</Typography>
+									) : (
+										<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+											The Latest Scholarships
+										</Typography>
+									)}
+									<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
+									<Scholarship items={filteredScholars} handlePin={handlePin} />
+								</Box>
+							)}
+							{filteredScholars.length === 0 && (
+								<Typography variant="h5" align="center" color="textPrimary" gutterBottom>
+									No scholarships found.
+								</Typography>
+							)}
+						</Box>
+					)}
 				</Paper>
 			</VStack>
 		</Center>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PushPinIcon from '@mui/icons-material/PushPin'
-import { Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -35,8 +35,8 @@ const DetailComponent = ({ topic, value }) => {
 }
 
 function Scholarship(props) {
-	const { auth } = useAuth()
 	const router = useRouter()
+
 	return (
 		<Grid container marginTop={2} marginBottom={4} gap="30px 60px" justifyContent="center">
 			{props.items.length === 0 ? (
@@ -46,68 +46,71 @@ function Scholarship(props) {
 			) : null}
 			{props.items.map((scholar) => {
 				return (
-					<Paper
-						key={scholar._id}
-						sx={{
-							display: 'flex',
-							width: 340,
-							minHeight: 240,
-							flexDirection: 'column',
-							cursor: 'pointer',
-							paddingY: 1,
-						}}
-						onClick={() => {
-							if (auth && auth.role === 'provider') {
-								router.push({
-									pathname: 'scholarship/DetailScholarship',
-									query: { data: JSON.stringify(scholar) },
-								})
-								//router.push(`/scholarship/update-scholarship/${scholar._id}`)
-							} else {
-								router.push({
-									pathname: 'scholarship/DetailScholarship',
-									query: { data: JSON.stringify(scholar) },
-								})
-							}
-						}}
-					>
-						<Grid container direction="row" justifyContent="space-between">
-							<Grid item xs={10} md={10}>
-								<Typography
-									sx={{ display: 'flex' }}
-									variant="h5"
-									margin={2}
-									marginLeft={2}
-									fontWeight={'bold'}
-								>
-									{scholar.scholarshipName}
-								</Typography>
-							</Grid>
-							<Grid item xs={2} md={2}>
-								<Button variant="text" sx={{ display: 'flex', width: 50, height: 50 }}>
-									<PushPinIcon sx={{ color: grey[900] }} />
-								</Button>
-							</Grid>
-						</Grid>
-						<Chip
+					<Box position="relative" key={scholar._id}>
+						<Paper
 							sx={{
-								borderRadius: 0,
-								backgroundColor: 'white',
-								color: '#797979',
-								borderTop: '2px solid',
-								borderBottom: '2px solid',
-								fontWeight: 'bold',
+								display: 'flex',
+								width: 340,
+								minHeight: 240,
+								flexDirection: 'column',
+								cursor: 'pointer',
+								paddingY: 1,
 							}}
-							icon={<CalendarTodayIcon />}
-							color="info"
-							label={
-								scholar.applicationDeadline ? changeDateToString(scholar.applicationDeadline) : 'TBD'
-							}
-						/>
-						<ScholarshipTags scholar={scholar} />
-						<DetailComponent topic="Amount:" value={scholar.amount} />
-						<DetailComponent topic="Quota:" value={scholar.quota} />
-					</Paper>
+							onClick={(event) => {
+								router.push({
+									pathname: 'scholarship/DetailScholarship',
+									query: { data: JSON.stringify(scholar) },
+								})
+							}}
+						>
+							<Grid container direction="row" justifyContent="space-between">
+								<Grid item xs={10} md={10}>
+									<Typography
+										sx={{ display: 'flex' }}
+										variant="h5"
+										margin={2}
+										marginLeft={2}
+										fontWeight={'bold'}
+									>
+										{scholar.scholarshipName}
+									</Typography>
+								</Grid>
+								<Grid item xs={2} md={2}></Grid>
+							</Grid>
+							<Chip
+								sx={{
+									borderRadius: 0,
+									backgroundColor: 'white',
+									color: '#797979',
+									borderTop: '2px solid',
+									borderBottom: '2px solid',
+									fontWeight: 'bold',
+								}}
+								icon={<CalendarTodayIcon />}
+								color="info"
+								label={
+									scholar.applicationDeadline
+										? changeDateToString(scholar.applicationDeadline)
+										: 'TBD'
+								}
+							/>
+							<ScholarshipTags scholar={scholar} />
+							<DetailComponent topic="Amount:" value={scholar.amount} />
+							<DetailComponent topic="Quota:" value={scholar.quota} />
+						</Paper>
+						{props.isRecommended || (
+							<Button
+								variant="text"
+								sx={{ display: 'flex', width: 50, height: 50, position: 'absolute', top: 0, right: 0 }}
+								onClick={(event) => {
+									console.log('firscltada')
+									props.handlePin(scholar)
+								}}
+							>
+								<PushPinIcon sx={scholar?.isPin == 0 ? { color: grey[700] } : { color: blue[800] }} />
+							</Button>
+						)}
+					</Box>
 				)
 			})}
 		</Grid>

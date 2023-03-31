@@ -34,6 +34,7 @@ function calculateScore(stdInfo, scholarInfo) {
 
 function Homepage() {
 	const [scholars, setScholars] = useState([])
+	const [recommendedScholars, setRecommendedScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
 
@@ -51,13 +52,17 @@ function Homepage() {
 
 	useEffect(() => {
 		async function fetchData() {
-			const res = await axiosPrivate.get('/scholarship')
-			setScholars(res.data.data)
-			console.log(res.data.data)
+			try {
+				const res = await axiosPrivate.get('/scholarship')
+				setScholars(res.data.data)
+				console.log(res.data.data)
 
-			if (auth && auth.role === 'student') {
-				const studentRes = await axiosPrivate.get(`/student/student-info/${auth.username}`)
-				setStudentInfo(studentRes.data.data[0])
+				if (auth && auth.role === 'student') {
+					const studentRes = await axiosPrivate.get(`/student/student-info/${auth.username}`)
+					setStudentInfo(studentRes.data.data[0])
+				}
+			} catch (err) {
+				console.log(err)
 			}
 		}
 		fetchData()
@@ -67,8 +72,25 @@ function Homepage() {
 		setInputName(value.trim())
 	}
 
-	const matchHandler = (value) => {
-		setShowRecScholar(value)
+	const matchHandler = () => {
+		// calculate top 3 scholarship recommended
+		let recommended
+		if (auth && auth.role === 'student') {
+			const scores = new Map()
+			scholars.forEach((obj) => {
+				const score = calculateScore(studentInfo, obj)
+				scores.set(obj._id, score)
+			})
+			const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]))
+			const topThree = Array.from(sortedScores.keys()).slice(0, 3)
+			console.log(sortedScores)
+			console.log(topThree)
+			recommended = scholars.filter((scholar) => {
+				return topThree.includes(scholar._id)
+			})
+		}
+		setShowRecScholar(true)
+		setRecommendedScholars(recommended)
 	}
 
 	// Filter Handler
@@ -103,23 +125,6 @@ function Homepage() {
 			return isMatchName && isMatchDegree && isMatchScholarship && isMatchFaculty && isMatchStudentProgram
 		}
 	})
-
-	// calculate top 3 scholarship recommended
-	let recommendedScholars
-	if (auth && auth.role === 'student') {
-		const scores = new Map()
-		scholars.forEach((obj) => {
-			const score = calculateScore(studentInfo, obj)
-			scores.set(obj._id, score)
-		})
-		const sortedScores = new Map([...scores].sort((a, b) => b[1] - a[1]))
-		const topThree = Array.from(sortedScores.keys()).slice(0, 3)
-		console.log(sortedScores)
-		console.log(topThree)
-		recommendedScholars = scholars.filter((scholar) => {
-			return topThree.includes(scholar._id)
-		})
-	}
 
 	return (
 		<Center>

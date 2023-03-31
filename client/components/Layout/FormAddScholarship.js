@@ -22,7 +22,7 @@ function FormAddScholarship() {
 		watch,
 		trigger,
 	} = useForm({ mode: 'onBlur' })
-	const formProps = { register, errors, getValues, setValue, control, watch, required: false }
+	const formProps = { register, errors, getValues, setValue, control, watch }
 	const router = useRouter()
 
 	const { auth } = useAuth()
@@ -54,6 +54,7 @@ function FormAddScholarship() {
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 		>

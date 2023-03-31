@@ -1,14 +1,9 @@
-import { useState } from 'react'
-
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
-
 import ScholarshipTags from './ScholarshipTag'
 
 const changeDateToString = (date) => {
@@ -105,8 +100,25 @@ function Scholarship(props) {
 							}
 						/>
 						<ScholarshipTags scholar={scholar} />
-						<DetailComponent topic="Amount:" value={scholar.amount} />
-						<DetailComponent topic="Quota:" value={scholar.quota} />
+						<Stack direction="row" justifyContent="space-between" alignItems="center">
+							<Stack direction="column">
+								<DetailComponent topic="Amount:" value={scholar.amount} />
+								<DetailComponent topic="Quota:" value={scholar.quota} />
+							</Stack>
+							{auth && auth.role === 'provider'&&
+							<Button
+							    size="small"
+								sx={{ mr: 2 }}
+								variant="contained"
+								onClick={(e) => {
+									e.stopPropagation();
+									router.push(`/payment`)
+								}}
+							>
+								Pay
+							</Button>
+							}
+						</Stack>
 					</Paper>
 				)
 			})}

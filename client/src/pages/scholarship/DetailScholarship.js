@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-import { Center, VStack } from '@components/common'
+import { Center} from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-
 import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
@@ -49,14 +46,22 @@ const DetailScholarship = () => {
 		return `${day} ${monthName} ${year}`
 	}
 	useEffect(() => {
-		axiosPrivate.get(`/provider/name/${detail.provider}`).then((res) => {
-			if (auth && auth.role === 'provider') {
-				setIsProvider(true)
-			}
-			setOrganizationName(res.data.organizationName)
-			setAppDate(changeDateToString(detail.applicationDeadline))
-			console.log('Organization ', res.data.organizationName)
-		})
+		if (auth && auth.role === 'provider') {
+			setIsProvider(true)
+		}
+		setAppDate(changeDateToString(detail.applicationDeadline))
+		if(detail.provider){
+			axiosPrivate.get(`/provider/name/${detail.provider}`)
+			.then((res) => {
+				setOrganizationName(res.data.organizationName)
+				//console.log('Organization ', res.data.organizationName)
+			}).catch((err)=>{
+			console.log("Error get provider name: ", detail.provider);
+			})
+		}else{
+			console.log("Provider ID is null");
+		}
+		
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {

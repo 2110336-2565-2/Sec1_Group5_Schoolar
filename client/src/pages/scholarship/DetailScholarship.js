@@ -46,16 +46,22 @@ const DetailScholarship = () => {
 		return `${day} ${monthName} ${year}`
 	}
 	useEffect(() => {
-		if(detail.provider){
-			axiosPrivate.get(`/provider/name/${detail.provider}`).then((res) => {
-				if (auth && auth.role === 'provider') {
-					setIsProvider(true)
-				}
-				setOrganizationName(res.data.organizationName)
-				setAppDate(changeDateToString(detail.applicationDeadline))
-				console.log('Organization ', res.data.organizationName)
-			})
+		if (auth && auth.role === 'provider') {
+			setIsProvider(true)
 		}
+		setAppDate(changeDateToString(detail.applicationDeadline))
+		if(detail.provider){
+			axiosPrivate.get(`/provider/name/${detail.provider}`)
+			.then((res) => {
+				setOrganizationName(res.data.organizationName)
+				//console.log('Organization ', res.data.organizationName)
+			}).catch((err)=>{
+			console.log("Error get provider name: ", detail.provider);
+			})
+		}else{
+			console.log("Provider ID is null");
+		}
+		
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {

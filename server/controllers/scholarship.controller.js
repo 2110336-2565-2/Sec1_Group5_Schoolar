@@ -68,7 +68,10 @@ exports.addScholarship = async (req, res) => {
 			detail,
 		} = req.body
 
-		const applicationDeadline = toDate(applicationDeadlineString)
+		const applicationDeadline = ''
+		if (applicationDeadlineString !== '') {
+			applicationDeadline = toDate(applicationDeadlineString)
+		}
 		// Find the provider
 		const username = req.user
 		const provider = await Provider.findOne({ username })

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { Box, Button, FormControl, Stack, Typography } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getRegEx, getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -54,6 +55,7 @@ function FormAddScholarship() {
 	return (
 		<FormControl
 			component="form"
+			noValidate
 			onSubmit={handleSubmit(onSubmit)}
 			sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, width: '100%' }}
 		>
@@ -68,17 +70,77 @@ function FormAddScholarship() {
 			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
 				Requirements
 			</Typography>
-			<TextFieldComponent name="gpax" label="Minimum GPAX" required={true} {...formProps} />
-			<SelectComponent name="degree" required={true} {...formProps} />
-			<TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
-			<SelectComponent name="program" required={true} {...formProps} />
+			<TextFieldComponent
+				name="gpax"
+				label="Minimum GPAX"
+				required={true}
+				validation={{
+					pattern: {
+						value: getRegEx('gpax'),
+						message: 'GPAX must be float number with 2 digits',
+					},
+					min: { value: 0, message: getErrMsg('GPAX', 'positive') },
+					max: { value: 4, message: 'GPAX must be at most 4' },
+					required: getErrMsg('GPAX', 'required'),
+				}}
+				{...formProps}
+			/>
+			<SelectComponent
+				name="degree"
+				required={true}
+				validation={{ required: getErrMsg('Degree', 'required') }}
+				{...formProps}
+			/>
+			<TextFieldComponent
+				name="targetNation"
+				label="Target Nation"
+				required={true}
+				validation={{
+					pattern: {
+						value: getRegEx('onlyAlphabetNumberSpace'),
+						message: getErrMsg('Target Nation', 'pattern'),
+					},
+					required: getErrMsg('Target Nation', 'required'),
+				}}
+				{...formProps}
+			/>
+			<SelectComponent
+				name="program"
+				required={true}
+				{...formProps}
+				validation={{
+					pattern: {
+						value: getRegEx('onlyAlphabetNumberSpace'),
+						message: getErrMsg('Target Nation', 'pattern'),
+					},
+					required: getErrMsg('Target Nation', 'required'),
+				}}
+			/>
 			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
 				Details of scholarship
 			</Typography>
 			<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
 			<TextFieldComponent name="quota" label="Quota (person)" {...formProps} />
-			<TextFieldComponent name="fieldOfInterest" label="Field of Interest" required={true} {...formProps} />
-			<SelectComponent name="typeOfScholarship" label="Type of Scholarship" required={true} {...formProps} />
+			<TextFieldComponent
+				name="fieldOfInterest"
+				label="Field of Interest"
+				required={true}
+				validation={{
+					pattern: {
+						value: getRegEx('onlyAlphabetNumberSpace'),
+						message: getErrMsg('Field of Interest', 'pattern'),
+					},
+					required: getErrMsg('Field of Interest', 'required'),
+				}}
+				{...formProps}
+			/>
+			<SelectComponent
+				name="typeOfScholarship"
+				label="Type of Scholarship"
+				required={true}
+				validation={{ required: getErrMsg('Type of Scholarship', 'required') }}
+				{...formProps}
+			/>
 			<TextFieldComponent name="detail" label="Other Details" multiline={true} rows={4} {...formProps} />
 			<DatePickerComponent name="applicationDeadline" disablePast={true} {...formProps} />
 			<Box sx={{ width: '100%', display: 'flex', gap: 2, mt: 2 }}>

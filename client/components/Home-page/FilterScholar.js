@@ -32,7 +32,12 @@ function FilterScholar(props) {
 	}
 
 	const handleApplyFilters = () => {
-		props.filterHandler(scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters)
+		props.filterHandler({
+			scholarship: scholarshipFilters,
+			degree: degreeFilters,
+			faculty: facultyFilters,
+			studentProgram: studentProgramFilters,
+		})
 		handleClose()
 	}
 	return (

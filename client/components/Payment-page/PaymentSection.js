@@ -1,10 +1,25 @@
 import { Center } from "@components/common";
 import PaymentComponent from "@components/Payment-page/PaymentComponent";
 import { Grid, Box } from "@mui/material";
+import {
+    DataGridPro,
+    useGridApiRef,
+    gridExpandedRowCountSelector,
+    gridVisibleColumnDefinitionsSelector,
+    gridExpandedSortedRowIdsSelector,
+    GridCellParams,
+  } from '@mui/x-data-grid-pro';
+  import { DataGrid } from '@mui/x-data-grid';
+  import { useDemoData } from '@mui/x-data-grid-generator';
 
 function PaymentSection ({scholarships}){
+    const apiRef = useGridApiRef();
+    const {data} = useDemoData({
+        dataSet: 'Commodity',
+        rowLength: 100,
+    });
     return (
-        <Box sx={{
+            <Box sx={{
                 width: "90%",
                 height: "50vh",
                 borderRadius: 3,
@@ -24,10 +39,8 @@ function PaymentSection ({scholarships}){
                 )
             })}
             </Grid>
-        </Box>
-            
+            </Box>         
     )
-
 }
 
 export default PaymentSection;

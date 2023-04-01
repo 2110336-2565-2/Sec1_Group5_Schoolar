@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { React } from 'react'
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
 import ScholarshipTags from '@components/Home-page/ScholarshipTag'
+import { VStack } from '@components/common'
 
-function PaymentComponent({ scholarship }) {
+function PaymentComponent({ scholarship,scholar}) {
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
+	const { auth } = useAuth()
 	const {openSnackbar} = useSnackbar();
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
 	const [isSubscribed, setIsSubscribed] = useState(false)
@@ -116,7 +119,6 @@ function PaymentComponent({ scholarship }) {
 		<Box
 			sx={{
 				width: '100%',
-				height: 160,
 				backgroundColor: 'white',
 				borderRadius: 5,
 			}}
@@ -124,10 +126,13 @@ function PaymentComponent({ scholarship }) {
 		>
 			<Grid container direction="row" justifyContent="space-between" sx={{height: '100%'}} alignItems="center">
 				<Grid item xs={5} sm={5}>
-					<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
+					<Typography variant="h6"  sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
 						{scholarship.scholarshipName}
 					</Typography>
-					<ScholarshipTags scholar={scholar} />
+					<Grid marginLeft={{xs: 1, sm: 2}} >
+						<ScholarshipTags scholar={scholarship} size="small" padding={0}/>
+					</Grid>
+					
 				</Grid>
 				
 				<Grid item xs={7} sm={7} >
@@ -141,10 +146,10 @@ function PaymentComponent({ scholarship }) {
 							<span style={{ color: '#FF0000' }}>Overdue</span>
 						</Typography>
 					) : (
-						<Stack direction={{xs: "column", sm:"row"}} spacing={{xs: 0, sm: 2}}>
+						<Stack direction={{xs: "column", sm:"row"}} spacing={{xs: 0, sm: 2}} justifyContent={'space-evenly'}>
 							<Typography variant="subtitle1" align="center">Next payment: </Typography>
 							<Typography variant="subtitle1" align="center">
-								<span style={{ color: '#FF0000' }}>{nextPaymentDate}  days</span>
+								<span style={{ color: '#FF0000' }} align="center">{nextPaymentDate}  days</span>
 							</Typography>
 						</Stack>
 						
@@ -154,7 +159,7 @@ function PaymentComponent({ scholarship }) {
 						<Button
 							variant="contained"
 							size="small"
-							sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
+							sx={{ borderRadius: 5, backgroundColor: '#C1C1C1'}}
 							onClick={handleUnSubscribe}
 						>
 							Unsubscribed
@@ -163,8 +168,9 @@ function PaymentComponent({ scholarship }) {
 						<Button
 							variant="contained"
 							size="small"
-							sx={{ borderRadius: 5 }}
+							sx={{ borderRadius: 5}}
 							onClick={handleSubscribe}
+							fullWidth
 						>
 							Subscribe
 						</Button>

@@ -62,24 +62,14 @@ function Homepage() {
 					const studentInfo = studentRes.data.data[0]
 
 					let pinScholars = []
-					let unpinScholars = res.data.data
+					let unpinScholars = res.data.data.map((scholar, index) => ({
+						...scholar,
+						isPin: studentInfo.pinScholarships.includes(scholar._id) ? 1 : 0,
+						order: index,
+					}))
 
-					pinScholars = res.data.data
-						.filter((scholar) => studentInfo.pinScholarships.includes(scholar._id))
-						.map((scholar) => {
-							return {
-								...scholar,
-								isPin: 1,
-							}
-						})
-					unpinScholars = res.data.data
-						.filter((scholar) => !studentInfo.pinScholarships.includes(scholar._id))
-						.map((scholar) => {
-							return {
-								...scholar,
-								isPin: 0,
-							}
-						})
+					pinScholars = unpinScholars.filter((scholar) => scholar.isPin === 1)
+					unpinScholars = unpinScholars.filter((scholar) => scholar.isPin === 0)
 
 					setUnpinScholars(unpinScholars)
 					setPinScholars(pinScholars)
@@ -98,18 +88,25 @@ function Homepage() {
 	}
 
 	const handlePin = async (scholar) => {
-		console.log('click')
 		try {
 			if (scholar.isPin) {
 				// unpin
-				await axiosPrivate.patch(`/student/unpin-scholarship/${auth.username}`, { scholarshipID: scholar._id })
+				await axiosPrivate.patch(`/student/unpin-scholarship/${auth.username}`, {
+					scholarshipID: scholar._id,
+				})
+				const updatedUnpinScholars = [...unpinScholars, { ...scholar, isPin: 0 }]
+				updatedUnpinScholars.sort((a, b) => a.order - b.order)
+				setUnpinScholars(updatedUnpinScholars)
 				setPinScholars(pinScholars.filter((s) => s._id !== scholar._id))
-				setUnpinScholars([...unpinScholars, { ...scholar, isPin: 0 }])
 			} else {
 				// pin
-				await axiosPrivate.patch(`/student/pin-scholarship/${auth.username}`, { scholarshipID: scholar._id })
+				await axiosPrivate.patch(`/student/pin-scholarship/${auth.username}`, {
+					scholarshipID: scholar._id,
+				})
+				const updatedPinScholars = [...pinScholars, { ...scholar, isPin: 1 }]
+				updatedPinScholars.sort((a, b) => a.order - b.order)
+				setPinScholars(updatedPinScholars)
 				setUnpinScholars(unpinScholars.filter((s) => s._id !== scholar._id))
-				setPinScholars([...pinScholars, { ...scholar, isPin: 1 }])
 			}
 		} catch (err) {
 			console.log(err)

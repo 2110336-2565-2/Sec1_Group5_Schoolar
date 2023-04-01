@@ -98,7 +98,7 @@ function Scholarship(props) {
 							<DetailComponent topic="Amount:" value={scholar.amount} />
 							<DetailComponent topic="Quota:" value={scholar.quota} />
 						</Paper>
-						{props.isRecommended || (
+						{props.hidePin || (
 							<Button
 								variant="text"
 								sx={{ display: 'flex', width: 50, height: 50, position: 'absolute', top: 0, right: 0 }}

@@ -74,6 +74,8 @@ function Homepage() {
 					setUnpinScholars(unpinScholars)
 					setPinScholars(pinScholars)
 					setStudentInfo(studentRes.data.data[0])
+				} else if (auth && auth.role === 'provider') {
+					setPinScholars(res.data.data)
 				}
 			} catch (err) {
 				console.log(err)
@@ -184,7 +186,7 @@ function Homepage() {
 								Recommended Scholarships
 							</Typography>
 							<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-							<Scholarship items={recommendedScholars} isRecommended={true} />
+							<Scholarship items={recommendedScholars} hidePin={true} />
 							<Center>
 								<Button variant="contained" onClick={() => setShowRecScholar(false)}>
 									Back to all Scholarships
@@ -206,7 +208,11 @@ function Homepage() {
 										</Typography>
 									)}
 									<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />
-									<Scholarship items={filteredScholars} handlePin={handlePin} />
+									<Scholarship
+										items={filteredScholars}
+										handlePin={handlePin}
+										hidePin={auth?.role === 'provider'}
+									/>
 								</Box>
 							)}
 							{filteredScholars.length === 0 && (

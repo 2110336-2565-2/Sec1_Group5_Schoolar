@@ -4,6 +4,7 @@ import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
+import ScholarshipTags from '@components/Home-page/ScholarshipTag'
 
 function PaymentComponent({ scholarship }) {
 	const axiosPrivate = useAxiosPrivate()
@@ -126,6 +127,7 @@ function PaymentComponent({ scholarship }) {
 					<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
 						{scholarship.scholarshipName}
 					</Typography>
+					<ScholarshipTags scholar={scholar} />
 				</Grid>
 				
 				<Grid item xs={7} sm={7} >

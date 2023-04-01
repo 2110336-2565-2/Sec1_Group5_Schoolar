@@ -178,7 +178,7 @@ export const getValidation = (field, defaultValue) => {
 							const [day, month, year] = value.split('/').map(Number)
 							const inputDate = new Date(year, month - 1, day)
 							const today = new Date()
-							return inputDate < today || getErrMsg('Birthdate', 'pattern')
+							return inputDate <= today || getErrMsg('Birthdate', 'pattern')
 						} else {
 							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
 							return true
@@ -293,14 +293,13 @@ export const getValidation = (field, defaultValue) => {
 				validate: {
 					past: (value) => {
 						if (value == '') {
-							value = new Date(null)
 							return true
 						} else if (typeof value === 'string') {
 							//if typing input (20/02/2023)
 							const [day, month, year] = value.split('/').map(Number)
 							const inputDate = new Date(year, month - 1, day)
 							const today = new Date()
-							return inputDate > today || getErrMsg('Application Deadline', 'pattern')
+							return inputDate >= today || getErrMsg('Application Deadline', 'pattern')
 						} else {
 							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
 							return true

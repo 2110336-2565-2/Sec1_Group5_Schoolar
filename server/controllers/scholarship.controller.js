@@ -1,5 +1,6 @@
 const Scholarship = require('../models/scholarship')
 const Provider = require('../models/providers')
+const { toDate } = require('../utils/dateUtils')
 
 /*
  * @desc     Get all scholarships
@@ -61,12 +62,13 @@ exports.addScholarship = async (req, res) => {
 			targetNation,
 			typeOfScholarship,
 			fieldOfInterest,
-			applicationDeadline,
+			applicationDeadline: applicationDeadlineString,
 			quota,
 			amount,
 			detail,
 		} = req.body
 
+		const applicationDeadline = toDate(applicationDeadlineString)
 		// Find the provider
 		const username = req.user
 		const provider = await Provider.findOne({ username })

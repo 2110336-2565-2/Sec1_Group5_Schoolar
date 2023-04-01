@@ -1,6 +1,7 @@
 const Student = require('../models/students')
 const User = require('../models/users')
 const { validationResult } = require('express-validator')
+const { toDate } = require('../utils/dateUtils')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {
@@ -48,7 +49,7 @@ exports.updateStudentInfo = async (req, res) => {
 		const {
 			firstName,
 			lastName,
-			birthdate,
+			birthdate: birthdateString,
 			phoneNumber,
 			gender,
 			gpax,
@@ -59,7 +60,8 @@ exports.updateStudentInfo = async (req, res) => {
 			typeOfScholarship,
 			fieldOfInterest,
 		} = req.body
-		console.log(req.body)
+
+		const birthdate = toDate(birthdateString)
 		const user = await User.findOne({ username })
 		if (!user) throw new Error('User not found')
 
@@ -90,6 +92,7 @@ exports.updateStudentInfo = async (req, res) => {
 			user,
 		})
 	} catch (error) {
+		console.log(error)
 		return res.status(400).json({ message: error.message })
 	}
 }

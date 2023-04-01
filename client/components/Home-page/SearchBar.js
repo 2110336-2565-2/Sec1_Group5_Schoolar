@@ -1,18 +1,20 @@
 import { useState } from 'react'
+
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
 import { Box, Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
 
 // import Image from 'next/image'
 import FilterScholar from './FilterScholar'
-import { useRouter } from 'next/router'
-
 
 function SearchBar(props) {
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
+	const [matchOnClick, setMatchOnClick] = useState(true)
 	const onChange = (e) => {
 		setInputName(e.target.value)
 	}
@@ -21,20 +23,23 @@ function SearchBar(props) {
 		console.log(inputName)
 		props.searchHandler(inputName)
 	}
-	var buttonName = "match"
+	var buttonName = 'match'
 	console.log(auth)
-	if(auth && auth.role == "provider"){
-		buttonName = "+ Add Scholarship"
-	}
-	else {
-		buttonName = "match"
+	if (auth && auth.role == 'provider') {
+		buttonName = '+ Add Scholarship'
+	} else {
+		buttonName = 'match'
 	}
 	const handleClick = (auth) => {
-		if (buttonName == "+ Add Scholarship"){
+		if (buttonName == '+ Add Scholarship') {
 			router.push('/scholarship/addScholarship')
+		}else{
+			// setMatchOnClick(!matchOnClick)
+			console.log(matchOnClick)
+			props.matchHandler(matchOnClick)
 		}
 	}
-	const router = useRouter();
+	const router = useRouter()
 	return (
 		<>
 			<Typography variant="h3" align="center" color="#FFFFFF" gutterBottom margin={5} sx={{ fontWeight: 'bold' }}>
@@ -60,32 +65,32 @@ function SearchBar(props) {
 						sx={{
 							display: 'flex',
 							flex: '1 1 auto',
-							height: 30,
+							height: 35,
 							backgroundColor: '#F4F6F8',
 							borderRadius: 5,
 						}}
 					>
-						<InputBase onChange={onChange} sx={{ ml: 1, flex: 1 }} placeholder="search scholarships" />
+						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
 						<IconButton onClick={onClick} type="button" sx={{ p: '10px' }}>
 							<SearchIcon />
 						</IconButton>
 					</Paper>
-					<Typography variant="h7" align="left" color="textPrimary" gutterBottom marginX={2}>
+					<Typography variant="h7" sx={{ mx: { xs: 1, sm: 2 } }}>
 						OR
 					</Typography>
-						<Button
-							variant="contained"
-							size="small"
-							sx={{
-								fontSize: 15,
-								width: 175,
-								height: 35,
-								borderRadius: 5,
-							}}
-							onClick ={handleClick}
-						>
-							{buttonName}
-						</Button>
+					<Button
+						variant="contained"
+						size="small"
+						sx={{
+							fontSize: 15,
+							width: 175,
+							height: 35,
+							borderRadius: 5,
+						}}
+						onClick={handleClick}
+					>
+						<Typography variant="h7">{buttonName}</Typography>
+					</Button>
 				</HStack>
 			</Paper>
 		</>

@@ -22,10 +22,15 @@ function PaymentComponent({ scholarship }) {
 
 	const handleUnSubscribe = async () => {
 		try {
-			//const res = await axiosPrivate.delete(`/subscription/unsubscripe/${scholarship.subscription}`)
-			setIsSubscribed(false);
-			openSnackbar('Unsubscribe successfully!', 'success')	
-			//return res.data
+			
+			const res = await axiosPrivate.delete(`/subscription/unsubscripe/${scholarship._id}`)
+			.then((res)=>{
+				setIsSubscribed(false);
+				console.log(res.status);
+				openSnackbar('Unsubscribe successfully!', 'success')
+			}).catch((err)=>{
+				console.log("Error unsubscribe");
+			})
 		} catch (err) {
 			console.log(err)
 		}
@@ -80,23 +85,31 @@ function PaymentComponent({ scholarship }) {
 		return `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:${pad(second)}.000Z`
 	}
 
-	
 
 	useEffect(() => {
-		if (scholarship.subscription !== undefined) {
-			setIsSubscribed(true)
-			const calculateAndSetNextPaymentDate = async () => {
-				const nextDate = await axiosPrivate.get(`/subscription/next-payment-date/${scholarship.subscription}`)
-				const result = calculateNextPaymentDate(nextDate.data)
+		axiosPrivate.get(`/subscription/status/${scholarship._id}`)
+		.then((res) => {
+			setIsSubscribed(res.data.status);
+			//subscribe is true
+			if(res.data.status){
+				const calculateAndSetNextPaymentDate = async () => {
+					const nextDate = await axiosPrivate.get(`/subscription/next-payment-date/${scholarship.subscription}`)
+					const result = calculateNextPaymentDate(nextDate.data)
+					setNextPaymentDate(result)
+				}
+				calculateAndSetNextPaymentDate();
+			}else{
+				const date = addDays(scholarship.createdAt, 30)
+				const result = calculateNextPaymentDate(formatUTCDate(date))
 				setNextPaymentDate(result)
 			}
-			calculateAndSetNextPaymentDate()
-		} else {
+		}).catch((err)=>{
 			const date = addDays(scholarship.createdAt, 30)
 			const result = calculateNextPaymentDate(formatUTCDate(date))
 			setNextPaymentDate(result)
-		}
-	}, [setIsSubscribed])
+			console.log("error", err.stack);
+		})		
+	}, [])
 
 	return (
 		<Box

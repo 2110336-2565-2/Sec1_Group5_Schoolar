@@ -27,7 +27,7 @@ function Payment(){
         axiosPrivate.get(`/scholarship`).then((res) => {
             setScholarships(res.data.data);
         })
-        console.log(scholarships);
+        //console.log(scholarships);
     }, [])
 
     return (

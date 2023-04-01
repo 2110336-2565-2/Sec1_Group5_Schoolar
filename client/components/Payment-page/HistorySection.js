@@ -1,4 +1,3 @@
-import { Center } from "@components/common"
 import { Box, Stack, Typography, Grid, Hidden } from '@mui/material'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -21,20 +20,32 @@ const HistorySection = ({ scholarships }) => {
         const monthName = monthNames[monthIndex]
         let hour = dateObj.getHours();
         const minute = dateObj.getMinutes();
+        const minuteString = minute>=10 ? "" + minute : "0" + minute;
         const ampm = hour >= 12 ? "PM" : "AM";
         hour %= 12;
         hour = hour ? hour : 12; // convert hour 0 to 12
-        return `${day} ${monthName} ${year} ${hour}:${minute} ${ampm}`;
+        return `${day} ${monthName} ${year} ${hour}:${minuteString} ${ampm}`;
     }
     
 
     useEffect(() => {
+        console.log("render");
         scholarships.map((item) => {
             if (item.subscription) {
                 axiosPrivate.get(`/subscription/payment-history/${item.subscription}`)
                 .then((res) => {
-                    //console.log(res.data.history.paid[0].scholarshipName, ' ', res.data);
-                    setSubscription(subscription => [...subscription, { scholarship: (res.data.history.paid[0]).scholarshipName, paid: res.data.history.paid }]);
+                    console.log(res.data.history.paid[0].scholarshipName, ' ', res.data);
+                    setSubscription(subscription => {
+                        const scholarshipName = res.data.history.paid[0].scholarshipName;
+                        const alreadyExists = subscription.some(item => item.scholarship === scholarshipName);
+                        if (alreadyExists) {
+                          return subscription;
+                        } else {
+                          return [...subscription, { scholarship: scholarshipName, paid: res.data.history.paid }];
+                        }
+                    });
+                }).catch((err)=>{
+                    console.log("Error at getting payment history");
                 })
             }
         })

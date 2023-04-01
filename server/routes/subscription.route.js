@@ -20,5 +20,5 @@ router.get('/:id', verifyJWT, getSubscription)
 router.get('/next-payment-date/:id', verifyJWT, getNextPaymentDate)
 router.get('/payment-history/:id', verifyJWT, getSubscriptionPaymentHistory)
 router.get('/status/:scholarshipId', verifyJWT, getSubscriptionStatus)
-router.get('/unsubscripe/:scholarshipId', verifyJWT, cancelSubscription)
+router.delete('/unsubscripe/:scholarshipId', verifyJWT, cancelSubscription)
 module.exports = router

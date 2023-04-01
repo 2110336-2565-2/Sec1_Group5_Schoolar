@@ -52,7 +52,7 @@ export const DatePickerComponent = ({
 	errors,
 	control,
 	setValue,
-	watch,
+	getValues,
 	//not required props
 	shrink,
 	required = false,
@@ -70,7 +70,7 @@ export const DatePickerComponent = ({
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<DatePicker
 						label={label}
-						value={watch(name) || ''}
+						value={getValues(name) || ''}
 						inputFormat="DD/MM/YYYY"
 						renderInput={(params) => (
 							<TextField
@@ -79,7 +79,9 @@ export const DatePickerComponent = ({
 								{...register(name, validation)}
 								error={!!errors?.[name]}
 								helperText={errors?.[name] ? errors[name].message : null}
-								onPaste={(e)=>{e.preventDefault()}}
+								onPaste={(e) => {
+									e.preventDefault()
+								}}
 							/>
 						)}
 						disableFuture={disableFuture}

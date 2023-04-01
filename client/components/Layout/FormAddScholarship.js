@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { Box, Button, FormControl, Stack, Typography } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
+import { getErrMsg, getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -72,7 +73,12 @@ function FormAddScholarship() {
 			<TextFieldComponent name="gpax" label="Minimum GPAX" required={true} {...formProps} />
 			<SelectComponent name="degree" required={true} {...formProps} />
 			<TextFieldComponent name="targetNation" label="Target Nation" required={true} {...formProps} />
-			<SelectComponent name="program" required={true} {...formProps} />
+			<SelectComponent
+				name="program"
+				required={true}
+				{...formProps}
+				validation={{ required: getErrMsg('Program/Faculty', 'required') }}
+			/>
 			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
 				Details of scholarship
 			</Typography>

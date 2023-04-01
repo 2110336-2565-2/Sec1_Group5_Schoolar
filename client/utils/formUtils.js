@@ -311,10 +311,10 @@ export const getValidation = (field, defaultValue) => {
 					},
 				},
 			}
-		case 'program':
-			return {
-				required: getErrMsg('Program/Faculty', 'required'),
-			}
+		// case 'program':
+		// 	return {
+		// 		required: getErrMsg('Program/Faculty', 'required'),
+		// 	}
 		case 'degree':
 			return {
 				required: getErrMsg('Degree', 'required'),

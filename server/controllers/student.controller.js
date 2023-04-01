@@ -195,6 +195,7 @@ exports.getStudentInfo = async (req, res) => {
 			typeOfScholarship: 1,
 			gpax: 1,
 			program: 1,
+			pinScholarships: 1,
 		})
 		return res.status(200).json({
 			message: 'get student information successful',

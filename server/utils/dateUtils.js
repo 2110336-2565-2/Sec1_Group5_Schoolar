@@ -1,4 +1,7 @@
 exports.toDate = (text) => {
+	if (!text) {
+		return
+	}
 	if (text.includes('/')) {
 		// 20/02/2023
 		const [day, month, year] = text.split('/').map(Number)

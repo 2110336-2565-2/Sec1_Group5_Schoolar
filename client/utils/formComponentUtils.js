@@ -71,7 +71,7 @@ export const DatePickerComponent = ({
 					<DatePicker
 						label={label}
 						value={getValues(name) || ''}
-						// inputFormat="DD/MM/YYYY"
+						inputFormat="DD/MM/YYYY"
 						renderInput={(params) => (
 							<TextField
 								{...params}

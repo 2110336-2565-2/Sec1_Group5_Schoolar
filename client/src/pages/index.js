@@ -62,11 +62,13 @@ function Homepage() {
 					const studentInfo = studentRes.data.data[0]
 
 					let pinScholars = []
-					let unpinScholars = res.data.data.map((scholar, index) => ({
-						...scholar,
-						isPin: studentInfo.pinScholarships.includes(scholar._id) ? 1 : 0,
-						order: index,
-					}))
+					let unpinScholars = res.data.data
+						.sort((a, b) => a.scholarshipName.localeCompare(b.scholarshipName))
+						.map((scholar, index) => ({
+							...scholar,
+							isPin: studentInfo.pinScholarships.includes(scholar._id) ? 1 : 0,
+							order: index,
+						}))
 
 					pinScholars = unpinScholars.filter((scholar) => scholar.isPin === 1)
 					unpinScholars = unpinScholars.filter((scholar) => scholar.isPin === 0)

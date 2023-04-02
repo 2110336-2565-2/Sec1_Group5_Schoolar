@@ -93,6 +93,10 @@ const scholarshipSchema = new Schema({
 		type: Date,
 		default: Date.now(),
 	},
+	status: {
+		type: Boolean,
+		default: false,
+	},
 })
 
 module.exports = mongoose.model('Scholarships', scholarshipSchema)

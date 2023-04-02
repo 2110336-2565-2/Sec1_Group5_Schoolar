@@ -68,7 +68,7 @@ function SearchBar(props) {
 						}}
 					>
 						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
-						<IconButton onClick={onClick} type="button" sx={{ p: '10px' }}>
+						<IconButton onClick={onClick} type="button" sx={{ width: 35, height: 35, p: '10px' }}>
 							<SearchIcon />
 						</IconButton>
 					</Paper>

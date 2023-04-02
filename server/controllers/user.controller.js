@@ -14,7 +14,7 @@ const handleValidationResult = (result, res) => {
 }
 
 exports.getUser = async (req, res) => {
-	// #swagger.tags = ['provider']
+	// #swagger.tags = ['user']
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 	try {

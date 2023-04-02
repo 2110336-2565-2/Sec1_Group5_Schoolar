@@ -659,6 +659,9 @@
         }
       },
       "post": {
+        "tags": [
+          "scholarship"
+        ],
         "description": "",
         "parameters": [
           {
@@ -773,6 +776,9 @@
         }
       },
       "put": {
+        "tags": [
+          "scholarship"
+        ],
         "description": "",
         "parameters": [
           {
@@ -829,6 +835,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "scholarship"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1041,7 +1050,7 @@
     "/user/{username}": {
       "get": {
         "tags": [
-          "provider"
+          "user"
         ],
         "description": "",
         "parameters": [
@@ -1098,6 +1107,9 @@
     },
     "/subscription/checkout/{scholarshipId}": {
       "post": {
+        "tags": [
+          "subscription"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1135,6 +1147,9 @@
     },
     "/subscription/webhook": {
       "post": {
+        "tags": [
+          "subscription"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1245,6 +1260,9 @@
     },
     "/subscription/payment-history/{id}": {
       "get": {
+        "tags": [
+          "subscription"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1273,6 +1291,89 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subscription/status/{scholarshipId}": {
+      "get": {
+        "tags": [
+          "subscription"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "scholarshipId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/subscription/unsubscripe/{scholarshipId}": {
+      "delete": {
+        "tags": [
+          "subscription"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "scholarshipId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

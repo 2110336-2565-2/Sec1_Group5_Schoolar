@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
-const { getProvider, updateProviderInfo, getOrganizationName } = require('../controllers/provider.controller')
+const {
+	getProvider,
+	updateProviderInfo,
+	getOrganizationName,
+} = require('../controllers/provider.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
 router.get('/:username', verifyJWT, getProvider)
@@ -38,5 +42,5 @@ router.patch(
 	updateProviderInfo,
 )
 
-router.get('/name/:id', getOrganizationName);
+router.get('/name/:id', getOrganizationName)
 module.exports = router

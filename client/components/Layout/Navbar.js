@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { Center, HStack } from '@components/common'
+import { Center, HStack, VStack } from '@components/common'
 import { AppRegistration, Edit, Login, Logout } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
@@ -65,7 +65,15 @@ function AccoutMenu() {
 	}
 
 	return (
-		<Stack direction="row">
+		<Stack direction="row" alignItems="center">
+			<Stack direction="column" alignItems="end" sx={{ ml: 1 }}>
+				<Typography variant="h6" sx={{ color: 'text.primary' }}>
+					{auth?.username}
+				</Typography>
+				<Typography variant="h7" sx={{ color: 'text.primary', fontWeight: 'bold', mt: -0.25 }}>
+					{auth?.role.toUpperCase()}
+				</Typography>
+			</Stack>
 			<Box
 				sx={{
 					display: 'flex',
@@ -77,7 +85,7 @@ function AccoutMenu() {
 					<IconButton
 						onClick={handleMenuClick}
 						size="small"
-						sx={{ ml: 2 }}
+						sx={{ ml: 1.5 }}
 						aria-controls={open ? 'account-menu' : undefined}
 						aria-haspopup="true"
 						aria-expanded={open ? 'true' : undefined}

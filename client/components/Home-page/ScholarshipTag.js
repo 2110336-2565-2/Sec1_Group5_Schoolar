@@ -1,4 +1,5 @@
 import { Grid, Typography } from '@mui/material'
+import Chip from '@mui/material/Chip'
 
 const tagColors = {
 	'Sci-Math': '#f08080',
@@ -25,14 +26,14 @@ const tagColors = {
 	'Faculty of Science': '#b79ced',
 	'Faculty of Sports Science': '#957fef',
 	'Faculty of Veterinary Science': '#7161ef',
-    'full': '#778da9',
-	'partial': '#415a77',
-	'renewable': '#1b263b',
-	'fellow': '#0d1b2a',
+	full: '#778da9',
+	partial: '#415a77',
+	renewable: '#1b263b',
+	fellow: '#0d1b2a',
 	'high school': '#00b4d8',
-	'bachelor': '#0077b6',
-	'master': '#023e8a',
-	'doctoral': '#03045e',
+	bachelor: '#0077b6',
+	master: '#023e8a',
+	doctoral: '#03045e',
 }
 
 const Tag = ({ text, color }) => (
@@ -53,9 +54,27 @@ const Tag = ({ text, color }) => (
 
 const ScholarshipTags = ({ scholar }) => (
 	<Grid container paddingX={2} paddingY={2} direction="row" alignItems="center">
-		<Tag text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
-		<Tag text={scholar.degree} color={tagColors[scholar.degree]} />
-		<Tag text={scholar.program} color={tagColors[scholar.program]} />
+		<Tag word-wrap="break-word" text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
+		<Tag
+			word-wrap="break-word"
+			sx={{
+				'& .MuiChip-label': {
+					display: 'block',
+				},
+			}}
+			text={scholar.degree}
+			color={tagColors[scholar.degree]}
+		/>
+		<Tag
+			word-wrap="break-word"
+			sx={{
+				'& .MuiChip-label': {
+					display: 'block',
+				},
+			}}
+			text={scholar.program}
+			color={tagColors[scholar.program]}
+		/>
 	</Grid>
 )
 

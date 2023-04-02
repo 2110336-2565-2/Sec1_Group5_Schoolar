@@ -6,7 +6,8 @@ const Scholarship = require('../models/scholarship')
  * @route    POST /subscription/checkout/:scholarshipId
  * @access   Private
  */
-exports.createCheckOutSession = async (req, res, next) => {
+exports.createCheckOutSession = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const session = await stripe.checkout.sessions.create({
 			line_items: [
@@ -37,6 +38,7 @@ exports.createCheckOutSession = async (req, res, next) => {
  * @access   Private
  */
 exports.setSubscriptionID = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	let subscriptionID
 	let type
 	let scholarshipId
@@ -50,7 +52,7 @@ exports.setSubscriptionID = async (req, res) => {
 
 	if (type === 'checkout.session.completed') {
 		const scholarship = await Scholarship.findByIdAndUpdate(scholarshipId, {
-			$set: { subscription: subscriptionID },
+			$set: { subscription: subscriptionID, status: true },
 		})
 	}
 	return res.status(200).json({ subscription: subscriptionID, scholarship: scholarshipId })
@@ -89,6 +91,21 @@ exports.getSubscription = async (req, res) => {
 }
 
 /*
+ * @desc     Get Subscription status wheter subscribing or unsubscribing by scholarship id
+ * @route    GET /subscription/status/:scholarshipId
+ * @access   Private
+ */
+exports.getSubscriptionStatus = async (req, res) => {
+	// #swagger.tags = ['subscription']
+	try {
+		const scholarship = await Scholarship.findById(req.params.scholarshipId)
+		return res.status(200).json({ status: scholarship.status })
+	} catch (error) {
+		return res.status(500).json(`Error subscription status`)
+	}
+}
+
+/*
  * @desc     Get nextPaymentDate by subscription id
  * @route    GET /subscription/next-payment-date/:id
  * @access   Private
@@ -110,6 +127,7 @@ exports.getNextPaymentDate = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	const subscriptionId = req.params.id
 	const scholarship = await Scholarship.findOne({ subscription: subscriptionId })
 	try {
@@ -122,7 +140,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		// Iterate through the invoices and print the payment details
 		for (let invoice of invoices.data) {
 			const paymentDetails = {
-				date: new Date(invoice.created * 1000),//.toLocaleString(),
+				date: new Date(invoice.created * 1000), //.toLocaleString(),
 				amount: invoice.amount_paid / 100,
 				currency: invoice.currency.toUpperCase(),
 				scholarshipName: scholarship ? scholarship.scholarshipName : null,
@@ -132,19 +150,24 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
 		}
 		return res.status(200).json({ history })
 	} catch (error) {
-		console.error(`Error fetching payment history: ${error.message}`)
+		return res.status(500).json(`Error fetching payment history: ${error.message}`)
 	}
 }
 
 /*
- * @desc     Cancel Subscription by subscription id
- * @route    DELETE /subscription/unsubscripe/:subscriptionId
+ * @desc     Cancel Subscription by scholarship id
+ * @route    DELETE /subscription/unsubscripe/:scholarshipId
  * @access   Private
  */
-exports.cancelSubscription = async (req, res, next) => {
+exports.cancelSubscription = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
-		const deleted = await stripe.subscriptions.del(req.params.subscriptionId)
+		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
+			$set: { status: false },
+		})
+		const deleted = await stripe.subscriptions.del(scholarship.subscription)
+		return res.status(200).json('cancel subscription success')
 	} catch (error) {
-		res.status(200).json(`Error cancel scubscription`)
+		return res.status(500).json('Error cancel subscription')
 	}
 }

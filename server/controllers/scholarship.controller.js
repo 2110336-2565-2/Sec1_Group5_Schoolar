@@ -16,7 +16,7 @@ exports.getAllScholarships = async (req, res) => {
 			const provider = await Provider.findOne({ username })
 			scholarships = await Scholarship.find({ provider })
 		} else {
-			scholarships = await Scholarship.find()
+			scholarships = await Scholarship.find({ status: true })
 		}
 		return res.status(200).json({
 			success: true,
@@ -53,6 +53,7 @@ exports.getScholarship = async (req, res) => {
  * @access   Private
  */
 exports.addScholarship = async (req, res) => {
+	// #swagger.tags = ['scholarship']
 	try {
 		const {
 			scholarshipName,
@@ -152,6 +153,7 @@ exports.addScholarship = async (req, res) => {
  * @access   Private
  */
 exports.updateScholarship = async (req, res) => {
+	// #swagger.tags = ['scholarship']
 	try {
 		const { id } = req.params
 		const { quota, amount, detail } = req.body
@@ -180,6 +182,7 @@ exports.updateScholarship = async (req, res) => {
  * @access   Private
  */
 exports.deleteScolarship = async (req, res, next) => {
+	// #swagger.tags = ['scholarship']
 	try {
 		let scolarship = await Scholarship.findById(req.params.id)
 		if (!scolarship) {

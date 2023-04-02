@@ -1,6 +1,6 @@
-import PaymentComponent from '@components/Payment-page/PaymentComponent'
 import { Center } from '@components/common'
-import { Box, Grid } from '@mui/material'
+import PaymentComponent from '@components/Payment-page/PaymentComponent'
+import { Grid, Box } from '@mui/material'
 
 function PaymentSection({ scholarships }) {
 	return (
@@ -20,7 +20,7 @@ function PaymentSection({ scholarships }) {
 			<Grid container spacing={2}>
 				{scholarships.map((item, index) => {
 					return (
-						<Grid item xs={12} md={6} xl={4} key={index}>
+						<Grid item xs={12} sm={6} key={index}>
 							<PaymentComponent scholarship={item} key={index} />
 						</Grid>
 					)

@@ -7,10 +7,10 @@ import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 export default function Edit() {
-	const { auth } = useAuth();
-	const router = useRouter();
-	const axiosPrivate = useAxiosPrivate();
-	const [data, setData] = useState({});
+	const { auth } = useAuth()
+	const router = useRouter()
+	const axiosPrivate = useAxiosPrivate()
+	const [data, setData] = useState({})
 
 	useEffect(() => {
 		// Fetch database values from server using Axios

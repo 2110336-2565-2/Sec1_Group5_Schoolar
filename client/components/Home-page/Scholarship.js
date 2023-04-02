@@ -77,23 +77,23 @@ function Scholarship(props) {
 								</Grid>
 								<Grid item xs={2} md={2}></Grid>
 							</Grid>
-							<Chip
-								sx={{
-									borderRadius: 0,
-									backgroundColor: 'white',
-									color: '#797979',
-									borderTop: '2px solid',
-									borderBottom: '2px solid',
-									fontWeight: 'bold',
-								}}
-								icon={<CalendarTodayIcon />}
-								color="info"
-								label={
-									scholar.applicationDeadline
-										? changeDateToString(scholar.applicationDeadline)
-										: 'TBD'
-								}
-							/>
+							{scholar.applicationDeadline ? (
+								<Chip
+									sx={{
+										borderRadius: 0,
+										backgroundColor: 'white',
+										color: '#797979',
+										borderTop: '2px solid',
+										borderBottom: '2px solid',
+										fontWeight: 'bold',
+									}}
+									icon={<CalendarTodayIcon />}
+									color="info"
+									label={'Due Date : ' + changeDateToString(scholar.applicationDeadline)}
+								/>
+							) : (
+								<Box sx={{ color: '#797979', borderTop: '2px solid' }}></Box>
+							)}
 							<ScholarshipTags scholar={scholar} />
 							<DetailComponent topic="Amount:" value={scholar.amount} />
 							<DetailComponent topic="Quota:" value={scholar.quota} />

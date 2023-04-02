@@ -57,7 +57,7 @@ function Scholarship(props) {
 								display: 'flex',
 								width: { sm: 340 },
 								maxWidth: 340,
-								minHeight: 200,
+								minHeight: 280,
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
@@ -113,7 +113,6 @@ function Scholarship(props) {
 								variant="text"
 								sx={{ display: 'flex', width: 50, height: 50, position: 'absolute', top: 0, right: 0 }}
 								onClick={(event) => {
-									console.log('firscltada')
 									props.handlePin(scholar)
 								}}
 							>

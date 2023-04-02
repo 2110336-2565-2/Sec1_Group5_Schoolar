@@ -89,7 +89,7 @@ const theme = createTheme({
 			light: '#EEEDE3',
 		},
 		danger: {
-			main: '#DA0000'
+			main: '#DA0000',
 		},
 		text: {
 			primary: '#404040',

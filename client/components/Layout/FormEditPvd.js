@@ -17,7 +17,7 @@ const FormEditPvd = ({ oldValue }) => {
 	//*axios private to get data from route that need token
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
-	const { openSnackbar } = useSnackbar();
+	const { openSnackbar } = useSnackbar()
 	const {
 		register,
 		handleSubmit,
@@ -44,7 +44,7 @@ const FormEditPvd = ({ oldValue }) => {
 	const onSubmit = (data) => {
 		try {
 			axiosPrivate.patch(`/provider/${auth.username}`, data).then((res) => {
-				openSnackbar("Update Success!", 'success');
+				openSnackbar('Update Success!', 'success')
 			})
 			router.push('/')
 		} catch (err) {
@@ -70,15 +70,23 @@ const FormEditPvd = ({ oldValue }) => {
 								{...formProps}
 							/>
 							<TextFieldComponent name="website" required={true} shrink={true} {...formProps} />
-							<TextFieldComponent name="address" required={true} shrink={true} multiline={true} row={3} {...formProps} />							
+							<TextFieldComponent
+								name="address"
+								required={true}
+								shrink={true}
+								multiline={true}
+								row={3}
+								{...formProps}
+							/>
 							<Stack spacing={3} direction="row" justifyContent="space-evenly">
-								<Button sx={{width: "100%"}} variant="contained" onClick={() => router.push('/')}>Back</Button>
-								<Button sx={{width: "100%"}} variant="contained" type="submit">
+								<Button sx={{ width: '100%' }} variant="contained" onClick={() => router.push('/')}>
+									Back
+								</Button>
+								<Button sx={{ width: '100%' }} variant="contained" type="submit">
 									Update
 								</Button>
 							</Stack>
 						</Stack>
-						
 					</FormControl>
 				</Grid>
 			</Grid>

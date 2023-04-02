@@ -67,7 +67,7 @@ function AccoutMenu() {
 	return (
 		<Stack direction="row" alignItems="center">
 			<Stack direction="column" alignItems="end" sx={{ ml: 1 }}>
-				<Typography variant="h6" sx={{ color: 'text.primary' }}>
+				<Typography variant="h6" sx={{ color: 'text.primary', mt: -0.25 }}>
 					{auth?.username}
 				</Typography>
 				<Typography variant="h7" sx={{ color: 'text.primary', fontWeight: 'bold', mt: -0.25 }}>

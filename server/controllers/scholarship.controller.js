@@ -16,7 +16,7 @@ exports.getAllScholarships = async (req, res) => {
 			const provider = await Provider.findOne({ username })
 			scholarships = await Scholarship.find({ provider })
 		} else {
-			scholarships = await Scholarship.find()
+			scholarships = await Scholarship.find({ status: true })
 		}
 		return res.status(200).json({
 			success: true,

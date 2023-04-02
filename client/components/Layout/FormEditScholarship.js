@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { Box, Button, FormControl, Grid, Stack, Typography } from '@mui/material'
 import { DatePickerComponent, SelectComponent, TextFieldComponent } from '@utils/formComponentUtils'
-import { getValidation } from '@utils/formUtils'
+import { getErrMsg, getValidation } from '@utils/formUtils'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'

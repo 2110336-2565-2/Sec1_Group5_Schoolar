@@ -6,7 +6,6 @@ import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
 import ScholarshipTags from '@components/Home-page/ScholarshipTag'
-import { VStack } from '@components/common'
 
 function PaymentComponent({ scholarship,scholar}) {
 	const axiosPrivate = useAxiosPrivate()
@@ -125,17 +124,19 @@ function PaymentComponent({ scholarship,scholar}) {
 			}}
 			
 		>
-			<Grid container direction="row" justifyContent="space-between" sx={{height: '100%'}} alignItems="center">
-				<Grid item xs={5} sm={5} justifyContent="space-between">
-					<Typography variant="h6"  sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
+			<Typography variant="h5"  sx={{ fontWeight: 'bold', pt: 2, pl: 2 }} marginLeft={{xs: 1, sm: 2}} >
 						{scholarship.scholarshipName}
 					</Typography>
+			<Grid container direction="row" justifyContent="space-between"  alignItems="center">
+				
+				<Grid item xs={6} justifyContent="space-between">
+					
 					<Grid marginLeft={{xs: 1, sm: 2}} >
 						<ScholarshipTags scholar={scholarship} size="small" padding={0}/>
 					</Grid>
 				</Grid>
 				
-				<Grid item xs={7} sm={7}>
+				<Grid item xs={6} >
 				<Stack
 					direction="column"
 					spacing={1}

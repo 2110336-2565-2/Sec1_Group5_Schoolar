@@ -19,7 +19,7 @@ function Payment(){
     }
 
     if (auth && auth.role !== 'provider') {
-        router.push("/");
+        router.push("/login");
     }
 
     useEffect(() => {        

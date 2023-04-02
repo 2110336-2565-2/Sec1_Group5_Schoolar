@@ -180,7 +180,7 @@ function AccoutMenu() {
 
 function Navbar() {
 	const router = useRouter()
-
+	const { auth } = useAuth()
 	const theme = useTheme()
 	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
 
@@ -207,7 +207,7 @@ function Navbar() {
 		<AppBar position="sticky" sx={{ bgcolor: 'primary.light', height: 64 }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
-					<Stack direction="row" spacing={2}>
+					<Stack direction="row" spacing={1}>
 						{isSm ? (
 							<>
 								<Center onClick={handleLogo}>
@@ -218,6 +218,20 @@ function Navbar() {
 										Contact Us
 									</Typography>
 								</MenuItem>
+								{auth && auth.role === 'provider' && (
+									<MenuItem>
+										<Typography
+											textAlign="center"
+											color={'text.main'}
+											onClick={(e) => {
+												e.stopPropagation()
+												router.push(`/payment`)
+											}}
+										>
+											Payment
+										</Typography>
+									</MenuItem>
+								)}
 							</>
 						) : (
 							<>
@@ -260,9 +274,21 @@ function Navbar() {
 									transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 									anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
 								>
-									<MenuItem component={Link} href="#footer">
+									<MenuItem component={Link} href="#footer" scroll={false}>
 										<ListItemText>Contact Us</ListItemText>
 									</MenuItem>
+									{auth && auth.role === 'provider' && (
+										<MenuItem>
+											<ListItemText
+												onClick={(e) => {
+													e.stopPropagation()
+													router.push(`/payment`)
+												}}
+											>
+												Payment
+											</ListItemText>
+										</MenuItem>
+									)}
 								</Menu>
 								<Center onClick={handleLogo}>
 									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />

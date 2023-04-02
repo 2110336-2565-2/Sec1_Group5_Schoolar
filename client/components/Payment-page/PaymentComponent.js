@@ -126,17 +126,16 @@ function PaymentComponent({ scholarship,scholar}) {
 			
 		>
 			<Grid container direction="row" justifyContent="space-between" sx={{height: '100%'}} alignItems="center">
-				<Grid item xs={5} sm={5}>
+				<Grid item xs={5} sm={5} justifyContent="space-between">
 					<Typography variant="h6"  sx={{ fontWeight: 'bold' }} padding={2} marginLeft={{xs: 1, sm: 2}}>
 						{scholarship.scholarshipName}
 					</Typography>
 					<Grid marginLeft={{xs: 1, sm: 2}} >
 						<ScholarshipTags scholar={scholarship} size="small" padding={0}/>
 					</Grid>
-					
 				</Grid>
 				
-				<Grid item xs={7} sm={7} >
+				<Grid item xs={7} sm={7}>
 				<Stack
 					direction="column"
 					spacing={1}

@@ -1,4 +1,5 @@
 import { Grid, Typography } from '@mui/material'
+import Chip from '@mui/material/Chip';
 
 const tagColors = {
 	'Sci-Math': '#f08080',
@@ -53,9 +54,19 @@ const Tag = ({ text, color }) => (
 
 const ScholarshipTags = ({ scholar }) => (
 	<Grid container paddingX={2} paddingY={2} direction="row" alignItems="center">
-		<Tag text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
-		<Tag text={scholar.degree} color={tagColors[scholar.degree]} />
-		<Tag text={scholar.program} color={tagColors[scholar.program]} />
+		<Tag  	word-wrap="break-word"
+				text={scholar.typeOfScholarship} 
+				color={tagColors[scholar.typeOfScholarship]} />
+		<Tag 	word-wrap="break-word"
+				sx = {{'& .MuiChip-label': {
+            	display: 'block'},}}
+				text={scholar.degree} 
+				color={tagColors[scholar.degree]} />
+		<Tag 	word-wrap="break-word"
+				sx = {{'& .MuiChip-label': {
+            	display: 'block'},}}
+				text={scholar.program} 
+				color={tagColors[scholar.program]} />
 	</Grid>
 )
 

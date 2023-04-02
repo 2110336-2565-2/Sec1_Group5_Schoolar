@@ -3,8 +3,9 @@ import PaymentComponent from "@components/Payment-page/PaymentComponent";
 import { Grid, Box } from "@mui/material";
 
 function PaymentSection ({scholarships}){
+    
     return (
-        <Box sx={{
+            <Box sx={{
                 width: "90%",
                 height: "50vh",
                 borderRadius: 3,
@@ -18,16 +19,14 @@ function PaymentSection ({scholarships}){
             <Grid container spacing={2}>
                 {scholarships.map((item, index)=>{
                 return (
-                <Grid item xs={12} sm={6}> 
+                <Grid item xs={12} sm={6} key={index}> 
                     <PaymentComponent scholarship={item} key={index}/>
                 </Grid>
                 )
             })}
             </Grid>
-        </Box>
-            
+            </Box>         
     )
-
 }
 
 export default PaymentSection;

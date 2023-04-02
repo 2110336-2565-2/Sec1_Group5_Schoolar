@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import GroupIcon from '@mui/icons-material/Group'
+import PaymentsIcon from '@mui/icons-material/Payments'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
@@ -21,13 +23,16 @@ const changeDateToString = (date) => {
 	const monthName = monthNames[monthIndex]
 	return `${day} ${monthName} ${year}`
 }
-const DetailComponent = ({ topic, value }) => {
+const DetailComponent = ({ icon, topic, value }) => {
 	return (
 		<Stack direction="row" spacing={1} marginLeft={2.5}>
 			<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-				{topic}
+				<Stack direction="row" alignItems="center" gap={1}>
+					{icon}
+					{topic}
+				</Stack>
 			</Typography>
-			<Typography variant="subtitle1" color="#036EC5" sx={{ wordWrap: 'break-word', fontWeight: 550 }}>
+			<Typography variant="subtitle1" color="primary" sx={{ wordWrap: 'break-word', fontWeight: 550 }}>
 				{value ? value : 'Not specified'}
 			</Typography>
 		</Stack>
@@ -50,8 +55,9 @@ function Scholarship(props) {
 						<Paper
 							sx={{
 								display: 'flex',
-								width: 340,
-								minHeight: 240,
+								width: { sm: 340 },
+								maxWidth: 340,
+								minHeight: 200,
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
@@ -95,8 +101,12 @@ function Scholarship(props) {
 								<Box sx={{ color: '#797979', borderTop: '2px solid' }}></Box>
 							)}
 							<ScholarshipTags scholar={scholar} />
-							<DetailComponent topic="Amount:" value={scholar.amount} />
-							<DetailComponent topic="Quota:" value={scholar.quota} />
+							{scholar.amount && (
+								<DetailComponent icon={<PaymentsIcon />} topic="Amount:" value={scholar.amount} />
+							)}
+							{scholar.quota && (
+								<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
+							)}
 						</Paper>
 						{props.hidePin || (
 							<Button

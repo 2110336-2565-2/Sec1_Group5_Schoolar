@@ -1,4 +1,6 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import GroupIcon from '@mui/icons-material/Group'
+import PaymentsIcon from '@mui/icons-material/Payments'
 import PushPinIcon from '@mui/icons-material/PushPin'
 import { Box, Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
@@ -16,13 +18,16 @@ const changeDateToString = (date) => {
 	const monthName = monthNames[monthIndex]
 	return `${day} ${monthName} ${year}`
 }
-const DetailComponent = ({ topic, value }) => {
+const DetailComponent = ({ icon, topic, value }) => {
 	return (
 		<Stack direction="row" spacing={1} marginLeft={2.5}>
 			<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-				{topic}
+				<Stack direction="row" alignItems="center" gap={1}>
+					{icon}
+					{topic}
+				</Stack>
 			</Typography>
-			<Typography variant="subtitle1" color="#036EC5" sx={{ wordWrap: 'break-word', fontWeight: 550 }}>
+			<Typography variant="subtitle1" color="primary" sx={{ wordWrap: 'break-word', fontWeight: 550 }}>
 				{value ? value : 'Not specified'}
 			</Typography>
 		</Stack>
@@ -46,8 +51,9 @@ function Scholarship(props) {
 						<Paper
 							sx={{
 								display: 'flex',
-								width: 340,
-								minHeight: 240,
+								width: { sm: 340 },
+								maxWidth: 340,
+								minHeight: 280,
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
@@ -73,28 +79,32 @@ function Scholarship(props) {
 								</Grid>
 								<Grid item xs={2} md={2}></Grid>
 							</Grid>
-							<Chip
-								sx={{
-									borderRadius: 0,
-									backgroundColor: 'white',
-									color: '#797979',
-									borderTop: '2px solid',
-									borderBottom: '2px solid',
-									fontWeight: 'bold',
-								}}
-								icon={<CalendarTodayIcon />}
-								color="info"
-								label={
-									scholar.applicationDeadline
-										? changeDateToString(scholar.applicationDeadline)
-										: 'TBD'
-								}
-							/>
+							{scholar.applicationDeadline ? (
+								<Chip
+									sx={{
+										borderRadius: 0,
+										backgroundColor: 'white',
+										color: '#797979',
+										borderTop: '2px solid',
+										borderBottom: '2px solid',
+										fontWeight: 'bold',
+									}}
+									icon={<CalendarTodayIcon />}
+									color="info"
+									label={'Due Date : ' + changeDateToString(scholar.applicationDeadline)}
+								/>
+							) : (
+								<Box sx={{ color: '#797979', borderTop: '2px solid' }}></Box>
+							)}
 							<ScholarshipTags scholar={scholar} />
 							<Stack direction="row" justifyContent="space-between" alignItems="center">
 							<Stack direction="column">
-								<DetailComponent topic="Amount:" value={scholar.amount} />
-								<DetailComponent topic="Quota:" value={scholar.quota} />
+								{scholar.amount && (
+								  <DetailComponent icon={<PaymentsIcon />} topic="Amount:" value={scholar.amount} />
+							  )}
+							  {scholar.quota && (
+								  <DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
+							  )}
 							</Stack>
 							{auth && auth.role === 'provider'&&
 							<Button
@@ -116,7 +126,6 @@ function Scholarship(props) {
 								variant="text"
 								sx={{ display: 'flex', width: 50, height: 50, position: 'absolute', top: 0, right: 0 }}
 								onClick={(event) => {
-									console.log('firscltada')
 									props.handlePin(scholar)
 								}}
 							>

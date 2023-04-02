@@ -35,7 +35,7 @@ function FilterSearchBar(props) {
 				onOpen={() => setShowSelect(true)}
 				onClose={() => setShowSelect(false)}
 				onChange={handleChange}
-				input={<OutlinedInput label="Tag" />}
+				input={<OutlinedInput label={props.label} />}
 				renderValue={(selected) => (
 					<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
 						{selected.map((value) => (

@@ -57,7 +57,11 @@ function AccoutMenu() {
 	const axiosPrivate = useAxiosPrivate()
 
 	const logoutUser = async () => {
-		await axiosPrivate.put('/auth/logout')
+		try {
+			await axiosPrivate.put('/auth/logout')
+		} catch (error) {
+			console.log('Error logout: ', error)
+		}
 	}
 
 	return (

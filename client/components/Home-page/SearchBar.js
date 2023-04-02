@@ -32,6 +32,8 @@ function SearchBar(props) {
 	const handleClick = (auth) => {
 		if (buttonName == '+ Add Scholarship') {
 			router.push('/scholarship/addScholarship')
+		} else {
+			props.matchHandler()
 		}
 	}
 	const router = useRouter()

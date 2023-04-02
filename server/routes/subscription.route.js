@@ -9,6 +9,7 @@ const {
 	getNextPaymentDate,
 	// getAllSubscriptionPaymentHistory,
 	getSubscriptionPaymentHistory,
+	cancelSubscription,
 } = require('../controllers/subscription.controller')
 const verifyJWT = require('../middleware/verifyJWT')
 
@@ -18,4 +19,5 @@ router.post('/webhook', setSubscriptionID)
 router.get('/:id', verifyJWT, getSubscription)
 router.get('/next-payment-date/:id', verifyJWT, getNextPaymentDate)
 router.get('/payment-history/:id', verifyJWT, getSubscriptionPaymentHistory)
+router.get('/unsubscripe/:subscriptionId', verifyJWT, cancelSubscription)
 module.exports = router

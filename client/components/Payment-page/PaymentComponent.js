@@ -121,6 +121,7 @@ function PaymentComponent({ scholarship,scholar}) {
 				width: '100%',
 				backgroundColor: 'white',
 				borderRadius: 5,
+				height: '100%',
 			}}
 			
 		>
@@ -139,7 +140,7 @@ function PaymentComponent({ scholarship,scholar}) {
 				<Stack
 					direction="column"
 					spacing={1}
-					sx={{p:2}}
+					sx={{p:4}}
 				>
 					{nextPaymentDate < 0 ? (
 						<Typography variant="subtitle1" align="center">

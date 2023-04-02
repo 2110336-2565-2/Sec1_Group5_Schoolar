@@ -55,7 +55,7 @@ function Scholarship(props) {
 								display: 'flex',
 								width: { sm: 340 },
 								maxWidth: 340,
-								minHeight: 280,
+								minHeight: { md: 280 },
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
@@ -99,33 +99,12 @@ function Scholarship(props) {
 								<Box sx={{ color: '#797979', borderTop: '2px solid' }}></Box>
 							)}
 							<ScholarshipTags scholar={scholar} />
-							<Stack direction="row" justifyContent="space-between" alignItems="center">
-								<Stack direction="column">
-									{scholar.amount && (
-										<DetailComponent
-											icon={<PaymentsIcon />}
-											topic="Amount:"
-											value={scholar.amount}
-										/>
-									)}
-									{scholar.quota && (
-										<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
-									)}
-								</Stack>
-								{auth && auth.role === 'provider' && (
-									<Button
-										size="small"
-										sx={{ mr: 2 }}
-										variant="contained"
-										onClick={(e) => {
-											e.stopPropagation()
-											router.push(`/payment`)
-										}}
-									>
-										Pay
-									</Button>
-								)}
-							</Stack>
+							{scholar.amount && (
+								<DetailComponent icon={<PaymentsIcon />} topic="Amount:" value={scholar.amount} />
+							)}
+							{scholar.quota && (
+								<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
+							)}
 						</Paper>
 						{props.hidePin || (
 							<Button

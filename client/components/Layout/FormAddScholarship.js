@@ -79,9 +79,9 @@ function FormAddScholarship() {
 						value: getRegEx('gpax'),
 						message: 'GPAX must be float number with 2 digits',
 					},
-					min: { value: 0, message: getErrMsg('GPAX', 'positive') },
-					max: { value: 4, message: 'GPAX must be at most 4' },
-					required: getErrMsg('GPAX', 'required'),
+					min: { value: 0, message: getErrMsg('Minimum GPAX', 'positive') },
+					max: { value: 4, message: 'Minimum GPAX must be at most 4' },
+					required: getErrMsg('Minimum GPAX', 'required'),
 				}}
 				{...formProps}
 			/>
@@ -109,11 +109,7 @@ function FormAddScholarship() {
 				required={true}
 				{...formProps}
 				validation={{
-					pattern: {
-						value: getRegEx('onlyAlphabetNumberSpace'),
-						message: getErrMsg('Target Nation', 'pattern'),
-					},
-					required: getErrMsg('Target Nation', 'required'),
+					required: getErrMsg('Program', 'required'),
 				}}
 			/>
 			<Typography variant="h5" sx={{ fontWeight: 'bold' }}>

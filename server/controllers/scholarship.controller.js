@@ -126,14 +126,14 @@ exports.addScholarship = async (req, res) => {
 
 		// Create new scholarship object
 		const scholarship = new Scholarship({
-			scholarshipName: scholarshipName.toLowerCase().trim(),
+			scholarshipName,
 			provider,
 			degree,
 			gpax,
 			program,
-			targetNation: targetNation.toLowerCase().trim(),
+			targetNation,
 			typeOfScholarship,
-			fieldOfInterest: fieldOfInterest.trim(),
+			fieldOfInterest,
 			applicationDeadline,
 			quota,
 			amount,

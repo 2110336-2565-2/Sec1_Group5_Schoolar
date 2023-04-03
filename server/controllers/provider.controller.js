@@ -81,13 +81,12 @@ exports.getOrganizationName = async (req, res) => {
 		const id = req.params.id
 		const provider = await Provider.findById(id)
 		Provider.findById(id, function (err, docs) {
-			if (err){
-				return res.status(404).json({message: 'Provider not found'});
+			if (err) {
+				return res.status(404).json({ message: 'Provider not found' })
+			} else {
+				return res.status(200).json({ organizationName: provider.organizationName })
 			}
-			else{
-				return res.status(200).json({ organizationName: provider.organizationName });
-			}
-		});
+		})
 	} catch (error) {
 		return res.status(400).json({ message: error.message })
 	}

@@ -46,8 +46,7 @@ function SearchBar(props) {
 				sx={{
 					display: 'flex',
 					flex: '1 1 auto',
-					width: '60%',
-					minWidth: 340,
+					width: { xs: '100%', sm: '80%', md: '60%' },
 					borderRadius: 10,
 					padding: 1,
 					paddingRight: 2,
@@ -68,7 +67,7 @@ function SearchBar(props) {
 						}}
 					>
 						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
-						<IconButton onClick={onClick} type="button" sx={{ p: '10px' }}>
+						<IconButton onClick={onClick} type="button" sx={{ width: 35, height: 35, p: '10px' }}>
 							<SearchIcon />
 						</IconButton>
 					</Paper>

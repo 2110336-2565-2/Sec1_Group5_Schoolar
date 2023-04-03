@@ -30,10 +30,10 @@ function PaymentComponent({ scholarship, scholar }) {
 				.then((res) => {
 					setIsSubscribed(false)
 					console.log(res.status)
-					openSnackbar('Unsubscribe successfully!', 'success')
+					openSnackbar('Unactivate successfully!', 'success')
 				})
 				.catch((err) => {
-					console.log('Error unsubscribe')
+					console.log('Error unactivate')
 				})
 		} catch (err) {
 			console.log(err)
@@ -167,7 +167,7 @@ function PaymentComponent({ scholarship, scholar }) {
 								sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
 								onClick={handleUnSubscribe}
 							>
-								Unsubscribed
+								Unactivate
 							</Button>
 						) : (
 							<Button
@@ -177,7 +177,7 @@ function PaymentComponent({ scholarship, scholar }) {
 								onClick={handleSubscribe}
 								fullWidth
 							>
-								Subscribe
+								Activate
 							</Button>
 						)}
 

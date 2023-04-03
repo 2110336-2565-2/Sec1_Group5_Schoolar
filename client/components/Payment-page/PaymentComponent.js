@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { React } from 'react'
+
+import ScholarshipTags from '@components/Home-page/ScholarshipTag'
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
-import ScholarshipTags from '@components/Home-page/ScholarshipTag'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function PaymentComponent({ scholarship, scholar }) {
 	const axiosPrivate = useAxiosPrivate()
@@ -105,6 +107,7 @@ function PaymentComponent({ scholarship, scholar }) {
 					}
 					calculateAndSetNextPaymentDate()
 				} else {
+					//scholarship not activate
 					const date = addDays(scholarship.createdAt, 30)
 					const result = calculateNextPaymentDate(formatUTCDate(date))
 					setNextPaymentDate(result)
@@ -130,36 +133,14 @@ function PaymentComponent({ scholarship, scholar }) {
 			<Typography variant="h5" sx={{ fontWeight: 'bold', pt: 2, pl: 2 }} marginLeft={{ xs: 1, sm: 2 }}>
 				{scholarship.scholarshipName}
 			</Typography>
-			<Grid container direction="row" justifyContent="space-between" alignItems="center">
-				<Grid item xs={6} justifyContent="space-between">
+			<Grid container direction="row" alignItems="flex-start">
+				<Grid item xs={6}>
 					<Grid marginLeft={{ xs: 1, sm: 2 }}>
-						<ScholarshipTags scholar={scholarship} size="small" padding={0} />
+						<ScholarshipTags scholar={scholarship} size="small" sx={{ p: 0 }} />
 					</Grid>
 				</Grid>
-
 				<Grid item xs={6}>
-					<Stack direction="column" spacing={1} sx={{ p: 4 }}>
-						{nextPaymentDate < 0 ? (
-							<Typography variant="subtitle1" align="center">
-								<span style={{ color: '#FF0000' }}>Overdue</span>
-							</Typography>
-						) : (
-							<Stack
-								direction={{ xs: 'column', sm: 'row' }}
-								spacing={{ xs: 0, sm: 2 }}
-								justifyContent={'space-evenly'}
-							>
-								<Typography variant="subtitle1" align="center">
-									Next payment:{' '}
-								</Typography>
-								<Typography variant="subtitle1" align="center">
-									<span style={{ color: '#FF0000' }} align="center">
-										{nextPaymentDate} days
-									</span>
-								</Typography>
-							</Stack>
-						)}
-
+					<Stack direction="column" spacing={1} sx={{ px: 4, py: 2.25 }}>
 						{isSubscribed ? (
 							<Button
 								variant="contained"
@@ -180,7 +161,27 @@ function PaymentComponent({ scholarship, scholar }) {
 								Activate
 							</Button>
 						)}
-
+						{isSubscribed &&
+							(nextPaymentDate < 0 ? (
+								<Typography variant="subtitle1" align="center">
+									<span style={{ color: '#FF0000' }}>Overdue</span>
+								</Typography>
+							) : (
+								<Stack
+									direction={{ xs: 'column', sm: 'row' }}
+									spacing={{ xs: 0, sm: 2 }}
+									justifyContent={'space-evenly'}
+								>
+									<Typography variant="subtitle1" align="center">
+										Next payment:{' '}
+									</Typography>
+									<Typography variant="subtitle1" align="center">
+										<span style={{ color: '#FF0000' }} align="center">
+											{nextPaymentDate} days
+										</span>
+									</Typography>
+								</Stack>
+							))}
 						{!isSubscribed && (
 							<Typography variant="body1" align="center" color="#9B9B9B">
 								99฿ / month

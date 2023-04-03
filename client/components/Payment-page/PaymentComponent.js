@@ -136,7 +136,7 @@ function PaymentComponent({ scholarship,scholar}) {
 					</Grid>
 				</Grid>
 				
-				<Grid item xs={6} >
+				<Grid item xs={6} justifyContent="space-between" >
 				<Stack
 					direction="column"
 					spacing={1}

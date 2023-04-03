@@ -210,7 +210,7 @@ function Navbar() {
 					<Stack direction="row" spacing={1}>
 						{isSm ? (
 							<>
-								<Center onClick={handleLogo}>
+								<Center onClick={handleLogo} sx={{ cursor: 'pointer' }}>
 									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
 								</Center>
 								<MenuItem component={Link} href="#footer" scroll={false}>

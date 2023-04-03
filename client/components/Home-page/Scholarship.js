@@ -105,6 +105,23 @@ function Scholarship(props) {
 							{scholar.quota && (
 								<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
 							)}
+							{!scholar.status && (
+								<Box
+									sx={{
+										backgroundColor: 'secondary.main',
+										textAlign: 'center',
+										p: 0.25,
+										mt: 0.25,
+									}}
+								>
+									<Typography variant="h6" fontWeight="bold">
+										Scholarship not yet active
+									</Typography>
+									<Typography variant="h7" fontWeight="bold">
+										Please proceed to payment page to activate
+									</Typography>
+								</Box>
+							)}
 						</Paper>
 						{props.hidePin || (
 							<Button

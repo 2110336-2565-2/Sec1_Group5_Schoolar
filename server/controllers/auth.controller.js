@@ -6,6 +6,7 @@ const Student = require('../models/students')
 const jwt = require('jsonwebtoken')
 const ObjectId = require('mongoose').Types.ObjectId
 const mongoose = require('mongoose')
+const { toDate } = require('../utils/dateUtils')
 
 /*
  * @desc     Resigter user
@@ -27,7 +28,7 @@ exports.register = async (req, res) => {
 		role,
 		firstName,
 		lastName,
-		birthdate,
+		birthdate: birthdateString,
 		gender,
 		phoneNumber,
 		gpax,
@@ -44,6 +45,7 @@ exports.register = async (req, res) => {
 	} = req.body
 
 	//birthdate can be 20/02/2023 or 2023-02-22T17:00:00.000Z format
+	const birthdate = toDate(birthdateString)
 	const session = await mongoose.startSession()
 	session.startTransaction()
 

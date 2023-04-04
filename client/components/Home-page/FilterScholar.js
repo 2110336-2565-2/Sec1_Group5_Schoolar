@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { FilterList as FilterListIcon } from '@mui/icons-material'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
 import { degrees, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/formOptUtils'
@@ -31,27 +32,32 @@ function FilterScholar(props) {
 	}
 
 	const handleApplyFilters = () => {
-		props.filterHandler(scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters)
+		props.filterHandler({
+			scholarship: scholarshipFilters,
+			degree: degreeFilters,
+			faculty: facultyFilters,
+			studentProgram: studentProgramFilters,
+		})
 		handleClose()
 	}
 	return (
-		<Box sx={{ p: '10px' }}>
+		<Box sx={{ p: 0.25 }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<FilterListIcon />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="xs">
 				<DialogTitle>Filters</DialogTitle>
 				<Box
-            component="form"
-
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              m: 'auto',
-              width: 'fit-content',
-            }}
-          >
-					<FormGroup >
+					component="form"
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						px: 2,
+						width: '100%',
+					}}
+				>
+					<FormGroup>
 						<FilterSearchBar
 							item={scholarshipTypes}
 							label={'Scholarship Type'}
@@ -78,14 +84,14 @@ function FilterScholar(props) {
 						/>
 					</FormGroup>
 
-				<DialogActions>
-					<Button onClick={handleClose} color="primary">
-						Cancel
-					</Button>
-					<Button onClick={handleApplyFilters} color="primary">
-						Apply
-					</Button>
-				</DialogActions>
+					<DialogActions>
+						<Button onClick={handleClose} color="primary">
+							Cancel
+						</Button>
+						<Button onClick={handleApplyFilters} color="primary">
+							Apply
+						</Button>
+					</DialogActions>
 				</Box>
 			</Dialog>
 		</Box>

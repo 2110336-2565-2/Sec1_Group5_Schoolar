@@ -5,7 +5,6 @@ const scholarshipSchema = new Schema({
 	scholarshipName: {
 		required: true,
 		type: String,
-		lowercase: true,
 		trim: true,
 	},
 	provider: {
@@ -89,6 +88,14 @@ const scholarshipSchema = new Schema({
 	subscription: {
 		//subscription id from stripe (prefix 'sub_')
 		type: String,
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now(),
+	},
+	status: {
+		type: Boolean,
+		default: false,
 	},
 })
 

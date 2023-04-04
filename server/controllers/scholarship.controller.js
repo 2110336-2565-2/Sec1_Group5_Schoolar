@@ -1,5 +1,6 @@
 const Scholarship = require('../models/scholarship')
 const Provider = require('../models/providers')
+const { toDate } = require('../utils/dateUtils')
 
 /*
  * @desc     Get all scholarships
@@ -15,7 +16,7 @@ exports.getAllScholarships = async (req, res) => {
 			const provider = await Provider.findOne({ username })
 			scholarships = await Scholarship.find({ provider })
 		} else {
-			scholarships = await Scholarship.find()
+			scholarships = await Scholarship.find({ status: true })
 		}
 		return res.status(200).json({
 			success: true,
@@ -52,9 +53,9 @@ exports.getScholarship = async (req, res) => {
  * @access   Private
  */
 exports.addScholarship = async (req, res) => {
+	// #swagger.tags = ['scholarship']
 	try {
 		const {
-			organizationName,
 			scholarshipName,
 			degree,
 			gpax,
@@ -62,14 +63,17 @@ exports.addScholarship = async (req, res) => {
 			targetNation,
 			typeOfScholarship,
 			fieldOfInterest,
-			applicationDeadline,
+			applicationDeadline: applicationDeadlineString,
 			quota,
 			amount,
 			detail,
 		} = req.body
 
-		// Find the provider by organizationName
-		const provider = await Provider.findOne({ organizationName })
+		const applicationDeadline = toDate(applicationDeadlineString)
+
+		// Find the provider
+		const username = req.user
+		const provider = await Provider.findOne({ username })
 		if (!provider) throw new Error('Provider not found')
 
 		// Validate input data
@@ -122,14 +126,14 @@ exports.addScholarship = async (req, res) => {
 
 		// Create new scholarship object
 		const scholarship = new Scholarship({
-			scholarshipName: scholarshipName.toLowerCase().trim(),
+			scholarshipName,
 			provider,
 			degree,
 			gpax,
 			program,
-			targetNation: targetNation.toLowerCase().trim(),
+			targetNation,
 			typeOfScholarship,
-			fieldOfInterest: fieldOfInterest.trim(),
+			fieldOfInterest,
 			applicationDeadline,
 			quota,
 			amount,
@@ -149,6 +153,7 @@ exports.addScholarship = async (req, res) => {
  * @access   Private
  */
 exports.updateScholarship = async (req, res) => {
+	// #swagger.tags = ['scholarship']
 	try {
 		const { id } = req.params
 		const { quota, amount, detail } = req.body
@@ -168,5 +173,36 @@ exports.updateScholarship = async (req, res) => {
 	} catch (error) {
 		console.error(error)
 		res.status(500).json({ message: 'Error updating scholarship' })
+	}
+}
+
+/*
+ * @desc     Delete scholarship
+ * @route    DELETE /scholarship/:id
+ * @access   Private
+ */
+exports.deleteScolarship = async (req, res, next) => {
+	// #swagger.tags = ['scholarship']
+	try {
+		let scolarship = await Scholarship.findById(req.params.id)
+		if (!scolarship) {
+			return res.status(404).json({
+				success: false,
+				message: `No scolarship with the id of ${req.params.id}`,
+			})
+		}
+		const username = req.user
+		const provider = await Provider.findOne({ username })
+		if (scolarship.provider.toString() !== provider.id) {
+			return res.status(401).json({
+				success: false,
+				message: `User ${req.user.id} is not authorized to delete this scolarship`,
+			})
+		}
+		await scolarship.remove()
+		return res.status(200).json({ success: true, data: {} })
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({ success: false, message: 'Cannot delete scolarship' })
 	}
 }

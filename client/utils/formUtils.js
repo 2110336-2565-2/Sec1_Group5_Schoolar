@@ -11,6 +11,8 @@ export const getErrMsg = (field, type, amount, unit = 'characters') => {
 			return `${field} must be at most ${amount} ${unit}`
 		case 'pattern':
 			return `${field} is invalid`
+		case 'number':
+			return `${field} must be number`
 		case 'taken':
 			return `${field} has been taken`
 		case 'positive':
@@ -176,7 +178,7 @@ export const getValidation = (field, defaultValue) => {
 							const [day, month, year] = value.split('/').map(Number)
 							const inputDate = new Date(year, month - 1, day)
 							const today = new Date()
-							return inputDate < today || getErrMsg('Birthdate', 'pattern')
+							return inputDate <= today || getErrMsg('Birthdate', 'pattern')
 						} else {
 							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
 							return true
@@ -197,7 +199,6 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'gpax':
 			return {
-				required: getErrMsg('GPAX', 'required'),
 				pattern: {
 					value: getRegEx('gpax'),
 					message: 'GPAX must be float number with 2 digits',
@@ -207,7 +208,6 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'targetNation':
 			return {
-				required: getErrMsg('Target Nation', 'required'),
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Target Nation', 'pattern'),
@@ -215,7 +215,6 @@ export const getValidation = (field, defaultValue) => {
 			}
 		case 'fieldOfInterest':
 			return {
-				required: getErrMsg('Field of Interest', 'required'),
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Field of Interest', 'pattern'),
@@ -223,7 +222,7 @@ export const getValidation = (field, defaultValue) => {
 			}
 		// Provider
 		case 'scholarshipName':
-			return{
+			return {
 				required: getErrMsg('Scholarship Name', 'required'),
 				minLength: { value: 2, message: getErrMsg('Scholarship Name', 'minLength', 2) },
 				maxLength: { value: 40, message: getErrMsg('Scholarship Name', 'maxLength', 40) },
@@ -255,7 +254,7 @@ export const getValidation = (field, defaultValue) => {
 				maxLength: { value: 16, message: 'Credit Card Number must be 16 digits' },
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Credit Card Number contains invalid character',
+					message: getErrMsg('Credit Card Number', 'number'),
 				},
 			}
 		case 'address':
@@ -267,19 +266,7 @@ export const getValidation = (field, defaultValue) => {
 					message: getErrMsg('Address', 'maxLength', 255),
 				},
 			}
-		case 'degree':
-			return{
-				required: getErrMsg('Degree', 'required')
-			}
-		case 'program':
-			return{
-				required: getErrMsg('Program', 'required')
-			}
-		case 'faculty':
-			return{
-				required: getErrMsg('Faculty', 'required')
-			}
-    	case 'amount':
+		case 'amount':
 			return {
 				minLength: {
 					value: 3,
@@ -291,40 +278,34 @@ export const getValidation = (field, defaultValue) => {
 				},
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Amout Number contains invalid character',
+					message: getErrMsg('Amount', 'number'),
 				},
 			}
 		case 'quota':
 			return {
 				pattern: {
 					value: getRegEx('onlyNumber'),
-					message: 'Quota Number contains invalid character',
+					message: getErrMsg('Quota', 'number'),
 				},
 			}
 		case 'applicationDeadline':
-			return{
+			return {
 				validate: {
 					past: (value) => {
-						if (value == ""){
-							value = new Date(null)
+						if (value == '') {
 							return true
-						}
-						else if (typeof value === 'string') {
+						} else if (typeof value === 'string') {
 							//if typing input (20/02/2023)
 							const [day, month, year] = value.split('/').map(Number)
 							const inputDate = new Date(year, month - 1, day)
 							const today = new Date()
-							return inputDate > today || getErrMsg('Application Deadline', 'pattern')
+							return inputDate >= today || getErrMsg('Application Deadline', 'pattern')
 						} else {
 							// using UI to pick date (2023-02-22T17:00:00.000Z), impossible to pick future, no need to validate
 							return true
 						}
 					},
-				}
-			}
-		case 'typeOfScholarship':
-			return{
-				required: getErrMsg('Type of Scholarship', 'required')
+				},
 			}
 		default:
 			return {}

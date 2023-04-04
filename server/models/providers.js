@@ -27,24 +27,6 @@ const providerSchema = new Schema(
 			lowercase: true,
 			trim: true,
 		},
-		creditCardNumber: {
-			type: String,
-			maxLength: 16,
-			unique: true,
-			trim: true,
-			sparse: true,
-		},
-		nameOnCard: {
-			type: String,
-			trim: true,
-		},
-		cardExpiredDate: {
-			type: Date,
-		},
-		cvv: {
-			type: Number,
-			// maxLength:10
-		},
 	},
 	{
 		toJSON: { virtuals: true },

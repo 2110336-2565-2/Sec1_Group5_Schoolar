@@ -35,7 +35,7 @@ exports.getProvider = async (req, res) => {
 
 /*
  * @desc     Update provider info
- * @route    PATCH /provider
+ * @route    PATCH /provider/:username
  * @access   Private
  */
 exports.updateProviderInfo = async (req, res) => {

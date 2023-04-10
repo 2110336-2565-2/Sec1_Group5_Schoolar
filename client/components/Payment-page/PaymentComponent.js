@@ -28,7 +28,7 @@ function PaymentComponent({ scholarship, scholar }) {
 	const { openSnackbar } = useSnackbar()
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
 	const [isSubscribed, setIsSubscribed] = useState(false)
-	const [openConfirmUnactivate, setOpenConfirmUnactivate] = useState(false)
+	const [openConfirmDeactivate, setOpenConfirmDeactivate] = useState(false)
 
 	const handleSubscribe = async () => {
 		try {
@@ -46,13 +46,13 @@ function PaymentComponent({ scholarship, scholar }) {
 				.then((res) => {
 					setIsSubscribed(false)
 					console.log(res.status)
-					openSnackbar('Unactivate successfully!', 'success')
-					setOpenConfirmUnactivate(false)
+					openSnackbar('Deactivate successfully!', 'success')
+					setOpenConfirmDeactivate(false)
 				})
 				.catch((err) => {
-					console.log('Error unactivate')
+					console.log('Error deactivate')
 					openSnackbar(
-						'Sorry, we were unable to unactivate the scholarship. Please try again later or contact our support team for assistance.',
+						'Sorry, we were unable to deactivate the scholarship. Please try again later or contact our support team for assistance.',
 						'error',
 					)
 				})
@@ -160,18 +160,18 @@ function PaymentComponent({ scholarship, scholar }) {
 				</Grid>
 				<Grid item xs={6}>
 					<Stack direction="column" spacing={1} sx={{ px: 4, py: 2.25 }}>
-						<Dialog open={openConfirmUnactivate} onClose={() => setOpenConfirmUnactivate(false)}>
-							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Unactivate this scholarship?'}</DialogTitle>
+						<Dialog open={openConfirmDeactivate} onClose={() => setOpenConfirmDeactivate(false)}>
+							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Deactivate this scholarship?'}</DialogTitle>
 							<DialogContent>
 								<DialogContentText id="alert-dialog-description">
-									Please note that by unactivating this scholarship, it will be immediately removed
+									Please note that by deactivating this scholarship, it will be immediately removed
 									from our website and any search results. Additionally, any payment made towards this
 									scholarship will be cancelled without a refund. This action cannot be undone. Are
-									you sure you want to with unactivating this scholarship?
+									you sure you want to with deactivating this scholarship?
 								</DialogContentText>
 							</DialogContent>
 							<DialogActions>
-								<Button onClick={() => setOpenConfirmUnactivate(false)}>Disagree</Button>
+								<Button onClick={() => setOpenConfirmDeactivate(false)}>Disagree</Button>
 								<Button onClick={() => handleUnSubscribe()}>Agree</Button>
 							</DialogActions>
 						</Dialog>
@@ -180,9 +180,9 @@ function PaymentComponent({ scholarship, scholar }) {
 								variant="contained"
 								size="small"
 								sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
-								onClick={() => setOpenConfirmUnactivate(true)}
+								onClick={() => setOpenConfirmDeactivate(true)}
 							>
-								Unactivate
+								Deactivate
 							</Button>
 						) : (
 							<Button

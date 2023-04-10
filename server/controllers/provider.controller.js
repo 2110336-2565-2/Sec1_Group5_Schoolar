@@ -75,6 +75,12 @@ exports.updateProviderInfo = async (req, res) => {
 	}
 }
 
+/*
+ * @desc     Get organization name
+ * @route    GET /provider/name/:id
+ * @access   Private
+ */
+
 exports.getOrganizationName = async (req, res) => {
 	// #swagger.tags = ['provider']
 	try {

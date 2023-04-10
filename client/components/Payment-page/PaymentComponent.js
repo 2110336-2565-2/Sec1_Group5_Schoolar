@@ -2,7 +2,19 @@ import { useEffect, useState } from 'react'
 import { React } from 'react'
 
 import ScholarshipTags from '@components/Home-page/ScholarshipTag'
-import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Divider,
+	Grid,
+	Stack,
+	Typography,
+} from '@mui/material'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -16,6 +28,8 @@ function PaymentComponent({ scholarship, scholar }) {
 	const { openSnackbar } = useSnackbar()
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
 	const [isSubscribed, setIsSubscribed] = useState(false)
+	const [openConfirmUnactivate, setOpenConfirmUnactivate] = useState(false)
+
 	const handleSubscribe = async () => {
 		try {
 			const res = await axiosPrivate.post(`/subscription/checkout/${scholarship._id}`)
@@ -33,9 +47,14 @@ function PaymentComponent({ scholarship, scholar }) {
 					setIsSubscribed(false)
 					console.log(res.status)
 					openSnackbar('Unactivate successfully!', 'success')
+					setOpenConfirmUnactivate(false)
 				})
 				.catch((err) => {
 					console.log('Error unactivate')
+					openSnackbar(
+						'Sorry, we were unable to unactivate the scholarship. Please try again later or contact our support team for assistance.',
+						'error',
+					)
 				})
 		} catch (err) {
 			console.log(err)
@@ -141,12 +160,27 @@ function PaymentComponent({ scholarship, scholar }) {
 				</Grid>
 				<Grid item xs={6}>
 					<Stack direction="column" spacing={1} sx={{ px: 4, py: 2.25 }}>
+						<Dialog open={openConfirmUnactivate} onClose={() => setOpenConfirmUnactivate(false)}>
+							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Unactivate this scholarship?'}</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									Please note that by unactivating this scholarship, it will be immediately removed
+									from our website and any search results. Additionally, any payment made towards this
+									scholarship will be cancelled without a refund. This action cannot be undone. Are
+									you sure you want to with unactivating this scholarship?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => setOpenConfirmUnactivate(false)}>Disagree</Button>
+								<Button onClick={() => handleUnSubscribe()}>Agree</Button>
+							</DialogActions>
+						</Dialog>
 						{isSubscribed ? (
 							<Button
 								variant="contained"
 								size="small"
 								sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
-								onClick={handleUnSubscribe}
+								onClick={() => setOpenConfirmUnactivate(true)}
 							>
 								Unactivate
 							</Button>

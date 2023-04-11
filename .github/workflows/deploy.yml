@@ -2,9 +2,10 @@ name: deploy
 on:
     push:
         branches:
-            - main
+            - develop
     schedule:
         - cron: '0 0 * * *' # Everyday at 12am
+    workflow_dispatch:
 
 jobs:
     build-and-deploy:

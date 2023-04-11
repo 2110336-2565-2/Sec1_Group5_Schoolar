@@ -163,7 +163,7 @@ exports.cancelSubscription = async (req, res) => {
 	// #swagger.tags = ['subscription']
 	try {
 		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
-			$set: { status: false },
+			$set: { status: false, subscription: null },
 		})
 		const deleted = await stripe.subscriptions.del(scholarship.subscription)
 		return res.status(200).json('cancel subscription success')

@@ -2,36 +2,72 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import {Badge , Grid, Tooltip, Typography}from "@mui/material";
+import {Badge , Grid, MenuList, Tooltip, Typography, Divider}from "@mui/material";
 import NotificationsNoneTwoToneIcon from '@mui/icons-material/NotificationsNoneTwoTone';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 import AlarmOnRoundedIcon from '@mui/icons-material/AlarmOnRounded';
+import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Menu, MenuItem } from "@mui/material";
 
 
-
+//Test data for notification
 const notifications = [{
   id : 0,
   type: 'fail',
   label : 'Payment Fail',
   scholarshipName : "Scholarship1",
-  description : "Your payment cannot be processed. Please verify your payment detail on the payment page."
+  description : "Your payment cannot be processed. Please verify your payment detail on the payment page.",
+  date : "12-01-2024"
 },
 {
   id :1,
   type: 'unactivate',
   label : 'Scholarship not Activate',
   scholarshipName : "Scholarship2",
-  description : "Please proceed the payment page to activate."
+  description : "Please proceed the payment page to activate.",
+  date : "12-02-2024"
 },
 {
   id :2,
   type: 'reminder',
   label : 'Payment Reminder',
   scholarshipName : "Scholarship3",
-  description : "Your scholarship payment will be processed next week with a total of 99$."
+  description : "Your scholarship payment will be processed next week with a total of 99$.",
+  date : "12-03-2024"
+},{
+  id :3,
+  type: 'reminder',
+  label : 'Payment Reminder',
+  scholarshipName : "Scholarship3",
+  description : "Your scholarship payment will be processed next week with a total of 99$.",
+  date : "12-03-2024"
+},
+{
+  id :4,
+  type: 'reminder',
+  label : 'Payment Reminder',
+  scholarshipName : "Scholarship3",
+  description : "Your scholarship payment will be processed next week with a total of 99$.",
+  date : "12-03-2024"
+},
+{
+  id :5,
+  type: 'reminder',
+  label : 'Payment Reminder',
+  scholarshipName : "Scholarship3",
+  description : "Your scholarship payment will be processed next week with a total of 99$.",
+  date : "12-03-2024"
+},
+{
+  id : 6,
+  type: 'fail',
+  label : 'Payment Fail',
+  scholarshipName : "Scholarship1",
+  description : "Your payment cannot be processed. Please verify your payment detail on the payment page.",
+  date : "12-01-2024"
 }]
+// #######################################################################################
 const textColor = {
   'fail': 'error',
   'unactivate' : 'secondary',
@@ -115,12 +151,30 @@ const NotificationBell = ({badgeContent})=>{
 						},
 					},
 				}}
+        keepMounted
+        getContentAnchorEl={null}
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
+        
+            <Grid container  sx={{ ml: '1rem', display: 'flex', flexWrap: 'wrap', maxWidth:'100'}} 
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center">
+            <Grid item xs zeroMinWidth><Typography varaint = 'subtitle1' style={{overflowWrap: 'break-word', fontWeight: 'bold'}}>Notification {"("+notifications.length+")"} </Typography></Grid>
+            <Grid item >
+              <IconButton size="small"
+                          sx={{ mr: '1.5rem' }}
+                          onClick={handleClose}>
+                      <CloseIcon sx = {{color :'grey'}}/>
+                </IconButton>
+              </Grid>
+            </Grid>
+          <Divider/>
+          <MenuList style={{ maxHeight: 400, overflow: "auto" }}>
           {notifications.map((item)=>(
-            <MenuItem onClick={handleClose} style={{whiteSpace: 'normal'}}>
-                    <Grid container
+            <MenuItem focusVisible style={{whiteSpace: 'normal'}}>
+                    <Grid item container
                                 direction="column"
                                 justifyContent="center"
                                 alignItems="flex-start"
@@ -133,10 +187,14 @@ const NotificationBell = ({badgeContent})=>{
                                   <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.scholarshipName} </Typography>
                                 </Grid>    
                                 <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{item.description}</Typography></Grid>
+                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word', color : 'grey'}}>{item.date}</Typography></Grid>
 
                     </Grid>
             </MenuItem>
           ))}
+          </MenuList>
+          
+          
         </Menu>
             </div>
             

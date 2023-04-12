@@ -6,8 +6,8 @@ import { Center, VStack } from '@components/common'
 import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 
 import { useAuth } from '@/context/AuthContext'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const SCORE_MAP = {
 	degree: 5,
@@ -57,7 +57,7 @@ function Homepage() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const res = await axiosPrivate.get('/scholarship')
+				const res = auth && (await axiosPrivate.get('/scholarship'))
 
 				if (auth && auth.role === 'student') {
 					const studentRes = await axiosPrivate.get(`/student/student-info/${auth.username}`)

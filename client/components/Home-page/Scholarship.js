@@ -62,8 +62,7 @@ function Scholarship(props) {
 							}}
 							onClick={(event) => {
 								router.push({
-									pathname: 'scholarship/DetailScholarship',
-									query: { data: JSON.stringify(scholar) },
+									pathname: `scholarship/${scholar._id}`,
 								})
 							}}
 						>

@@ -25,24 +25,14 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		setValue,
-		getValues,
-		control,
-		watch,
-		trigger,
-	} = useForm({ mode: 'onBlur' })
 	const { auth } = useAuth()
+
 	const router = useRouter()
-	const detail = JSON.parse(router.query.data)
+	const { id } = router.query
+	const [detail, setDetail] = useState({})
 	//some conent only show to provider
-	const [isProvider, setIsProvider] = useState(false)
 	const [organizationName, setOrganizationName] = useState('')
 	//Change applecation dead line Date type to string
-	const [appDate, setAppDate] = useState('')
 	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
 
 	const axiosPrivate = useAxiosPrivate()
@@ -61,24 +51,24 @@ const DetailScholarship = () => {
 		const monthName = monthNames[monthIndex]
 		return `${day} ${monthName} ${year}`
 	}
+
 	useEffect(() => {
-		if (auth && auth.role === 'provider') {
-			setIsProvider(true)
-		}
-		setAppDate(changeDateToString(detail.applicationDeadline))
-		if (detail.provider) {
-			axiosPrivate
-				.get(`/provider/name/${detail.provider}`)
-				.then((res) => {
-					setOrganizationName(res.data.organizationName)
-					//console.log('Organization ', res.data.organizationName)
+		async function fetchData() {
+			try {
+				const scholarship = await axiosPrivate.get(`/scholarship/${id}`)
+				setDetail({
+					...scholarship.data.data,
+					appDate: changeDateToString(scholarship.data.data.applicationDeadline),
 				})
-				.catch((err) => {
-					console.log('Error get provider name: ', detail.provider)
-				})
-		} else {
-			console.log('Provider ID is null')
+
+				const provider = await axiosPrivate.get(`/provider/name/${scholarship.data.data.provider}`)
+				setOrganizationName(provider.data.organizationName)
+			} catch (err) {
+				console.log(err)
+				openSnackbar('Error fetching data!', 'error')
+			}
 		}
+		fetchData()
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {
@@ -136,12 +126,12 @@ const DetailScholarship = () => {
 						>
 							{detail.scholarshipName}
 						</Typography>
-						{appDate && (
+						{detail.appDate && (
 							<Chip
 								icon={<CalendarTodayIcon />}
 								sx={{ px: 0.5, py: 2.25 }}
 								color="info"
-								label={`Due Date: ${appDate}`}
+								label={`Due Date: ${detail.appDate}`}
 							/>
 						)}
 					</Stack>
@@ -162,7 +152,7 @@ const DetailScholarship = () => {
 								Scholarship Detail
 							</Typography>
 							<Divider />
-							<Typography variant="body1" sx={{ mt: 1 }}>
+							<Typography variant="body1" sx={{ mt: 1, whiteSpace: 'pre-line' }}>
 								{detail.detail ? detail.detail : 'Not Specified'}
 							</Typography>
 						</Box>
@@ -178,7 +168,7 @@ const DetailScholarship = () => {
 						>
 							Back
 						</Button>
-						{isProvider && (
+						{auth.role === 'provider' && (
 							<Button
 								sx={{ width: '100%', color: '#FFF' }}
 								variant="contained"
@@ -222,7 +212,7 @@ const DetailScholarship = () => {
 							</DialogActions>
 						</Dialog>
 					</Stack>
-					{isProvider && (
+					{auth.role === 'provider' && (
 						<Button
 							sx={{ width: '100%' }}
 							variant="contained"

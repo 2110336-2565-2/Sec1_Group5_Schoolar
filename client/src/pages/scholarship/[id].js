@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
@@ -26,20 +25,30 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
 	const { auth } = useAuth()
-
-	const router = useRouter()
-	const { id } = router.query
-	const [detail, setDetail] = useState({})
-	//some conent only show to provider
-	const [organizationName, setOrganizationName] = useState('')
-	//Change applecation dead line Date type to string
-	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
-
-	const axiosPrivate = useAxiosPrivate()
-
 	if (!auth) {
 		router.push('/login')
 	}
+
+	const router = useRouter()
+	const { id } = router.query // scholarship id
+
+	const [detail, setDetail] = useState({
+		scholarshipName: 'Loading..',
+		degree: 'Loading..',
+		gpax: 'Loading..',
+		program: 'Loading..',
+		targetNation: 'Loading..',
+		typeOfScholarship: 'Loading..',
+		fieldOfInterest: 'Loading..',
+		quota: 'Loading..',
+		amount: 'Loading..',
+		detail: 'Loading..',
+	})
+
+	const [organizationName, setOrganizationName] = useState('Loading..')
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
+
+	const axiosPrivate = useAxiosPrivate()
 
 	const changeDateToString = (date) => {
 		if (!date) return null
@@ -144,7 +153,7 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="Minimum GPAX" details={detail.gpax} />
 							<DetailComponent topic="Amount (Baht)" details={detail.amount} />
-							<DetailComponent topic="Quota (person)" details={detail.quota} />
+							<DetailComponent topic="Quota (Person)" details={detail.quota} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
 						<Box sx={{ pb: 1 }}>

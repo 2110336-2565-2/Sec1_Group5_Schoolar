@@ -19,11 +19,9 @@ function SearchBar(props) {
 	}
 	const onClick = (event) => {
 		event.preventDefault()
-		console.log(inputName)
 		props.searchHandler(inputName)
 	}
 	var buttonName = 'match'
-	console.log(auth)
 	if (auth && auth.role == 'provider') {
 		buttonName = '+ Add Scholarship'
 	} else {

@@ -6,6 +6,7 @@ import { Center, VStack } from '@components/common'
 import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 
 import { useAuth } from '@/context/AuthContext'
+import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const SCORE_MAP = {
@@ -39,6 +40,7 @@ function Homepage() {
 	const [recommendedScholars, setRecommendedScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
+	const { openSnackbar } = useSnackbar()
 
 	// set filters list
 	const [filters, setFilters] = useState({
@@ -55,7 +57,7 @@ function Homepage() {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const res = await axiosPrivate.get('/scholarship')
+				const res = auth && (await axiosPrivate.get('/scholarship'))
 
 				if (auth && auth.role === 'student') {
 					const studentRes = await axiosPrivate.get(`/student/student-info/${auth.username}`)
@@ -115,6 +117,7 @@ function Homepage() {
 			}
 		} catch (err) {
 			console.log(err)
+			openSnackbar('Error pinning scholarship!', 'error')
 		}
 	}
 
@@ -178,8 +181,8 @@ function Homepage() {
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
-						px: { xs: 4, sm: 5, md: 10 },
-						py: { xs: 7, sm: 7, md: 10 },
+						px: { xs: 3, sm: 4, md: 8 },
+						py: { xs: 7, sm: 7, md: 8 },
 						backgroundColor: '#F4F6F8',
 					}}
 				>

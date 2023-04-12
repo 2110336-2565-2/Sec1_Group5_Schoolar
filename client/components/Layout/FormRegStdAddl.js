@@ -18,7 +18,6 @@ const FormRegStdAddl = ({
 	watch,
 }) => {
 	const onSubmit = (data) => {
-		// console.log('Submit', data)
 		sendData(data)
 	}
 

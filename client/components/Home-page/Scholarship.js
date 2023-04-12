@@ -41,7 +41,7 @@ function Scholarship(props) {
 	const router = useRouter()
 
 	return (
-		<Grid container marginTop={2} marginBottom={4} gap="30px 60px" justifyContent="center">
+		<Grid container marginTop={2} marginBottom={4} gap="30px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
 				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
@@ -55,10 +55,13 @@ function Scholarship(props) {
 								display: 'flex',
 								width: { sm: 340 },
 								maxWidth: 340,
-								minHeight: { md: 280 },
+								height: '100%',
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
+								'&:hover': {
+									boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+								},
 							}}
 							onClick={(event) => {
 								router.push({

@@ -14,7 +14,6 @@ export default function Edit() {
 
 	useEffect(() => {
 		// Fetch database values from server using Axios
-		console.log('Fetch data')
 		if (auth?.role === 'student') {
 			axiosPrivate
 				.get(`/student/${auth.username}`)

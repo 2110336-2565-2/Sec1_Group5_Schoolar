@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
@@ -25,31 +24,31 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		setValue,
-		getValues,
-		control,
-		watch,
-		trigger,
-	} = useForm({ mode: 'onBlur' })
 	const { auth } = useAuth()
-	const router = useRouter()
-	const detail = JSON.parse(router.query.data)
-	//some conent only show to provider
-	const [isProvider, setIsProvider] = useState(false)
-	const [organizationName, setOrganizationName] = useState('')
-	//Change applecation dead line Date type to string
-	const [appDate, setAppDate] = useState('')
-	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
-
-	const axiosPrivate = useAxiosPrivate()
-
 	if (!auth) {
 		router.push('/login')
 	}
+
+	const router = useRouter()
+	const { id } = router.query // scholarship id
+
+	const [detail, setDetail] = useState({
+		scholarshipName: 'Loading..',
+		degree: 'Loading..',
+		gpax: 'Loading..',
+		program: 'Loading..',
+		targetNation: 'Loading..',
+		typeOfScholarship: 'Loading..',
+		fieldOfInterest: 'Loading..',
+		quota: 'Loading..',
+		amount: 'Loading..',
+		detail: 'Loading..',
+	})
+
+	const [organizationName, setOrganizationName] = useState('Loading..')
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
+
+	const axiosPrivate = useAxiosPrivate()
 
 	const changeDateToString = (date) => {
 		if (!date) return null
@@ -61,24 +60,32 @@ const DetailScholarship = () => {
 		const monthName = monthNames[monthIndex]
 		return `${day} ${monthName} ${year}`
 	}
+
+	function toTitleCase(str) {
+		return str.replace(/\b\w/g, function (char) {
+			return char.toUpperCase()
+		})
+	}
+
 	useEffect(() => {
-		if (auth && auth.role === 'provider') {
-			setIsProvider(true)
-		}
-		setAppDate(changeDateToString(detail.applicationDeadline))
-		if (detail.provider) {
-			axiosPrivate
-				.get(`/provider/name/${detail.provider}`)
-				.then((res) => {
-					setOrganizationName(res.data.organizationName)
-					//console.log('Organization ', res.data.organizationName)
+		async function fetchData() {
+			try {
+				const scholarship = await axiosPrivate.get(`/scholarship/${id}`)
+				setDetail({
+					...scholarship.data.data,
+					targetNation: toTitleCase(scholarship.data.data.targetNation),
+					fieldOfInterest: toTitleCase(scholarship.data.data.fieldOfInterest),
+					appDate: changeDateToString(scholarship.data.data.applicationDeadline),
 				})
-				.catch((err) => {
-					console.log('Error get provider name: ', detail.provider)
-				})
-		} else {
-			console.log('Provider ID is null')
+
+				const provider = await axiosPrivate.get(`/provider/name/${scholarship.data.data.provider}`)
+				setOrganizationName(provider.data.organizationName)
+			} catch (err) {
+				console.log(err)
+				openSnackbar('Error fetching data!', 'error')
+			}
 		}
+		fetchData()
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {
@@ -136,12 +143,12 @@ const DetailScholarship = () => {
 						>
 							{detail.scholarshipName}
 						</Typography>
-						{appDate && (
+						{detail.appDate && (
 							<Chip
 								icon={<CalendarTodayIcon />}
 								sx={{ px: 0.5, py: 2.25 }}
 								color="info"
-								label={`Due Date: ${appDate}`}
+								label={`Due Date: ${detail.appDate}`}
 							/>
 						)}
 					</Stack>
@@ -154,7 +161,7 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="Minimum GPAX" details={detail.gpax} />
 							<DetailComponent topic="Amount (Baht)" details={detail.amount} />
-							<DetailComponent topic="Quota (person)" details={detail.quota} />
+							<DetailComponent topic="Quota (Person)" details={detail.quota} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
 						<Box sx={{ pb: 1 }}>
@@ -162,7 +169,7 @@ const DetailScholarship = () => {
 								Scholarship Detail
 							</Typography>
 							<Divider />
-							<Typography variant="body1" sx={{ mt: 1 }}>
+							<Typography variant="body1" sx={{ mt: 1, whiteSpace: 'pre-line' }}>
 								{detail.detail ? detail.detail : 'Not Specified'}
 							</Typography>
 						</Box>
@@ -178,7 +185,7 @@ const DetailScholarship = () => {
 						>
 							Back
 						</Button>
-						{isProvider && (
+						{auth.role === 'provider' && (
 							<Button
 								sx={{ width: '100%', color: '#FFF' }}
 								variant="contained"
@@ -222,7 +229,7 @@ const DetailScholarship = () => {
 							</DialogActions>
 						</Dialog>
 					</Stack>
-					{isProvider && (
+					{auth.role === 'provider' && (
 						<Button
 							sx={{ width: '100%' }}
 							variant="contained"

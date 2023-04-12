@@ -10,7 +10,7 @@ const providerSchema = new Schema(
 		organizationName: {
 			required: true,
 			type: String,
-			maxLength: 40,
+			maxLength: 250,
 			trim: true,
 		},
 		address: {

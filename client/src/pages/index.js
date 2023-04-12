@@ -81,6 +81,7 @@ function Homepage() {
 				}
 			} catch (err) {
 				console.log(err)
+				openSnackbar('Error fetching data!', 'error')
 			}
 		}
 

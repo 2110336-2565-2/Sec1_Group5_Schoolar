@@ -116,7 +116,7 @@ function FormAddScholarship() {
 				Details of scholarship
 			</Typography>
 			<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
-			<TextFieldComponent name="quota" label="Quota (person)" {...formProps} />
+			<TextFieldComponent name="quota" label="Quota (Person)" {...formProps} />
 			<TextFieldComponent
 				name="fieldOfInterest"
 				label="Field of Interest"

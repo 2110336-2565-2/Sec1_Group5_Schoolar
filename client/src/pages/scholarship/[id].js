@@ -61,12 +61,20 @@ const DetailScholarship = () => {
 		return `${day} ${monthName} ${year}`
 	}
 
+	function toTitleCase(str) {
+		return str.replace(/\b\w/g, function (char) {
+			return char.toUpperCase()
+		})
+	}
+
 	useEffect(() => {
 		async function fetchData() {
 			try {
 				const scholarship = await axiosPrivate.get(`/scholarship/${id}`)
 				setDetail({
 					...scholarship.data.data,
+					targetNation: toTitleCase(scholarship.data.data.targetNation),
+					fieldOfInterest: toTitleCase(scholarship.data.data.fieldOfInterest),
 					appDate: changeDateToString(scholarship.data.data.applicationDeadline),
 				})
 

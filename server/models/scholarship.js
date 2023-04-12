@@ -6,6 +6,7 @@ const scholarshipSchema = new Schema({
 		required: true,
 		type: String,
 		trim: true,
+		maxLength: 250,
 	},
 	provider: {
 		type: mongoose.Schema.Types.ObjectId,

@@ -14,7 +14,7 @@ const scholarshipSchema = new Schema({
 	degree: {
 		required: true,
 		type: String,
-		enum: ['high school', 'bachelor', 'master', 'doctoral'],
+		enum: ['High School', 'Bachelor', 'Master', 'Doctoral'],
 	},
 	gpax: {
 		required: true,
@@ -60,7 +60,7 @@ const scholarshipSchema = new Schema({
 	typeOfScholarship: {
 		required: true,
 		type: String,
-		enum: ['full', 'partial', 'renewable', 'fellow'],
+		enum: ['Full Scholarship', 'Partial Scholarship', 'Renewable Scholarship', 'Fellowship'],
 	},
 	fieldOfInterest: {
 		required: true,

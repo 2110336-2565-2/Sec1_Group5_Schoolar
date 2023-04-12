@@ -26,14 +26,14 @@ const tagColors = {
 	'Faculty of Science': '#b79ced',
 	'Faculty of Sports Science': '#957fef',
 	'Faculty of Veterinary Science': '#7161ef',
-	full: '#778da9',
-	partial: '#415a77',
-	renewable: '#1b263b',
-	fellow: '#0d1b2a',
-	'high school': '#00b4d8',
-	bachelor: '#0077b6',
-	master: '#023e8a',
-	doctoral: '#03045e',
+	'Full Scholarship': '#778da9',
+	'Partial Scholarship': '#415a77',
+	'Renewable Scholarship': '#1b263b',
+	Fellowship: '#0d1b2a',
+	'High School': '#00b4d8',
+	Bachelor: '#0077b6',
+	Master: '#023e8a',
+	Doctoral: '#03045e',
 }
 
 const Tag = ({ text, color }) => (
@@ -54,7 +54,11 @@ const Tag = ({ text, color }) => (
 
 const ScholarshipTags = ({ scholar }) => (
 	<Grid container paddingX={2} paddingY={2} direction="row" alignItems="center">
-		<Tag word-wrap="break-word" text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
+		<Tag
+			word-wrap="break-word"
+			text={scholar.typeOfScholarship}
+			color={tagColors[scholar.typeOfScholarship] || 'text.primary'}
+		/>
 		<Tag
 			word-wrap="break-word"
 			sx={{
@@ -63,7 +67,7 @@ const ScholarshipTags = ({ scholar }) => (
 				},
 			}}
 			text={scholar.degree}
-			color={tagColors[scholar.degree]}
+			color={tagColors[scholar.degree] || 'text.primary'}
 		/>
 		<Tag
 			word-wrap="break-word"
@@ -73,7 +77,7 @@ const ScholarshipTags = ({ scholar }) => (
 				},
 			}}
 			text={scholar.program}
-			color={tagColors[scholar.program]}
+			color={tagColors[scholar.program] || 'text.primary'}
 		/>
 	</Grid>
 )

@@ -89,7 +89,7 @@ exports.addScholarship = async (req, res) => {
 			return res.status(400).json({ error: 'Missing scholarship information' })
 		}
 
-		const isValidDegree = ['high school', 'bachelor', 'master', 'doctoral'].includes(degree)
+		const isValidDegree = ['High School', 'Bachelor', 'Master', 'Doctoral'].includes(degree)
 		const isValidProgram = [
 			'Sci-Math',
 			'Art-Cal',
@@ -116,9 +116,12 @@ exports.addScholarship = async (req, res) => {
 			'Faculty of Sports Science',
 			'Faculty of Veterinary Science',
 		].includes(program)
-		const isValidTypeOfScholarship = ['full', 'partial', 'renewable', 'fellow'].includes(
-			typeOfScholarship,
-		)
+		const isValidTypeOfScholarship = [
+			'Full Scholarship',
+			'Partial Scholarship',
+			'Renewable Scholarship',
+			'Fellowship',
+		].includes(typeOfScholarship)
 
 		if (!isValidDegree || !isValidProgram || !isValidTypeOfScholarship) {
 			return res.status(400).json({ error: 'Invalid scholarship information' })

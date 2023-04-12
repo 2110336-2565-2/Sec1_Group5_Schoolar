@@ -51,6 +51,7 @@ function AccoutMenu() {
 			openSnackbar('Logout success!', 'success')
 		} catch (error) {
 			console.error(error)
+			openSnackbar('Logout error!', 'error')
 		}
 	}
 
@@ -61,6 +62,7 @@ function AccoutMenu() {
 			await axiosPrivate.put('/auth/logout')
 		} catch (error) {
 			console.log('Error logout: ', error)
+			openSnackbar('Logout error!', 'error')
 		}
 	}
 

@@ -7,6 +7,7 @@ import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 
 import { useAuth } from '@/context/AuthContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+import { useSnackbar } from '@/context/SnackbarContext'
 
 const SCORE_MAP = {
 	degree: 5,
@@ -39,6 +40,7 @@ function Homepage() {
 	const [recommendedScholars, setRecommendedScholars] = useState([])
 	const [inputName, setInputName] = useState('')
 	const { auth } = useAuth()
+	const { openSnackbar } = useSnackbar()
 
 	// set filters list
 	const [filters, setFilters] = useState({
@@ -115,6 +117,7 @@ function Homepage() {
 			}
 		} catch (err) {
 			console.log(err)
+			openSnackbar('Error pinning scholarship!', 'error')
 		}
 	}
 

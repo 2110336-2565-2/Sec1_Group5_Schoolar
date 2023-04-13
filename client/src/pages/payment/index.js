@@ -1,11 +1,13 @@
-import { VStack } from '@components/common'
-import HistorySection from '@components/Payment-page/HistorySection'
 import { useEffect, useState } from 'react'
-import { useAuth } from '@/context/AuthContext'
-import { useRouter } from 'next/router'
-import useAxiosPrivate from '@/hooks/useAxiosPrivate'
+
+import HistorySection from '@components/Payment-page/HistorySection'
 import PaymentSection from '@components/Payment-page/PaymentSection'
+import { VStack } from '@components/common'
 import { Typography } from '@mui/material'
+import { useRouter } from 'next/router'
+
+import { useAuth } from '@/context/AuthContext'
+import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 function Payment() {
 	const { auth } = useAuth()
@@ -25,7 +27,7 @@ function Payment() {
 	useEffect(() => {
 		//get provider's scholarship
 		axiosPrivate.get(`/scholarship`).then((res) => {
-			setScholarships(res.data.data)
+			setScholarships(res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
 		})
 	}, [])
 

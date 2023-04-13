@@ -1,4 +1,5 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import EventBusyIcon from '@mui/icons-material/EventBusy'
 import GroupIcon from '@mui/icons-material/Group'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import PushPinIcon from '@mui/icons-material/PushPin'
@@ -88,12 +89,19 @@ function Scholarship(props) {
 									sx={{
 										borderRadius: 0,
 										backgroundColor: 'white',
-										color: '#797979',
+										color:
+											new Date(scholar.applicationDeadline) >= Date.now() ? '#797979' : '#d32f2f',
 										borderTop: '2px solid',
 										borderBottom: '2px solid',
 										fontWeight: 'bold',
 									}}
-									icon={<CalendarTodayIcon />}
+									icon={
+										new Date(scholar.applicationDeadline) >= Date.now() ? (
+											<CalendarTodayIcon />
+										) : (
+											<EventBusyIcon color="error" />
+										)
+									}
 									color="info"
 									label={'Due Date : ' + changeDateToString(scholar.applicationDeadline)}
 								/>

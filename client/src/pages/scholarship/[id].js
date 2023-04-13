@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import EventBusyIcon from '@mui/icons-material/EventBusy'
 import {
 	Box,
 	Button,
@@ -145,9 +146,11 @@ const DetailScholarship = () => {
 						</Typography>
 						{detail.appDate && (
 							<Chip
-								icon={<CalendarTodayIcon />}
+								icon={
+									new Date(detail.appDate) >= Date.now() ? <CalendarTodayIcon /> : <EventBusyIcon />
+								}
 								sx={{ px: 0.5, py: 2.25 }}
-								color="info"
+								color={new Date(detail.appDate) >= Date.now() ? 'info' : 'error'}
 								label={`Due Date: ${detail.appDate}`}
 							/>
 						)}

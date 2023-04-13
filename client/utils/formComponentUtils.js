@@ -125,7 +125,7 @@ export const SelectComponent = ({
 		case 'program':
 			if (!getValues('degree')) {
 				disabled = true
-			} else if (getValues('degree') === 'high school') {
+			} else if (getValues('degree') === 'High School') {
 				options = studentPrograms
 			} else {
 				options = uniPrograms

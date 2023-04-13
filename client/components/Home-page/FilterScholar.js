@@ -86,14 +86,14 @@ function FilterScholar(props) {
 				)}
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="xs">
-				<DialogTitle>Filters</DialogTitle>
+				<DialogTitle fontWeight={'bold'}>Filters</DialogTitle>
 				<Box
 					component="form"
 					sx={{
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'center',
-						px: 2,
+						px: 3,
 						width: '100%',
 					}}
 				>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { FilterList as FilterListIcon } from '@mui/icons-material'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
@@ -18,10 +18,18 @@ function FilterScholar(props) {
 	const [open, setOpen] = useState(false)
 
 	// set filters list
-	const [scholarshipFilters, setScholarshipFilters] = useState([])
-	const [degreeFilters, setDegreeFilters] = useState([])
-	const [facultyFilters, setFacultyFilters] = useState([])
-	const [studentProgramFilters, setStudentProgramFilters] = useState([])
+	const [scholarshipFilters, setScholarshipFilters] = useState(
+		localStorage.getItem('scholarshipFilters') ? JSON.parse(localStorage.scholarshipFilters) : [],
+	)
+	const [degreeFilters, setDegreeFilters] = useState(
+		localStorage.getItem('degreeFilters') ? JSON.parse(localStorage.degreeFilters) : [],
+	)
+	const [facultyFilters, setFacultyFilters] = useState(
+		localStorage.getItem('facultyFilters') ? JSON.parse(localStorage.facultyFilters) : [],
+	)
+	const [studentProgramFilters, setStudentProgramFilters] = useState(
+		localStorage.getItem('studentProgramFilters') ? JSON.parse(localStorage.studentProgramFilters) : [],
+	)
 
 	const handleReset = () => {
 		setScholarshipFilters([])
@@ -47,6 +55,18 @@ function FilterScholar(props) {
 		})
 		handleClose()
 	}
+
+	useEffect(() => {
+		localStorage.setItem('scholarshipFilters', JSON.stringify(scholarshipFilters))
+		localStorage.setItem('degreeFilters', JSON.stringify(degreeFilters))
+		localStorage.setItem('facultyFilters', JSON.stringify(facultyFilters))
+		localStorage.setItem('studentProgramFilters', JSON.stringify(studentProgramFilters))
+	}, [scholarshipFilters, degreeFilters, facultyFilters, studentProgramFilters])
+
+	useEffect(() => {
+		handleApplyFilters()
+	}, [])
+
 	return (
 		<Box sx={{ p: 0.25 }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>

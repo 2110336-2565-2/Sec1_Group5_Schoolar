@@ -210,7 +210,7 @@ function Homepage() {
 										</Typography>
 									) : (
 										<Typography variant="h5" align="left" color="textPrimary" gutterBottom>
-											The Latest Scholarships
+											{auth?.role === 'student' ? 'The Latest Scholarships' : 'Your Scholarship'}
 										</Typography>
 									)}
 									<Divider orientation="horizontal" flexItem style={{ borderBottomWidth: 2 }} />

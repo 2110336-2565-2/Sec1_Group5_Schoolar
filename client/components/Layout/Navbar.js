@@ -48,6 +48,7 @@ function AccoutMenu() {
 		try {
 			await logoutUser()
 			setAuth(null)
+			localStorage.clear()
 			openSnackbar('Logout success!', 'success')
 		} catch (error) {
 			console.error(error)

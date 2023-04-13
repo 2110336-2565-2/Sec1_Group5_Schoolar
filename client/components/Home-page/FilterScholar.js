@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { FilterList as FilterListIcon } from '@mui/icons-material'
+import { FilterList as FilterListIcon, FilterListOff as FilterListOffIcon } from '@mui/icons-material'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
 import { degrees, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/formOptUtils'
 
@@ -67,10 +67,23 @@ function FilterScholar(props) {
 		handleApplyFilters()
 	}, [])
 
+	const isFilterEmpty = () => {
+		return !(
+			scholarshipFilters.length ||
+			degreeFilters.length ||
+			facultyFilters.length ||
+			studentProgramFilters.length
+		)
+	}
+
 	return (
 		<Box sx={{ p: 0.25 }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
-				<FilterListIcon />
+				{isFilterEmpty() ? (
+					<FilterListOffIcon sx={{ fontSize: 30 }} />
+				) : (
+					<FilterListIcon color="primary" sx={{ fontSize: 30 }} />
+				)}
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="xs">
 				<DialogTitle>Filters</DialogTitle>

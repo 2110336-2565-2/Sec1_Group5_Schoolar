@@ -18,8 +18,8 @@ exports.createCheckOutSession = async (req, res) => {
 			],
 			mode: 'subscription',
 			// need front end adjustment to redirect it to page after success or page after cancel payment
-			success_url: `http://localhost:3000/payment/success`,
-			cancel_url: `http://localhost:3000/payment/failed`,
+			success_url: `${process.env.FRONTEND_URL}/payment/success`,
+			cancel_url: `${process.env.FRONTEND_URL}/payment/failed`,
 			// --------------------------------------------
 			client_reference_id: req.params.scholarshipId,
 		})

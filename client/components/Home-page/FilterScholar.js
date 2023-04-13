@@ -23,6 +23,13 @@ function FilterScholar(props) {
 	const [facultyFilters, setFacultyFilters] = useState([])
 	const [studentProgramFilters, setStudentProgramFilters] = useState([])
 
+	const handleReset = () => {
+		setScholarshipFilters([])
+		setDegreeFilters([])
+		setFacultyFilters([])
+		setStudentProgramFilters([])
+	}
+
 	const handleOpen = () => {
 		setOpen(true)
 	}
@@ -85,6 +92,9 @@ function FilterScholar(props) {
 					</FormGroup>
 
 					<DialogActions>
+						<Button onClick={handleReset} color="primary">
+							Reset
+						</Button>
 						<Button onClick={handleClose} color="primary">
 							Cancel
 						</Button>

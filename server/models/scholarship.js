@@ -92,7 +92,7 @@ const scholarshipSchema = new Schema({
 	},
 	createdAt: {
 		type: Date,
-		default: Date.now(),
+		default: Date.now,
 	},
 	status: {
 		type: Boolean,

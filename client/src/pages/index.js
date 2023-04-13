@@ -65,7 +65,7 @@ function Homepage() {
 
 					let pinScholars = []
 					let unpinScholars = res.data.data
-						.sort((a, b) => a.scholarshipName.localeCompare(b.scholarshipName))
+						.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 						.map((scholar, index) => ({
 							...scholar,
 							isPin: studentInfo.pinScholarships.includes(scholar._id) ? 1 : 0,
@@ -79,7 +79,7 @@ function Homepage() {
 					setPinScholars(pinScholars)
 					setStudentInfo(studentRes.data.data[0])
 				} else if (auth && auth.role === 'provider') {
-					setPinScholars(res.data.data)
+					setPinScholars(res.data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
 				}
 			} catch (err) {
 				console.log(err)

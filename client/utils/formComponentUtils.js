@@ -157,6 +157,9 @@ export const SelectComponent = ({
 					disabled={disabled}
 					InputLabelProps={{ shrink }}
 				>
+					<MenuItem value="">
+						<em>None</em>
+					</MenuItem>
 					{options.map((option) => (
 						<MenuItem key={option.value} value={option.value}>
 							{option.value}

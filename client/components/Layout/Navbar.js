@@ -214,7 +214,9 @@ function Navbar() {
 						{isSm ? (
 							<>
 								<Center onClick={handleLogo} sx={{ cursor: 'pointer' }}>
-									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									<Tooltip title="Home">
+										<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									</Tooltip>
 								</Center>
 								<MenuItem component={Link} href="#footer" scroll={false}>
 									<Typography textAlign="center" color={'text.main'}>
@@ -293,8 +295,10 @@ function Navbar() {
 										</MenuItem>
 									)}
 								</Menu>
-								<Center onClick={handleLogo}>
-									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+								<Center onClick={handleLogo} sx={{ cursor: 'pointer' }}>
+									<Tooltip title="Home">
+										<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									</Tooltip>
 								</Center>
 							</>
 						)}

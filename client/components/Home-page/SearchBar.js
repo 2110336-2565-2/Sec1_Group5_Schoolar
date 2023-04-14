@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import { Box, Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
+import { Box, Button, IconButton, InputBase, Paper, Tooltip, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -66,7 +66,9 @@ function SearchBar(props) {
 					>
 						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
 						<IconButton onClick={onClick} type="button" sx={{ width: 35, height: 35, p: '10px' }}>
-							<SearchIcon />
+							<Tooltip title="Search">
+								<SearchIcon />
+							</Tooltip>
 						</IconButton>
 					</Paper>
 					<Typography variant="h7" sx={{ mx: { xs: 1, sm: 2 } }}>

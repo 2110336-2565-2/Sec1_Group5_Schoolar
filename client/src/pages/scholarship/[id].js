@@ -26,11 +26,12 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
 	const { auth } = useAuth()
+	const router = useRouter()
+
 	if (!auth) {
 		router.push('/login')
 	}
 
-	const router = useRouter()
 	const { id } = router.query // scholarship id
 
 	const [detail, setDetail] = useState({
@@ -188,7 +189,7 @@ const DetailScholarship = () => {
 						>
 							Back
 						</Button>
-						{auth.role === 'provider' && (
+						{auth?.role === 'provider' && (
 							<Button
 								sx={{ width: '100%', color: '#FFF' }}
 								variant="contained"
@@ -232,7 +233,7 @@ const DetailScholarship = () => {
 							</DialogActions>
 						</Dialog>
 					</Stack>
-					{auth.role === 'provider' && (
+					{auth?.role === 'provider' && (
 						<Button
 							sx={{ width: '100%' }}
 							variant="contained"

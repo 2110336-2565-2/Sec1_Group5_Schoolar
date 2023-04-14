@@ -9,6 +9,17 @@ body {
 	scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 1px #babac0;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;

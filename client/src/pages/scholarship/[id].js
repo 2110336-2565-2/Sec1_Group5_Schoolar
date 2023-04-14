@@ -163,8 +163,8 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Target Nation" details={detail.targetNation} />
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="Minimum GPAX" details={detail.gpax} />
-							<DetailComponent topic="Amount (Baht)" details={detail.amount} />
-							<DetailComponent topic="Quota (Person)" details={detail.quota} />
+							<DetailComponent topic="Amount (Baht)" details={detail.amount?.toLocaleString()} />
+							<DetailComponent topic="Quota (Person)" details={detail.quota?.toLocaleString()} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
 						<Box sx={{ pb: 1 }}>

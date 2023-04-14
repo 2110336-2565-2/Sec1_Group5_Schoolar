@@ -110,10 +110,18 @@ function Scholarship(props) {
 							)}
 							<ScholarshipTags scholar={scholar} />
 							{scholar.amount && (
-								<DetailComponent icon={<PaymentsIcon />} topic="Amount:" value={scholar.amount?.toLocaleString()} />
+								<DetailComponent
+									icon={<PaymentsIcon />}
+									topic="Amount:"
+									value={`${scholar.amount?.toLocaleString()} Baht`}
+								/>
 							)}
 							{scholar.quota && (
-								<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota?.toLocaleString()} />
+								<DetailComponent
+									icon={<GroupIcon />}
+									topic="Quota:"
+									value={`${scholar.quota?.toLocaleString()} Person`}
+								/>
 							)}
 							{!scholar.status && (
 								<Box

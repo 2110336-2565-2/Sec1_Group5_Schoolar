@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
 
 import { FilterList as FilterListIcon, FilterListOff as FilterListOffIcon } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormGroup, IconButton } from '@mui/material'
+import {
+	Box,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	FormGroup,
+	IconButton,
+	Tooltip,
+} from '@mui/material'
 import { degrees, scholarshipTypes, studentPrograms, uniPrograms } from '@utils/formOptUtils'
 
 import FilterSearchBar from './FilterSearchBar'
@@ -79,11 +89,13 @@ function FilterScholar(props) {
 	return (
 		<Box sx={{ p: 0.25 }}>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
-				{isFilterEmpty() ? (
-					<FilterListOffIcon sx={{ fontSize: 30 }} />
-				) : (
-					<FilterListIcon color="primary" sx={{ fontSize: 30 }} />
-				)}
+				<Tooltip title="Filter">
+					{isFilterEmpty() ? (
+						<FilterListOffIcon sx={{ fontSize: 30 }} />
+					) : (
+						<FilterListIcon color="primary" sx={{ fontSize: 30 }} />
+					)}
+				</Tooltip>
 			</IconButton>
 			<Dialog open={open} onClose={handleClose} disableEnforceFocus fullWidth maxWidth="xs">
 				<DialogTitle fontWeight={'bold'}>Filters</DialogTitle>

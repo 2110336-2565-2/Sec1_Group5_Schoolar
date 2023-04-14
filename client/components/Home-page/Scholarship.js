@@ -3,7 +3,7 @@ import EventBusyIcon from '@mui/icons-material/EventBusy'
 import GroupIcon from '@mui/icons-material/Group'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import PushPinIcon from '@mui/icons-material/PushPin'
-import { Box, Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Divider, Grid, Paper, Stack, Tooltip, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import { useRouter } from 'next/router'
 
@@ -149,7 +149,11 @@ function Scholarship(props) {
 									props.handlePin(scholar)
 								}}
 							>
-								<PushPinIcon sx={scholar?.isPin == 0 ? { color: grey[700] } : { color: blue[800] }} />
+								<Tooltip title={scholar?.isPin ? 'Unpin this scholarship' : 'Pin this scholarship'}>
+									<PushPinIcon
+										sx={scholar?.isPin == 0 ? { color: grey[700] } : { color: blue[800] }}
+									/>
+								</Tooltip>
 							</Button>
 						)}
 					</Box>

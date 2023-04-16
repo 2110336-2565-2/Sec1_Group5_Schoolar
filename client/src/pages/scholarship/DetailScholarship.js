@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Chip,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Divider,
+	Grid,
+	Stack,
+	Typography,
+} from '@mui/material'
 import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
@@ -28,6 +43,7 @@ const DetailScholarship = () => {
 	const [organizationName, setOrganizationName] = useState('')
 	//Change applecation dead line Date type to string
 	const [appDate, setAppDate] = useState('')
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
 
 	const axiosPrivate = useAxiosPrivate()
 
@@ -167,16 +183,44 @@ const DetailScholarship = () => {
 								sx={{ width: '100%', color: '#FFF' }}
 								variant="contained"
 								color="danger"
-								onClick={() => {
-									axiosPrivate.delete(`/scholarship/${detail._id}`).then(() => {
-										openSnackbar('Delete scholarship successfully!', 'success')
-										router.push('/')
-									})
-								}}
+								onClick={() => setOpenConfirmDelete(true)}
 							>
 								Delete
 							</Button>
 						)}
+						<Dialog open={openConfirmDelete} onClose={() => setOpenConfirmDelete(false)}>
+							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Delete this scholarship?'}</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									By deleting this scholarship, all associated data and information will be
+									permanently removed from our system. This action cannot be undone. Please note that
+									this scholarship will be removed immediately from our website and any search
+									results. Also, any payment made towards this scholarship will be cancelled without a
+									refund. Are you sure you want to proceed with the deletion?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => setOpenConfirmDelete(false)}>Disagree</Button>
+								<Button
+									onClick={async () => {
+										try {
+											await axiosPrivate.delete(`/subscription/unsubscripe/${detail._id}`)
+											await axiosPrivate.delete(`/scholarship/${detail._id}`)
+											openSnackbar('Delete scholarship successfully!', 'success')
+											router.push('/')
+										} catch (err) {
+											openSnackbar(
+												'Sorry, we were unable to delete the scholarship. Please try again later or contact our support team for assistance.',
+												'error',
+											)
+											console.log(err)
+										}
+									}}
+								>
+									Agree
+								</Button>
+							</DialogActions>
+						</Dialog>
 					</Stack>
 					{isProvider && (
 						<Button

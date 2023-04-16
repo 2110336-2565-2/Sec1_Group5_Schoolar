@@ -1383,7 +1383,7 @@
         "tags": [
           "notification"
         ],
-        "description": "",
+        "description": "Get all notifications both readed and unreaded.",
         "parameters": [
           {
             "name": "authorization",
@@ -1415,7 +1415,7 @@
         "tags": [
           "notification"
         ],
-        "description": "",
+        "description": "Update readed and unreaded, change all unread message to read message.",
         "parameters": [
           {
             "name": "authorization",

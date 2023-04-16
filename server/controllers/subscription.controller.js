@@ -8,7 +8,9 @@ const Provider = require('../models/providers')
  * @access   Private
  */
 exports.createCheckOutSession = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Create check out session and return URL for payment page. If payment success, redirect to a succes URL. If unsuccess, redirect to cancel URL.'
+	 */
 	try {
 		const session = await stripe.checkout.sessions.create({
 			line_items: [
@@ -34,12 +36,14 @@ exports.createCheckOutSession = async (req, res) => {
 }
 
 /*
- * @desc     Get event from stripe to check if the payment session ids completed then update subscription ID in scholarship.
+ * @desc     Recieve event from stripe to check if the payment session ids completed then update subscription id in scholarship.
  * @route    POST /subscription/webhook
  * @access   Private
  */
 exports.setSubscriptionID = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Recieve event from Stripe to check if the payment session ids completed then update subscription id in scholarship.'
+	 */
 	let subscriptionID
 	let type
 	let scholarshipId
@@ -87,7 +91,9 @@ exports.setSubscriptionID = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptions = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Get a list of subscriptions that have not been canceled.'
+	 */
 	try {
 		const subscriptions = await stripe.subscriptions.list()
 		return res.status(200).json(subscriptions)
@@ -97,13 +103,15 @@ exports.getSubscriptions = async (req, res) => {
 }
 
 /*
- * @desc     Retrieves the subscription with the given ID
+ * @desc     Retrieves the subscription with the given id
  *           https://stripe.com/docs/api/subscriptions/retrieve
  * @route    GET /subscription/:id
  * @access   Private
  */
 exports.getSubscription = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Retrieves the subscription with the given id.'
+	 */
 	try {
 		const id = req.params.id
 		const subscription = await stripe.subscriptions.retrieve(id)
@@ -114,12 +122,14 @@ exports.getSubscription = async (req, res) => {
 }
 
 /*
- * @desc     Get Subscription status wheter subscribing or unsubscribing by scholarship id
+ * @desc     Get Subscription status whether subscribing or unsubscribing by scholarship id
  * @route    GET /subscription/status/:scholarshipId
  * @access   Private
  */
 exports.getSubscriptionStatus = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Get subscription status whether subscribing or unsubscribing by scholarship id.'
+	 */
 	try {
 		const scholarship = await Scholarship.findById(req.params.scholarshipId)
 		return res.status(200).json({ status: scholarship.status })
@@ -134,7 +144,9 @@ exports.getSubscriptionStatus = async (req, res) => {
  * @access   Private
  */
 exports.getNextPaymentDate = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Get next payment date of the subscription id.'
+	 */
 	try {
 		const id = req.params.id // Subscription id from scholarship model
 		const subscription = await stripe.subscriptions.retrieve(id)
@@ -150,7 +162,9 @@ exports.getNextPaymentDate = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Get payment history of the subscription id.'
+	 */
 	const subscriptionId = req.params.id
 	const scholarship = await Scholarship.findOne({ subscription: subscriptionId })
 	try {
@@ -183,7 +197,9 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
  * @access   Private
  */
 exports.cancelSubscription = async (req, res) => {
-	// #swagger.tags = ['subscription']
+	/** #swagger.tags = ['subscription']
+	 *  #swagger.description = 'Unsubscripe a given scholarship id.'
+	 */
 	try {
 		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
 			$set: { status: false, subscription: null },

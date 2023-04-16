@@ -8,7 +8,9 @@ const { toDate } = require('../utils/dateUtils')
  * @access   Private
  */
 exports.getAllScholarships = async (req, res) => {
-	// #swagger.tags = ['scholarship']
+	/** #swagger.tags = ['scholarship']
+	 *  #swagger.description = 'Get all scholarships.'
+	 */
 	try {
 		let scholarships
 		if (req.role === 'provider') {
@@ -32,12 +34,14 @@ exports.getAllScholarships = async (req, res) => {
 }
 
 /*
- * @desc     Get single scholarship
+ * @desc     Get a scholarship by scholarship id
  * @route    GET /scholarship/:id
  * @access   Private
  */
 exports.getScholarship = async (req, res) => {
-	// #swagger.tags = ['scholarship']
+	/** #swagger.tags = ['scholarship']
+	 *  #swagger.description = 'Get a scholarship by scholarship id.'
+	 */
 	try {
 		const scholarship = await Scholarship.findById(req.params.id)
 		if (!scholarship) return res.status(200).json({ success: false })
@@ -53,7 +57,9 @@ exports.getScholarship = async (req, res) => {
  * @access   Private
  */
 exports.addScholarship = async (req, res) => {
-	// #swagger.tags = ['scholarship']
+	/** #swagger.tags = ['scholarship']
+	 *  #swagger.description = 'Add scholarship for the provider with the required field.'
+	 */
 	try {
 		const {
 			scholarshipName,
@@ -156,12 +162,14 @@ exports.addScholarship = async (req, res) => {
 }
 
 /*
- * @desc     Update scholarship
+ * @desc     Update a specific scholarship
  * @route    PUT /scholarship/:id
  * @access   Private
  */
 exports.updateScholarship = async (req, res) => {
-	// #swagger.tags = ['scholarship']
+	/** #swagger.tags = ['scholarship']
+	 *  #swagger.description = 'Update feilds of a specific scholarship.'
+	 */
 	try {
 		const { id } = req.params
 		const { quota, amount, detail } = req.body
@@ -190,7 +198,9 @@ exports.updateScholarship = async (req, res) => {
  * @access   Private
  */
 exports.deleteScolarship = async (req, res, next) => {
-	// #swagger.tags = ['scholarship']
+	/** #swagger.tags = ['scholarship']
+	 *  #swagger.description = 'Delete a scholarship by scholarship id.'
+	 */
 	try {
 		let scolarship = await Scholarship.findById(req.params.id)
 		if (!scolarship) {

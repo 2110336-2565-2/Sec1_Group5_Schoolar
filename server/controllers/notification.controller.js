@@ -8,7 +8,7 @@ const handleValidationResult = (result, res) => {
 
 /*
  * @desc     Get all notifications both readed and unreaded.
- * @route    GET /notifications
+ * @route    GET /notification
  * @access   Private
  */
 exports.getNotifications = async (req, res) => {
@@ -36,7 +36,7 @@ exports.getNotifications = async (req, res) => {
 
 /*
  * @desc     Update readed and unreaded, move all unread message to read message.
- * @route    PUT /notifications
+ * @route    PUT /notification
  * @access   Private
  */
 exports.updateNotification = async (req, res) => {

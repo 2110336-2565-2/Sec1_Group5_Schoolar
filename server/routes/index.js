@@ -6,6 +6,7 @@ const scholarshipRoute = require('./scholarship.route')
 const providerRoute = require('./provider.route')
 const userRoute = require('./user.route')
 const subscriptionRoute = require('./subscription.route')
+const notificationRoute = require('./notification.route')
 
 const router = express.Router()
 router.get('/', (req, res) => {
@@ -18,5 +19,6 @@ router.use('/scholarship', scholarshipRoute)
 router.use('/provider', providerRoute)
 router.use('/user', userRoute)
 router.use('/subscription', subscriptionRoute)
+router.use('/notification', notificationRoute)
 
 module.exports = router

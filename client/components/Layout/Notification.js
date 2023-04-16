@@ -165,7 +165,6 @@ const NotificationBell = ()=>{
     const sendData = async () => {
       try {
         const response = await axiosPrivate.put('/notification')
-        openSnackbar('Add scholarship successfully!', 'success')
         router.push('/')
       } catch (error) {
         console.error(error)

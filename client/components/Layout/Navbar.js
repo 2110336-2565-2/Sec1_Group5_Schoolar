@@ -83,7 +83,7 @@ function AccoutMenu() {
 					textAlign: 'center',
 				}}
 			>
-				{auth && auth.role === 'provider' && (<NotificationBell badgeContent={2}/>) }
+				{auth && auth.role === 'provider' && (<NotificationBell/>) }
 				<Tooltip title="Account settings">
 					<IconButton
 						onClick={handleMenuClick}

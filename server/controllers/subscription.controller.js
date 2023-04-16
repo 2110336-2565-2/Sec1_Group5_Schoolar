@@ -1,5 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const Scholarship = require('../models/scholarship')
+const Provider = require('../models/providers')
 /*
  * @desc     Create check out session and return url for payment page.
  *			 If payment success, redirect to a succes URL. If cancel payment, redirect to cancel URL
@@ -50,9 +51,31 @@ exports.setSubscriptionID = async (req, res) => {
 		return res.status(400).send('Webhook Error: ' + err.message)
 	}
 
+	const scholarship = await Scholarship.findById(scholarshipId)
 	if (type === 'checkout.session.completed') {
-		const scholarship = await Scholarship.findByIdAndUpdate(scholarshipId, {
-			$set: { subscription: subscriptionID, status: true },
+		if (scholarship) {
+			scholarship.subscription = subscriptionID
+			scholarship.status = true
+			await scholarship.save()
+		}
+		// Add message to unreaded notification
+		const provider = await Provider.findByIdAndUpdate(scholarship.provider, {
+			$push: {
+				'notification.unreaded': {
+					message: `Payment Successful: ${scholarship.scholarshipName}`,
+					timestamp: Date.now(),
+				},
+			},
+		})
+	} else if (type === 'charge.failed') {
+		// Add message to unreaded notification
+		const provider = await Provider.findByIdAndUpdate(scholarship.provider, {
+			$push: {
+				'notification.unreaded': {
+					message: `Payment Fail: ${scholarship.scholarshipName}`,
+					timestamp: Date.now(),
+				},
+			},
 		})
 	}
 	return res.status(200).json({ subscription: subscriptionID, scholarship: scholarshipId })

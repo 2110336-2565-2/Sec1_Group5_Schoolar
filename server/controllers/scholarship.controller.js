@@ -140,6 +140,14 @@ exports.addScholarship = async (req, res) => {
 			detail,
 		})
 		await scholarship.save()
+
+		// Add message to unreaded notification
+		provider.notification.unreaded.push({
+			message: `Scholarship not activate: ${scholarship.scholarshipName}`,
+			timestamp: Date.now(),
+		})
+		await provider.save()
+
 		res.status(200).json({ message: 'Scholarship added successfully' })
 	} catch (error) {
 		console.error(error)

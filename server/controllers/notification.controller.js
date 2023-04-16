@@ -13,7 +13,9 @@ const handleValidationResult = (result, res) => {
  * @access   Private
  */
 exports.getNotifications = async (req, res) => {
-	// #swagger.tags = ['notification']
+	/** #swagger.tags = ['notification']
+	 *  #swagger.description = 'Get all notifications both readed and unreaded.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -36,12 +38,14 @@ exports.getNotifications = async (req, res) => {
 }
 
 /*
- * @desc     Update readed and unreaded, move all unread message to read message.
+ * @desc     Update readed and unreaded, change all unread message to read message.
  * @route    PUT /notifications
  * @access   Private
  */
 exports.updateNotification = async (req, res) => {
-	// #swagger.tags = ['notification']
+	/** #swagger.tags = ['notification']
+	 *  #swagger.description = 'Update readed and unreaded, change all unread message to read message.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 

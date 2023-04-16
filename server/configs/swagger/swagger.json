@@ -27,7 +27,7 @@
         "tags": [
           "auth"
         ],
-        "description": "Register a new user",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -114,7 +114,7 @@
         "tags": [
           "auth"
         ],
-        "description": "Login to the system",
+        "description": "",
         "parameters": [
           {
             "name": "body",
@@ -150,7 +150,7 @@
         "tags": [
           "auth"
         ],
-        "description": "Refresh token for the user",
+        "description": "",
         "parameters": [],
         "responses": {
           "200": {
@@ -170,7 +170,7 @@
         "tags": [
           "auth"
         ],
-        "description": "Check if a value is duplicate in its field. Return true if the duplication occurs.",
+        "description": "",
         "parameters": [
           {
             "name": "role",
@@ -206,7 +206,7 @@
         "tags": [
           "auth"
         ],
-        "description": "Logout of the system",
+        "description": "",
         "parameters": [],
         "responses": {
           "200": {
@@ -226,7 +226,7 @@
         "tags": [
           "student"
         ],
-        "description": "Get information of the given student.",
+        "description": "Get infomation of the given student.",
         "parameters": [
           {
             "name": "username",
@@ -630,7 +630,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "Get all scholarships.",
+        "description": "Get all scholarshi.",
         "parameters": [
           {
             "name": "authorization",
@@ -881,7 +881,7 @@
         "tags": [
           "provider"
         ],
-        "description": "Get information of the given provider",
+        "description": "",
         "parameters": [
           {
             "name": "username",
@@ -919,7 +919,7 @@
         "tags": [
           "provider"
         ],
-        "description": "Update information of the provider",
+        "description": "",
         "parameters": [
           {
             "name": "username",
@@ -977,27 +977,60 @@
           }
         }
       }
-    },"/provider/name/{id}": {
+    },
+    "/provider/": {
+      "patch": {
+        "tags": [
+          "provider"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "organizationName": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "creditCardNumber": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/provider/name/{id}": {
       "get": {
         "tags": [
           "provider"
         ],
-        "description": "Get organization name of the given provider id",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -1008,20 +1041,18 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
+          "404": {
+            "description": "Not Found"
           }
         }
-      }},
+      }
+    },
     "/user/{username}": {
       "get": {
         "tags": [
           "user"
         ],
-        "description": "Get information of the given user",
+        "description": "",
         "parameters": [
           {
             "name": "username",

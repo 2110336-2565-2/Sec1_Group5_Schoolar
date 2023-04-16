@@ -1,4 +1,5 @@
 const Provider = require('../models/providers')
+const { validationResult } = require('express-validator')
 
 const handleValidationResult = (result, res) => {
 	if (!result.isEmpty()) {

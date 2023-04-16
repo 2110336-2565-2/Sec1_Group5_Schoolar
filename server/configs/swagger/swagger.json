@@ -1052,7 +1052,7 @@
         "tags": [
           "user"
         ],
-        "description": "",
+        "description": "Get information of the given user.",
         "parameters": [
           {
             "name": "username",

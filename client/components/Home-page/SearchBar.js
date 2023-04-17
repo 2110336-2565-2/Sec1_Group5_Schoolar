@@ -21,12 +21,14 @@ function SearchBar(props) {
 		event.preventDefault()
 		props.searchHandler(inputName)
 	}
-	var buttonName = 'match'
+
+	let buttonName
 	if (auth && auth.role == 'provider') {
 		buttonName = '+ Add Scholarship'
 	} else {
-		buttonName = 'match'
+		buttonName = 'Match'
 	}
+
 	const handleClick = (auth) => {
 		if (buttonName == '+ Add Scholarship') {
 			router.push('/scholarship/addScholarship')
@@ -34,12 +36,10 @@ function SearchBar(props) {
 			props.matchHandler()
 		}
 	}
+
 	const router = useRouter()
 	return (
 		<>
-			<Typography variant="h3" align="center" color="#FFFFFF" gutterBottom margin={5} sx={{ fontWeight: 'bold' }}>
-				Explore more in Schoolar
-			</Typography>
 			<Paper
 				sx={{
 					display: 'flex',
@@ -64,7 +64,7 @@ function SearchBar(props) {
 							borderRadius: 5,
 						}}
 					>
-						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
+						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="Search scholarships" />
 						<IconButton onClick={onClick} type="button" sx={{ width: 35, height: 35, p: '10px' }}>
 							<Tooltip title="Search">
 								<SearchIcon />

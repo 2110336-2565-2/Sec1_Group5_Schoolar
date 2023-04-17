@@ -173,16 +173,33 @@ function Homepage() {
 	return (
 		<Center>
 			<VStack sx={{ width: '90%' }}>
-				<SearchBar searchHandler={searchHandler} matchHandler={matchHandler} filterHandler={filterHandler} />
+				<Typography
+					variant="h3"
+					align="center"
+					color="#FFFFFF"
+					gutterBottom
+					margin={5}
+					sx={{ fontWeight: 'bold' }}
+				>
+					Explore more in Schoolar
+				</Typography>
+				{!showRecScholar && (
+					<SearchBar
+						searchHandler={searchHandler}
+						matchHandler={matchHandler}
+						filterHandler={filterHandler}
+					/>
+				)}
 				<Paper
 					sx={{
 						position: 'relative',
-						top: -28,
+						top: showRecScholar ? 0 : -28,
 						zIndex: 1,
 						width: '100%',
 						borderRadius: 10,
 						px: { xs: 3, sm: 4, md: 8 },
-						py: { xs: 7, sm: 7, md: 8 },
+						py: { xs: 5, sm: 5, md: 6 },
+						mb: showRecScholar ? 4 : 0,
 						backgroundColor: '#F4F6F8',
 					}}
 				>

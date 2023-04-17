@@ -87,7 +87,7 @@ function FilterScholar(props) {
 	}
 
 	return (
-		<Box sx={{ p: 0.25 }}>
+		<Box>
 			<IconButton color="inherit" type="button" onClick={handleOpen}>
 				<Tooltip title="Filter">
 					{isFilterEmpty() ? (

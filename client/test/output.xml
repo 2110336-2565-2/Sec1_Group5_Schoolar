@@ -1,189 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.2 (Python 3.10.6 on win32)" generated="20230418 22:00:22.918" rpa="false" schemaversion="3">
-<suite id="s1" name="Simple" source="D:\OneDrive\Programming\University\Schoolar\client\test\simple.robot">
-<test id="s1-t1" name="Verify account management system" line="8">
+<robot generator="Robot 6.0.2 (Python 3.10.6 on win32)" generated="20230418 22:25:14.696" rpa="false" schemaversion="3">
+<suite id="s1" name="Account Management" source="D:\OneDrive\Programming\University\Schoolar\client\test\account_management.robot">
+<test id="s1-t1" name="Verify edit student information simple" line="10">
 <kw name="Set Selenium Speed" library="SeleniumLibrary">
 <arg>0.15 seconds</arg>
 <doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" starttime="20230418 22:00:23.074" endtime="20230418 22:00:23.074"/>
+<status status="PASS" starttime="20230418 22:25:14.847" endtime="20230418 22:25:14.848"/>
 </kw>
 <kw name="Open Browser" library="SeleniumLibrary">
 <arg>${WEB_URL}</arg>
 <arg>${WEB_BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20230418 22:00:23.075" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000'.</msg>
-<status status="PASS" starttime="20230418 22:00:23.074" endtime="20230418 22:00:26.086"/>
+<msg timestamp="20230418 22:25:14.848" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000'.</msg>
+<status status="PASS" starttime="20230418 22:25:14.848" endtime="20230418 22:25:17.884"/>
 </kw>
 <kw name="Maximize Browser Window" library="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" starttime="20230418 22:00:26.086" endtime="20230418 22:00:26.352"/>
+<status status="PASS" starttime="20230418 22:25:17.884" endtime="20230418 22:25:18.148"/>
 </kw>
 <kw name="Login as student" library="commonKeywords">
 <kw name="Wait Until Element Contains" library="SeleniumLibrary">
 <arg>xpath=//h3[contains(@class, 'MuiTypography-h3') and contains(text(), 'Login')]</arg>
 <arg>Login</arg>
 <doc>Waits until the element ``locator`` contains ``text``.</doc>
-<status status="PASS" starttime="20230418 22:00:26.352" endtime="20230418 22:00:26.693"/>
+<status status="PASS" starttime="20230418 22:25:18.148" endtime="20230418 22:25:18.474"/>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <arg>name:usernameEmail</arg>
 <arg>Student01</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:26.693" level="INFO">Typing text 'Student01' into text field 'name:usernameEmail'.</msg>
-<status status="PASS" starttime="20230418 22:00:26.693" endtime="20230418 22:00:27.209"/>
+<msg timestamp="20230418 22:25:18.474" level="INFO">Typing text 'Student01' into text field 'name:usernameEmail'.</msg>
+<status status="PASS" starttime="20230418 22:25:18.474" endtime="20230418 22:25:18.992"/>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <arg>name:password</arg>
 <arg>Student01</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:27.209" level="INFO">Typing text 'Student01' into text field 'name:password'.</msg>
-<status status="PASS" starttime="20230418 22:00:27.209" endtime="20230418 22:00:27.723"/>
+<msg timestamp="20230418 22:25:18.992" level="INFO">Typing text 'Student01' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230418 22:25:18.992" endtime="20230418 22:25:19.520"/>
 </kw>
 <kw name="Click Button" library="SeleniumLibrary">
 <arg>id:button_login</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:27.723" level="INFO">Clicking button 'id:button_login'.</msg>
-<status status="PASS" starttime="20230418 22:00:27.723" endtime="20230418 22:00:28.552"/>
+<msg timestamp="20230418 22:25:19.520" level="INFO">Clicking button 'id:button_login'.</msg>
+<status status="PASS" starttime="20230418 22:25:19.520" endtime="20230418 22:25:20.344"/>
 </kw>
-<status status="PASS" starttime="20230418 22:00:26.352" endtime="20230418 22:00:28.552"/>
+<status status="PASS" starttime="20230418 22:25:18.148" endtime="20230418 22:25:20.344"/>
 </kw>
 <kw name="Open edit profile" library="commonKeywords">
 <kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
 <arg>xpath=//button[contains(@class, 'MuiIconButton-root') and @aria-label='Account settings']</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" starttime="20230418 22:00:28.553" endtime="20230418 22:00:28.911"/>
+<status status="PASS" starttime="20230418 22:25:20.345" endtime="20230418 22:25:20.714"/>
 </kw>
 <kw name="Click Element" library="SeleniumLibrary">
 <arg>xpath=//button[contains(@class, 'MuiIconButton-root') and @aria-label='Account settings']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:28.911" level="INFO">Clicking element 'xpath=//button[contains(@class, 'MuiIconButton-root') and @aria-label='Account settings']'.</msg>
-<status status="PASS" starttime="20230418 22:00:28.911" endtime="20230418 22:00:29.441"/>
+<msg timestamp="20230418 22:25:20.715" level="INFO">Clicking element 'xpath=//button[contains(@class, 'MuiIconButton-root') and @aria-label='Account settings']'.</msg>
+<msg timestamp="20230418 22:25:21.053" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=112.0.5615.121)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0038DCE3]
+	(No symbol) [0x003239D1]
+	(No symbol) [0x00234DA8]
+	(No symbol) [0x0021D0D3]
+	(No symbol) [0x0027EA8B]
+	(No symbol) [0x0028D093]
+	(No symbol) [0x0027ACC6]
+	(No symbol) [0x00256F68]
+	(No symbol) [0x002580CD]
+	GetHandleVerifier [0x00603832+2506274]
+	GetHandleVerifier [0x00639794+2727300]
+	GetHandleVerifier [0x0063E36C+2746716]
+	GetHandleVerifier [0x00436690+617600]
+	(No symbol) [0x0032C712]
+	(No symbol) [0x00331FF8]
+	(No symbol) [0x003320DB]
+	(No symbol) [0x0033C63B]
+	BaseThreadInitThunk [0x760E7D49+25]
+	RtlInitializeExceptionChain [0x77CCB74B+107]
+	RtlClearBits [0x77CCB6CF+191]
+</msg>
+<msg timestamp="20230418 22:25:21.056" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=112.0.5615.121)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0038DCE3]
+	(No symbol) [0x003239D1]
+	(No symbol) [0x00234DA8]
+	(No symbol) [0x0021D0D3]
+	(No symbol) [0x0027EA8B]
+	(No symbol) [0x0028D093]
+	(No symbol) [0x0027ACC6]
+	(No symbol) [0x00256F68]
+	(No symbol) [0x002580CD]
+	GetHandleVerifier [0x00603832+2506274]
+	GetHandleVerifier [0x00639794+2727300]
+	GetHandleVerifier [0x0063E36C+2746716]
+	GetHandleVerifier [0x00436690+617600]
+	(No symbol) [0x0032C712]
+	(No symbol) [0x00331FF8]
+	(No symbol) [0x003320DB]
+	(No symbol) [0x0033C63B]
+	BaseThreadInitThunk [0x760E7D49+25]
+	RtlInitializeExceptionChain [0x77CCB74B+107]
+	RtlClearBits [0x77CCB6CF+191]
+</msg>
+<status status="FAIL" starttime="20230418 22:25:20.714" endtime="20230418 22:25:21.059"/>
 </kw>
 <kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
 <arg>xpath=//a[@tabindex='0' and @href='/profile/edit']</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" starttime="20230418 22:00:29.441" endtime="20230418 22:00:29.784"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.059" endtime="20230418 22:25:21.059"/>
 </kw>
 <kw name="Click Element" library="SeleniumLibrary">
 <arg>xpath=//a[@tabindex='0' and @href='/profile/edit']</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:29.784" level="INFO">Clicking element 'xpath=//a[@tabindex='0' and @href='/profile/edit']'.</msg>
-<status status="PASS" starttime="20230418 22:00:29.784" endtime="20230418 22:00:30.128"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.059" endtime="20230418 22:25:21.059"/>
 </kw>
 <kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
 <arg>xpath=//h3[contains(@class, 'MuiTypography-h3') and text()='Update Information']</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" starttime="20230418 22:00:30.128" endtime="20230418 22:00:30.468"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.060" endtime="20230418 22:25:21.060"/>
 </kw>
-<status status="PASS" starttime="20230418 22:00:28.552" endtime="20230418 22:00:30.468"/>
+<status status="FAIL" starttime="20230418 22:25:20.344" endtime="20230418 22:25:21.060"/>
 </kw>
 <kw name="Input and verify firstname" library="commonKeywords">
 <arg>selected_firstname=WigglePaw</arg>
-<kw name="Clear Element Text" library="SeleniumLibrary">
-<arg>name:firstName</arg>
-<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" starttime="20230418 22:00:30.468" endtime="20230418 22:00:30.825"/>
-</kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name:firstName</arg>
-<arg>${selected_firstname}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:30.825" level="INFO">Typing text 'WigglePaw' into text field 'name:firstName'.</msg>
-<status status="PASS" starttime="20230418 22:00:30.825" endtime="20230418 22:00:31.355"/>
-</kw>
-<kw name="Get Value" library="SeleniumLibrary">
-<var>${firstname}</var>
-<arg>name:firstName</arg>
-<doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:31.667" level="INFO">${firstname} = WigglePaw</msg>
-<status status="PASS" starttime="20230418 22:00:31.355" endtime="20230418 22:00:31.667"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${firstname}</arg>
-<arg>${selected_firstname}</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230418 22:00:31.667" endtime="20230418 22:00:31.667"/>
-</kw>
-<status status="PASS" starttime="20230418 22:00:30.468" endtime="20230418 22:00:31.667"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.060" endtime="20230418 22:25:21.060"/>
 </kw>
 <kw name="Input and verify lastname" library="commonKeywords">
 <arg>selected_lastname=Scholar</arg>
-<kw name="Clear Element Text" library="SeleniumLibrary">
-<arg>name:lastName</arg>
-<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" starttime="20230418 22:00:31.668" endtime="20230418 22:00:32.026"/>
-</kw>
-<kw name="Input Text" library="SeleniumLibrary">
-<arg>name:lastName</arg>
-<arg>${selected_lastname}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:32.026" level="INFO">Typing text 'Scholar' into text field 'name:lastName'.</msg>
-<status status="PASS" starttime="20230418 22:00:32.026" endtime="20230418 22:00:32.540"/>
-</kw>
-<kw name="Get Value" library="SeleniumLibrary">
-<var>${lastname}</var>
-<arg>name:lastName</arg>
-<doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:32.865" level="INFO">${lastname} = Scholar</msg>
-<status status="PASS" starttime="20230418 22:00:32.540" endtime="20230418 22:00:32.865"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${lastname}</arg>
-<arg>${selected_lastname}</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230418 22:00:32.865" endtime="20230418 22:00:32.865"/>
-</kw>
-<status status="PASS" starttime="20230418 22:00:31.668" endtime="20230418 22:00:32.865"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.061" endtime="20230418 22:25:21.061"/>
 </kw>
 <kw name="Input and verify gender" library="commonKeywords">
 <arg>selected_gender=Non-binary</arg>
-<kw name="Click Element" library="SeleniumLibrary">
-<arg>xpath=//input[@name='gender']/preceding-sibling::div[@role='button']</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:32.866" level="INFO">Clicking element 'xpath=//input[@name='gender']/preceding-sibling::div[@role='button']'.</msg>
-<status status="PASS" starttime="20230418 22:00:32.866" endtime="20230418 22:00:33.241"/>
+<status status="NOT RUN" starttime="20230418 22:25:21.061" endtime="20230418 22:25:21.062"/>
 </kw>
-<kw name="Click Element" library="SeleniumLibrary">
-<arg>xpath=//li[@data-value="${selected_gender}"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:33.241" level="INFO">Clicking element 'xpath=//li[@data-value="Non-binary"]'.</msg>
-<status status="PASS" starttime="20230418 22:00:33.241" endtime="20230418 22:00:33.617"/>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>selected_phoneNumber=0819538124</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.062" endtime="20230418 22:25:21.062"/>
 </kw>
-<kw name="Get Text" library="SeleniumLibrary">
-<var>${gender}</var>
-<arg>xpath=//input[@name='gender']/preceding-sibling::div[@role='button']</arg>
-<doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230418 22:00:33.946" level="INFO">${gender} = Non-binary</msg>
-<status status="PASS" starttime="20230418 22:00:33.617" endtime="20230418 22:00:33.946"/>
+<kw name="Input and verify gpax" library="commonKeywords">
+<arg>selected_gpax=3.49</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.063" endtime="20230418 22:25:21.063"/>
 </kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${gender}</arg>
-<arg>${selected_gender}</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230418 22:00:33.946" endtime="20230418 22:00:33.946"/>
+<kw name="Input and verify degree" library="commonKeywords">
+<arg>selected_degree=High School</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.063" endtime="20230418 22:25:21.063"/>
 </kw>
-<status status="PASS" starttime="20230418 22:00:32.865" endtime="20230418 22:00:33.946"/>
+<kw name="Input and verify school" library="commonKeywords">
+<arg>selected_school=SuperSchool</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.064" endtime="20230418 22:25:21.064"/>
+</kw>
+<kw name="Input and verify program" library="commonKeywords">
+<arg>selected_program=Sci-Math</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.064" endtime="20230418 22:25:21.064"/>
+</kw>
+<kw name="Input and verify targetNation" library="commonKeywords">
+<arg>selected_targetNation=Thailand</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.065" endtime="20230418 22:25:21.065"/>
+</kw>
+<kw name="Input and verify fieldOfInterest" library="commonKeywords">
+<arg>selected_fieldOfInterest=Math</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.065" endtime="20230418 22:25:21.065"/>
+</kw>
+<kw name="Input and verify typeOfScholarship" library="commonKeywords">
+<arg>selected_typeOfScholarship=Full Scholarship</arg>
+<status status="NOT RUN" starttime="20230418 22:25:21.065" endtime="20230418 22:25:21.065"/>
 </kw>
 <kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" starttime="20230418 22:00:33.947" endtime="20230418 22:00:36.166"/>
+<status status="PASS" starttime="20230418 22:25:21.066" endtime="20230418 22:25:23.253"/>
 </kw>
-<tag>All Input</tag>
-<status status="PASS" starttime="20230418 22:00:23.073" endtime="20230418 22:00:36.166"/>
+<status status="FAIL" starttime="20230418 22:25:14.847" endtime="20230418 22:25:23.253">NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=112.0.5615.121)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0038DCE3]
+	(No symbol) [0x003239D1]
+	(No symbol) [0x00234DA8]
+	(No symbol) [0x0021D0D3]
+	(No symbol) [0x0027EA8B]
+	(No symbol) [0x0028D093]
+	(No symbol) [0x0027ACC6]
+	(No symbol) [0x00256F68]
+	(No symbol) [0x002580CD]
+	GetHandleVerifier [0x00603832+2506274]
+	GetHandleVerifier [0x00639794+2727300]
+	GetHandleVerifier [0x0063E36C+2746716]
+	GetHandleVerifier [0x00436690+617600]
+	(No symbol) [0x0032C712]
+	(No symbol) [0x00331FF8]
+	(No symbol) [0x003320DB]
+	(No symbol) [0x0033C63B]
+	BaseThreadInitThunk [0x760E7D49+25]
+	RtlInitializeExceptionChain [0x77CCB74B+107]
+	RtlClearBits [0x77CCB6CF+191]
+</status>
 </test>
-<status status="PASS" starttime="20230418 22:00:22.920" endtime="20230418 22:00:36.167"/>
+<status status="FAIL" starttime="20230418 22:25:14.698" endtime="20230418 22:25:23.255"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="1" fail="0" skip="0">All Input</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Simple">Simple</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Account Management">Account Management</stat>
 </suite>
 </statistics>
 <errors>
+<msg timestamp="20230418 22:25:21.053" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=112.0.5615.121)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0038DCE3]
+	(No symbol) [0x003239D1]
+	(No symbol) [0x00234DA8]
+	(No symbol) [0x0021D0D3]
+	(No symbol) [0x0027EA8B]
+	(No symbol) [0x0028D093]
+	(No symbol) [0x0027ACC6]
+	(No symbol) [0x00256F68]
+	(No symbol) [0x002580CD]
+	GetHandleVerifier [0x00603832+2506274]
+	GetHandleVerifier [0x00639794+2727300]
+	GetHandleVerifier [0x0063E36C+2746716]
+	GetHandleVerifier [0x00436690+617600]
+	(No symbol) [0x0032C712]
+	(No symbol) [0x00331FF8]
+	(No symbol) [0x003320DB]
+	(No symbol) [0x0033C63B]
+	BaseThreadInitThunk [0x760E7D49+25]
+	RtlInitializeExceptionChain [0x77CCB74B+107]
+	RtlClearBits [0x77CCB6CF+191]
+</msg>
 </errors>
 </robot>

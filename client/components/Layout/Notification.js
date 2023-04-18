@@ -100,11 +100,6 @@ const notiMessage = {
   'Payment Reminder' : 'Your scholarship payment will be processed next week with a total of 99$',
 }
 
-const notiHeader = {
-  'fail' : 'Payment Fail',
-  'unactivate' : 'Scholarship not Activate' ,
-  'reminder' : 'Payment Reminder',
-}
 
 const NotificationBell = ()=>{
     const { auth } = useAuth()
@@ -276,11 +271,11 @@ const NotificationBell = ()=>{
                                 sx={{ display: 'flex', flexWrap: 'wrap', maxWidth:'100'}}>
 
                                 <Grid item container direction="row" alignItems="center" gap={1}>
-                                {iconNoti[item.message.split(' : ')[0]]} 
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(' : ')[0]]}> {item.message.split(' : ')[1]} : </Typography>
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.schoalrship]}> {item.message.split(' : ')[1]} </Typography>
+                                {iconNoti[item.message.split(':')[0].trim()]} 
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(':')[0].trim()]}> {item.message.split(':')[0].trim()} : </Typography>
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.message.split(':')[1].trim()} </Typography>
                                 </Grid>    
-                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(' : ')[0]]}</Typography></Grid>
+                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(':')[0].trim()]}</Typography></Grid>
                                 <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word', color : 'grey'}}>{changeDateToString(item.timestamp)}</Typography></Grid>
 
                     </Grid>
@@ -300,11 +295,11 @@ const NotificationBell = ()=>{
                                 sx={{ display: 'flex', flexWrap: 'wrap', maxWidth:'100'}}>
 
                                 <Grid item container direction="row" alignItems="center" gap={1}>
-                                {iconNoti[item.message.split(' : ')[0]]} 
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(' : ')[0]]}> {item.message.split(' : ')[0]} : </Typography>
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.message.split(' : ')[1]} </Typography>
+                                {iconNoti[item.message.split(':')[0].trim()]} 
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(':')[0].trim()]}> {item.message.split(':')[0].trim()} : </Typography>
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.message.split(':')[1].trim()} </Typography>
                                 </Grid>    
-                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(' : ')[0]]}</Typography></Grid>
+                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(':')[0].trim()]}</Typography></Grid>
                                 <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word', color : 'grey'}}>{changeDateToString(item.timestamp)}</Typography></Grid>
 
                     </Grid>

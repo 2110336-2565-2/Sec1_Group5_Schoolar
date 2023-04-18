@@ -82,22 +82,22 @@ const changeDateToString = (date) => {
 }
 // #######################################################################################
 const textColor = {
-  'fail': 'error',
-  'unactivate' : 'secondary',
-  'reminder' : 'grey',
+  'Payment Fail': 'error',
+  'Scholarship not Activate' : 'secondary',
+  'Payment Reminder' : 'grey',
   'scholarship' : 'primary'
 }
 
 const iconNoti = {
-  'fail': <CancelIcon color = 'error'/>,
-  'unactivate' : <ErrorRoundedIcon color ='secondary'/>,
-  'reminder' : <AlarmOnRoundedIcon color = 'primary'/>,
+  'Payment Fail': <CancelIcon color = 'error'/>,
+  'Scholarship not Activate' : <ErrorRoundedIcon color ='secondary'/>,
+  'Payment Reminder' : <AlarmOnRoundedIcon color = 'primary'/>,
 }
 
 const notiMessage = {
-  'fail' : 'Your payment cannot be processed. Please verify your payment detail on the payment page.',
-  'unactivate' : 'Please proceed the payment page to activate.' ,
-  'reminder' : 'Your scholarship payment will be processed next week with a total of 99$',
+  'Payment Fail' : 'Your payment cannot be processed. Please verify your payment detail on the payment page.',
+  'Scholarship not Activate' : 'Please proceed the payment page to activate.' ,
+  'Payment Reminder' : 'Your scholarship payment will be processed next week with a total of 99$',
 }
 
 const notiHeader = {
@@ -127,33 +127,33 @@ const NotificationBell = ()=>{
           const unreadArr = res.data.unreaded
 
           // ********* set readed noti and get scholarshipName ******************
-          let retArr = []
-          for (let scholar of  readArr) {
-              let obj = scholar
-              try{
-                const res = await axiosPrivate.get(`/scholarship/${obj._id}`)
-                obj.scholarshipName = res.data.data.scholarshipName
-              retArr.push(obj)}
-              catch(err){
-                console.log(err)
-              }      
-          }
-
-          setReadNoti(retArr )
+          // let retArr = []
+          // for (let scholar of  readArr) {
+          //     let obj = scholar
+          //     try{
+          //       const res = await axiosPrivate.get(`/scholarship/${obj._id}`)
+          //       obj.scholarshipName = res.data.data.scholarshipName
+          //     retArr.push(obj)}
+          //     catch(err){
+          //       console.log(err)
+          //     }      
+          // }
+  
+          setReadNoti(readArr)
 
           // ********* set unreaded noti and get scholarshipName ******************
-          let retArr2 = []
-          for (let scholar of  unreadArr) {
-              let obj = scholar
-              try{
-                const res = await axiosPrivate.get(`/scholarship/${obj._id}`)
-                obj.scholarshipName = res.data.data.scholarshipName
-              retArr2.push(obj)}
-              catch(err){
-                console.log(err)
-              }      
-          }
-          setUnreadNoti(retArr2)
+          // let retArr2 = []
+          // for (let scholar of  unreadArr) {
+          //     let obj = scholar
+          //     try{
+          //       const res = await axiosPrivate.get(`/scholarship/${obj._id}`)
+          //       obj.scholarshipName = res.data.data.scholarshipName
+          //     retArr2.push(obj)}
+          //     catch(err){
+          //       console.log(err)
+          //     }      
+          // }
+          setUnreadNoti(unreadArr)
         }catch (err){
           console.log(err)
         }
@@ -276,11 +276,11 @@ const NotificationBell = ()=>{
                                 sx={{ display: 'flex', flexWrap: 'wrap', maxWidth:'100'}}>
 
                                 <Grid item container direction="row" alignItems="center" gap={1}>
-                                {iconNoti[item.message]} 
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message]}> {notiHeader[item.message]} : </Typography>
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.schoalrship]}> {item.scholarshipName} </Typography>
+                                {iconNoti[item.message.split(' : ')[0]]} 
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(' : ')[0]]}> {item.message.split(' : ')[1]} : </Typography>
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.schoalrship]}> {item.message.split(' : ')[1]} </Typography>
                                 </Grid>    
-                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message]}</Typography></Grid>
+                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(' : ')[0]]}</Typography></Grid>
                                 <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word', color : 'grey'}}>{changeDateToString(item.timestamp)}</Typography></Grid>
 
                     </Grid>
@@ -300,11 +300,11 @@ const NotificationBell = ()=>{
                                 sx={{ display: 'flex', flexWrap: 'wrap', maxWidth:'100'}}>
 
                                 <Grid item container direction="row" alignItems="center" gap={1}>
-                                {iconNoti[item.message]} 
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message]}> {notiHeader[item.message]} : </Typography>
-                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.scholarshipName} </Typography>
+                                {iconNoti[item.message.split(' : ')[0]]} 
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor[item.message.split(' : ')[0]]}> {item.message.split(' : ')[0]} : </Typography>
+                                  <Typography style={{overflowWrap: 'break-word', fontWeight: 'bold' }} color = {textColor.scholarship}> {item.message.split(' : ')[1]} </Typography>
                                 </Grid>    
-                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message]}</Typography></Grid>
+                                <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word'}}>{notiMessage[item.message.split(' : ')[0]]}</Typography></Grid>
                                 <Grid item xs zeroMinWidth  ><Typography gutterBottom variant="subtitle2" style={{overflowWrap: 'break-word', color : 'grey'}}>{changeDateToString(item.timestamp)}</Typography></Grid>
 
                     </Grid>

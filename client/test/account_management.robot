@@ -8,7 +8,7 @@ Resource    ./commonKeywords.robot
 # account management system
 # robot account_management.robot
 Verify edit student information simple
-    Set Selenium Speed     0.15 seconds     #SLOW SPEED
+    # Set Selenium Speed     0.15 seconds     # SLOW SPEED
     Open Browser    ${WEB_URL}    ${WEB_BROWSER}
     Maximize Browser Window
 

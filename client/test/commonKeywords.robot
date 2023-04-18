@@ -17,6 +17,7 @@ Scroll To Element
     ${x}=        Get Horizontal Position  ${locator}
     ${y}=        Get Vertical Position    ${locator}
     Execute Javascript  window.scrollTo(${x}, ${y}-300)
+    Sleep    0.15    # wait until scroll done
 
 Input and verify firstname
     [Arguments]    ${selected_firstname}

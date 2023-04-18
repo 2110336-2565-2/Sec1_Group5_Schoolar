@@ -93,7 +93,7 @@ function Login() {
 								<Link href="/forgot-password">Forgot password?</Link>
 							</Typography>
 						</Box>
-						<Button variant="contained" type="submit">
+						<Button variant="contained" type="submit" id="button_login">
 							Login
 						</Button>
 						<Box sx={{ textAlign: 'center' }}>

@@ -27,6 +27,32 @@ const providerSchema = new Schema(
 			lowercase: true,
 			trim: true,
 		},
+		notification: {
+			type: {
+				unreaded: [
+					{
+						message: String,
+						timestamp: {
+							type: Date,
+							default: Date.now,
+						},
+					},
+				],
+				readed: [
+					{
+						message: String,
+						timestamp: {
+							type: Date,
+							default: Date.now,
+						},
+					},
+				],
+			},
+			default: {
+				unreaded: [],
+				readed: [],
+			},
+		},
 	},
 	{
 		toJSON: { virtuals: true },

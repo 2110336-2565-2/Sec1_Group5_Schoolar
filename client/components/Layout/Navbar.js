@@ -28,6 +28,8 @@ import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
+import NotificationBell from './Notification'
+
 function AccoutMenu() {
 	const { auth, setAuth } = useAuth()
 	const router = useRouter()
@@ -84,6 +86,7 @@ function AccoutMenu() {
 					textAlign: 'center',
 				}}
 			>
+				{auth && auth.role === 'provider' && (<NotificationBell/>) }
 				<Tooltip title="Account settings">
 					<IconButton
 						onClick={handleMenuClick}

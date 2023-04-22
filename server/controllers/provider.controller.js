@@ -16,6 +16,7 @@ const handleValidationResult = (result, res) => {
  */
 exports.getProvider = async (req, res) => {
 	// #swagger.tags = ['provider']
+	// #swagger.description = 'Get information of the given provider.'
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 	try {
@@ -35,11 +36,12 @@ exports.getProvider = async (req, res) => {
 
 /*
  * @desc     Update provider info
- * @route    PATCH /provider
+ * @route    PATCH /provider/:username
  * @access   Private
  */
 exports.updateProviderInfo = async (req, res) => {
 	// #swagger.tags = ['provider']
+	// #swagger.description = 'Update information of the provider.'
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -75,8 +77,15 @@ exports.updateProviderInfo = async (req, res) => {
 	}
 }
 
+/*
+ * @desc     Get organization name
+ * @route    GET /provider/name/:id
+ * @access   Private
+ */
+
 exports.getOrganizationName = async (req, res) => {
 	// #swagger.tags = ['provider']
+	// #swagger.description = 'Get organization name of the given provider id.'
 	try {
 		const id = req.params.id
 		const provider = await Provider.findById(id)

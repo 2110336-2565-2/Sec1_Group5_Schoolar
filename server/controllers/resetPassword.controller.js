@@ -10,11 +10,13 @@ const handleValidationResult = (result, res) => {
 	}
 }
 
-// @desc        reset password
+// @desc        reset old password with the given new password
 // @route       PUT /resetPassword/password
 // @access      public
 exports.resetPassword = async (req, res) => {
-	// #swagger.tags = ['reset password']
+	/** #swagger.tags = ['reset password']
+	 *  #swagger.description = 'Update old password with the given new password.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -45,7 +47,9 @@ exports.resetPassword = async (req, res) => {
 // @route       PUT /resetPassword/email
 // @access      public
 exports.sendEmailResetPassword = async (req, res) => {
-	// #swagger.tags = ['reset password']
+	/** #swagger.tags = ['reset password']
+	 *  #swagger.description = 'Send email for reset password session.'
+	 */
 	const { email } = req.body
 	const user = await User.findOne({ email })
 	if (!user) {

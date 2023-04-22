@@ -27,3 +27,5 @@ app.listen(port, () => {
 	console.log('To update api doc -> npm run swagger-autogen')
 	console.log(`API documentation: http://localhost:${port}/api-docs`)
 })
+
+module.exports = app

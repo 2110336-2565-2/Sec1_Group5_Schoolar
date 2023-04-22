@@ -1,13 +1,17 @@
-import { Box, Stack, Typography, Grid, Hidden } from '@mui/material'
+import { useEffect, useState } from 'react'
+
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { useEffect, useState } from 'react'
+import { Box, Grid, Hidden, Stack, Typography } from '@mui/material'
+
+import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const HistorySection = ({ scholarships }) => {
 	//set subscription
 	const [subscription, setSubscription] = useState([])
 	const axiosPrivate = useAxiosPrivate()
+	const { openSnackbar } = useSnackbar()
 
 	const changeDateToString = (date) => {
 		if (!date) return null
@@ -27,13 +31,11 @@ const HistorySection = ({ scholarships }) => {
 	}
 
 	useEffect(() => {
-		console.log('render')
 		scholarships.map((item) => {
 			if (item.subscription) {
 				axiosPrivate
 					.get(`/subscription/payment-history/${item.subscription}`)
 					.then((res) => {
-						console.log(res.data.history.paid[0].scholarshipName, ' ', res.data)
 						setSubscription((subscription) => {
 							const scholarshipName = res.data.history.paid[0].scholarshipName
 							const alreadyExists = subscription.some((item) => item.scholarship === scholarshipName)
@@ -46,6 +48,7 @@ const HistorySection = ({ scholarships }) => {
 					})
 					.catch((err) => {
 						console.log('Error at getting payment history')
+						openSnackbar('Error at getting payment history!', 'error')
 					})
 			}
 		})

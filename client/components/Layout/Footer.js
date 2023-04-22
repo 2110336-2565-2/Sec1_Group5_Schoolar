@@ -14,6 +14,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube'
 import { Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function Copyright() {
 	return (
@@ -29,6 +30,8 @@ function Copyright() {
 }
 
 export default function Footer() {
+	const router = useRouter()
+
 	return (
 		<Paper sx={{ width: '100%', paddingTop: 5 }} component="footer" square variant="outlined" id="footer">
 			<VStack>
@@ -62,13 +65,43 @@ export default function Footer() {
 							</Stack>
 							<Stack direction="row" spacing={2} alignItems="center">
 								<Typography variant="body2">Social Media</Typography>
-								<InstagramIcon color="primary" />
-								<FacebookIcon color="primary" />
-								<TwitterIcon color="primary" />
-								<LinkedInIcon color="primary" />
-								<YouTubeIcon color="primary" />
-								<PinterestIcon color="primary" />
-								<GitHubIcon color="primary" />
+								<InstagramIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://www.instagram.com/')}
+								/>
+								<FacebookIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://www.facebook.com/')}
+								/>
+								<TwitterIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://twitter.com/')}
+								/>
+								<LinkedInIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://www.linkedin.com/')}
+								/>
+								<YouTubeIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://www.youtube.com/')}
+								/>
+								<PinterestIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() => router.push('https://www.pinterest.com/')}
+								/>
+								<GitHubIcon
+									color="primary"
+									sx={{ cursor: 'pointer' }}
+									onClick={() =>
+										router.push('https://github.com/2110336-2565-2/Sec1_Group5_Schoolar')
+									}
+								/>
 							</Stack>
 						</Stack>
 					</Grid>

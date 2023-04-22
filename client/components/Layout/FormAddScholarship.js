@@ -101,6 +101,7 @@ function FormAddScholarship() {
 						message: getErrMsg('Target Nation', 'pattern'),
 					},
 					required: getErrMsg('Target Nation', 'required'),
+					maxLength: { value: 100, message: getErrMsg('Target Nation', 'maxLength', 100) },
 				}}
 				{...formProps}
 			/>
@@ -116,7 +117,7 @@ function FormAddScholarship() {
 				Details of scholarship
 			</Typography>
 			<TextFieldComponent name="amount" label="Amount (Baht)" {...formProps} />
-			<TextFieldComponent name="quota" label="Quota (person)" {...formProps} />
+			<TextFieldComponent name="quota" label="Quota (Person)" {...formProps} />
 			<TextFieldComponent
 				name="fieldOfInterest"
 				label="Field of Interest"

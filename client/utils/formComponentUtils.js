@@ -125,7 +125,7 @@ export const SelectComponent = ({
 		case 'program':
 			if (!getValues('degree')) {
 				disabled = true
-			} else if (getValues('degree') === 'high school') {
+			} else if (getValues('degree') === 'High School') {
 				options = studentPrograms
 			} else {
 				options = uniPrograms
@@ -157,24 +157,16 @@ export const SelectComponent = ({
 					disabled={disabled}
 					InputLabelProps={{ shrink }}
 				>
+					<MenuItem value="">
+						<em>None</em>
+					</MenuItem>
 					{options.map((option) => (
 						<MenuItem key={option.value} value={option.value}>
-							{option.label}
+							{option.value}
 						</MenuItem>
 					))}
 				</TextField>
 			)}
 		></Controller>
 	)
-}
-
-//RadioGroup
-{
-	/* <FormControl>
-	<FormLabel>Current employ</FormLabel>
-	<RadioGroup row sx={{ mt: 1, gap: 4 }} defaultValue={false}>
-		<FormControlLabel value={true} control={<Radio />} label="Yes" {...register('employment')} />
-		<FormControlLabel value={false} control={<Radio />} label="No" {...register('employment')} />
-	</RadioGroup>
-</FormControl> */
 }

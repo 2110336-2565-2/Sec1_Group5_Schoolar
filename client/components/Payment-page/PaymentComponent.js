@@ -40,25 +40,20 @@ function PaymentComponent({ scholarship, scholar }) {
 	}
 
 	const handleUnSubscribe = async () => {
-		try {
-			const res = await axiosPrivate
-				.delete(`/subscription/unsubscripe/${scholarship._id}`)
-				.then((res) => {
-					setIsSubscribed(false)
-					console.log(res.status)
-					openSnackbar('Deactivate successfully!', 'success')
-					setOpenConfirmDeactivate(false)
-				})
-				.catch((err) => {
-					console.log('Error deactivate')
-					openSnackbar(
-						'Sorry, we were unable to deactivate the scholarship. Please try again later or contact our support team for assistance.',
-						'error',
-					)
-				})
-		} catch (err) {
-			console.log(err)
-		}
+		axiosPrivate
+			.delete(`/subscription/unsubscripe/${scholarship._id}`)
+			.then((res) => {
+				setIsSubscribed(false)
+				openSnackbar('Deactivate successfully!', 'success')
+				setOpenConfirmDeactivate(false)
+			})
+			.catch((err) => {
+				console.log('Error deactivate')
+				openSnackbar(
+					'Sorry, we were unable to deactivate the scholarship. Please try again later or contact our support team for assistance.',
+					'error',
+				)
+			})
 	}
 
 	const getNextPaymentDate = async () => {
@@ -86,6 +81,7 @@ function PaymentComponent({ scholarship, scholar }) {
 			return daysTillNextPayment
 		} catch (err) {
 			console.log(err)
+			openSnackbar('Error calculating next payment date!', 'error')
 		}
 	}
 
@@ -137,6 +133,7 @@ function PaymentComponent({ scholarship, scholar }) {
 				const result = calculateNextPaymentDate(formatUTCDate(date))
 				setNextPaymentDate(result)
 				console.log('error', err.stack)
+				openSnackbar('Error fetching data!', 'error')
 			})
 	}, [])
 

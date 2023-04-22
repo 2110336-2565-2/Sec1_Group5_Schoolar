@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { HStack } from '@components/common'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import SearchIcon from '@mui/icons-material/Search'
-import { Box, Button, IconButton, InputBase, Paper, Typography } from '@mui/material'
+import { Box, Button, IconButton, InputBase, Paper, Tooltip, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -19,16 +19,16 @@ function SearchBar(props) {
 	}
 	const onClick = (event) => {
 		event.preventDefault()
-		console.log(inputName)
 		props.searchHandler(inputName)
 	}
-	var buttonName = 'match'
-	console.log(auth)
+
+	let buttonName
 	if (auth && auth.role == 'provider') {
 		buttonName = '+ Add Scholarship'
 	} else {
-		buttonName = 'match'
+		buttonName = 'Match'
 	}
+
 	const handleClick = (auth) => {
 		if (buttonName == '+ Add Scholarship') {
 			router.push('/scholarship/addScholarship')
@@ -36,12 +36,10 @@ function SearchBar(props) {
 			props.matchHandler()
 		}
 	}
+
 	const router = useRouter()
 	return (
 		<>
-			<Typography variant="h3" align="center" color="#FFFFFF" gutterBottom margin={5} sx={{ fontWeight: 'bold' }}>
-				Explore more in Schoolar
-			</Typography>
 			<Paper
 				sx={{
 					display: 'flex',
@@ -66,9 +64,11 @@ function SearchBar(props) {
 							borderRadius: 5,
 						}}
 					>
-						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="search scholarships" />
+						<InputBase onChange={onChange} sx={{ ml: 2, flex: 1 }} placeholder="Search scholarships" />
 						<IconButton onClick={onClick} type="button" sx={{ width: 35, height: 35, p: '10px' }}>
-							<SearchIcon />
+							<Tooltip title="Search">
+								<SearchIcon />
+							</Tooltip>
 						</IconButton>
 					</Paper>
 					<Typography variant="h7" sx={{ mx: { xs: 1, sm: 2 } }}>

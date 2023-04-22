@@ -48,7 +48,7 @@ const FormEditPvd = ({ oldValue }) => {
 			})
 			router.push('/')
 		} catch (err) {
-			alert('NOT SUCCESS')
+			openSnackbar('Error updating!', 'error')
 			console.log(err)
 		}
 	}

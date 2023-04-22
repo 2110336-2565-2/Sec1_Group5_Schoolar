@@ -50,9 +50,11 @@ function AccoutMenu() {
 		try {
 			await logoutUser()
 			setAuth(null)
+			localStorage.clear()
 			openSnackbar('Logout success!', 'success')
 		} catch (error) {
 			console.error(error)
+			openSnackbar('Logout error!', 'error')
 		}
 	}
 
@@ -63,6 +65,7 @@ function AccoutMenu() {
 			await axiosPrivate.put('/auth/logout')
 		} catch (error) {
 			console.log('Error logout: ', error)
+			openSnackbar('Logout error!', 'error')
 		}
 	}
 
@@ -214,7 +217,9 @@ function Navbar() {
 						{isSm ? (
 							<>
 								<Center onClick={handleLogo} sx={{ cursor: 'pointer' }}>
-									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									<Tooltip title="Home">
+										<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									</Tooltip>
 								</Center>
 								<MenuItem component={Link} href="#footer" scroll={false}>
 									<Typography textAlign="center" color={'text.main'}>
@@ -293,8 +298,10 @@ function Navbar() {
 										</MenuItem>
 									)}
 								</Menu>
-								<Center onClick={handleLogo}>
-									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+								<Center onClick={handleLogo} sx={{ cursor: 'pointer' }}>
+									<Tooltip title="Home">
+										<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />
+									</Tooltip>
 								</Center>
 							</>
 						)}

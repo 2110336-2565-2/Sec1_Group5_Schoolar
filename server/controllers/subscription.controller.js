@@ -7,6 +7,7 @@ const Scholarship = require('../models/scholarship')
  * @access   Private
  */
 exports.createCheckOutSession = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const session = await stripe.checkout.sessions.create({
 			line_items: [
@@ -37,6 +38,7 @@ exports.createCheckOutSession = async (req, res) => {
  * @access   Private
  */
 exports.setSubscriptionID = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	let subscriptionID
 	let type
 	let scholarshipId
@@ -94,6 +96,7 @@ exports.getSubscription = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptionStatus = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const scholarship = await Scholarship.findById(req.params.scholarshipId)
 		return res.status(200).json({ status: scholarship.status })
@@ -124,6 +127,7 @@ exports.getNextPaymentDate = async (req, res) => {
  * @access   Private
  */
 exports.getSubscriptionPaymentHistory = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	const subscriptionId = req.params.id
 	const scholarship = await Scholarship.findOne({ subscription: subscriptionId })
 	try {
@@ -156,6 +160,7 @@ exports.getSubscriptionPaymentHistory = async (req, res) => {
  * @access   Private
  */
 exports.cancelSubscription = async (req, res) => {
+	// #swagger.tags = ['subscription']
 	try {
 		const scholarship = await Scholarship.findByIdAndUpdate(req.params.scholarshipId, {
 			$set: { status: false },

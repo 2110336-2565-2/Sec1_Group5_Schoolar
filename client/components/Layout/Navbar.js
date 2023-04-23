@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 
-import { Center, HStack } from '@components/common'
+import { Center, HStack, VStack } from '@components/common'
 import { AppRegistration, Edit, Login, Logout } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
@@ -65,7 +65,15 @@ function AccoutMenu() {
 	}
 
 	return (
-		<Stack direction="row">
+		<Stack direction="row" alignItems="center">
+			<Stack direction="column" alignItems="end" sx={{ ml: 1 }}>
+				<Typography variant="h6" sx={{ color: 'text.primary', mt: -0.25 }}>
+					{auth?.username}
+				</Typography>
+				<Typography variant="h7" sx={{ color: 'text.primary', fontWeight: 'bold', mt: -0.25 }}>
+					{auth?.role.toUpperCase()}
+				</Typography>
+			</Stack>
 			<Box
 				sx={{
 					display: 'flex',
@@ -77,7 +85,7 @@ function AccoutMenu() {
 					<IconButton
 						onClick={handleMenuClick}
 						size="small"
-						sx={{ ml: 2 }}
+						sx={{ ml: 1.5 }}
 						aria-controls={open ? 'account-menu' : undefined}
 						aria-haspopup="true"
 						aria-expanded={open ? 'true' : undefined}
@@ -172,7 +180,7 @@ function AccoutMenu() {
 
 function Navbar() {
 	const router = useRouter()
-
+	const { auth } = useAuth()
 	const theme = useTheme()
 	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
 
@@ -199,7 +207,7 @@ function Navbar() {
 		<AppBar position="sticky" sx={{ bgcolor: 'primary.light', height: 64 }}>
 			<Toolbar>
 				<HStack direction="row" justifyContent="space-between">
-					<Stack direction="row" spacing={2}>
+					<Stack direction="row" spacing={1}>
 						{isSm ? (
 							<>
 								<Center onClick={handleLogo}>
@@ -210,6 +218,20 @@ function Navbar() {
 										Contact Us
 									</Typography>
 								</MenuItem>
+								{auth && auth.role === 'provider' && (
+									<MenuItem>
+										<Typography
+											textAlign="center"
+											color={'text.main'}
+											onClick={(e) => {
+												e.stopPropagation()
+												router.push(`/payment`)
+											}}
+										>
+											Payment
+										</Typography>
+									</MenuItem>
+								)}
 							</>
 						) : (
 							<>
@@ -252,9 +274,21 @@ function Navbar() {
 									transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 									anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
 								>
-									<MenuItem component={Link} href="#footer">
+									<MenuItem component={Link} href="#footer" scroll={false}>
 										<ListItemText>Contact Us</ListItemText>
 									</MenuItem>
+									{auth && auth.role === 'provider' && (
+										<MenuItem>
+											<ListItemText
+												onClick={(e) => {
+													e.stopPropagation()
+													router.push(`/payment`)
+												}}
+											>
+												Payment
+											</ListItemText>
+										</MenuItem>
+									)}
 								</Menu>
 								<Center onClick={handleLogo}>
 									<Image src="/primary/logo.svg" alt="logo" width={43} height={51} />

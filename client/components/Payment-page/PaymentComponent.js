@@ -7,11 +7,11 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 import { useSnackbar } from '@/context/SnackbarContext'
 import ScholarshipTags from '@components/Home-page/ScholarshipTag'
 
-function PaymentComponent({ scholarship,scholar}) {
+function PaymentComponent({ scholarship, scholar }) {
 	const axiosPrivate = useAxiosPrivate()
 	const router = useRouter()
 	const { auth } = useAuth()
-	const {openSnackbar} = useSnackbar();
+	const { openSnackbar } = useSnackbar()
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
 	const [isSubscribed, setIsSubscribed] = useState(false)
 	const handleSubscribe = async () => {
@@ -25,15 +25,16 @@ function PaymentComponent({ scholarship,scholar}) {
 
 	const handleUnSubscribe = async () => {
 		try {
-			
-			const res = await axiosPrivate.delete(`/subscription/unsubscripe/${scholarship._id}`)
-			.then((res)=>{
-				setIsSubscribed(false);
-				console.log(res.status);
-				openSnackbar('Unsubscribe successfully!', 'success')
-			}).catch((err)=>{
-				console.log("Error unsubscribe");
-			})
+			const res = await axiosPrivate
+				.delete(`/subscription/unsubscripe/${scholarship._id}`)
+				.then((res) => {
+					setIsSubscribed(false)
+					console.log(res.status)
+					openSnackbar('Unsubscribe successfully!', 'success')
+				})
+				.catch((err) => {
+					console.log('Error unsubscribe')
+				})
 		} catch (err) {
 			console.log(err)
 		}
@@ -88,30 +89,33 @@ function PaymentComponent({ scholarship,scholar}) {
 		return `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:${pad(second)}.000Z`
 	}
 
-
 	useEffect(() => {
-		axiosPrivate.get(`/subscription/status/${scholarship._id}`)
-		.then((res) => {
-			setIsSubscribed(res.data.status);
-			//subscribe is true
-			if(res.data.status){
-				const calculateAndSetNextPaymentDate = async () => {
-					const nextDate = await axiosPrivate.get(`/subscription/next-payment-date/${scholarship.subscription}`)
-					const result = calculateNextPaymentDate(nextDate.data)
+		axiosPrivate
+			.get(`/subscription/status/${scholarship._id}`)
+			.then((res) => {
+				setIsSubscribed(res.data.status)
+				//subscribe is true
+				if (res.data.status) {
+					const calculateAndSetNextPaymentDate = async () => {
+						const nextDate = await axiosPrivate.get(
+							`/subscription/next-payment-date/${scholarship.subscription}`,
+						)
+						const result = calculateNextPaymentDate(nextDate.data)
+						setNextPaymentDate(result)
+					}
+					calculateAndSetNextPaymentDate()
+				} else {
+					const date = addDays(scholarship.createdAt, 30)
+					const result = calculateNextPaymentDate(formatUTCDate(date))
 					setNextPaymentDate(result)
 				}
-				calculateAndSetNextPaymentDate();
-			}else{
+			})
+			.catch((err) => {
 				const date = addDays(scholarship.createdAt, 30)
 				const result = calculateNextPaymentDate(formatUTCDate(date))
 				setNextPaymentDate(result)
-			}
-		}).catch((err)=>{
-			const date = addDays(scholarship.createdAt, 30)
-			const result = calculateNextPaymentDate(formatUTCDate(date))
-			setNextPaymentDate(result)
-			console.log("error", err.stack);
-		})		
+				console.log('error', err.stack)
+			})
 	}, [])
 
 	return (
@@ -122,69 +126,68 @@ function PaymentComponent({ scholarship,scholar}) {
 				borderRadius: 5,
 				height: '100%',
 			}}
-			
 		>
-			<Typography variant="h5"  sx={{ fontWeight: 'bold', pt: 2, pl: 2 }} marginLeft={{xs: 1, sm: 2}} >
-						{scholarship.scholarshipName}
-					</Typography>
-			<Grid container direction="row" justifyContent="space-between"  alignItems="center">
-				
+			<Typography variant="h5" sx={{ fontWeight: 'bold', pt: 2, pl: 2 }} marginLeft={{ xs: 1, sm: 2 }}>
+				{scholarship.scholarshipName}
+			</Typography>
+			<Grid container direction="row" justifyContent="space-between" alignItems="center">
 				<Grid item xs={6} justifyContent="space-between">
-					
-					<Grid marginLeft={{xs: 1, sm: 2}} >
-						<ScholarshipTags scholar={scholarship} size="small" padding={0}/>
+					<Grid marginLeft={{ xs: 1, sm: 2 }}>
+						<ScholarshipTags scholar={scholarship} size="small" padding={0} />
 					</Grid>
 				</Grid>
-				
-				<Grid item xs={6} justifyContent="space-between" >
-				<Stack
-					direction="column"
-					spacing={1}
-					sx={{p:4}}
-				>
-					{nextPaymentDate < 0 ? (
-						<Typography variant="subtitle1" align="center">
-							<span style={{ color: '#FF0000' }}>Overdue</span>
-						</Typography>
-					) : (
-						<Stack direction={{xs: "column", sm:"row"}} spacing={{xs: 0, sm: 2}} justifyContent={'space-evenly'}>
-							<Typography variant="subtitle1" align="center">Next payment: </Typography>
+
+				<Grid item xs={6} justifyContent="space-between">
+					<Stack direction="column" spacing={1} sx={{ p: 4 }}>
+						{nextPaymentDate < 0 ? (
 							<Typography variant="subtitle1" align="center">
-								<span style={{ color: '#FF0000' }} align="center">{nextPaymentDate}  days</span>
+								<span style={{ color: '#FF0000' }}>Overdue</span>
 							</Typography>
-						</Stack>
-						
-					)}
+						) : (
+							<Stack
+								direction={{ xs: 'column', sm: 'row' }}
+								spacing={{ xs: 0, sm: 2 }}
+								justifyContent={'space-evenly'}
+							>
+								<Typography variant="subtitle1" align="center">
+									Next payment:{' '}
+								</Typography>
+								<Typography variant="subtitle1" align="center">
+									<span style={{ color: '#FF0000' }} align="center">
+										{nextPaymentDate} days
+									</span>
+								</Typography>
+							</Stack>
+						)}
 
-					{isSubscribed ? (
-						<Button
-							variant="contained"
-							size="small"
-							sx={{ borderRadius: 5, backgroundColor: '#C1C1C1'}}
-							onClick={handleUnSubscribe}
-						>
-							Unsubscribed
-						</Button>
-					) : (
-						<Button
-							variant="contained"
-							size="small"
-							sx={{ borderRadius: 5}}
-							onClick={handleSubscribe}
-							fullWidth
-						>
-							Subscribe
-						</Button>
-					)}
+						{isSubscribed ? (
+							<Button
+								variant="contained"
+								size="small"
+								sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
+								onClick={handleUnSubscribe}
+							>
+								Unsubscribed
+							</Button>
+						) : (
+							<Button
+								variant="contained"
+								size="small"
+								sx={{ borderRadius: 5 }}
+								onClick={handleSubscribe}
+								fullWidth
+							>
+								Subscribe
+							</Button>
+						)}
 
-					{!isSubscribed && (
-						<Typography variant="body1" align="center" color="#9B9B9B">
-							99฿ / month
-						</Typography>
-					)}
-				</Stack>
+						{!isSubscribed && (
+							<Typography variant="body1" align="center" color="#9B9B9B">
+								99฿ / month
+							</Typography>
+						)}
+					</Stack>
 				</Grid>
-				
 			</Grid>
 		</Box>
 	)

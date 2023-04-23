@@ -51,15 +51,17 @@ const DetailScholarship = () => {
 		}
 		setAppDate(changeDateToString(detail.applicationDeadline))
 		if (detail.provider) {
-			axiosPrivate.get(`/provider/name/${detail.provider}`)
+			axiosPrivate
+				.get(`/provider/name/${detail.provider}`)
 				.then((res) => {
 					setOrganizationName(res.data.organizationName)
 					//console.log('Organization ', res.data.organizationName)
-				}).catch((err) => {
-					console.log("Error get provider name: ", detail.provider);
+				})
+				.catch((err) => {
+					console.log('Error get provider name: ', detail.provider)
 				})
 		} else {
-			console.log("Provider ID is null");
+			console.log('Provider ID is null')
 		}
 	}, [])
 

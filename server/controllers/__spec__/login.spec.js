@@ -47,9 +47,22 @@ const foundUser = {
 }
 
 describe('POST auth/login', () => {
-	describe('when request is invalid', () => {
+	describe('Database connection', () => {
+		beforeAll(async () => {
+			await connect()
+		})
+
+		afterAll(async () => {
+			await mongoose.connection.close()
+		})
+
+		it('Should connect to the database', () => {
+			expect(mongoose.connection.readyState).toEqual(1)
+		})
+	})
+	describe('when a request is invalid', () => {
 		let res
-		it('should return 400 with validation error messages', async () => {
+		it('Should return 400 with validation error messages', async () => {
 			response = await request(app).post('/auth/login').send({})
 
 			expect(response.statusCode).toBe(400)

@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"test": "jest",
+		"test": "jest --forceExit",
 		"test:watch": "jest --watch",
-		"test:cov": "del-cli --force ./coverage && jest --coverage",
+		"test:cov": "del-cli --force ./coverage && jest --coverage --forceExit",
 		"start": "nodemon server.js",
 		"swagger-autogen": "node configs/swagger/swagger.js"
 	},

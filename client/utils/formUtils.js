@@ -151,6 +151,10 @@ export const getValidation = (field, defaultValue) => {
 					value: 2,
 					message: getErrMsg('First Name', 'minLength', 2),
 				},
+				maxLength: {
+					value: 40,
+					message: getErrMsg('First Name', 'maxLength', 40),
+				},
 				pattern: {
 					value: getRegEx('onlyAlphabetSpace'),
 					message: getErrMsg('First Name', 'pattern'),
@@ -162,6 +166,10 @@ export const getValidation = (field, defaultValue) => {
 				minLength: {
 					value: 2,
 					message: getErrMsg('Last Name', 'minLength', 2),
+				},
+				maxLength: {
+					value: 40,
+					message: getErrMsg('Last Name', 'maxLength', 40),
 				},
 				pattern: {
 					value: getRegEx('onlyAlphabetSpace'),
@@ -199,6 +207,13 @@ export const getValidation = (field, defaultValue) => {
 				min: { value: 0, message: getErrMsg('GPAX', 'positive') },
 				max: { value: 4, message: 'GPAX must be at most 4' },
 			}
+		case 'school':
+			return {
+				maxLength: {
+					value: 100,
+					message: getErrMsg('School/University', 'maxLength', 100),
+				},
+			}
 		case 'targetNation':
 			return {
 				pattern: {
@@ -212,6 +227,10 @@ export const getValidation = (field, defaultValue) => {
 				pattern: {
 					value: getRegEx('onlyAlphabetNumberSpace'),
 					message: getErrMsg('Field of Interest', 'pattern'),
+				},
+				maxLength: {
+					value: 100,
+					message: getErrMsg('Field of Interest', 'maxLength', 100),
 				},
 			}
 		// Provider

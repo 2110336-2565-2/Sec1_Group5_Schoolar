@@ -51,7 +51,7 @@ ${LONG_ADDRESS_ERROR}                     Address must be at most 255 characters
 #     Click submit
 
 TC1-17
-    # Set Selenium Speed                       0.15 seconds     
+    Set Selenium Speed                       0.15 seconds     
     Open registration page
     Input and verify username                Provider123
     Input and verify Email                   Provider123@hotmail.com
@@ -69,7 +69,7 @@ TC1-17
     Verify address display error message                 ${ADDRESS_REQUIRED_ERROR}
 
 TC1-18
-    # Set Selenium Speed                       0.15 seconds     
+    Set Selenium Speed                       0.15 seconds     
     Open registration page
     Input and verify username                Provider123
     Input and verify Email                   Provider123@hotmail.com
@@ -87,7 +87,7 @@ TC1-18
     Verify address display error message                 ${SHORT_ADDRESS_ERROR}
 
 TC1-19
-    # Set Selenium Speed                       0.15 seconds     
+    Set Selenium Speed                       0.15 seconds     
     Open registration page
     Input and verify username                Provider123
     Input and verify Email                   Provider123@hotmail.com
@@ -105,7 +105,7 @@ TC1-19
     Verify address display error message                 ${LONG_ADDRESS_ERROR}
 
 TC1-20
-    # Set Selenium Speed                       0.15 seconds     
+    Set Selenium Speed                       0.15 seconds     
     Open registration page
     Input and verify username                Provider123
     Input and verify Email                   Provider123@hotmail.com
@@ -123,7 +123,7 @@ TC1-20
     Verify address display error message                 ${SHORT_ADDRESS_ERROR}
 
 TC1-21
-    # Set Selenium Speed                       0.15 seconds     
+    Set Selenium Speed                       0.15 seconds     
     Open registration page
     Input and verify username                Provider123
     Input and verify Email                   Provider123@hotmail.com

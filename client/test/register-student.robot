@@ -67,7 +67,7 @@ ${LONG_FIELD_OF_INTEREST_ERROR}           Field of Interest must be at most 100 
 #     Click submit
 
 TC1-2
-    # Set Selenium Speed                       0.15 seconds
+    Set Selenium Speed                       0.15 seconds
     Open registration page
     Input and verify username                ${EMPTY}
     Input and verify Email                   ${EMPTY}
@@ -80,7 +80,7 @@ TC1-2
     Verify confirm password display error message      ${CONFIRM_PASSWORD_MISMATCH_ERROR}
 
 TC1-3
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123Student123Student123Student123Student123
     Input and verify Email                   Student123
@@ -92,7 +92,7 @@ TC1-3
     Verify password display error message              ${SHORT_PASSWORD_ERROR}
 
 TC1-4
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123&
     Input and verify Email                   Student01@Student01.com   # email of Student01 in DB
@@ -104,7 +104,7 @@ TC1-4
     Verify password display error message              ${LONG_PASSWORD_ERROR}
 
 TC1-5
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student@hotmail.com
@@ -114,7 +114,7 @@ TC1-5
     Verify password display error message              ${NO_UPPERCASE_PASSWORD_ERROR}
 
 TC1-6
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student01 
     Input and verify Email                   student@hotmail.com
@@ -125,13 +125,19 @@ TC1-6
     Verify password display error message              ${NO_DIGIT_OR_SPECIAL_PASSWORD_ERROR}
 
 TC1-7
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
     Input and verify Password                Student123
     Input and verify Confirm Password        Student123
     Click register as student
+    Input and verify firstname               ${EMPTY}
+    Input and verify lastname                ${EMPTY}
+    Input and verify birthdate               ${EMPTY}
+    Input and verify gender                  ${EMPTY}
+    Input and verify phoneNumber             ${EMPTY}
+    Click next
     Verify firstName display error message       ${EMPTY_FIRST_NAME_ERROR}
     Verify lastName display error message        ${EMPTY_LAST_NAME_ERROR}
     Verify birdthdate display error message      ${EMPTY_BIRTHDATE_ERROR}
@@ -139,7 +145,7 @@ TC1-7
     Verify phoneNumber display error message     ${EMPTY_PHONE_NUMBER_ERROR}
 
 TC1-8
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -151,30 +157,32 @@ TC1-8
     Input and verify birthdate               21/04/2300
     Input and verify gender                  Male
     Input and verify phoneNumber             01234567
+    Click next
     Verify firstName display error message       ${SHORT_FIRST_NAME_ERROR}
     Verify lastName display error message        ${SHORT_LAST_NAME_ERROR}
     Verify birdthdate display error message      ${INVALID_BIRTHDATE_ERROR}
     Verify phoneNumber display error message     ${SHORT_PHONE_NUMBER_ERROR}
 
 TC1-9
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
     Input and verify Password                Student123
     Input and verify Confirm Password        Student123
     Click register as student
-    Input and verify firstname               ssssssssssssssssssssssssssssssssssssssss
-    Input and verify lastname                ssssssssssssssssssssssssssssssssssssssssS
+    Input and verify firstname               sssssssssssssssssssssssssssssssssssssssss
+    Input and verify lastname                sssssssssssssssssssssssssssssssssssssssss
     Input and verify birthdate               21/04/2002
     Input and verify gender                  Male
     Input and verify phoneNumber             0123452323   #phone number of Student01 in DB
+    Click next
     Verify firstName display error message       ${LONG_FIRST_NAME_ERROR}
     Verify lastName display error message        ${LONG_LAST_NAME_ERROR}
     Verify phoneNumber display error message     ${DUPLICATE_PHONE_NUMBER_ERROR}
 
 TC1-10
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -186,12 +194,13 @@ TC1-10
     Input and verify birthdate               21/04/2002
     Input and verify gender                  Male
     Input and verify phoneNumber             382492AA11
+    Click next
     Verify firstName display error message       ${INVALID_FIRST_NAME_ERROR}
     Verify lastName display error message        ${INVALID_LAST_NAME_ERROR}
     Verify phoneNumber display error message     ${INVALID_PHONE_NUMBER_ERROR}
 
 TC1-11
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -203,12 +212,13 @@ TC1-11
     Input and verify birthdate               21/04/2002
     Input and verify gender                  Male
     Input and verify phoneNumber             01234567890
+    Click next
     Verify firstName display error message       ${INVALID_FIRST_NAME_ERROR}
     Verify lastName display error message        ${INVALID_LAST_NAME_ERROR}
     Verify phoneNumber display error message     ${LONG_PHONE_NUMBER_ERROR}
 
 TC1-12
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -230,7 +240,7 @@ TC1-12
     Verify fieldOfInterest display error message    ${INVALID_FIELD_OF_INTEREST_ERROR}
 
 TC1-13
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -251,7 +261,7 @@ TC1-13
     Verify targetNation display error message       ${LONG_TARGET_NATION_ERROR}
 
 TC1-14
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com
@@ -272,7 +282,7 @@ TC1-14
     Verify fieldOfInterest display error message    ${LONG_FIELD_OF_INTEREST_ERROR}
 
 TC1-15
-    # Set Selenium Speed                       0.15 seconds 
+    Set Selenium Speed                       0.15 seconds 
     Open registration page
     Input and verify username                Student123
     Input and verify Email                   student123@hotmail.com

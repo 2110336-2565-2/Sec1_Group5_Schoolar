@@ -62,6 +62,11 @@ Open registration page
     Wait Until Page Contains Element    ${USERNAME_FIELD}
     # Sleep    2
 
+Click register as student
+    Wait Until Element Is Visible    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]
+    Click Button    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]
+
+
 # Register as student
 #     Wait Until Element Contains    xpath=//h3[contains(@class, 'MuiTypography-h3') and contains(text(), 'Login')]    Login
 #     Input text    name:usernameEmail   Student01
@@ -218,19 +223,23 @@ Input and verify address
 
 Verify username display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_14']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='username']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify email display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_6']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='email']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify password display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_6']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='password']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify confirm password display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_6']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='cfpassword']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify firstname display error message
     [Arguments]    ${error}

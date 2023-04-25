@@ -66,19 +66,34 @@ ${VALID_ADDRESS}                           123 Example Street, City, Country
 
 *** Test Cases ***
 # register system
+# robot register.robot
+
 Verify student information simple
-    # Set Selenium Speed     0.15 seconds     # SLOW SPEED
+    Set Selenium Speed     0.15 seconds     # SLOW SPEED
     Open registration page
 
-    Input and verify firstname    input_firstname=WigglePaw
-    Input and verify lastname    inputd_lastname=Scholar
-    # Input and verify birthdate    input_birthdate=02/01/2002     # FAIL
-    Input and verify gender    input_gender=Non-binary
-    Input and verify phoneNumber    input_phoneNumber=0819538124
-    Input and verify gpax    input_gpax=3.49
-    Input and verify degree    input_degree=High School
-    Input and verify school    input_school=SuperSchool
-    Input and verify program    input_program=Sci-Math
-    Input and verify targetNation    input_targetNation=Thailand
-    Input and verify fieldOfInterest    input_fieldOfInterest=Math
-    Input and verify typeOfScholarship    input_typeOfScholarship=Full Scholarship
+    Input and verify username    input_username=StudentTest01%$*&
+    Input and verify Email  input_email=StudentTest01$%*$%*$
+    Input and verify Password    input_password=aaa
+    Input and verify Confirm Password    input_confirm_password=aba
+    Click register as student
+    Verify username display error message    error=Username is invalid
+    Verify email display error message    error=Email is invalid
+    Verify password display error message    error=Password must be at least 8 characters
+    Verify confirm password display error message    error=Password do not match!
+
+
+
+####
+    # Input and verify firstname    input_firstname=WigglePaw
+    # Input and verify lastname    inputd_lastname=Scholar
+    # # Input and verify birthdate    input_birthdate=02/01/2002     # FAIL
+    # Input and verify gender    input_gender=Non-binary
+    # Input and verify phoneNumber    input_phoneNumber=0819538124
+    # Input and verify gpax    input_gpax=3.49
+    # Input and verify degree    input_degree=High School
+    # Input and verify school    input_school=SuperSchool
+    # Input and verify program    input_program=Sci-Math
+    # Input and verify targetNation    input_targetNation=Thailand
+    # Input and verify fieldOfInterest    input_fieldOfInterest=Math
+    # Input and verify typeOfScholarship    input_typeOfScholarship=Full Scholarship

@@ -1,297 +1,2671 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0.2 (Python 3.10.6 on win32)" generated="20230425 19:00:38.770" rpa="false" schemaversion="3">
-<suite id="s1" name="Register" source="D:\OneDrive\Programming\University\Schoolar\client\test\register.robot">
-<test id="s1-t1" name="Verify student information simple" line="71">
-<kw name="Set Selenium Speed" library="SeleniumLibrary">
-<arg>0.15 seconds</arg>
-<doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" starttime="20230425 19:00:38.986" endtime="20230425 19:00:38.986"/>
-</kw>
+<robot generator="Robot 6.0.2 (Python 3.9.16 on win32)" generated="20230425 21:56:06.770" rpa="false" schemaversion="3">
+<suite id="s1" name="Register-Student" source="C:\Users\Watch\Desktop\Sec1_Group5_Schoolar\client\test\register-student.robot">
+<test id="s1-t1" name="TC1-2" line="69">
 <kw name="Open registration page" library="commonKeywords">
 <kw name="Open Browser" library="SeleniumLibrary">
 <arg>${WEB_URL}</arg>
 <arg>${WEB_BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20230425 19:00:38.987" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
-<status status="PASS" starttime="20230425 19:00:38.986" endtime="20230425 19:00:40.585"/>
+<msg timestamp="20230425 21:56:07.246" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:07.245" endtime="20230425 21:56:09.861"/>
 </kw>
 <kw name="Maximize Browser Window" library="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" starttime="20230425 19:00:40.585" endtime="20230425 19:00:40.864"/>
+<status status="PASS" starttime="20230425 21:56:09.861" endtime="20230425 21:56:10.005"/>
 </kw>
 <kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
-<arg>${USERNAME_FIELD}</arg>
+<arg>name:username</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" starttime="20230425 19:00:40.864" endtime="20230425 19:00:41.035"/>
+<status status="PASS" starttime="20230425 21:56:10.005" endtime="20230425 21:56:10.025"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:38.986" endtime="20230425 19:00:41.035"/>
+<status status="PASS" starttime="20230425 21:56:07.245" endtime="20230425 21:56:10.025"/>
 </kw>
 <kw name="Input and verify username" library="commonKeywords">
-<arg>input_username=StudentTest01%$*&amp;</arg>
+<arg>${EMPTY}</arg>
 <kw name="Input Text" library="SeleniumLibrary">
-<arg>${USERNAME_FIELD}</arg>
+<arg>name:username</arg>
 <arg>${input_username}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:41.036" level="INFO">Typing text 'StudentTest01%$*&amp;' into text field 'name=username'.</msg>
-<status status="PASS" starttime="20230425 19:00:41.036" endtime="20230425 19:00:41.568"/>
+<msg timestamp="20230425 21:56:10.028" level="INFO">Typing text '' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:10.027" endtime="20230425 21:56:10.194"/>
 </kw>
 <kw name="Get Value" library="SeleniumLibrary">
 <var>${username}</var>
-<arg>${USERNAME_FIELD}</arg>
+<arg>name:username</arg>
 <doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:41.883" level="INFO">${username} = StudentTest01%$*&amp;</msg>
-<status status="PASS" starttime="20230425 19:00:41.568" endtime="20230425 19:00:41.883"/>
+<msg timestamp="20230425 21:56:10.236" level="INFO">${username} = </msg>
+<status status="PASS" starttime="20230425 21:56:10.194" endtime="20230425 21:56:10.236"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${username}</arg>
 <arg>${input_username}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:41.883" endtime="20230425 19:00:41.883"/>
+<status status="PASS" starttime="20230425 21:56:10.236" endtime="20230425 21:56:10.237"/>
 </kw>
-<kw name="Verify String Data Type" library="commonKeywords">
-<arg>${username}</arg>
-<kw name="Evaluate" library="BuiltIn">
-<var>${data_type}</var>
-<arg>type($data).__name__</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230425 19:00:41.886" level="INFO">${data_type} = str</msg>
-<status status="PASS" starttime="20230425 19:00:41.883" endtime="20230425 19:00:41.886"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${data_type}</arg>
-<arg>str</arg>
-<arg>msg="Expected data type 'str', but got '${data_type}'"</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:41.886" endtime="20230425 19:00:41.886"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:41.883" endtime="20230425 19:00:41.886"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:41.035" endtime="20230425 19:00:41.886"/>
+<status status="PASS" starttime="20230425 21:56:10.026" endtime="20230425 21:56:10.237"/>
 </kw>
 <kw name="Input and verify Email" library="commonKeywords">
-<arg>input_email=StudentTest01$%*$%*$</arg>
+<arg>${EMPTY}</arg>
 <kw name="Input Text" library="SeleniumLibrary">
-<arg>${EMAIL_FIELD}</arg>
+<arg>name:email</arg>
 <arg>${input_email}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:41.887" level="INFO">Typing text 'StudentTest01$%*$%*$' into text field 'name=email'.</msg>
-<status status="PASS" starttime="20230425 19:00:41.887" endtime="20230425 19:00:42.465"/>
+<msg timestamp="20230425 21:56:10.239" level="INFO">Typing text '' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:10.239" endtime="20230425 21:56:10.392"/>
 </kw>
 <kw name="Get Value" library="SeleniumLibrary">
 <var>${email}</var>
-<arg>${EMAIL_FIELD}</arg>
+<arg>name:email</arg>
 <doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:42.783" level="INFO">${email} = StudentTest01$%*$%*$</msg>
-<status status="PASS" starttime="20230425 19:00:42.465" endtime="20230425 19:00:42.783"/>
+<msg timestamp="20230425 21:56:10.422" level="INFO">${email} = </msg>
+<status status="PASS" starttime="20230425 21:56:10.392" endtime="20230425 21:56:10.422"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${email}</arg>
 <arg>${input_email}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:42.783" endtime="20230425 19:00:42.783"/>
+<status status="PASS" starttime="20230425 21:56:10.422" endtime="20230425 21:56:10.422"/>
 </kw>
-<kw name="Verify String Data Type" library="commonKeywords">
-<arg>${email}</arg>
-<kw name="Evaluate" library="BuiltIn">
-<var>${data_type}</var>
-<arg>type($data).__name__</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230425 19:00:42.784" level="INFO">${data_type} = str</msg>
-<status status="PASS" starttime="20230425 19:00:42.784" endtime="20230425 19:00:42.784"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${data_type}</arg>
-<arg>str</arg>
-<arg>msg="Expected data type 'str', but got '${data_type}'"</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:42.784" endtime="20230425 19:00:42.784"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:42.783" endtime="20230425 19:00:42.784"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:41.887" endtime="20230425 19:00:42.784"/>
+<status status="PASS" starttime="20230425 21:56:10.237" endtime="20230425 21:56:10.423"/>
 </kw>
 <kw name="Input and verify Password" library="commonKeywords">
-<arg>input_password=aaa</arg>
+<arg>${EMPTY}</arg>
 <kw name="Input Text" library="SeleniumLibrary">
-<arg>${PASSWORD_FIELD}</arg>
+<arg>name:password</arg>
 <arg>${input_password}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:42.785" level="INFO">Typing text 'aaa' into text field 'name=password'.</msg>
-<status status="PASS" starttime="20230425 19:00:42.785" endtime="20230425 19:00:43.306"/>
+<msg timestamp="20230425 21:56:10.425" level="INFO">Typing text '' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:10.424" endtime="20230425 21:56:10.545"/>
 </kw>
 <kw name="Get Value" library="SeleniumLibrary">
 <var>${password}</var>
-<arg>${PASSWORD_FIELD}</arg>
+<arg>name:password</arg>
 <doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:43.623" level="INFO">${password} = aaa</msg>
-<status status="PASS" starttime="20230425 19:00:43.306" endtime="20230425 19:00:43.623"/>
+<msg timestamp="20230425 21:56:10.569" level="INFO">${password} = </msg>
+<status status="PASS" starttime="20230425 21:56:10.545" endtime="20230425 21:56:10.569"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${password}</arg>
 <arg>${input_password}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:43.623" endtime="20230425 19:00:43.623"/>
+<status status="PASS" starttime="20230425 21:56:10.570" endtime="20230425 21:56:10.570"/>
 </kw>
-<kw name="Verify String Data Type" library="commonKeywords">
-<arg>${password}</arg>
-<kw name="Evaluate" library="BuiltIn">
-<var>${data_type}</var>
-<arg>type($data).__name__</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230425 19:00:43.624" level="INFO">${data_type} = str</msg>
-<status status="PASS" starttime="20230425 19:00:43.623" endtime="20230425 19:00:43.624"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${data_type}</arg>
-<arg>str</arg>
-<arg>msg="Expected data type 'str', but got '${data_type}'"</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:43.624" endtime="20230425 19:00:43.624"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:43.623" endtime="20230425 19:00:43.624"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:42.785" endtime="20230425 19:00:43.624"/>
+<status status="PASS" starttime="20230425 21:56:10.423" endtime="20230425 21:56:10.570"/>
 </kw>
 <kw name="Input and verify Confirm Password" library="commonKeywords">
-<arg>input_confirm_password=aba</arg>
+<arg>Student123</arg>
 <kw name="Input Text" library="SeleniumLibrary">
-<arg>${CONFIRM_PASSWORD_FIELD}</arg>
+<arg>name:cfpassword</arg>
 <arg>${input_confirm_password}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:43.625" level="INFO">Typing text 'aba' into text field 'name=cfpassword'.</msg>
-<status status="PASS" starttime="20230425 19:00:43.625" endtime="20230425 19:00:44.145"/>
+<msg timestamp="20230425 21:56:10.572" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:56:10.571" endtime="20230425 21:56:10.731"/>
 </kw>
 <kw name="Get Value" library="SeleniumLibrary">
 <var>${confirm_password}</var>
-<arg>${CONFIRM_PASSWORD_FIELD}</arg>
+<arg>name:cfpassword</arg>
 <doc>Returns the value attribute of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:44.460" level="INFO">${confirm_password} = aba</msg>
-<status status="PASS" starttime="20230425 19:00:44.145" endtime="20230425 19:00:44.460"/>
+<msg timestamp="20230425 21:56:10.755" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:56:10.731" endtime="20230425 21:56:10.755"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${confirm_password}</arg>
 <arg>${input_confirm_password}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:44.460" endtime="20230425 19:00:44.461"/>
+<status status="PASS" starttime="20230425 21:56:10.755" endtime="20230425 21:56:10.756"/>
 </kw>
-<kw name="Verify String Data Type" library="commonKeywords">
-<arg>${confirm_password}</arg>
-<kw name="Evaluate" library="BuiltIn">
-<var>${data_type}</var>
-<arg>type($data).__name__</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230425 19:00:44.461" level="INFO">${data_type} = str</msg>
-<status status="PASS" starttime="20230425 19:00:44.461" endtime="20230425 19:00:44.461"/>
-</kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${data_type}</arg>
-<arg>str</arg>
-<arg>msg="Expected data type 'str', but got '${data_type}'"</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:44.461" endtime="20230425 19:00:44.462"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:44.461" endtime="20230425 19:00:44.462"/>
-</kw>
-<status status="PASS" starttime="20230425 19:00:43.624" endtime="20230425 19:00:44.462"/>
+<status status="PASS" starttime="20230425 21:56:10.571" endtime="20230425 21:56:10.756"/>
 </kw>
 <kw name="Click register as student" library="commonKeywords">
 <kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
 <arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" starttime="20230425 19:00:44.462" endtime="20230425 19:00:44.792"/>
+<status status="PASS" starttime="20230425 21:56:10.757" endtime="20230425 21:56:10.791"/>
 </kw>
 <kw name="Click Button" library="SeleniumLibrary">
 <arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
 <doc>Clicks the button identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:44.792" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
-<status status="PASS" starttime="20230425 19:00:44.792" endtime="20230425 19:00:45.614"/>
+<msg timestamp="20230425 21:56:10.792" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:56:10.791" endtime="20230425 21:56:10.888"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:44.462" endtime="20230425 19:00:45.614"/>
+<status status="PASS" starttime="20230425 21:56:10.756" endtime="20230425 21:56:10.889"/>
 </kw>
 <kw name="Verify username display error message" library="commonKeywords">
-<arg>error=Username is invalid</arg>
+<arg>${EMPTY_USERNAME_ERROR}</arg>
 <kw name="Get Text" library="SeleniumLibrary">
 <var>${error_message}</var>
 <arg>//input[@name='username']/following::p</arg>
 <doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:45.945" level="INFO">${error_message} = Username is invalid</msg>
-<status status="PASS" starttime="20230425 19:00:45.615" endtime="20230425 19:00:45.945"/>
+<msg timestamp="20230425 21:56:10.931" level="INFO">${error_message} = Username is required</msg>
+<status status="PASS" starttime="20230425 21:56:10.890" endtime="20230425 21:56:10.931"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${error}</arg>
 <arg>${error_message}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:45.945" endtime="20230425 19:00:45.945"/>
+<status status="PASS" starttime="20230425 21:56:10.931" endtime="20230425 21:56:10.932"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:45.614" endtime="20230425 19:00:45.945"/>
+<status status="PASS" starttime="20230425 21:56:10.889" endtime="20230425 21:56:10.932"/>
 </kw>
 <kw name="Verify email display error message" library="commonKeywords">
-<arg>error=Email is invalid</arg>
+<arg>${EMPTY_EMAIL_ERROR}</arg>
 <kw name="Get Text" library="SeleniumLibrary">
 <var>${error_message}</var>
 <arg>//input[@name='email']/following::p</arg>
 <doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:46.276" level="INFO">${error_message} = Email is invalid</msg>
-<status status="PASS" starttime="20230425 19:00:45.946" endtime="20230425 19:00:46.276"/>
+<msg timestamp="20230425 21:56:10.970" level="INFO">${error_message} = Email is required</msg>
+<status status="PASS" starttime="20230425 21:56:10.933" endtime="20230425 21:56:10.971"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${error}</arg>
 <arg>${error_message}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:46.276" endtime="20230425 19:00:46.276"/>
+<status status="PASS" starttime="20230425 21:56:10.971" endtime="20230425 21:56:10.971"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:45.946" endtime="20230425 19:00:46.276"/>
+<status status="PASS" starttime="20230425 21:56:10.933" endtime="20230425 21:56:10.971"/>
 </kw>
 <kw name="Verify password display error message" library="commonKeywords">
-<arg>error=Password must be at least 8 characters</arg>
+<arg>${EMPTY_PASSWORD_ERROR}</arg>
 <kw name="Get Text" library="SeleniumLibrary">
 <var>${error_message}</var>
 <arg>//input[@name='password']/following::p</arg>
 <doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:46.595" level="INFO">${error_message} = Password must be at least 8 characters</msg>
-<status status="PASS" starttime="20230425 19:00:46.277" endtime="20230425 19:00:46.595"/>
+<msg timestamp="20230425 21:56:11.012" level="INFO">${error_message} = Password is required</msg>
+<status status="PASS" starttime="20230425 21:56:10.972" endtime="20230425 21:56:11.012"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${error}</arg>
 <arg>${error_message}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:46.595" endtime="20230425 19:00:46.595"/>
+<status status="PASS" starttime="20230425 21:56:11.012" endtime="20230425 21:56:11.013"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:46.277" endtime="20230425 19:00:46.595"/>
+<status status="PASS" starttime="20230425 21:56:10.972" endtime="20230425 21:56:11.013"/>
 </kw>
 <kw name="Verify confirm password display error message" library="commonKeywords">
-<arg>error=Password do not match!</arg>
+<arg>${CONFIRM_PASSWORD_MISMATCH_ERROR}</arg>
 <kw name="Get Text" library="SeleniumLibrary">
 <var>${error_message}</var>
 <arg>//input[@name='cfpassword']/following::p</arg>
 <doc>Returns the text value of the element identified by ``locator``.</doc>
-<msg timestamp="20230425 19:00:46.913" level="INFO">${error_message} = Password do not match!</msg>
-<status status="PASS" starttime="20230425 19:00:46.596" endtime="20230425 19:00:46.913"/>
+<msg timestamp="20230425 21:56:11.049" level="INFO">${error_message} = Password do not match!</msg>
+<status status="PASS" starttime="20230425 21:56:11.014" endtime="20230425 21:56:11.049"/>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <arg>${error}</arg>
 <arg>${error_message}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20230425 19:00:46.913" endtime="20230425 19:00:46.913"/>
+<status status="PASS" starttime="20230425 21:56:11.049" endtime="20230425 21:56:11.049"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:46.596" endtime="20230425 19:00:46.913"/>
+<status status="PASS" starttime="20230425 21:56:11.014" endtime="20230425 21:56:11.049"/>
 </kw>
 <kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" starttime="20230425 19:00:46.914" endtime="20230425 19:00:49.129"/>
+<status status="PASS" starttime="20230425 21:56:11.050" endtime="20230425 21:56:17.387"/>
 </kw>
-<status status="PASS" starttime="20230425 19:00:38.985" endtime="20230425 19:00:49.129"/>
+<status status="PASS" starttime="20230425 21:56:07.244" endtime="20230425 21:56:17.387"/>
 </test>
-<status status="PASS" starttime="20230425 19:00:38.772" endtime="20230425 19:00:49.130"/>
+<test id="s1-t2" name="TC1-3" line="82">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:56:17.394" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:17.392" endtime="20230425 21:56:19.373"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:56:19.374" endtime="20230425 21:56:19.585"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:56:19.586" endtime="20230425 21:56:19.636"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:17.392" endtime="20230425 21:56:19.637"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123Student123Student123Student123Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:19.639" level="INFO">Typing text 'Student123Student123Student123Student123Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:19.638" endtime="20230425 21:56:20.077"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.189" level="INFO">${username} = Student123Student123Student123Student123Student123</msg>
+<status status="PASS" starttime="20230425 21:56:20.077" endtime="20230425 21:56:20.189"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.189" endtime="20230425 21:56:20.189"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:19.638" endtime="20230425 21:56:20.190"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.191" level="INFO">Typing text 'Student123' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:20.191" endtime="20230425 21:56:20.329"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.359" level="INFO">${email} = Student123</msg>
+<status status="PASS" starttime="20230425 21:56:20.329" endtime="20230425 21:56:20.359"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.359" endtime="20230425 21:56:20.360"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.190" endtime="20230425 21:56:20.360"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Stu123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.361" level="INFO">Typing text 'Stu123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:20.361" endtime="20230425 21:56:20.524"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.549" level="INFO">${password} = Stu123</msg>
+<status status="PASS" starttime="20230425 21:56:20.524" endtime="20230425 21:56:20.549"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.549" endtime="20230425 21:56:20.550"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.360" endtime="20230425 21:56:20.550"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Stu123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.553" level="INFO">Typing text 'Stu123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:56:20.551" endtime="20230425 21:56:20.691"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.718" level="INFO">${confirm_password} = Stu123</msg>
+<status status="PASS" starttime="20230425 21:56:20.692" endtime="20230425 21:56:20.719"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.719" endtime="20230425 21:56:20.719"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.551" endtime="20230425 21:56:20.719"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:56:20.720" endtime="20230425 21:56:20.756"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.757" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:56:20.756" endtime="20230425 21:56:20.863"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.720" endtime="20230425 21:56:20.863"/>
+</kw>
+<kw name="Verify username display error message" library="commonKeywords">
+<arg>${LONG_USERNAME_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='username']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.902" level="INFO">${error_message} = Username must be at most 40 characters</msg>
+<status status="PASS" starttime="20230425 21:56:20.864" endtime="20230425 21:56:20.902"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.902" endtime="20230425 21:56:20.902"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.863" endtime="20230425 21:56:20.903"/>
+</kw>
+<kw name="Verify email display error message" library="commonKeywords">
+<arg>${INVALID_EMAIL_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='email']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.937" level="INFO">${error_message} = Email is invalid</msg>
+<status status="PASS" starttime="20230425 21:56:20.904" endtime="20230425 21:56:20.937"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.937" endtime="20230425 21:56:20.938"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.903" endtime="20230425 21:56:20.938"/>
+</kw>
+<kw name="Verify password display error message" library="commonKeywords">
+<arg>${SHORT_PASSWORD_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='password']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:20.973" level="INFO">${error_message} = Password must be at least 8 characters</msg>
+<status status="PASS" starttime="20230425 21:56:20.939" endtime="20230425 21:56:20.973"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:20.973" endtime="20230425 21:56:20.973"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:20.938" endtime="20230425 21:56:20.974"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:56:20.975" endtime="20230425 21:56:27.218"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:17.391" endtime="20230425 21:56:27.219"/>
+</test>
+<test id="s1-t3" name="TC1-4" line="94">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:56:27.225" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:27.223" endtime="20230425 21:56:29.680"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:56:29.680" endtime="20230425 21:56:29.998"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:56:29.999" endtime="20230425 21:56:30.082"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:27.223" endtime="20230425 21:56:30.082"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123&amp;</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.086" level="INFO">Typing text 'Student123&amp;' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:30.085" endtime="20230425 21:56:30.318"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.350" level="INFO">${username} = Student123&amp;</msg>
+<status status="PASS" starttime="20230425 21:56:30.318" endtime="20230425 21:56:30.350"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:30.350" endtime="20230425 21:56:30.351"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:30.084" endtime="20230425 21:56:30.351"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>Student01@Student01.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.354" level="INFO">Typing text 'Student01@Student01.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:30.353" endtime="20230425 21:56:30.647"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.675" level="INFO">${email} = Student01@Student01.com</msg>
+<status status="PASS" starttime="20230425 21:56:30.647" endtime="20230425 21:56:30.675"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:30.675" endtime="20230425 21:56:30.676"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:30.352" endtime="20230425 21:56:30.676"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123Student123Student123Student123Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.677" level="INFO">Typing text 'Student123Student123Student123Student123Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:30.677" endtime="20230425 21:56:30.931"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.966" level="INFO">${password} = Student123Student123Student123Student123Student123</msg>
+<status status="PASS" starttime="20230425 21:56:30.931" endtime="20230425 21:56:30.966"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:30.967" endtime="20230425 21:56:30.967"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:30.676" endtime="20230425 21:56:30.967"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123Student123Student123Student123Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:30.970" level="INFO">Typing text 'Student123Student123Student123Student123Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:56:30.969" endtime="20230425 21:56:31.210"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:31.232" level="INFO">${confirm_password} = Student123Student123Student123Student123Student123</msg>
+<status status="PASS" starttime="20230425 21:56:31.210" endtime="20230425 21:56:31.232"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:31.232" endtime="20230425 21:56:31.233"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:30.968" endtime="20230425 21:56:31.233"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:56:31.234" endtime="20230425 21:56:31.265"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:31.266" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:56:31.265" endtime="20230425 21:56:31.371"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:31.233" endtime="20230425 21:56:31.372"/>
+</kw>
+<kw name="Verify username display error message" library="commonKeywords">
+<arg>${INVALID_USERNAME_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='username']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:31.405" level="INFO">${error_message} = Username is invalid</msg>
+<status status="PASS" starttime="20230425 21:56:31.373" endtime="20230425 21:56:31.406"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:31.406" endtime="20230425 21:56:31.406"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:31.372" endtime="20230425 21:56:31.406"/>
+</kw>
+<kw name="Verify email display error message" library="commonKeywords">
+<arg>${DUPLICATE_EMAIL_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='email']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:31.456" level="INFO">${error_message} = Email has been taken</msg>
+<status status="PASS" starttime="20230425 21:56:31.407" endtime="20230425 21:56:31.456"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:31.456" endtime="20230425 21:56:31.457"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:31.407" endtime="20230425 21:56:31.457"/>
+</kw>
+<kw name="Verify password display error message" library="commonKeywords">
+<arg>${LONG_PASSWORD_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='password']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:31.495" level="INFO">${error_message} = Password must be at most 40 characters</msg>
+<status status="PASS" starttime="20230425 21:56:31.458" endtime="20230425 21:56:31.495"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:31.495" endtime="20230425 21:56:31.496"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:31.457" endtime="20230425 21:56:31.496"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:56:31.497" endtime="20230425 21:56:37.850"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:27.222" endtime="20230425 21:56:37.851"/>
+</test>
+<test id="s1-t4" name="TC1-5" line="106">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:56:37.857" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:37.856" endtime="20230425 21:56:39.815"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:56:39.815" endtime="20230425 21:56:40.060"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:56:40.060" endtime="20230425 21:56:40.094"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:37.855" endtime="20230425 21:56:40.094"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.095" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:40.095" endtime="20230425 21:56:40.358"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.386" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:56:40.358" endtime="20230425 21:56:40.386"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:40.386" endtime="20230425 21:56:40.387"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:40.094" endtime="20230425 21:56:40.387"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.390" level="INFO">Typing text 'student@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:40.389" endtime="20230425 21:56:40.556"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.602" level="INFO">${email} = student@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:56:40.557" endtime="20230425 21:56:40.602"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:40.602" endtime="20230425 21:56:40.602"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:40.388" endtime="20230425 21:56:40.603"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>admin1234</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.605" level="INFO">Typing text 'admin1234' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:40.604" endtime="20230425 21:56:40.745"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.769" level="INFO">${password} = admin1234</msg>
+<status status="PASS" starttime="20230425 21:56:40.745" endtime="20230425 21:56:40.769"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:40.769" endtime="20230425 21:56:40.769"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:40.603" endtime="20230425 21:56:40.770"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>admin1234</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.771" level="INFO">Typing text 'admin1234' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:56:40.770" endtime="20230425 21:56:40.920"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.947" level="INFO">${confirm_password} = admin1234</msg>
+<status status="PASS" starttime="20230425 21:56:40.920" endtime="20230425 21:56:40.947"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:40.947" endtime="20230425 21:56:40.947"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:40.770" endtime="20230425 21:56:40.947"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:56:40.948" endtime="20230425 21:56:40.983"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:40.983" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:56:40.983" endtime="20230425 21:56:41.079"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:40.948" endtime="20230425 21:56:41.079"/>
+</kw>
+<kw name="Verify password display error message" library="commonKeywords">
+<arg>${NO_UPPERCASE_PASSWORD_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='password']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:41.117" level="INFO">${error_message} = Password must have at least one uppercase letter</msg>
+<status status="PASS" starttime="20230425 21:56:41.080" endtime="20230425 21:56:41.117"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:41.118" endtime="20230425 21:56:41.118"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:41.080" endtime="20230425 21:56:41.118"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:56:41.119" endtime="20230425 21:56:47.335"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:37.854" endtime="20230425 21:56:47.336"/>
+</test>
+<test id="s1-t5" name="TC1-6" line="116">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:56:47.342" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:47.341" endtime="20230425 21:56:49.581"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:56:49.581" endtime="20230425 21:56:49.765"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:56:49.765" endtime="20230425 21:56:49.782"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:47.340" endtime="20230425 21:56:49.782"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student01</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:49.784" level="INFO">Typing text 'Student01' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:49.783" endtime="20230425 21:56:49.952"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:49.978" level="INFO">${username} = Student01</msg>
+<status status="PASS" starttime="20230425 21:56:49.952" endtime="20230425 21:56:49.978"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:49.979" endtime="20230425 21:56:49.979"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:49.783" endtime="20230425 21:56:49.979"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:49.982" level="INFO">Typing text 'student@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:49.981" endtime="20230425 21:56:50.176"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.238" level="INFO">${email} = student@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:56:50.176" endtime="20230425 21:56:50.238"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:50.238" endtime="20230425 21:56:50.239"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:49.980" endtime="20230425 21:56:50.239"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Adminadmin</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.242" level="INFO">Typing text 'Adminadmin' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:50.241" endtime="20230425 21:56:50.386"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.412" level="INFO">${password} = Adminadmin</msg>
+<status status="PASS" starttime="20230425 21:56:50.386" endtime="20230425 21:56:50.412"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:50.413" endtime="20230425 21:56:50.413"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:50.240" endtime="20230425 21:56:50.413"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Adminadmin</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.414" level="INFO">Typing text 'Adminadmin' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:56:50.414" endtime="20230425 21:56:50.572"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.597" level="INFO">${confirm_password} = Adminadmin</msg>
+<status status="PASS" starttime="20230425 21:56:50.572" endtime="20230425 21:56:50.597"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:50.597" endtime="20230425 21:56:50.597"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:50.414" endtime="20230425 21:56:50.597"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:56:50.598" endtime="20230425 21:56:50.634"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.635" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:56:50.635" endtime="20230425 21:56:50.730"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:50.598" endtime="20230425 21:56:50.730"/>
+</kw>
+<kw name="Verify username display error message" library="commonKeywords">
+<arg>${DUPLICATE_USERNAME_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='username']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.781" level="INFO">${error_message} = Username has been taken</msg>
+<status status="PASS" starttime="20230425 21:56:50.731" endtime="20230425 21:56:50.781"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:50.782" endtime="20230425 21:56:50.782"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:50.731" endtime="20230425 21:56:50.782"/>
+</kw>
+<kw name="Verify password display error message" library="commonKeywords">
+<arg>${NO_DIGIT_OR_SPECIAL_PASSWORD_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='password']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:50.823" level="INFO">${error_message} = Password must have at least one digit number or special character</msg>
+<status status="PASS" starttime="20230425 21:56:50.783" endtime="20230425 21:56:50.823"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:50.824" endtime="20230425 21:56:50.824"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:50.783" endtime="20230425 21:56:50.824"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:56:50.825" endtime="20230425 21:56:57.154"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:47.339" endtime="20230425 21:56:57.156"/>
+</test>
+<test id="s1-t6" name="TC1-7" line="127">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:56:57.162" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:56:57.161" endtime="20230425 21:56:59.118"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:56:59.118" endtime="20230425 21:56:59.337"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:56:59.337" endtime="20230425 21:56:59.382"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:57.160" endtime="20230425 21:56:59.382"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:59.385" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:56:59.384" endtime="20230425 21:56:59.664"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:59.693" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:56:59.664" endtime="20230425 21:56:59.693"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:59.694" endtime="20230425 21:56:59.694"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:59.383" endtime="20230425 21:56:59.694"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:59.698" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:56:59.696" endtime="20230425 21:56:59.896"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:59.935" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:56:59.896" endtime="20230425 21:56:59.935"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:56:59.935" endtime="20230425 21:56:59.936"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:59.696" endtime="20230425 21:56:59.936"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:56:59.938" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:56:59.937" endtime="20230425 21:57:00.087"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:00.110" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:00.088" endtime="20230425 21:57:00.110"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:00.110" endtime="20230425 21:57:00.110"/>
+</kw>
+<status status="PASS" starttime="20230425 21:56:59.937" endtime="20230425 21:57:00.111"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:00.112" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:00.111" endtime="20230425 21:57:00.252"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:00.274" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:00.252" endtime="20230425 21:57:00.274"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:00.274" endtime="20230425 21:57:00.274"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:00.111" endtime="20230425 21:57:00.274"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:00.275" endtime="20230425 21:57:00.308"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:00.309" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:00.308" endtime="20230425 21:57:00.401"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:00.275" endtime="20230425 21:57:00.401"/>
+</kw>
+<kw name="Verify firstname display error message" library="commonKeywords">
+<arg>${EMPTY_FIRST_NAME_ERROR}</arg>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${error_message}</var>
+<arg>//input[@name='firstName']/following::p</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:00.975" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:00.975" level="FAIL">Element with locator '//input[@name='firstName']/following::p' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:00.402" endtime="20230425 21:57:00.985"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error}</arg>
+<arg>${error_message}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:00.985" endtime="20230425 21:57:00.985"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:00.402" endtime="20230425 21:57:00.985"/>
+</kw>
+<kw name="Verify lastname display error message" library="commonKeywords">
+<arg>${EMPTY_LAST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:00.986" endtime="20230425 21:57:00.986"/>
+</kw>
+<kw name="Verify birdthdate display error message" library="commonKeywords">
+<arg>${EMPTY_BIRTHDATE_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:00.987" endtime="20230425 21:57:00.987"/>
+</kw>
+<kw name="Verify gender display error message" library="commonKeywords">
+<arg>${EMPTY_GENDER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:00.987" endtime="20230425 21:57:00.988"/>
+</kw>
+<kw name="Verify phoneNumber display error message" library="commonKeywords">
+<arg>${EMPTY_PHONE_NUMBER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:00.988" endtime="20230425 21:57:00.988"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:00.989" endtime="20230425 21:57:07.262"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:56:57.159" endtime="20230425 21:57:07.263">Element with locator '//input[@name='firstName']/following::p' not found.</status>
+</test>
+<test id="s1-t7" name="TC1-8" line="141">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:07.268" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:07.267" endtime="20230425 21:57:09.030"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:57:09.030" endtime="20230425 21:57:09.221"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:57:09.222" endtime="20230425 21:57:09.266"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:07.267" endtime="20230425 21:57:09.266"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.270" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:57:09.268" endtime="20230425 21:57:09.485"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.517" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:09.485" endtime="20230425 21:57:09.517"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:09.517" endtime="20230425 21:57:09.517"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:09.268" endtime="20230425 21:57:09.517"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.519" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:57:09.518" endtime="20230425 21:57:09.765"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.806" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:57:09.765" endtime="20230425 21:57:09.806"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:09.806" endtime="20230425 21:57:09.807"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:09.518" endtime="20230425 21:57:09.807"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.808" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:57:09.808" endtime="20230425 21:57:09.945"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.967" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:09.945" endtime="20230425 21:57:09.967"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:09.967" endtime="20230425 21:57:09.968"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:09.807" endtime="20230425 21:57:09.968"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:09.970" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:09.969" endtime="20230425 21:57:10.115"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:10.139" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:10.115" endtime="20230425 21:57:10.139"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:10.139" endtime="20230425 21:57:10.140"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:09.969" endtime="20230425 21:57:10.140"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:10.141" endtime="20230425 21:57:10.173"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:10.174" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:10.173" endtime="20230425 21:57:10.267"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:10.140" endtime="20230425 21:57:10.267"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>S</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:10.269" level="INFO">Typing text 'S' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:57:10.800" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:10.801" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:10.268" endtime="20230425 21:57:10.804"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:10.804" endtime="20230425 21:57:10.804"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:10.804" endtime="20230425 21:57:10.804"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:10.268" endtime="20230425 21:57:10.804"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>S</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.808" endtime="20230425 21:57:10.808"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2300</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.808" endtime="20230425 21:57:10.808"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.809" endtime="20230425 21:57:10.809"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>01234567</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.810" endtime="20230425 21:57:10.810"/>
+</kw>
+<kw name="Verify firstname display error message" library="commonKeywords">
+<arg>${SHORT_FIRST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.810" endtime="20230425 21:57:10.810"/>
+</kw>
+<kw name="Verify lastname display error message" library="commonKeywords">
+<arg>${SHORT_LAST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.810" endtime="20230425 21:57:10.811"/>
+</kw>
+<kw name="Verify birdthdate display error message" library="commonKeywords">
+<arg>${INVALID_BIRTHDATE_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.811" endtime="20230425 21:57:10.811"/>
+</kw>
+<kw name="Verify phoneNumber display error message" library="commonKeywords">
+<arg>${SHORT_PHONE_NUMBER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:10.811" endtime="20230425 21:57:10.812"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:10.812" endtime="20230425 21:57:17.146"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:07.266" endtime="20230425 21:57:17.147">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t8" name="TC1-9" line="159">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:17.154" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:17.152" endtime="20230425 21:57:19.061"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:57:19.062" endtime="20230425 21:57:19.245"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:57:19.245" endtime="20230425 21:57:19.283"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:17.151" endtime="20230425 21:57:19.283"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:19.285" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:57:19.284" endtime="20230425 21:57:19.557"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:19.590" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:19.557" endtime="20230425 21:57:19.590"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:19.590" endtime="20230425 21:57:19.591"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:19.284" endtime="20230425 21:57:19.591"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:19.593" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:57:19.592" endtime="20230425 21:57:19.777"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:19.830" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:57:19.777" endtime="20230425 21:57:19.830"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:19.830" endtime="20230425 21:57:19.831"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:19.591" endtime="20230425 21:57:19.831"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:19.833" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:57:19.832" endtime="20230425 21:57:19.977"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:20.002" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:19.978" endtime="20230425 21:57:20.002"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:20.002" endtime="20230425 21:57:20.002"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:19.832" endtime="20230425 21:57:20.002"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:20.005" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:20.004" endtime="20230425 21:57:20.142"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:20.165" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:20.142" endtime="20230425 21:57:20.165"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:20.165" endtime="20230425 21:57:20.166"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:20.003" endtime="20230425 21:57:20.166"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:20.167" endtime="20230425 21:57:20.198"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:20.199" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:20.199" endtime="20230425 21:57:20.294"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:20.166" endtime="20230425 21:57:20.294"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>ssssssssssssssssssssssssssssssssssssssss</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:20.296" level="INFO">Typing text 'ssssssssssssssssssssssssssssssssssssssss' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:57:20.837" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:20.838" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:20.295" endtime="20230425 21:57:20.838"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:20.839" endtime="20230425 21:57:20.839"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:20.839" endtime="20230425 21:57:20.839"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:20.294" endtime="20230425 21:57:20.839"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>ssssssssssssssssssssssssssssssssssssssssS</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.840" endtime="20230425 21:57:20.840"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.842" endtime="20230425 21:57:20.842"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.843" endtime="20230425 21:57:20.843"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>0123452323</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.844" endtime="20230425 21:57:20.844"/>
+</kw>
+<kw name="Verify firstname display error message" library="commonKeywords">
+<arg>${LONG_FIRST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.844" endtime="20230425 21:57:20.844"/>
+</kw>
+<kw name="Verify lastname display error message" library="commonKeywords">
+<arg>${LONG_LAST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.845" endtime="20230425 21:57:20.845"/>
+</kw>
+<kw name="Verify phoneNumber display error message" library="commonKeywords">
+<arg>${DUPLICATE_PHONE_NUMBER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:20.845" endtime="20230425 21:57:20.845"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:20.846" endtime="20230425 21:57:27.112"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:17.150" endtime="20230425 21:57:27.113">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t9" name="TC1-10" line="176">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:27.120" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:27.118" endtime="20230425 21:57:29.077"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:57:29.077" endtime="20230425 21:57:29.214"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:57:29.214" endtime="20230425 21:57:30.345"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:27.117" endtime="20230425 21:57:30.345"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:30.349" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:57:30.347" endtime="20230425 21:57:30.594"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:30.628" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:30.594" endtime="20230425 21:57:30.628"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:30.628" endtime="20230425 21:57:30.629"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:30.346" endtime="20230425 21:57:30.629"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:30.631" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:57:30.630" endtime="20230425 21:57:30.888"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:30.918" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:57:30.888" endtime="20230425 21:57:30.918"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:30.919" endtime="20230425 21:57:30.919"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:30.630" endtime="20230425 21:57:30.919"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:30.921" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:57:30.920" endtime="20230425 21:57:31.065"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:31.094" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:31.066" endtime="20230425 21:57:31.094"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:31.094" endtime="20230425 21:57:31.095"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:30.920" endtime="20230425 21:57:31.095"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:31.096" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:31.096" endtime="20230425 21:57:31.235"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:31.261" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:31.235" endtime="20230425 21:57:31.261"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:31.261" endtime="20230425 21:57:31.262"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:31.095" endtime="20230425 21:57:31.262"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:31.263" endtime="20230425 21:57:31.300"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:31.301" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:31.300" endtime="20230425 21:57:31.395"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:31.263" endtime="20230425 21:57:31.395"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:31.397" level="INFO">Typing text 'Student123' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:57:31.953" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:31.954" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:31.396" endtime="20230425 21:57:31.954"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:31.955" endtime="20230425 21:57:31.955"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:31.955" endtime="20230425 21:57:31.955"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:31.395" endtime="20230425 21:57:31.955"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student123</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.956" endtime="20230425 21:57:31.956"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.956" endtime="20230425 21:57:31.956"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.957" endtime="20230425 21:57:31.958"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>382492AA11</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.958" endtime="20230425 21:57:31.958"/>
+</kw>
+<kw name="Verify firstname display error message" library="commonKeywords">
+<arg>${INVALID_FIRST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.959" endtime="20230425 21:57:31.959"/>
+</kw>
+<kw name="Verify lastname display error message" library="commonKeywords">
+<arg>${INVALID_LAST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.959" endtime="20230425 21:57:31.959"/>
+</kw>
+<kw name="Verify phoneNumber display error message" library="commonKeywords">
+<arg>${INVALID_PHONE_NUMBER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:31.960" endtime="20230425 21:57:31.960"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:31.960" endtime="20230425 21:57:38.226"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:27.116" endtime="20230425 21:57:38.226">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t10" name="TC1-11" line="193">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:38.233" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:38.232" endtime="20230425 21:57:40.105"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:57:40.105" endtime="20230425 21:57:40.318"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:57:40.319" endtime="20230425 21:57:40.357"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:38.231" endtime="20230425 21:57:40.358"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:40.361" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:57:40.359" endtime="20230425 21:57:40.630"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:40.659" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:40.630" endtime="20230425 21:57:40.659"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:40.660" endtime="20230425 21:57:40.660"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:40.359" endtime="20230425 21:57:40.660"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:40.663" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:57:40.662" endtime="20230425 21:57:40.892"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:40.926" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:57:40.892" endtime="20230425 21:57:40.926"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:40.926" endtime="20230425 21:57:40.926"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:40.661" endtime="20230425 21:57:40.926"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:40.928" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:57:40.928" endtime="20230425 21:57:41.096"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:41.123" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:41.096" endtime="20230425 21:57:41.123"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:41.123" endtime="20230425 21:57:41.123"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:40.927" endtime="20230425 21:57:41.124"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:41.125" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:41.125" endtime="20230425 21:57:41.260"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:41.284" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:41.260" endtime="20230425 21:57:41.284"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:41.285" endtime="20230425 21:57:41.285"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:41.124" endtime="20230425 21:57:41.285"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:41.286" endtime="20230425 21:57:41.319"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:41.320" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:41.319" endtime="20230425 21:57:41.410"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:41.286" endtime="20230425 21:57:41.410"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:41.412" level="INFO">Typing text 'Student123' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:57:41.941" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:41.942" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:41.411" endtime="20230425 21:57:41.943"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:41.943" endtime="20230425 21:57:41.943"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:41.943" endtime="20230425 21:57:41.943"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:41.411" endtime="20230425 21:57:41.944"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student123</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.945" endtime="20230425 21:57:41.945"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.945" endtime="20230425 21:57:41.945"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.947" endtime="20230425 21:57:41.947"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>01234567890</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.948" endtime="20230425 21:57:41.948"/>
+</kw>
+<kw name="Verify firstname display error message" library="commonKeywords">
+<arg>${INVALID_FIRST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.948" endtime="20230425 21:57:41.948"/>
+</kw>
+<kw name="Verify lastname display error message" library="commonKeywords">
+<arg>${INVALID_LAST_NAME_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.948" endtime="20230425 21:57:41.949"/>
+</kw>
+<kw name="Verify phoneNumber display error message" library="commonKeywords">
+<arg>${LONG_PHONE_NUMBER_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:41.949" endtime="20230425 21:57:41.949"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:41.950" endtime="20230425 21:57:48.195"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:38.230" endtime="20230425 21:57:48.203">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t11" name="TC1-12" line="210">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:48.225" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:48.223" endtime="20230425 21:57:50.419"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:57:50.419" endtime="20230425 21:57:50.552"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:57:50.552" endtime="20230425 21:57:50.572"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:48.212" endtime="20230425 21:57:50.572"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:50.575" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:57:50.574" endtime="20230425 21:57:50.765"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:50.793" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:50.766" endtime="20230425 21:57:50.793"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:50.793" endtime="20230425 21:57:50.793"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:50.573" endtime="20230425 21:57:50.794"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:50.796" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:57:50.795" endtime="20230425 21:57:50.958"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:50.988" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:57:50.958" endtime="20230425 21:57:50.988"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:50.988" endtime="20230425 21:57:50.989"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:50.794" endtime="20230425 21:57:50.989"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:50.990" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:57:50.990" endtime="20230425 21:57:51.130"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:51.155" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:51.130" endtime="20230425 21:57:51.155"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:51.155" endtime="20230425 21:57:51.156"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:50.990" endtime="20230425 21:57:51.156"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:51.158" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:57:51.157" endtime="20230425 21:57:51.293"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:51.316" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:57:51.293" endtime="20230425 21:57:51.316"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:57:51.316" endtime="20230425 21:57:51.316"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:51.157" endtime="20230425 21:57:51.317"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:57:51.318" endtime="20230425 21:57:51.355"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:51.356" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:57:51.355" endtime="20230425 21:57:51.446"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:51.317" endtime="20230425 21:57:51.446"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:57:51.448" level="INFO">Typing text 'Student' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:57:51.990" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:57:51.991" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:57:51.447" endtime="20230425 21:57:51.991"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:51.991" endtime="20230425 21:57:51.991"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:57:51.991" endtime="20230425 21:57:51.992"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:51.447" endtime="20230425 21:57:51.992"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.993" endtime="20230425 21:57:51.993"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.994" endtime="20230425 21:57:51.994"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.994" endtime="20230425 21:57:51.994"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>0123456789</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.995" endtime="20230425 21:57:51.995"/>
+</kw>
+<kw name="Click next" library="commonKeywords">
+<status status="NOT RUN" starttime="20230425 21:57:51.995" endtime="20230425 21:57:51.996"/>
+</kw>
+<kw name="Input and verify gpax" library="commonKeywords">
+<arg>S</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.996" endtime="20230425 21:57:51.996"/>
+</kw>
+<kw name="Input and verify school" library="commonKeywords">
+<arg>${EMPTY}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.996" endtime="20230425 21:57:51.997"/>
+</kw>
+<kw name="Input and verify targetNation" library="commonKeywords">
+<arg>Thailand$</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.997" endtime="20230425 21:57:51.997"/>
+</kw>
+<kw name="Input and verify fieldOfInterest" library="commonKeywords">
+<arg>Engineering$</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.998" endtime="20230425 21:57:51.998"/>
+</kw>
+<kw name="Verify gpax display error message" library="commonKeywords">
+<arg>${INVALID_GPAX_FORMAT_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.998" endtime="20230425 21:57:51.998"/>
+</kw>
+<kw name="Verify targetNation display error message" library="commonKeywords">
+<arg>${INVALID_TARGET_NATION_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.999" endtime="20230425 21:57:51.999"/>
+</kw>
+<kw name="Verify fieldOfInterest display error message" library="commonKeywords">
+<arg>${INVALID_FIELD_OF_INTEREST_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:57:51.999" endtime="20230425 21:57:51.999"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:57:52.000" endtime="20230425 21:57:58.229"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:48.209" endtime="20230425 21:57:58.230">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t12" name="TC1-13" line="232">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:57:58.238" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:57:58.236" endtime="20230425 21:58:00.199"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:58:00.200" endtime="20230425 21:58:00.375"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:58:00.375" endtime="20230425 21:58:00.423"/>
+</kw>
+<status status="PASS" starttime="20230425 21:57:58.235" endtime="20230425 21:58:00.424"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:00.430" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:58:00.429" endtime="20230425 21:58:00.687"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:00.721" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:00.687" endtime="20230425 21:58:00.721"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:00.721" endtime="20230425 21:58:00.722"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:00.428" endtime="20230425 21:58:00.722"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:00.724" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:58:00.723" endtime="20230425 21:58:00.981"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.012" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:58:00.981" endtime="20230425 21:58:01.012"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:01.012" endtime="20230425 21:58:01.012"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:00.723" endtime="20230425 21:58:01.012"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.014" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:58:01.013" endtime="20230425 21:58:01.149"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.174" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:01.150" endtime="20230425 21:58:01.174"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:01.174" endtime="20230425 21:58:01.175"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:01.013" endtime="20230425 21:58:01.175"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.176" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:58:01.176" endtime="20230425 21:58:01.312"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.336" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:01.312" endtime="20230425 21:58:01.336"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:01.336" endtime="20230425 21:58:01.337"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:01.175" endtime="20230425 21:58:01.337"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:58:01.338" endtime="20230425 21:58:01.370"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.371" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:58:01.371" endtime="20230425 21:58:01.461"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:01.337" endtime="20230425 21:58:01.461"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:01.463" level="INFO">Typing text 'Student' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:58:01.976" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:58:01.976" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:58:01.462" endtime="20230425 21:58:01.976"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:01.977" endtime="20230425 21:58:01.977"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:01.977" endtime="20230425 21:58:01.977"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:58:01.461" endtime="20230425 21:58:01.977"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.978" endtime="20230425 21:58:01.978"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.978" endtime="20230425 21:58:01.978"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.979" endtime="20230425 21:58:01.979"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>0123456789</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.979" endtime="20230425 21:58:01.979"/>
+</kw>
+<kw name="Click next" library="commonKeywords">
+<status status="NOT RUN" starttime="20230425 21:58:01.980" endtime="20230425 21:58:01.980"/>
+</kw>
+<kw name="Input and verify gpax" library="commonKeywords">
+<arg>4.23</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.980" endtime="20230425 21:58:01.980"/>
+</kw>
+<kw name="Input and verify school" library="commonKeywords">
+<arg>${EMPTY}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.980" endtime="20230425 21:58:01.981"/>
+</kw>
+<kw name="Input and verify targetNation" library="commonKeywords">
+<arg>sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.981" endtime="20230425 21:58:01.981"/>
+</kw>
+<kw name="Input and verify fieldOfInterest" library="commonKeywords">
+<arg>Engineering</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.981" endtime="20230425 21:58:01.981"/>
+</kw>
+<kw name="Verify gpax display error message" library="commonKeywords">
+<arg>${MAX_GPAX_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.982" endtime="20230425 21:58:01.982"/>
+</kw>
+<kw name="Verify targetNation display error message" library="commonKeywords">
+<arg>${LONG_TARGET_NATION_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:01.983" endtime="20230425 21:58:01.983"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:58:01.983" endtime="20230425 21:58:08.289"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:57:58.233" endtime="20230425 21:58:08.290">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t13" name="TC1-14" line="253">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:58:08.294" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:58:08.293" endtime="20230425 21:58:10.350"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:58:10.351" endtime="20230425 21:58:10.515"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:58:10.515" endtime="20230425 21:58:10.565"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:08.293" endtime="20230425 21:58:10.566"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:10.569" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:58:10.568" endtime="20230425 21:58:10.811"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:10.840" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:10.811" endtime="20230425 21:58:10.840"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:10.840" endtime="20230425 21:58:10.841"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:10.567" endtime="20230425 21:58:10.841"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:10.843" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:58:10.842" endtime="20230425 21:58:11.102"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.143" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:58:11.102" endtime="20230425 21:58:11.143"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:11.143" endtime="20230425 21:58:11.143"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:10.841" endtime="20230425 21:58:11.144"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.145" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:58:11.144" endtime="20230425 21:58:11.279"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.300" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:11.279" endtime="20230425 21:58:11.300"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:11.301" endtime="20230425 21:58:11.301"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:11.144" endtime="20230425 21:58:11.301"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.303" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:58:11.302" endtime="20230425 21:58:11.433"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.457" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:11.433" endtime="20230425 21:58:11.457"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:11.457" endtime="20230425 21:58:11.458"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:11.302" endtime="20230425 21:58:11.458"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:58:11.459" endtime="20230425 21:58:11.489"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.490" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:58:11.489" endtime="20230425 21:58:11.578"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:11.458" endtime="20230425 21:58:11.579"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:11.580" level="INFO">Typing text 'Student' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:58:12.091" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:58:12.092" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:58:11.580" endtime="20230425 21:58:12.092"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:12.092" endtime="20230425 21:58:12.092"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:12.093" endtime="20230425 21:58:12.093"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:58:11.579" endtime="20230425 21:58:12.093"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.094" endtime="20230425 21:58:12.094"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.094" endtime="20230425 21:58:12.094"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.095" endtime="20230425 21:58:12.095"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>0123456789</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.095" endtime="20230425 21:58:12.096"/>
+</kw>
+<kw name="Click next" library="commonKeywords">
+<status status="NOT RUN" starttime="20230425 21:58:12.096" endtime="20230425 21:58:12.096"/>
+</kw>
+<kw name="Input and verify gpax" library="commonKeywords">
+<arg>1.23</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.097" endtime="20230425 21:58:12.097"/>
+</kw>
+<kw name="Input and verify school" library="commonKeywords">
+<arg>sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.097" endtime="20230425 21:58:12.097"/>
+</kw>
+<kw name="Input and verify targetNation" library="commonKeywords">
+<arg>Thailand</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.098" endtime="20230425 21:58:12.098"/>
+</kw>
+<kw name="Input and verify fieldOfInterest" library="commonKeywords">
+<arg>sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.098" endtime="20230425 21:58:12.098"/>
+</kw>
+<kw name="Verify school display error message" library="commonKeywords">
+<arg>${LONG_SCHOOL_UNIVERSITY_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.099" endtime="20230425 21:58:12.099"/>
+</kw>
+<kw name="Verify fieldOfInterest display error message" library="commonKeywords">
+<arg>${LONG_FIELD_OF_INTEREST_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:12.099" endtime="20230425 21:58:12.100"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:58:12.100" endtime="20230425 21:58:18.411"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:58:08.292" endtime="20230425 21:58:18.412">Element with locator 'name:firstName' not found.</status>
+</test>
+<test id="s1-t14" name="TC1-15" line="274">
+<kw name="Open registration page" library="commonKeywords">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${WEB_URL}</arg>
+<arg>${WEB_BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230425 21:58:18.417" level="INFO">Opening browser 'chrome' to base url 'https://schoolar.rynparin.dev/register'.</msg>
+<status status="PASS" starttime="20230425 21:58:18.416" endtime="20230425 21:58:20.358"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20230425 21:58:20.360" endtime="20230425 21:58:20.533"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>name:username</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230425 21:58:20.533" endtime="20230425 21:58:20.568"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:18.415" endtime="20230425 21:58:20.568"/>
+</kw>
+<kw name="Input and verify username" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:username</arg>
+<arg>${input_username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:20.570" level="INFO">Typing text 'Student123' into text field 'name:username'.</msg>
+<status status="PASS" starttime="20230425 21:58:20.569" endtime="20230425 21:58:20.807"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${username}</var>
+<arg>name:username</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:20.842" level="INFO">${username} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:20.808" endtime="20230425 21:58:20.842"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${username}</arg>
+<arg>${input_username}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:20.843" endtime="20230425 21:58:20.843"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:20.569" endtime="20230425 21:58:20.843"/>
+</kw>
+<kw name="Input and verify Email" library="commonKeywords">
+<arg>student123@hotmail.com</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:email</arg>
+<arg>${input_email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:20.845" level="INFO">Typing text 'student123@hotmail.com' into text field 'name:email'.</msg>
+<status status="PASS" starttime="20230425 21:58:20.845" endtime="20230425 21:58:21.085"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${email}</var>
+<arg>name:email</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.130" level="INFO">${email} = student123@hotmail.com</msg>
+<status status="PASS" starttime="20230425 21:58:21.085" endtime="20230425 21:58:21.130"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${email}</arg>
+<arg>${input_email}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:21.130" endtime="20230425 21:58:21.131"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:20.844" endtime="20230425 21:58:21.131"/>
+</kw>
+<kw name="Input and verify Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:password</arg>
+<arg>${input_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.132" level="INFO">Typing text 'Student123' into text field 'name:password'.</msg>
+<status status="PASS" starttime="20230425 21:58:21.132" endtime="20230425 21:58:21.285"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${password}</var>
+<arg>name:password</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.308" level="INFO">${password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:21.285" endtime="20230425 21:58:21.308"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${password}</arg>
+<arg>${input_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:21.308" endtime="20230425 21:58:21.308"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:21.131" endtime="20230425 21:58:21.308"/>
+</kw>
+<kw name="Input and verify Confirm Password" library="commonKeywords">
+<arg>Student123</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:cfpassword</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.310" level="INFO">Typing text 'Student123' into text field 'name:cfpassword'.</msg>
+<status status="PASS" starttime="20230425 21:58:21.310" endtime="20230425 21:58:21.449"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${confirm_password}</var>
+<arg>name:cfpassword</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.472" level="INFO">${confirm_password} = Student123</msg>
+<status status="PASS" starttime="20230425 21:58:21.450" endtime="20230425 21:58:21.472"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${confirm_password}</arg>
+<arg>${input_confirm_password}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230425 21:58:21.472" endtime="20230425 21:58:21.472"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:21.309" endtime="20230425 21:58:21.472"/>
+</kw>
+<kw name="Click register as student" library="commonKeywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230425 21:58:21.473" endtime="20230425 21:58:21.505"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.506" level="INFO">Clicking button 'xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]'.</msg>
+<status status="PASS" starttime="20230425 21:58:21.506" endtime="20230425 21:58:21.591"/>
+</kw>
+<status status="PASS" starttime="20230425 21:58:21.473" endtime="20230425 21:58:21.592"/>
+</kw>
+<kw name="Input and verify firstname" library="commonKeywords">
+<arg>Student</arg>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>name:firstName</arg>
+<arg>${input_firstname}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230425 21:58:21.594" level="INFO">Typing text 'Student' into text field 'name:firstName'.</msg>
+<msg timestamp="20230425 21:58:22.125" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-9.png"&gt;&lt;img src="selenium-screenshot-9.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230425 21:58:22.125" level="FAIL">Element with locator 'name:firstName' not found.</msg>
+<status status="FAIL" starttime="20230425 21:58:21.593" endtime="20230425 21:58:22.126"/>
+</kw>
+<kw name="Get Value" library="SeleniumLibrary">
+<var>${firstname}</var>
+<arg>name:firstName</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:22.126" endtime="20230425 21:58:22.126"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${firstname}</arg>
+<arg>${input_firstname}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20230425 21:58:22.126" endtime="20230425 21:58:22.126"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:58:21.592" endtime="20230425 21:58:22.127"/>
+</kw>
+<kw name="Input and verify lastname" library="commonKeywords">
+<arg>Student</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.129" endtime="20230425 21:58:22.129"/>
+</kw>
+<kw name="Input and verify birthdate" library="commonKeywords">
+<arg>21/04/2002</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.129" endtime="20230425 21:58:22.129"/>
+</kw>
+<kw name="Input and verify gender" library="commonKeywords">
+<arg>Male</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.130" endtime="20230425 21:58:22.130"/>
+</kw>
+<kw name="Input and verify phoneNumber" library="commonKeywords">
+<arg>0123456789</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.130" endtime="20230425 21:58:22.130"/>
+</kw>
+<kw name="Click next" library="commonKeywords">
+<status status="NOT RUN" starttime="20230425 21:58:22.131" endtime="20230425 21:58:22.131"/>
+</kw>
+<kw name="Input and verify gpax" library="commonKeywords">
+<arg>-1.23</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.131" endtime="20230425 21:58:22.131"/>
+</kw>
+<kw name="Input and verify school" library="commonKeywords">
+<arg>sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.131" endtime="20230425 21:58:22.131"/>
+</kw>
+<kw name="Input and verify targetNation" library="commonKeywords">
+<arg>Thailand</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.132" endtime="20230425 21:58:22.132"/>
+</kw>
+<kw name="Input and verify fieldOfInterest" library="commonKeywords">
+<arg>sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.132" endtime="20230425 21:58:22.132"/>
+</kw>
+<kw name="Verify gpax display error message" library="commonKeywords">
+<arg>${NEGATIVE_GPAX_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.133" endtime="20230425 21:58:22.133"/>
+</kw>
+<kw name="Verify school display error message" library="commonKeywords">
+<arg>${LONG_SCHOOL_UNIVERSITY_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.133" endtime="20230425 21:58:22.133"/>
+</kw>
+<kw name="Verify fieldOfInterest display error message" library="commonKeywords">
+<arg>${LONG_FIELD_OF_INTEREST_ERROR}</arg>
+<status status="NOT RUN" starttime="20230425 21:58:22.134" endtime="20230425 21:58:22.134"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20230425 21:58:22.134" endtime="20230425 21:58:28.532"/>
+</kw>
+<status status="FAIL" starttime="20230425 21:58:18.414" endtime="20230425 21:58:28.533">Element with locator 'name:firstName' not found.</status>
+</test>
+<status status="FAIL" starttime="20230425 21:56:06.774" endtime="20230425 21:58:28.537"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="5" fail="9" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Register">Register</stat>
+<stat pass="5" fail="9" skip="0" id="s1" name="Register-Student">Register-Student</stat>
 </suite>
 </statistics>
 <errors>

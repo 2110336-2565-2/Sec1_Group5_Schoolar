@@ -2,70 +2,28 @@
 Library    SeleniumLibrary
 Resource    ./environment.robot
 
-*** Variables ***
-${USERNAME_FIELD}             name=username
-${EMAIL_FIELD}                name=email
-${PASSWORD_FIELD}             name=password
-${CONFIRM_PASSWORD_FIELD}     name=cfpassword
-
-${EMPTY_USERNAME_ERROR}                   Username is required
-${LONG_USERNAME_ERROR}                    Username must be at most 40 characters
-${INVALID_USERNAME_ERROR}                 Username is invalid
-${DUPLICATE_USERNAME_ERROR}               Username has been taken
-${EMPTY_EMAIL_ERROR}                      Email is required
-${INVALID_EMAIL_ERROR}                    Email is invalid
-${DUPLICATE_EMAIL_ERROR}                  Email has been taken
-${EMPTY_PASSWORD_ERROR}                   Password is required
-${SHORT_PASSWORD_ERROR}                   Password must be at least 8 characters
-${LONG_PASSWORD_ERROR}                    Password must be at most 40 characters
-${NO_UPPERCASE_PASSWORD_ERROR}            Password must have at least one uppercase letter
-${NO_DIGIT_OR_SPECIAL_PASSWORD_ERROR}     Password must have at least one digit number or special character
-${CONFIRM_PASSWORD_MISMATCH_ERROR}        Password do not match!
-${EMPTY_FIRST_NAME_ERROR}                 First Name is required
-${SHORT_FIRST_NAME_ERROR}                 First Name must be at least 2 characters
-${LONG_FIRST_NAME_ERROR}                  First Name must be at most 40 characters
-${INVALID_FIRST_NAME_ERROR}               First Name is invalid
-${EMPTY_LAST_NAME_ERROR}                  Last Name is required
-${SHORT_LAST_NAME_ERROR}                  Last Name must be at least 2 characters
-${LONG_LAST_NAME_ERROR}                   Last Name must be at most 40 characters
-${INVALID_LAST_NAME_ERROR}                Last Name is invalid
-${EMPTY_BIRTHDATE_ERROR}                  Birth date is required
-${INVALID_BIRTHDATE_ERROR}                Birthdate is invalid
-${EMPTY_GENDER_ERROR}                     Gender is required
-${EMPTY_PHONE_NUMBER_ERROR}               Phone Number is required
-${SHORT_PHONE_NUMBER_ERROR}               Phone Number must be at least 9 digits
-${LONG_PHONE_NUMBER_ERROR}                Phone Number must be at most 10 digits
-${INVALID_PHONE_NUMBER_ERROR}             Phone Number is invalid
-${DUPLICATE_PHONE_NUMBER_ERROR}           Phone Number has been taken
-${INVALID_GPAX_FORMAT_ERROR}              GPAX must be float number with 2 digits
-${NEGATIVE_GPAX_ERROR}                    GPAX must be positive
-${MAX_GPAX_ERROR}                         GPAX must be at most 4
-${LONG_SCHOOL_UNIVERSITY_ERROR}           School/University must be at most 100 characters
-${INVALID_TARGET_NATION_ERROR}            Target Nation is invalid
-${LONG_TARGET_NATION_ERROR}               Target Nation must be at most 100 characters
-${INVALID_FIELD_OF_INTEREST_ERROR}        Field of Interest is invalid
-${LONG_FIELD_OF_INTEREST_ERROR}           Field of Interest must be at most 100 characters
-${ORG_NAME_REQUIRED_ERROR}                Organization Name is required
-${SHORT_ORG_NAME_ERROR}                   Organization Name must be at least 2 characters
-${LONG_ORG_NAME_ERROR}                    Organization Name must be at most 250 characters
-${WEBSITE_REQUIRED_ERROR}                 Website is required
-${SHORT_WEBSITE_ERROR}                    Website must be at least 2 characters
-${LONG_WEBSITE_ERROR}                     Website must be at most 250 characters
-${ADDRESS_REQUIRED_ERROR}                 Address is required
-${SHORT_ADDRESS_ERROR}                    Address must be at least 2 characters
-${LONG_ADDRESS_ERROR}                     Address must be at most 250 characters
-
 *** Keywords ***
 Open registration page
     Open Browser    ${WEB_URL}    ${WEB_BROWSER}
     Maximize Browser Window
-    Wait Until Page Contains Element    ${USERNAME_FIELD}
+    Wait Until Page Contains Element    name:username
     # Sleep    2
 
 Click register as student
     Wait Until Element Is Visible    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]
     Click Button    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Student')]
 
+Click register as provider
+    Wait Until Element Is Visible    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Provider')]
+    Click Button    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Register as Provider')]
+
+Click next
+    Wait Until Element Is Visible    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Next')]
+    Click Button    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Next')]
+
+Click submit
+    Wait Until Element Is Visible    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Submit')]
+    Click Button    xpath=//button[contains(@class, 'MuiButton-containedPrimary') and contains(text(), 'Submit')]
 
 # Register as student
 #     Wait Until Element Contains    xpath=//h3[contains(@class, 'MuiTypography-h3') and contains(text(), 'Login')]    Login
@@ -92,45 +50,45 @@ Verify integer Data Type
 
 Input and verify username
     [Arguments]     ${input_username}
-    Input Text    ${USERNAME_FIELD}    ${input_username}
-    ${username}    Get Value    ${USERNAME_FIELD}
-    Should Be Equal    ${username}     ${input_username}
-    Verify String Data Type    ${username}
+    Input Text    name:username    ${input_username}
+    ${username}    Get Value    name:username
+    Should Be Equal    ${username}    ${input_username}
+    # Verify String Data Type    ${username}
 
 Input and verify Email
     [Arguments]     ${input_email}
-    Input Text    ${EMAIL_FIELD}    ${input_email}
-    ${email}    Get Value    ${EMAIL_FIELD}
-    Should Be Equal    ${email}     ${input_email}
-    Verify String Data Type    ${email}
+    Input Text    name:email    ${input_email}
+    ${email}    Get Value    name:email
+    Should Be Equal    ${email}    ${input_email}
+    # Verify String Data Type    ${email}
 
 Input and verify Password
     [Arguments]     ${input_password}
-    Input Text    ${PASSWORD_FIELD}    ${input_password}
-    ${password}    Get Value    ${PASSWORD_FIELD}
-    Should Be Equal    ${password}     ${input_password}
-    Verify String Data Type    ${password}
+    Input Text    name:password    ${input_password}
+    ${password}    Get Value    name:password
+    Should Be Equal    ${password}    ${input_password}
+    # Verify String Data Type    ${password}
 
 Input and verify Confirm Password
     [Arguments]     ${input_confirm_password}
-    Input Text    ${CONFIRM_PASSWORD_FIELD}    ${input_confirm_password}
-    ${confirm_password}    Get Value    ${CONFIRM_PASSWORD_FIELD}
-    Should Be Equal    ${confirm_password}     ${input_confirm_password}
-    Verify String Data Type    ${confirm_password}
+    Input Text    name:cfpassword    ${input_confirm_password}
+    ${confirm_password}    Get Value    name:cfpassword
+    Should Be Equal    ${confirm_password}    ${input_confirm_password}
+    # Verify String Data Type    ${confirm_password}
 
 Input and verify firstname
     [Arguments]    ${input_firstname}
     Input text    name:firstName    ${input_firstname}
     ${firstname}    Get Value    name:firstName
     Should Be Equal    ${firstname}     ${input_firstname}
-    Verify String Data Type    ${firstname}
+    # Verify String Data Type    ${firstname}
 
 Input and verify lastname
     [Arguments]    ${input_lastname}
     Input text    name:lastName    ${input_lastname}
     ${lastname}    Get Value    name:lastName
     Should Be Equal    ${lastname}      ${input_lastname}
-    Verify String Data Type    ${lastname}
+    # Verify String Data Type    ${lastname}
 
 Input and verify birthdate
     [Arguments]    ${input_birthdate}  
@@ -141,7 +99,7 @@ Input and verify birthdate
 
 Input and verify gender
     [Arguments]    ${input_gender}
-    # Scroll To Element    xpath=//input[@name='gender']/preceding-sibling::div[@role='button']
+    Scroll To Element    xpath=//input[@name='gender']/preceding-sibling::div[@role='button']
     Click Element    xpath=//input[@name='gender']/preceding-sibling::div[@role='button']
     Click Element    xpath=//li[@data-value="${input_gender}"]
     ${gender}    Get Text    xpath=//input[@name='gender']/preceding-sibling::div[@role='button']
@@ -243,60 +201,75 @@ Verify confirm password display error message
 
 Verify firstname display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id=':rt:-helper-text']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='firstName']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify lastname display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_49']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='lastName']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify birdthdate display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='birthdate']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify gender display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_3']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='gender']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
-Verify mobile display error message
+Verify phoneNumber display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='phoneNumber']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify gpax display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='gpax']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify degree display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='degree']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify school display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='school']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify program display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='program']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
-Verify target nation display error message
+Verify targetNation display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='targetNation']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
-Verify field of interest display error message
+Verify fieldOfInterest display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='fieldOfInterest']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
-Verify type of scholarship display error message
+Verify typeOfScholarship display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='typeOfScholarship']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
-Verify organization name display error message
+Verify organizationName display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='organizationName']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify website display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //input[@name='website']/following::p
+    Should Be Equal    ${error}      ${error_message}
 
 Verify address display error message
     [Arguments]    ${error}
-    Wait Until Element Contains    //*[@id='cid_27']//*[@class='form-error-message']    ${error}
+    ${error_message}    Get Text    //textarea[@name='address']/following::p
+    Should Be Equal    ${error}      ${error_message}

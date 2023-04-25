@@ -54,7 +54,7 @@ const scholarshipSchema = new Schema({
 	targetNation: {
 		required: true,
 		type: String,
-		maxLength: 60,
+		maxLength: 100,
 		lowercase: true,
 		trim: true,
 	},

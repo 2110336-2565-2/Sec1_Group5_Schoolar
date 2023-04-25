@@ -101,6 +101,7 @@ function FormAddScholarship() {
 						message: getErrMsg('Target Nation', 'pattern'),
 					},
 					required: getErrMsg('Target Nation', 'required'),
+					maxLength: { value: 100, message: getErrMsg('Target Nation', 'maxLength', 100) },
 				}}
 				{...formProps}
 			/>
@@ -127,6 +128,10 @@ function FormAddScholarship() {
 						message: getErrMsg('Field of Interest', 'pattern'),
 					},
 					required: getErrMsg('Field of Interest', 'required'),
+					maxLength: {
+						value: 100,
+						message: getErrMsg('Field of Interest', 'maxLength', 100),
+					},
 				}}
 				{...formProps}
 			/>

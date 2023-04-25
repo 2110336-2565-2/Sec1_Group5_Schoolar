@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.15",
+    "@mui/x-data-grid": "^6.0.4",
+    "@mui/x-data-grid-generator": "^6.0.4",
+    "@mui/x-data-grid-pro": "^6.0.4",
+    "@types/jwt-decode": "^3.1.0",
+    "jwt-decode": "^3.1.2",
+    "stripe": "^11.15.0",
+    "swagger-node-express": "^1.2.3"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.1"
+  }
+}

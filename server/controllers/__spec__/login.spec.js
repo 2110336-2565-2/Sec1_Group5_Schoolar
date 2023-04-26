@@ -45,7 +45,9 @@ const foundUser = {
 	refreshToken: user1.refreshToken,
 	save: jest.fn().mockResolvedValue({ ...user1, refreshToken }),
 }
-
+afterAll(async () => {
+	await app.close()
+})
 describe('POST auth/login', () => {
 	describe('Database connection', () => {
 		beforeAll(async () => {

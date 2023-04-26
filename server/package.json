@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "jest --forceExit",
 		"test:watch": "jest --watch",
-		"test:cov": "del-cli --force ./coverage && jest --coverage --forceExit",
+		"test:cov": "del-cli --force ./coverage && jest --coverage",
 		"start": "nodemon server.js",
 		"swagger-autogen": "node configs/swagger/swagger.js"
 	},

@@ -46,6 +46,7 @@ ${LONG_FIELD_OF_INTEREST_ERROR}           Field of Interest must be at most 100 
 *** Test Cases ***
 # register student system
 
+# --------------------------------- FIRST PAGE ------------------------------------------------
 # TC1-1
 #     Set Selenium Speed                       0.15 seconds     # SLOW SPEED
 #     Open registration page
@@ -124,6 +125,7 @@ TC1-6
     Verify username display error message              ${DUPLICATE_USERNAME_ERROR}
     Verify password display error message              ${NO_DIGIT_OR_SPECIAL_PASSWORD_ERROR}
 
+# --------------------------------- SECOND PAGE ------------------------------------------------
 TC1-7
     Set Selenium Speed                       0.15 seconds 
     Open registration page
@@ -217,6 +219,7 @@ TC1-11
     Verify lastName display error message        ${INVALID_LAST_NAME_ERROR}
     Verify phoneNumber display error message     ${LONG_PHONE_NUMBER_ERROR}
 
+# --------------------------------- THIRD PAGE ------------------------------------------------
 TC1-12
     Set Selenium Speed                       0.15 seconds 
     Open registration page

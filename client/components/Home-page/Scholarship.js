@@ -1,8 +1,9 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import EventBusyIcon from '@mui/icons-material/EventBusy'
 import GroupIcon from '@mui/icons-material/Group'
 import PaymentsIcon from '@mui/icons-material/Payments'
 import PushPinIcon from '@mui/icons-material/PushPin'
-import { Box, Button, Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Divider, Grid, Paper, Stack, Tooltip, Typography } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import { useRouter } from 'next/router'
 
@@ -41,7 +42,7 @@ function Scholarship(props) {
 	const router = useRouter()
 
 	return (
-		<Grid container marginTop={2} marginBottom={4} gap="30px 60px" justifyContent="center">
+		<Grid container marginTop={2} marginBottom={4} gap="30px 30px" justifyContent="center">
 			{props.items.length === 0 ? (
 				<Typography variant="h6" color="textSecondary" gutterBottom>
 					There is no matching scholarship
@@ -55,15 +56,17 @@ function Scholarship(props) {
 								display: 'flex',
 								width: { sm: 340 },
 								maxWidth: 340,
-								minHeight: { md: 280 },
+								height: '100%',
 								flexDirection: 'column',
 								cursor: 'pointer',
 								paddingY: 1,
+								'&:hover': {
+									boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+								},
 							}}
 							onClick={(event) => {
 								router.push({
-									pathname: 'scholarship/DetailScholarship',
-									query: { data: JSON.stringify(scholar) },
+									pathname: `scholarship/${scholar._id}`,
 								})
 							}}
 						>
@@ -86,12 +89,19 @@ function Scholarship(props) {
 									sx={{
 										borderRadius: 0,
 										backgroundColor: 'white',
-										color: '#797979',
+										color:
+											new Date(scholar.applicationDeadline) >= Date.now() ? '#797979' : '#d32f2f',
 										borderTop: '2px solid',
 										borderBottom: '2px solid',
 										fontWeight: 'bold',
 									}}
-									icon={<CalendarTodayIcon />}
+									icon={
+										new Date(scholar.applicationDeadline) >= Date.now() ? (
+											<CalendarTodayIcon />
+										) : (
+											<EventBusyIcon color="error" />
+										)
+									}
 									color="info"
 									label={'Due Date : ' + changeDateToString(scholar.applicationDeadline)}
 								/>
@@ -99,11 +109,19 @@ function Scholarship(props) {
 								<Box sx={{ color: '#797979', borderTop: '2px solid' }}></Box>
 							)}
 							<ScholarshipTags scholar={scholar} />
-							{scholar.amount && (
-								<DetailComponent icon={<PaymentsIcon />} topic="Amount:" value={scholar.amount} />
+							{scholar.amount !== null && (
+								<DetailComponent
+									icon={<PaymentsIcon />}
+									topic="Amount:"
+									value={`${scholar.amount?.toLocaleString()} Baht`}
+								/>
 							)}
-							{scholar.quota && (
-								<DetailComponent icon={<GroupIcon />} topic="Quota:" value={scholar.quota} />
+							{scholar.quota !== null && (
+								<DetailComponent
+									icon={<GroupIcon />}
+									topic="Quota:"
+									value={`${scholar.quota?.toLocaleString()} Person`}
+								/>
 							)}
 							{!scholar.status && (
 								<Box
@@ -131,7 +149,11 @@ function Scholarship(props) {
 									props.handlePin(scholar)
 								}}
 							>
-								<PushPinIcon sx={scholar?.isPin == 0 ? { color: grey[700] } : { color: blue[800] }} />
+								<Tooltip title={scholar?.isPin ? 'Unpin this scholarship' : 'Pin this scholarship'}>
+									<PushPinIcon
+										sx={scholar?.isPin == 0 ? { color: grey[700] } : { color: blue[800] }}
+									/>
+								</Tooltip>
 							</Button>
 						)}
 					</Box>

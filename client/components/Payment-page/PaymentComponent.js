@@ -2,7 +2,19 @@ import { useEffect, useState } from 'react'
 import { React } from 'react'
 
 import ScholarshipTags from '@components/Home-page/ScholarshipTag'
-import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
+import {
+	Box,
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Divider,
+	Grid,
+	Stack,
+	Typography,
+} from '@mui/material'
 import { useRouter } from 'next/router'
 
 import { useAuth } from '@/context/AuthContext'
@@ -16,6 +28,8 @@ function PaymentComponent({ scholarship, scholar }) {
 	const { openSnackbar } = useSnackbar()
 	const [nextPaymentDate, setNextPaymentDate] = useState(0)
 	const [isSubscribed, setIsSubscribed] = useState(false)
+	const [openConfirmDeactivate, setOpenConfirmDeactivate] = useState(false)
+
 	const handleSubscribe = async () => {
 		try {
 			const res = await axiosPrivate.post(`/subscription/checkout/${scholarship._id}`)
@@ -26,20 +40,20 @@ function PaymentComponent({ scholarship, scholar }) {
 	}
 
 	const handleUnSubscribe = async () => {
-		try {
-			const res = await axiosPrivate
-				.delete(`/subscription/unsubscripe/${scholarship._id}`)
-				.then((res) => {
-					setIsSubscribed(false)
-					console.log(res.status)
-					openSnackbar('Unactivate successfully!', 'success')
-				})
-				.catch((err) => {
-					console.log('Error unactivate')
-				})
-		} catch (err) {
-			console.log(err)
-		}
+		axiosPrivate
+			.delete(`/subscription/unsubscripe/${scholarship._id}`)
+			.then((res) => {
+				setIsSubscribed(false)
+				openSnackbar('Deactivate successfully!', 'success')
+				setOpenConfirmDeactivate(false)
+			})
+			.catch((err) => {
+				console.log('Error deactivate')
+				openSnackbar(
+					'Sorry, we were unable to deactivate the scholarship. Please try again later or contact our support team for assistance.',
+					'error',
+				)
+			})
 	}
 
 	const getNextPaymentDate = async () => {
@@ -67,6 +81,7 @@ function PaymentComponent({ scholarship, scholar }) {
 			return daysTillNextPayment
 		} catch (err) {
 			console.log(err)
+			openSnackbar('Error calculating next payment date!', 'error')
 		}
 	}
 
@@ -118,6 +133,7 @@ function PaymentComponent({ scholarship, scholar }) {
 				const result = calculateNextPaymentDate(formatUTCDate(date))
 				setNextPaymentDate(result)
 				console.log('error', err.stack)
+				openSnackbar('Error fetching data!', 'error')
 			})
 	}, [])
 
@@ -141,14 +157,29 @@ function PaymentComponent({ scholarship, scholar }) {
 				</Grid>
 				<Grid item xs={6}>
 					<Stack direction="column" spacing={1} sx={{ px: 4, py: 2.25 }}>
+						<Dialog open={openConfirmDeactivate} onClose={() => setOpenConfirmDeactivate(false)}>
+							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Deactivate this scholarship?'}</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									Please note that by deactivating this scholarship, it will be immediately removed
+									from our website and any search results. Additionally, any payment made towards this
+									scholarship will be cancelled without a refund. This action cannot be undone. Are
+									you sure you want to with deactivating this scholarship?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => setOpenConfirmDeactivate(false)}>Disagree</Button>
+								<Button onClick={() => handleUnSubscribe()}>Agree</Button>
+							</DialogActions>
+						</Dialog>
 						{isSubscribed ? (
 							<Button
 								variant="contained"
 								size="small"
 								sx={{ borderRadius: 5, backgroundColor: '#C1C1C1' }}
-								onClick={handleUnSubscribe}
+								onClick={() => setOpenConfirmDeactivate(true)}
 							>
-								Unactivate
+								Deactivate
 							</Button>
 						) : (
 							<Button

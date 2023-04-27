@@ -15,7 +15,9 @@ const handleValidationResult = (result, res) => {
  * @access   Private
  */
 exports.getStudent = async (req, res) => {
-	// #swagger.tags = ['student']
+	/** #swagger.tags = ['student']
+	 *  #swagger.description = 'Get infomation of the given student.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -40,7 +42,9 @@ exports.getStudent = async (req, res) => {
  * @access   Private
  */
 exports.updateStudentInfo = async (req, res) => {
-	// #swagger.tags = ['student']
+	/** #swagger.tags = ['student']
+	 *  #swagger.description = 'Update information of the student.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -103,7 +107,9 @@ exports.updateStudentInfo = async (req, res) => {
  * @access   Private
  */
 exports.addPinScholarship = async (req, res) => {
-	// #swagger.tags = ['student']
+	/** #swagger.tags = ['student']
+	 *  #swagger.description = 'Pin scholarship for the student.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -138,7 +144,9 @@ exports.addPinScholarship = async (req, res) => {
  * @access   Private
  */
 exports.deletePinScholarship = async (req, res) => {
-	// #swagger.tags = ['student']
+	/** #swagger.tags = ['student']
+	 *  #swagger.description = 'Unpin scholarship from the student.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 
@@ -175,7 +183,9 @@ exports.deletePinScholarship = async (req, res) => {
  */
 
 exports.getStudentInfo = async (req, res) => {
-	// #swagger.tags = ['student']
+	/** #swagger.tags = ['student']
+	 *  #swagger.description = 'Get student information for recommended scholarships.'
+	 */
 	const result = validationResult(req)
 	handleValidationResult(result, res)
 

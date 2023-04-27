@@ -27,7 +27,7 @@
         "tags": [
           "auth"
         ],
-        "description": "",
+        "description": "Register a new user.",
         "parameters": [
           {
             "name": "body",
@@ -114,7 +114,7 @@
         "tags": [
           "auth"
         ],
-        "description": "",
+        "description": "Login to the system.",
         "parameters": [
           {
             "name": "body",
@@ -150,7 +150,7 @@
         "tags": [
           "auth"
         ],
-        "description": "",
+        "description": "Refresh token for the user.",
         "parameters": [],
         "responses": {
           "200": {
@@ -170,7 +170,7 @@
         "tags": [
           "auth"
         ],
-        "description": "",
+        "description": "Check if a value is duplicate in its field. Return true if the duplication occurs.",
         "parameters": [
           {
             "name": "role",
@@ -206,7 +206,7 @@
         "tags": [
           "auth"
         ],
-        "description": "",
+        "description": "Logout of the system.",
         "parameters": [],
         "responses": {
           "200": {
@@ -226,7 +226,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Get infomation of the given student.",
         "parameters": [
           {
             "name": "username",
@@ -264,7 +264,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Update information of the student.",
         "parameters": [
           {
             "name": "username",
@@ -349,7 +349,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Get student information for recommended scholarships.",
         "parameters": [
           {
             "name": "username",
@@ -389,7 +389,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Update information of the student.",
         "parameters": [
           {
             "name": "body",
@@ -452,7 +452,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Pin scholarship for the student.",
         "parameters": [
           {
             "name": "username",
@@ -507,7 +507,7 @@
         "tags": [
           "student"
         ],
-        "description": "",
+        "description": "Unpin scholarship from the student.",
         "parameters": [
           {
             "name": "username",
@@ -562,7 +562,7 @@
         "tags": [
           "reset password"
         ],
-        "description": "",
+        "description": "Update old password with the given new password.",
         "parameters": [
           {
             "name": "authorization",
@@ -597,7 +597,7 @@
         "tags": [
           "reset password"
         ],
-        "description": "",
+        "description": "Send email for reset password session.",
         "parameters": [
           {
             "name": "body",
@@ -630,7 +630,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "",
+        "description": "Get all scholarships.",
         "parameters": [
           {
             "name": "authorization",
@@ -662,7 +662,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "",
+        "description": "Add scholarship for the provider with the required field.",
         "parameters": [
           {
             "name": "authorization",
@@ -741,7 +741,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "",
+        "description": "Get a scholarship by scholarship id.",
         "parameters": [
           {
             "name": "id",
@@ -779,7 +779,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "",
+        "description": "Update feilds of a specific scholarship.",
         "parameters": [
           {
             "name": "id",
@@ -838,7 +838,7 @@
         "tags": [
           "scholarship"
         ],
-        "description": "",
+        "description": "Delete a scholarship by scholarship id.",
         "parameters": [
           {
             "name": "id",
@@ -881,7 +881,7 @@
         "tags": [
           "provider"
         ],
-        "description": "",
+        "description": "Get information of the given provider.",
         "parameters": [
           {
             "name": "username",
@@ -919,7 +919,7 @@
         "tags": [
           "provider"
         ],
-        "description": "",
+        "description": "Update information of the provider.",
         "parameters": [
           {
             "name": "username",
@@ -983,7 +983,7 @@
         "tags": [
           "provider"
         ],
-        "description": "",
+        "description": "Update information of the provider.",
         "parameters": [
           {
             "name": "body",
@@ -1025,7 +1025,7 @@
         "tags": [
           "provider"
         ],
-        "description": "",
+        "description": "Get organization name of the given provider id.",
         "parameters": [
           {
             "name": "id",
@@ -1052,7 +1052,7 @@
         "tags": [
           "user"
         ],
-        "description": "",
+        "description": "Get information of the given user.",
         "parameters": [
           {
             "name": "username",
@@ -1076,7 +1076,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Get a list of subscriptions that have not been canceled.",
         "parameters": [
           {
             "name": "authorization",
@@ -1110,7 +1110,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Create check out session and return URL for payment page. If payment success, redirect to a succes URL. If unsuccess, redirect to cancel URL.",
         "parameters": [
           {
             "name": "scholarshipId",
@@ -1150,7 +1150,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Recieve event from Stripe to check if the payment session ids completed then update subscription id in scholarship.",
         "parameters": [
           {
             "name": "body",
@@ -1183,7 +1183,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Retrieves the subscription with the given id.",
         "parameters": [
           {
             "name": "id",
@@ -1223,7 +1223,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Get next payment date of the subscription id.",
         "parameters": [
           {
             "name": "id",
@@ -1263,7 +1263,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Get payment history of the subscription id.",
         "parameters": [
           {
             "name": "id",
@@ -1303,7 +1303,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Get subscription status whether subscribing or unsubscribing by scholarship id.",
         "parameters": [
           {
             "name": "scholarshipId",
@@ -1343,7 +1343,7 @@
         "tags": [
           "subscription"
         ],
-        "description": "",
+        "description": "Unsubscripe a given scholarship id.",
         "parameters": [
           {
             "name": "scholarshipId",
@@ -1374,6 +1374,72 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/notification/": {
+      "get": {
+        "tags": [
+          "notification"
+        ],
+        "description": "Get all notifications both readed and unreaded.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "notification"
+        ],
+        "description": "Update readed and unreaded, change all unread message to read message.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }

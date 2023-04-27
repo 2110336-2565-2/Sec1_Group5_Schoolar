@@ -1,39 +1,56 @@
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+
 import { Center } from '@components/common'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import { Box, Button, Chip, Divider, Grid, Stack, Typography } from '@mui/material'
+import EventBusyIcon from '@mui/icons-material/EventBusy'
+import {
+	Box,
+	Button,
+	Chip,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Divider,
+	Grid,
+	Stack,
+	Typography,
+} from '@mui/material'
 import { useRouter } from 'next/router'
+
 import { useAuth } from '@/context/AuthContext'
 import { useSnackbar } from '@/context/SnackbarContext'
 import useAxiosPrivate from '@/hooks/useAxiosPrivate'
 
 const DetailScholarship = () => {
 	const { openSnackbar } = useSnackbar()
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		setValue,
-		getValues,
-		control,
-		watch,
-		trigger,
-	} = useForm({ mode: 'onBlur' })
 	const { auth } = useAuth()
 	const router = useRouter()
-	const detail = JSON.parse(router.query.data)
-	//some conent only show to provider
-	const [isProvider, setIsProvider] = useState(false)
-	const [organizationName, setOrganizationName] = useState('')
-	//Change applecation dead line Date type to string
-	const [appDate, setAppDate] = useState('')
-
-	const axiosPrivate = useAxiosPrivate()
 
 	if (!auth) {
 		router.push('/login')
 	}
+
+	const { id } = router.query // scholarship id
+
+	const [detail, setDetail] = useState({
+		scholarshipName: 'Loading..',
+		degree: 'Loading..',
+		gpax: 'Loading..',
+		program: 'Loading..',
+		targetNation: 'Loading..',
+		typeOfScholarship: 'Loading..',
+		fieldOfInterest: 'Loading..',
+		quota: 'Loading..',
+		amount: 'Loading..',
+		detail: 'Loading..',
+	})
+
+	const [organizationName, setOrganizationName] = useState('Loading..')
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
+
+	const axiosPrivate = useAxiosPrivate()
 
 	const changeDateToString = (date) => {
 		if (!date) return null
@@ -45,24 +62,32 @@ const DetailScholarship = () => {
 		const monthName = monthNames[monthIndex]
 		return `${day} ${monthName} ${year}`
 	}
+
+	function toTitleCase(str) {
+		return str.replace(/\b\w/g, function (char) {
+			return char.toUpperCase()
+		})
+	}
+
 	useEffect(() => {
-		if (auth && auth.role === 'provider') {
-			setIsProvider(true)
-		}
-		setAppDate(changeDateToString(detail.applicationDeadline))
-		if (detail.provider) {
-			axiosPrivate
-				.get(`/provider/name/${detail.provider}`)
-				.then((res) => {
-					setOrganizationName(res.data.organizationName)
-					//console.log('Organization ', res.data.organizationName)
+		async function fetchData() {
+			try {
+				const scholarship = await axiosPrivate.get(`/scholarship/${id}`)
+				setDetail({
+					...scholarship.data.data,
+					targetNation: toTitleCase(scholarship.data.data.targetNation),
+					fieldOfInterest: toTitleCase(scholarship.data.data.fieldOfInterest),
+					appDate: changeDateToString(scholarship.data.data.applicationDeadline),
 				})
-				.catch((err) => {
-					console.log('Error get provider name: ', detail.provider)
-				})
-		} else {
-			console.log('Provider ID is null')
+
+				const provider = await axiosPrivate.get(`/provider/name/${scholarship.data.data.provider}`)
+				setOrganizationName(provider.data.organizationName)
+			} catch (err) {
+				console.log(err)
+				openSnackbar('Error fetching data!', 'error')
+			}
 		}
+		fetchData()
 	}, [])
 
 	const DetailComponent = ({ topic, details }) => {
@@ -120,12 +145,14 @@ const DetailScholarship = () => {
 						>
 							{detail.scholarshipName}
 						</Typography>
-						{appDate && (
+						{detail.appDate && (
 							<Chip
-								icon={<CalendarTodayIcon />}
+								icon={
+									new Date(detail.appDate) >= Date.now() ? <CalendarTodayIcon /> : <EventBusyIcon />
+								}
 								sx={{ px: 0.5, py: 2.25 }}
-								color="info"
-								label={`Due Date: ${appDate}`}
+								color={new Date(detail.appDate) >= Date.now() ? 'info' : 'error'}
+								label={`Due Date: ${detail.appDate}`}
 							/>
 						)}
 					</Stack>
@@ -137,8 +164,8 @@ const DetailScholarship = () => {
 							<DetailComponent topic="Target Nation" details={detail.targetNation} />
 							<DetailComponent topic="Type of Scholarship" details={detail.typeOfScholarship} />
 							<DetailComponent topic="Minimum GPAX" details={detail.gpax} />
-							<DetailComponent topic="Amount (Baht)" details={detail.amount} />
-							<DetailComponent topic="Quota (person)" details={detail.quota} />
+							<DetailComponent topic="Amount (Baht)" details={detail.amount?.toLocaleString()} />
+							<DetailComponent topic="Quota (Person)" details={detail.quota?.toLocaleString()} />
 							<DetailComponent topic="Provided By" details={organizationName} />
 						</Grid>
 						<Box sx={{ pb: 1 }}>
@@ -146,7 +173,7 @@ const DetailScholarship = () => {
 								Scholarship Detail
 							</Typography>
 							<Divider />
-							<Typography variant="body1" sx={{ mt: 1 }}>
+							<Typography variant="body1" sx={{ mt: 1, whiteSpace: 'pre-line' }}>
 								{detail.detail ? detail.detail : 'Not Specified'}
 							</Typography>
 						</Box>
@@ -162,23 +189,51 @@ const DetailScholarship = () => {
 						>
 							Back
 						</Button>
-						{isProvider && (
+						{auth?.role === 'provider' && (
 							<Button
 								sx={{ width: '100%', color: '#FFF' }}
 								variant="contained"
 								color="danger"
-								onClick={() => {
-									axiosPrivate.delete(`/scholarship/${detail._id}`).then(() => {
-										openSnackbar('Delete scholarship successfully!', 'success')
-										router.push('/')
-									})
-								}}
+								onClick={() => setOpenConfirmDelete(true)}
 							>
 								Delete
 							</Button>
 						)}
+						<Dialog open={openConfirmDelete} onClose={() => setOpenConfirmDelete(false)}>
+							<DialogTitle sx={{ fontWeight: 'bold' }}>{'Delete this scholarship?'}</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									By deleting this scholarship, all associated data and information will be
+									permanently removed from our system. This action cannot be undone. Please note that
+									this scholarship will be removed immediately from our website and any search
+									results. Also, any payment made towards this scholarship will be cancelled without a
+									refund. Are you sure you want to proceed with the deletion?
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => setOpenConfirmDelete(false)}>Disagree</Button>
+								<Button
+									onClick={async () => {
+										try {
+											await axiosPrivate.delete(`/subscription/unsubscripe/${detail._id}`)
+											await axiosPrivate.delete(`/scholarship/${detail._id}`)
+											openSnackbar('Delete scholarship successfully!', 'success')
+											router.push('/')
+										} catch (err) {
+											openSnackbar(
+												'Sorry, we were unable to delete the scholarship. Please try again later or contact our support team for assistance.',
+												'error',
+											)
+											console.log(err)
+										}
+									}}
+								>
+									Agree
+								</Button>
+							</DialogActions>
+						</Dialog>
 					</Stack>
-					{isProvider && (
+					{auth?.role === 'provider' && (
 						<Button
 							sx={{ width: '100%' }}
 							variant="contained"

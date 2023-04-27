@@ -10,7 +10,7 @@ const providerSchema = new Schema(
 		organizationName: {
 			required: true,
 			type: String,
-			maxLength: 40,
+			maxLength: 250,
 			trim: true,
 		},
 		address: {
@@ -26,6 +26,32 @@ const providerSchema = new Schema(
 			maxLength: 250,
 			lowercase: true,
 			trim: true,
+		},
+		notification: {
+			type: {
+				unreaded: [
+					{
+						message: String,
+						timestamp: {
+							type: Date,
+							default: Date.now,
+						},
+					},
+				],
+				readed: [
+					{
+						message: String,
+						timestamp: {
+							type: Date,
+							default: Date.now,
+						},
+					},
+				],
+			},
+			default: {
+				unreaded: [],
+				readed: [],
+			},
 		},
 	},
 	{

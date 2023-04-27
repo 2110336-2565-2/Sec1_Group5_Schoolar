@@ -16,6 +16,8 @@ const { toDate } = require('../utils/dateUtils')
 
 exports.register = async (req, res) => {
 	// #swagger.tags = ['auth']
+	// #swagger.description = 'Register a new user.'
+
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		return res.status(400).json({ message: result.array() })
@@ -108,6 +110,7 @@ exports.register = async (req, res) => {
  */
 exports.login = async (req, res) => {
 	// #swagger.tags = ['auth']
+	// #swagger.description = 'Login to the system.'
 	const result = validationResult(req)
 	if (!result.isEmpty()) {
 		res.status(400).json({ message: result.array() })
@@ -165,6 +168,7 @@ exports.login = async (req, res) => {
  */
 exports.refreshToken = async (req, res) => {
 	// #swagger.tags = ['auth']
+	// #swagger.description = 'Refresh token for the user.'
 	const cookies = req.cookies
 
 	// console.log(cookies)
@@ -198,6 +202,7 @@ exports.refreshToken = async (req, res) => {
  */
 exports.isDupe = (req, res) => {
 	// #swagger.tags = ['auth']
+	// #swagger.description = 'Check if a value is duplicate in its field. Return true if the duplication occurs.'
 	const { role, field, value } = req.params
 	switch (role) {
 		case 'user':
@@ -234,6 +239,7 @@ exports.isDupe = (req, res) => {
 
 exports.logout = async (req, res) => {
 	// #swagger.tags = ['auth']
+	// #swagger.description = 'Logout of the system.'
 	const cookies = req.cookies
 	try {
 		const user = await User.findOne({ refreshToken: cookies.jwt })

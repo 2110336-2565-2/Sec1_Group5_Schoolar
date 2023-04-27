@@ -1,60 +1,137 @@
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import AirlineSeatFlatAngledIcon from '@mui/icons-material/AirlineSeatFlatAngled'
+import ArchitectureIcon from '@mui/icons-material/Architecture'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
+import BiotechIcon from '@mui/icons-material/Biotech'
+import BrushIcon from '@mui/icons-material/Brush'
+import CalculateIcon from '@mui/icons-material/Calculate'
+import ChatIcon from '@mui/icons-material/Chat'
+import CircleIcon from '@mui/icons-material/Circle'
+import ColorLensIcon from '@mui/icons-material/ColorLens'
+import CorporateFareIcon from '@mui/icons-material/CorporateFare'
+import Diversity2Icon from '@mui/icons-material/Diversity2'
+import EngineeringIcon from '@mui/icons-material/Engineering'
+import GavelIcon from '@mui/icons-material/Gavel'
+import HomeIcon from '@mui/icons-material/Home'
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation'
+import MedicationLiquidIcon from '@mui/icons-material/MedicationLiquid'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import MuseumIcon from '@mui/icons-material/Museum'
+import PaidIcon from '@mui/icons-material/Paid'
+import PetsIcon from '@mui/icons-material/Pets'
+import PsychologyIcon from '@mui/icons-material/Psychology'
+import PublicIcon from '@mui/icons-material/Public'
+import SchoolIcon from '@mui/icons-material/School'
+import ScienceIcon from '@mui/icons-material/Science'
+import SportsTennisIcon from '@mui/icons-material/SportsTennis'
+import StarIcon from '@mui/icons-material/Star'
+import TagIcon from '@mui/icons-material/Tag'
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy'
+import TranslateIcon from '@mui/icons-material/Translate'
+import TripOriginIcon from '@mui/icons-material/TripOrigin'
+import VaccinesIcon from '@mui/icons-material/Vaccines'
 import { Grid, Typography } from '@mui/material'
 import Chip from '@mui/material/Chip'
 
 const tagColors = {
-	'Sci-Math': '#f08080',
-	'Art-Cal': '#f4978e',
-	'Art-Language': '#f8ad9d',
-	'Art-Society': '#fbc4ab',
-	'Art-General': '#ffdab9',
-	'Faculty of Allied Health Sciences': '#fcac5d',
-	'Faculty of Architecture': '#fcc75d',
-	'Faculty of Arts': '#fcd45d',
-	'Faculty of Commerce and Accountancy': '#90cf8e',
-	'Faculty of Communication Arts': '#c5ecac',
-	'Faculty of Dentistry': '#ccd5ae',
-	'Faculty of Economics': '#a5ffd6',
-	'Faculty of Education': '#84dcc6',
-	'Faculty of Engineering': '#34a0a4',
-	'Faculty of Fine and Applied Arts': '#2a9d8f',
-	'Faculty of Law': '#264653',
-	'Faculty of Medicine': '#97d2fb',
-	'Faculty of Nursing': '#a0c4e2',
-	'Faculty of Pharmaceutical Sciences': '#85c7de',
-	'Faculty of Political Science': '#52b2cf',
-	'Faculty of Psychology': '#dec0f1',
-	'Faculty of Science': '#b79ced',
-	'Faculty of Sports Science': '#957fef',
-	'Faculty of Veterinary Science': '#7161ef',
-	full: '#778da9',
-	partial: '#415a77',
-	renewable: '#1b263b',
-	fellow: '#0d1b2a',
-	'high school': '#00b4d8',
-	bachelor: '#0077b6',
-	master: '#023e8a',
-	doctoral: '#03045e',
+	'Sci-Math': '#d53973',
+	'Art-Cal': '#df4848',
+	'Art-Language': '#f05656',
+	'Art-Society': '#b58181',
+	'Art-General': '#755959',
+	'Faculty of Allied Health Sciences': '#c76911',
+	'Faculty of Architecture': '#fa8c0a',
+	'Faculty of Arts': '#deb224',
+	'Faculty of Commerce and Accountancy': '#81c62c',
+	'Faculty of Communication Arts': '#56b52d',
+	'Faculty of Dentistry': '#5d8134',
+	'Faculty of Economics': '#3bada3',
+	'Faculty of Education': '#578e88',
+	'Faculty of Engineering': '#1496a5',
+	'Faculty of Fine and Applied Arts': '#0aa57f',
+	'Faculty of Law': '#4f6972',
+	'Faculty of Medicine': '#2ca3d3',
+	'Faculty of Nursing': '#4c86c4',
+	'Faculty of Pharmaceutical Sciences': '#3376b4',
+	'Faculty of Political Science': '#6574bb',
+	'Faculty of Psychology': '#ba8dc6',
+	'Faculty of Science': '#8e44ad',
+	'Faculty of Sports Science': '#7d0d98',
+	'Faculty of Veterinary Science': '#450f46',
+	'Full Scholarship': '#5e6068',
+	'Partial Scholarship': '#343c41',
+	'Renewable Scholarship': '#242630',
+	Fellowship: '#020609',
+	'High School': '#0079ad',
+	Bachelor: '#00527a',
+	Master: '#083058',
+	Doctoral: '#21337a',
 }
 
-const Tag = ({ text, color }) => (
+const tagIcons = {
+	'Sci-Math': <ScienceIcon />,
+	'Art-Cal': <CalculateIcon />,
+	'Art-Language': <TranslateIcon />,
+	'Art-Society': <Diversity2Icon />,
+	'Art-General': <ColorLensIcon />,
+	'Faculty of Allied Health Sciences': <MedicationLiquidIcon />,
+	'Faculty of Architecture': <ArchitectureIcon />,
+	'Faculty of Arts': <ChatIcon />,
+	'Faculty of Commerce and Accountancy': <AccountBalanceIcon />,
+	'Faculty of Communication Arts': <TheaterComedyIcon />,
+	'Faculty of Dentistry': <AirlineSeatFlatAngledIcon />,
+	'Faculty of Economics': <PaidIcon />,
+	'Faculty of Education': <MenuBookIcon />,
+	'Faculty of Engineering': <EngineeringIcon />,
+	'Faculty of Fine and Applied Arts': <BrushIcon />,
+	'Faculty of Law': <GavelIcon />,
+	'Faculty of Medicine': <MedicalInformationIcon />,
+	'Faculty of Nursing': <LocalHospitalIcon />,
+	'Faculty of Pharmaceutical Sciences': <VaccinesIcon />,
+	'Faculty of Political Science': <PublicIcon />,
+	'Faculty of Psychology': <PsychologyIcon />,
+	'Faculty of Science': <BiotechIcon />,
+	'Faculty of Sports Science': <SportsTennisIcon />,
+	'Faculty of Veterinary Science': <PetsIcon />,
+	'Full Scholarship': <CircleIcon />,
+	'Partial Scholarship': <TripOriginIcon />,
+	'Renewable Scholarship': <AutorenewIcon />,
+	Fellowship: <CorporateFareIcon />,
+	'High School': <HomeIcon />,
+	Bachelor: <SchoolIcon />,
+	Master: <MuseumIcon />,
+	Doctoral: <StarIcon />,
+}
+
+const Tag = ({ text, color, icon }) => (
 	<Typography
 		sx={{
-			paddingX: 3,
-			paddingY: 0.5,
+			pl: 1.25,
+			pr: 2,
+			py: 0.5,
 			display: 'flex',
 			color: 'white',
 			backgroundColor: color,
 			borderRadius: 5,
 			margin: 0.5,
+			display: 'flex',
+			gap: 0.5,
 		}}
 	>
+		{icon}
 		{text}
 	</Typography>
 )
 
 const ScholarshipTags = ({ scholar }) => (
 	<Grid container paddingX={2} paddingY={2} direction="row" alignItems="center">
-		<Tag word-wrap="break-word" text={scholar.typeOfScholarship} color={tagColors[scholar.typeOfScholarship]} />
+		<Tag
+			word-wrap="break-word"
+			text={scholar.typeOfScholarship}
+			color={tagColors[scholar.typeOfScholarship] || 'text.primary'}
+			icon={tagIcons[scholar.typeOfScholarship] || <TagIcon />}
+		/>
 		<Tag
 			word-wrap="break-word"
 			sx={{
@@ -63,7 +140,8 @@ const ScholarshipTags = ({ scholar }) => (
 				},
 			}}
 			text={scholar.degree}
-			color={tagColors[scholar.degree]}
+			color={tagColors[scholar.degree] || 'text.primary'}
+			icon={tagIcons[scholar.degree] || <TagIcon />}
 		/>
 		<Tag
 			word-wrap="break-word"
@@ -73,7 +151,8 @@ const ScholarshipTags = ({ scholar }) => (
 				},
 			}}
 			text={scholar.program}
-			color={tagColors[scholar.program]}
+			color={tagColors[scholar.program] || 'text.primary'}
+			icon={tagIcons[scholar.program] || <TagIcon />}
 		/>
 	</Grid>
 )

@@ -24,7 +24,7 @@ const studentSchema = new Schema({
 	gender: {
 		required: true,
 		type: String,
-		enum: ['male', 'female', 'non-binary'],
+		enum: ['Male', 'Female', 'Non-binary'],
 	},
 	// below this is the criteria for matching
 	gpax: {
@@ -32,7 +32,7 @@ const studentSchema = new Schema({
 	},
 	degree: {
 		type: String,
-		enum: ['', 'high school', 'bachelor', 'master', 'doctoral'],
+		enum: ['', 'High School', 'Bachelor', 'Master', 'Doctoral'],
 	},
 	school: {
 		type: String,
@@ -43,7 +43,7 @@ const studentSchema = new Schema({
 		enum: [
 			'',
 			'Sci-Math',
-			'Art-Math',
+			'Art-Cal',
 			'Art-Language',
 			'Art-Society',
 			'Art-General',
@@ -70,13 +70,19 @@ const studentSchema = new Schema({
 	},
 	targetNation: {
 		type: String,
-		maxLength: 60,
+		maxLength: 100,
 		lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {
 		type: String,
-		enum: ['', 'full', 'partial', 'renewable', 'fellow'],
+		enum: [
+			'',
+			'Full Scholarship',
+			'Partial Scholarship',
+			'Renewable Scholarship',
+			'Fellowship',
+		],
 	},
 	fieldOfInterest: {
 		type: String,

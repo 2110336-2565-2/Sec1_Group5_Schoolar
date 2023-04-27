@@ -51,7 +51,6 @@ const FormEditStd = ({ oldValue }) => {
 
 	const formOnSubmit = (data) => {
 		// Update data using patch request
-		console.log('submitting', data)
 		axiosPrivate.patch(`/student/${auth.username}`, data).then((res) => {
 			openSnackbar('Update Success!', 'success')
 		})

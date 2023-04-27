@@ -18,7 +18,6 @@ const FormRegPvd = ({
 	watch,
 }) => {
 	const onSubmit = async (data) => {
-		// console.log('Submit', data)
 		sendData(data)
 	}
 

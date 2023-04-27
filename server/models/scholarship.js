@@ -6,6 +6,7 @@ const scholarshipSchema = new Schema({
 		required: true,
 		type: String,
 		trim: true,
+		maxLength: 250,
 	},
 	provider: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +15,7 @@ const scholarshipSchema = new Schema({
 	degree: {
 		required: true,
 		type: String,
-		enum: ['high school', 'bachelor', 'master', 'doctoral'],
+		enum: ['High School', 'Bachelor', 'Master', 'Doctoral'],
 	},
 	gpax: {
 		required: true,
@@ -53,14 +54,14 @@ const scholarshipSchema = new Schema({
 	targetNation: {
 		required: true,
 		type: String,
-		maxLength: 60,
+		maxLength: 100,
 		lowercase: true,
 		trim: true,
 	},
 	typeOfScholarship: {
 		required: true,
 		type: String,
-		enum: ['full', 'partial', 'renewable', 'fellow'],
+		enum: ['Full Scholarship', 'Partial Scholarship', 'Renewable Scholarship', 'Fellowship'],
 	},
 	fieldOfInterest: {
 		required: true,
@@ -91,7 +92,7 @@ const scholarshipSchema = new Schema({
 	},
 	createdAt: {
 		type: Date,
-		default: Date.now(),
+		default: Date.now,
 	},
 	status: {
 		type: Boolean,
